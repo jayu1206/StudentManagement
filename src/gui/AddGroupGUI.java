@@ -46,6 +46,7 @@ public class AddGroupGUI extends JFrame implements ActionListener{
 	private static final long serialVersionUID = 1L;
 	
 	
+	
 	JLabel lblClass,lblStartDate;
 	JTextField txtClass,txtStartDate;
 	JButton btnSubmit,btnDT;

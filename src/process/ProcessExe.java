@@ -41,14 +41,7 @@ public class ProcessExe extends JFrame{
 			flag = checkMysql();
 			// System.out.println(flag);
 			if (flag) {
-				
-				
-				
-				// true
-			//	FileInputStream in = new FileInputStream("First.properties");
-				/*InputStream in = this.getClass().getClassLoader().getResourceAsStream("First.properties");
-				Properties props = new Properties();
-				props.load(in);*/
+			
 				
 				String resourceName = "First.properties";
 				ClassLoader loader = Thread.currentThread().getContextClassLoader();
@@ -65,19 +58,37 @@ public class ProcessExe extends JFrame{
 				} else {
 					// ask for username password
 					// System.out.println("Invalid");
-					this.setVisible(false);
-					//new CheckUsernamePassGUI("Password mismatch.");
+					this.setVisible(false);					
 					new legalGUI();
 				}
-				//in.close();
+				
 
 			} else {
 				// Install Process of Mysql
-				
-				new CheckOSGUI();
-				
-				
-				
+				//new CheckOSGUI();
+				String osname = System.getProperty("os.name");
+				if (osname.contains("Windows")){
+					
+					System.out.println("Windows PC");
+					System.out.println("Processing...");
+					Runtime r = Runtime.getRuntime();
+					Process p = null;  
+					File file = new File(this.getClass().getResource("/mysql/mysql-5.5.15-winx64.msi").getFile());
+					String mysqlpath = file.getAbsolutePath();
+					System.out.println(mysqlpath);
+					try {
+						p = r.exec("cmd /c "+mysqlpath);
+						System.out.println("Install Success");
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						System.out.println("Install Not Success");
+						e1.printStackTrace();
+					}
+				}else if (osname.contains("Linux")){
+					System.out.println("Linux PC");
+				}else{
+					System.out.println("MAC PC");
+				}			
 				
 			}
 
