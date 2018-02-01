@@ -52,6 +52,7 @@ public class StudentOpr extends StudentDAO {
 		    	 bean.setStDate(rs.getString(6));
 		    	 bean.setTeacher(rs.getString(7));
 		    	 bean.setStudLastName(rs.getString(8));
+		    	 bean.setAge(rs.getString(9));
 		    	 list.add(bean);
 		    	  
 		       }

@@ -13,7 +13,7 @@ public class StudentBean {
 	private String teacher="";
 	ArrayList<StudentDecoding> listDecoding=null;
 	ArrayList<StudentRate> listRate=null;
-	private String age;
+	private String age="";
 	
 	
 	

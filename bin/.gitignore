@@ -1,3 +1,7 @@
+/.classpath
+/.project
+/.settings/
+/First.properties
 /LineChartDemo6.class
 /Main$1.class
 /Main.class
@@ -16,5 +20,8 @@
 /bean/
 /demoExefile.class
 /gui/
+/image/
+/lib/
 /manegement/
+/mysql/
 /process/

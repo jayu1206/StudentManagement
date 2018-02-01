@@ -445,7 +445,7 @@ public class StudentAddGui extends JFrame implements ActionListener {
 		
 		if(e.getSource()==btnMImportExport){
 			setVisible(false);
-			new GroupStudImportExportGUI();
+			new GroupStudImportExportGUI(classId, className);
 		}
 		
 		

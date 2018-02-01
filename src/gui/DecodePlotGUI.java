@@ -291,7 +291,7 @@ public class DecodePlotGUI extends JFrame implements ActionListener{
 		
 		if(e.getSource()==btnMImportExport){
 			setVisible(false);
-			new GroupStudImportExportGUI();
+			new GroupStudImportExportGUI(classId, className);
 		}
 		
 		if(e.getSource() == btnContinue){

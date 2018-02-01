@@ -36,8 +36,8 @@ public class PlotRateGUI extends JFrame implements ActionListener{
 	
 	JLabel lblstudent,lblDataRange,lblAll,lblPlot,lblthrough;
 	JTextField txtStudent,txtbegin,txtend;
-	JRadioButton allRadio = new JRadioButton("   All");
-    JRadioButton weekRadio = new JRadioButton("Weeks");
+	JRadioButton allRadio = new JRadioButton(" All");
+    JRadioButton weekRadio = new JRadioButton(" Text");
     JRadioButton indiStudDataRadio = new JRadioButton("Individual student data");
     JRadioButton studDataClsAvgRadio = new JRadioButton("Student data with class average");
     ButtonGroup bG = new ButtonGroup();
@@ -118,8 +118,8 @@ public class PlotRateGUI extends JFrame implements ActionListener{
 				Font f2=new Font("Serif",Font.BOLD,20);
 				
 				
-					lblstudent = new JLabel("Class");
-					lblstudent.setBounds(200,120,80,30); 
+					lblstudent = new JLabel("Student");
+					lblstudent.setBounds(200,120,100,30); 
 					lblstudent.setForeground(Color.white);
 					lblstudent.setFont(f1);
 					add(lblstudent);
@@ -176,28 +176,6 @@ public class PlotRateGUI extends JFrame implements ActionListener{
 					txtend.setFont(f2);
 					add(txtend);
 					
-					
-					lblPlot = new JLabel("Plot");
-					lblPlot.setBounds(200,390,300,40); 
-					lblPlot.setForeground(Color.white);
-					lblPlot.setFont(f1);
-					add(lblPlot);
-					
-					
-					bG2.add(indiStudDataRadio);
-					bG2.add(studDataClsAvgRadio);
-					
-					indiStudDataRadio.setBounds(250,450,250,40); 
-					indiStudDataRadio.setBackground(Color.black);
-					indiStudDataRadio.setForeground(Color.white);
-					indiStudDataRadio.setFont(f2);
-					add(indiStudDataRadio);
-					
-					studDataClsAvgRadio.setBounds(250,510,300,40); 
-					studDataClsAvgRadio.setBackground(Color.black);
-					studDataClsAvgRadio.setForeground(Color.white);
-					studDataClsAvgRadio.setFont(f2);
-					add(studDataClsAvgRadio);
 					
 					
 					
@@ -275,7 +253,7 @@ public class PlotRateGUI extends JFrame implements ActionListener{
 		}
 		
 		if(e.getSource() == btnContinue){
-			if(allRadio.isSelected() && indiStudDataRadio.isSelected()){
+			if(allRadio.isSelected()){
 				setVisible(false);
 				//new DecodePlotGraphGUI(bean,classId,className);
 				new PlotRateGraphGUI(bean,classId,className);

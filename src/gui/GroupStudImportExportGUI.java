@@ -100,7 +100,11 @@ public class GroupStudImportExportGUI extends javax.swing.JFrame implements java
 	ArrayList<StudentBean> studList ;
 	StudentDAO studDAO = new StudentOpr();
 
-	GroupStudImportExportGUI() {
+	GroupStudImportExportGUI(String classId, String className) {
+		
+		this.classId=classId;
+		this.className=className;
+		
 		setLayout(new java.awt.BorderLayout());
 		setContentPane(new JLabel(new ImageIcon(getClass().getResource("/image/black-back-ground.jpg"))));
 		setLayout(null);
@@ -170,6 +174,8 @@ public class GroupStudImportExportGUI extends javax.swing.JFrame implements java
 		r2 = new javax.swing.JRadioButton("Student");
 		r1.setBounds(250, 200, 100, 30);
 		r2.setBounds(250, 250, 100, 30);
+		r1.addActionListener(this);
+		r2.addActionListener(this);
 		bg = new javax.swing.ButtonGroup();
 		bg.add(r1);
 		bg.add(r2);
@@ -386,7 +392,8 @@ public class GroupStudImportExportGUI extends javax.swing.JFrame implements java
 
 
 		if (r1.isSelected()) {
-
+			cbGrpList.setEnabled(false);
+			
 			if (e.getSource() == btnImport) {
 				if (txtImportFilePath.getText().length() <= 0) {
 					JOptionPane.showMessageDialog(this, "Please Select File");
@@ -401,17 +408,25 @@ public class GroupStudImportExportGUI extends javax.swing.JFrame implements java
 						BufferedReader br = Files.newBufferedReader(pathToFile,
 				                StandardCharsets.US_ASCII);
 						String line = br.readLine();
-						while (line != null) {
-							
-							 String[] data = line.split(",");
-							 GroupBean group = new GroupBean();
-							 GroupOpr dao=new GroupOpr();
-							 group.setGroupName(data[0]);
-							 group.setStartDate(data[1]);
-							 flag = dao.insertGroups(group);			 
-							 
-							 line = br.readLine();
-						}
+					
+						while ((line = br.readLine()) != null) {
+				            if (!line.isEmpty()) {
+				                // use comma as separator
+				                 String[] data = line.split(",");
+				                 if (data.length != 0){
+				                	 
+				                	 GroupBean group = new GroupBean();
+									 GroupOpr dao=new GroupOpr();
+									 group.setGroupName(data[0]);
+									 group.setStartDate(data[1]);
+									 flag = dao.insertGroups(group);
+				                 }else{
+						        		JOptionPane.showMessageDialog(this,"File is Empty");
+						        		break;
+						         }                 
+								 
+				            }
+				        }
 						if(flag){
 							JOptionPane.showMessageDialog(this,"Groups Created");
 							this.setVisible(false);
@@ -428,9 +443,13 @@ public class GroupStudImportExportGUI extends javax.swing.JFrame implements java
 		}
 
 		if (r2.isSelected()) {
-
+			cbGrpList.setEnabled(true);
 			if (e.getSource() == btnImport) {
 				
+				if (txtImportFilePath.getText().length() <= 0) {
+					JOptionPane.showMessageDialog(this, "Please Select File.");
+				}else{
+					
 					//System.out.println("Checked and pressed");
 					String fileName = txtImportFilePath.getText();
 					Path pathToFile = Paths.get(fileName);
@@ -443,39 +462,45 @@ public class GroupStudImportExportGUI extends javax.swing.JFrame implements java
 				                StandardCharsets.US_ASCII);
 						String line = br.readLine();
 						Item item = (Item)cbGrpList.getSelectedItem();
-						while (line != null) {
+						while ((line = br.readLine()) != null) {
+				            if (!line.isEmpty()) {
 							
 							 String[] data = line.split(",");
-							
-							 bean.setGroupId(item.getId());
-							 bean.setStudFirstName(data[1]);
-							 bean.setGrade(Integer.parseInt(data[2]));
-							 bean.setDob(data[3]);
-							 bean.setStDate(data[4]);
-							 bean.setTeacher(data[5]);
-							 bean.setStudLastName(data[6]);
-							 done = dao.insertStudent(bean);				        		 
-							 
-							 line = br.readLine();
+							 if (data.length != 0){
+								 
+								 bean.setGroupId(item.getId());
+								 bean.setStudFirstName(data[2]);
+								 bean.setStudLastName(data[3]);
+								 bean.setGrade(Integer.parseInt(data[4]));
+								 bean.setDob(data[5]);
+								 bean.setStDate(data[6]);
+								 bean.setTeacher(data[7]);	
+								 bean.setAge(data[8]);	
+								 done = dao.insertStudent(bean);
+							 }else{
+								 JOptionPane.showMessageDialog(this,"File is Empty");
+					        	 break;
+							}									        		 
 						}
-						if(done){
+					}
+					if(done){
 			        		JOptionPane.showMessageDialog(this,"Students Added Successfully");
 			        		setVisible(false);
 			        		new StudentGUI(classId, className);
-			        	}
+			        }
 				}catch(Exception ioe){
 					ioe.printStackTrace();
-				}			
+				}	
+			}			
+							
 		}
 	}
 	if (e.getSource() == cbGrpExportList) {
 		
 		Item item = (Item)cbGrpExportList.getSelectedItem();
-		Vector model2 = new Vector();
 		int grpId = item.getId();
 		studList = studDAO.getAllStudents(grpId+"");
-		model2.addElement(new Item(0, "All"));
-	
+		cbStudentList.removeAllItems();
 		for(StudentBean bean : studList ){
 			cbStudentList.addItem(new Item(bean.getId(), bean.getStudFirstName()+" "+ bean.getStudLastName()));
         }
@@ -508,21 +533,37 @@ public class GroupStudImportExportGUI extends javax.swing.JFrame implements java
 			
 			Item studItem = (Item)cbStudentList.getSelectedItem();
 
-			if (studItem.getId() != 0){
+			if (studItem.getId() != 0 && studItem != null){
 				//By id of student All
 				
 				try{
-					
+					Item item = (Item)cbGrpExportList.getSelectedItem();
+					int grpId = item.getId();
+					studList = studDAO.getAllStudents(grpId+"");
 					String csvFile = txtExportFilePath.getText()+"/ExportFile.csv";
 			        FileWriter writer = new FileWriter(csvFile);
 			        List<String> stud = new ArrayList<String>(); 
+			        stud.add(" ");
+			        stud.add("GROUP ID");
+			        stud.add("FIRST NAME");
+			        stud.add("LAST NAME");
+			        stud.add("GRADE");
+			        stud.add("DATE OF BIRTH");
+			        stud.add("START DATE");
+			        stud.add("TEACHER");
+			        stud.add("AGE");
+			        stud.add(",");
 			        stud.add("\n");
-			        for (StudentBean bean: studList) {		        	
+			        for (StudentBean bean: studList) {
+			        	
+			        	stud.add(bean.getGroupId()+"");
 			        	stud.add(bean.getStudFirstName());
 			        	stud.add(bean.getStudLastName());  
 			        	stud.add(bean.getGrade()+"");
 			        	stud.add(bean.getDob());
-			        	stud.add(bean.getStDate());		        	
+			        	stud.add(bean.getStDate());	
+			        	stud.add(bean.getTeacher());	
+			        	stud.add(bean.getAge()+"");
 			        	stud.add("\n"); 
 			        	
 			        }
@@ -545,21 +586,27 @@ public class GroupStudImportExportGUI extends javax.swing.JFrame implements java
 			        FileWriter writer = new FileWriter(csvFile);
 			        List<String> stud = new ArrayList<String>(); 
 			        
-			        stud.add("ID");
-		        	stud.add("First Name");
-		        	stud.add("Last Name");  
-		        	stud.add("Grade");
-		        	stud.add("DOB");
-		        	stud.add("Start Date");	
-			        
+			        stud.add(" ");
+			        stud.add("GROUP ID");
+			        stud.add("FIRST NAME");
+			        stud.add("LAST NAME");
+			        stud.add("GRADE");
+			        stud.add("DATE OF BIRTH");
+			        stud.add("START DATE");
+			        stud.add("TEACHER");
+			        stud.add("AGE");
+			        stud.add(",");
+			        stud.add("\n");
 			        for (StudentBean bean: studList) {
-			        	stud.add("\n");
-			        	stud.add(bean.getId()+"");
+			        	
+			        	stud.add(bean.getGroupId()+"");
 			        	stud.add(bean.getStudFirstName());
 			        	stud.add(bean.getStudLastName());  
 			        	stud.add(bean.getGrade()+"");
 			        	stud.add(bean.getDob());
-			        	stud.add(bean.getStDate());		        	
+			        	stud.add(bean.getStDate());	
+			        	stud.add(bean.getTeacher());
+			        	stud.add(bean.getAge());
 			        	stud.add("\n"); 
 			        	
 			        }
@@ -581,6 +628,6 @@ public class GroupStudImportExportGUI extends javax.swing.JFrame implements java
 	
 
 	public static void main(String[] args) {
-		new GroupStudImportExportGUI();
+		//new GroupStudImportExportGUI();
 	}
 }

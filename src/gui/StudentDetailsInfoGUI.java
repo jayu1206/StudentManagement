@@ -847,7 +847,7 @@ if(e.getSource()==btnSaveRate){
 		}
 		if(e.getSource()==btnMImportExport){
 			setVisible(false);
-			new GroupStudImportExportGUI();
+			new GroupStudImportExportGUI(classId, className);
 		}
 		if(e.getSource()==btnExit){
 			System.exit(0);

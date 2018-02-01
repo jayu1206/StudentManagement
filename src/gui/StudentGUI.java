@@ -208,9 +208,6 @@ public class StudentGUI extends JFrame implements ActionListener {
 		         
 		         // finish the code of double click on row
 			       
-			       
-			       
-			        
 			        ArrayList<StudentBean> list=studDao.getAllStudents(classId);
 			        
 			        for(StudentBean bean : list ){
@@ -349,7 +346,7 @@ public class StudentGUI extends JFrame implements ActionListener {
 		
 		if(e.getSource()==btnMImportExport){
 			setVisible(false);
-			new GroupStudImportExportGUI();
+			new GroupStudImportExportGUI(classId, className);
 		}
 		
 		if(e.getSource()==btnMLogout){

@@ -211,7 +211,7 @@ public class welcomeGUI extends JFrame implements ActionListener {
 		}
 		if(e.getSource()==btnMImportExport){
 			setVisible(false);
-			new GroupStudImportExportGUI();
+			new GroupStudImportExportGUI("", "");
 		}
 		
 	}
