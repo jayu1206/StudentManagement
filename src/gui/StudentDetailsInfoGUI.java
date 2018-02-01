@@ -74,7 +74,8 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 		
 		JMenuBar mb=new JMenuBar();
 		mb.setBackground(new Color(135,206,250));
-        
+		mb.add(Box.createRigidArea(new Dimension(10,40)));
+
         btnMgroup = new JButton("Groups");
 		btnMgroup.addActionListener(this);
 		btnMgroup.setBackground(new Color(135,206,250));
@@ -82,6 +83,7 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 		mb.add(btnMgroup); 
 		
         setJMenuBar(mb);
+       
        
 		
 		btnMstudents = new JButton("Student");

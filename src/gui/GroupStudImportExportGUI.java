@@ -18,6 +18,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Vector;
 
+import javax.swing.Box;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -104,40 +105,42 @@ public class GroupStudImportExportGUI extends javax.swing.JFrame implements java
 		setContentPane(new JLabel(new ImageIcon(getClass().getResource("/image/black-back-ground.jpg"))));
 		setLayout(null);
 
-		JMenuBar mb = new JMenuBar();
-		mb.setBackground(new Color(135, 206, 250));
+		JMenuBar mb=new JMenuBar();
+		mb.setBackground(new Color(135,206,250));
+		mb.add(Box.createRigidArea(new Dimension(10,40)));
 
-		btnMgroup = new JButton("Groups");
+        btnMgroup = new JButton("Groups");
 		btnMgroup.addActionListener(this);
-		btnMgroup.setBackground(new Color(135, 206, 250));
+		btnMgroup.setBackground(new Color(135,206,250));
 		btnMgroup.setBorderPainted(false);
-		mb.add(btnMgroup);
-
-		setJMenuBar(mb);
-
+		mb.add(btnMgroup); 
+		
+        setJMenuBar(mb);
+       
+       
+		
 		btnMstudents = new JButton("Student");
 		btnMstudents.addActionListener(this);
-		btnMstudents.setBackground(new Color(135, 206, 250));
+		btnMstudents.setBackground(new Color(135,206,250));
 		btnMstudents.setBorderPainted(false);
-		mb.add(btnMstudents);
-		setJMenuBar(mb);
-
+		mb.add(btnMstudents);  
+        setJMenuBar(mb);
+		
 		btnMreport = new JButton("Reports");
 		btnMreport.addActionListener(this);
-		btnMreport.setBackground(new Color(135, 206, 250));
+		btnMreport.setBackground(new Color(135,206,250));
 		btnMreport.setBorderPainted(false);
-		mb.add(btnMreport);
-		setJMenuBar(mb);
-
+		mb.add(btnMreport);  
+        setJMenuBar(mb);
+		
 		btnMImportExport = new JButton("Import / Export");
 		btnMImportExport.addActionListener(this);
-		btnMImportExport.setBackground(new Color(135, 206, 250));
+		btnMImportExport.setBackground(new Color(135,206,250));
 		btnMImportExport.setBorderPainted(false);
-		mb.add(btnMImportExport);
-		setJMenuBar(mb);
-		
-		
-		btnMLogout = new JButton("Logout");
+		mb.add(btnMImportExport);  
+        setJMenuBar(mb);
+        
+        btnMLogout = new JButton("Logout");
         btnMLogout.addActionListener(this);
         btnMLogout.setBackground(new Color(107,5,37));
         btnMLogout.setForeground(Color.white);

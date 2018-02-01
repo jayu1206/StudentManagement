@@ -17,6 +17,7 @@ import java.awt.event.WindowListener;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
+import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -66,7 +67,8 @@ public class StudentGUI extends JFrame implements ActionListener {
 		
 		JMenuBar mb=new JMenuBar();
 		mb.setBackground(new Color(135,206,250));
-        
+		mb.add(Box.createRigidArea(new Dimension(10,40)));
+
         btnMgroup = new JButton("Groups");
 		btnMgroup.addActionListener(this);
 		btnMgroup.setBackground(new Color(135,206,250));
@@ -74,6 +76,7 @@ public class StudentGUI extends JFrame implements ActionListener {
 		mb.add(btnMgroup); 
 		
         setJMenuBar(mb);
+       
        
 		
 		btnMstudents = new JButton("Student");
@@ -104,7 +107,6 @@ public class StudentGUI extends JFrame implements ActionListener {
         btnMLogout.setBorderPainted(false);
 		mb.add(btnMLogout);  
         setJMenuBar(mb);
-        
         
 		setPreferredSize(new Dimension(1000, 800));
 		setLocationRelativeTo(null);

@@ -23,6 +23,7 @@ import java.util.regex.Pattern;
 
 import javafx.scene.control.ComboBox;
 
+import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -69,43 +70,41 @@ public class StudentAddGui extends JFrame implements ActionListener {
 		this.className=className;
 		
 		
-		/*setLayout(new BorderLayout());
+		setLayout(new BorderLayout());
 		setContentPane(new JLabel(new ImageIcon(this.getClass().getResource("/image/black-back-ground.jpg"))));
-		setLayout(new FlowLayout());*/
+		setLayout(null);
 		
 		JMenuBar mb=new JMenuBar();
-		mb.setBackground(new Color(107,5,37));
-        
-		btnMgroup = new JButton("Groups");
+		mb.setBackground(new Color(135,206,250));
+		mb.add(Box.createRigidArea(new Dimension(10,40)));
+
+        btnMgroup = new JButton("Groups");
 		btnMgroup.addActionListener(this);
-		btnMgroup.setBackground(new Color(107,5,37));
-		btnMgroup.setForeground(Color.white);
+		btnMgroup.setBackground(new Color(135,206,250));
 		btnMgroup.setBorderPainted(false);
 		mb.add(btnMgroup); 
 		
         setJMenuBar(mb);
        
+       
 		
 		btnMstudents = new JButton("Student");
 		btnMstudents.addActionListener(this);
-		btnMstudents.setBackground(new Color(107,5,37));
-		btnMstudents.setForeground(Color.white);
+		btnMstudents.setBackground(new Color(135,206,250));
 		btnMstudents.setBorderPainted(false);
 		mb.add(btnMstudents);  
         setJMenuBar(mb);
 		
 		btnMreport = new JButton("Reports");
 		btnMreport.addActionListener(this);
-		btnMreport.setBackground(new Color(107,5,37));
-		btnMreport.setForeground(Color.white);
+		btnMreport.setBackground(new Color(135,206,250));
 		btnMreport.setBorderPainted(false);
 		mb.add(btnMreport);  
         setJMenuBar(mb);
 		
 		btnMImportExport = new JButton("Import / Export");
 		btnMImportExport.addActionListener(this);
-		btnMImportExport.setBackground(new Color(107,5,37));
-		btnMImportExport.setForeground(Color.white);
+		btnMImportExport.setBackground(new Color(135,206,250));
 		btnMImportExport.setBorderPainted(false);
 		mb.add(btnMImportExport);  
         setJMenuBar(mb);
@@ -128,7 +127,7 @@ public class StudentAddGui extends JFrame implements ActionListener {
 		// step 3 : creating JLabel for Heading
 		JLabel heading_lbl=new JLabel();
 		heading_lbl.setBounds(300,15,500,40);
-		heading_lbl.setText("<html><font color=black size=8><u><b>Provide Student details</b></u></html>");
+		heading_lbl.setText("<html><font color=white size=8><u><b>Provide Student details</b></u></html>");
 		heading_lbl.setFont(f);
 		
 		add(heading_lbl);
@@ -142,7 +141,7 @@ public class StudentAddGui extends JFrame implements ActionListener {
 		
 			lblGroup = new JLabel("Class");
 			lblGroup.setBounds(280,90,80,30); 
-			lblGroup.setForeground(Color.black);
+			lblGroup.setForeground(Color.white);
 			lblGroup.setFont(f1);
 			add(lblGroup);
 			
@@ -173,7 +172,7 @@ public class StudentAddGui extends JFrame implements ActionListener {
 			
 		 	lblFirstname = new JLabel("Name");
 		 	lblFirstname.setBounds(280,170,80,30); 
-		 	lblFirstname.setForeground(Color.black);
+		 	lblFirstname.setForeground(Color.white);
 		 	lblFirstname.setFont(f1);
 			add(lblFirstname);
 			
@@ -191,18 +190,18 @@ public class StudentAddGui extends JFrame implements ActionListener {
 			JLabel labelFs=new JLabel("First Name");
 			labelFs.setBounds(505,200,200,30); 
 			labelFs.setFont(new Font("Serif",Font.PLAIN,15));
-			labelFs.setForeground(Color.black);
+			labelFs.setForeground(Color.white);
 			add(labelFs);
 			
 			labelFs=new JLabel("Last Name");
 			labelFs.setBounds(705,200,200,30); 
 			labelFs.setFont(new Font("Serif",Font.PLAIN,15));
-			labelFs.setForeground(Color.black);
+			labelFs.setForeground(Color.white);
 			add(labelFs);
 			
 			lblgrade = new JLabel("Grade");
 			lblgrade.setBounds(280,250,80,30); 
-			lblgrade.setForeground(Color.black);
+			lblgrade.setForeground(Color.white);
 			lblgrade.setFont(f1);
 			add(lblgrade);
 			
@@ -213,7 +212,7 @@ public class StudentAddGui extends JFrame implements ActionListener {
 			
 			lbldob = new JLabel("DOB");
 			lbldob.setBounds(280,330,80,30); 
-			lbldob.setForeground(Color.black);
+			lbldob.setForeground(Color.white);
 			lbldob.setFont(f1);
 			add(lbldob);
 			
@@ -224,14 +223,14 @@ public class StudentAddGui extends JFrame implements ActionListener {
 			
 			JLabel hint=new JLabel("DD-MM-YYYY");
 			hint.setBounds(640,330,200,30); 
-			hint.setForeground(Color.black);
+			hint.setForeground(Color.white);
 			hint.setFont(f2);
 			add(hint);
 			
 			
 			lblstdate = new JLabel("Start Date");
 			lblstdate.setBounds(280,410,200,30); 
-			lblstdate.setForeground(Color.black);
+			lblstdate.setForeground(Color.white);
 			lblstdate.setFont(f1);
 			add(lblstdate);
 			
@@ -244,14 +243,14 @@ public class StudentAddGui extends JFrame implements ActionListener {
 			
 			hint=new JLabel("DD-MM-YYYY");
 			hint.setBounds(640,410,200,30); 
-			hint.setForeground(Color.black);
+			hint.setForeground(Color.white);
 			hint.setFont(f2);
 			add(hint);
 			
 			
 			lblteacher = new JLabel("Teacher");
 			lblteacher.setBounds(280,490,200,30); 
-			lblteacher.setForeground(Color.black);
+			lblteacher.setForeground(Color.white);
 			lblteacher.setFont(f1);
 			add(lblteacher);
 			
@@ -263,7 +262,7 @@ public class StudentAddGui extends JFrame implements ActionListener {
 			
 			lblage = new JLabel("Age");
 			lblage.setBounds(280,570,200,30); 
-			lblage.setForeground(Color.black);
+			lblage.setForeground(Color.white);
 			lblage.setFont(f1);
 			add(lblage);
 			
@@ -274,7 +273,7 @@ public class StudentAddGui extends JFrame implements ActionListener {
 			
 			lblAegEg=new JLabel("(eg : 7-9)");
 			lblAegEg.setBounds(640,570,200,30); 
-			lblAegEg.setForeground(Color.black);
+			lblAegEg.setForeground(Color.white);
 			lblAegEg.setFont(f2);
 			add(lblAegEg);
 			

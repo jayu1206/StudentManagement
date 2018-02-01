@@ -12,6 +12,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
+import javax.swing.Box;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -28,7 +29,7 @@ import bean.StudentBean;
 public class PlotRateGUI extends JFrame implements ActionListener{
 	
 	JButton btnBack,btnContinue;
-	JButton  btnMgroup,btnMstudents,btnMreport,btnMImportExport;
+	JButton  btnMgroup,btnMstudents,btnMreport,btnMImportExport,btnMLogout;
 	JMenuItem group,students,report;
 	JMenu menu;
 	String classId,className;
@@ -55,7 +56,8 @@ public class PlotRateGUI extends JFrame implements ActionListener{
 		
 		JMenuBar mb=new JMenuBar();
 		mb.setBackground(new Color(135,206,250));
-        
+		mb.add(Box.createRigidArea(new Dimension(10,40)));
+
         btnMgroup = new JButton("Groups");
 		btnMgroup.addActionListener(this);
 		btnMgroup.setBackground(new Color(135,206,250));
@@ -63,6 +65,7 @@ public class PlotRateGUI extends JFrame implements ActionListener{
 		mb.add(btnMgroup); 
 		
         setJMenuBar(mb);
+       
        
 		
 		btnMstudents = new JButton("Student");
@@ -84,6 +87,14 @@ public class PlotRateGUI extends JFrame implements ActionListener{
 		btnMImportExport.setBackground(new Color(135,206,250));
 		btnMImportExport.setBorderPainted(false);
 		mb.add(btnMImportExport);  
+        setJMenuBar(mb);
+        
+        btnMLogout = new JButton("Logout");
+        btnMLogout.addActionListener(this);
+        btnMLogout.setBackground(new Color(107,5,37));
+        btnMLogout.setForeground(Color.white);
+        btnMLogout.setBorderPainted(false);
+		mb.add(btnMLogout);  
         setJMenuBar(mb);
         
         

@@ -35,6 +35,10 @@ public class RegistratonGUI extends JFrame implements ActionListener{
 	
 	RegistratonGUI(){
 		
+		setLayout(new BorderLayout());
+		setContentPane(new JLabel(new ImageIcon(this.getClass().getResource("/image/black-back-ground.jpg"))));
+		setLayout(null);
+		
 		Container c=getContentPane();  
 		
 				 /*---------------------------------- Creating JLabel for Heading Text ------------------------------------------- */
@@ -44,7 +48,7 @@ public class RegistratonGUI extends JFrame implements ActionListener{
 				// step 3 : creating JLabel for Heading
 						JLabel heading_lbl=new JLabel();
 						heading_lbl.setBounds(350,15,300,60);
-						heading_lbl.setText("<html><font><u><b>Provide your details</b></u></html>");	
+						heading_lbl.setText("<html><font color=white ><u><b>Provide your details</b></u></html>");	
 	
 						// applying font on  heading Label
 						heading_lbl.setFont(f);
@@ -62,6 +66,7 @@ public class RegistratonGUI extends JFrame implements ActionListener{
 						
 						lblFirstName=new JLabel("First Name : ");
 						lblFirstName.setBounds(250,180,250,40);
+						lblFirstName.setForeground(Color.white);
 						lblFirstName.setFont(f1);
 						add(lblFirstName);
 				
@@ -73,6 +78,7 @@ public class RegistratonGUI extends JFrame implements ActionListener{
 						
 						lblLastName=new JLabel("Last Name : ");
 						lblLastName.setBounds(250,225,250,40);
+						lblLastName.setForeground(Color.white);
 						lblLastName.setFont(f1);
 						add(lblLastName);
 						
@@ -82,6 +88,7 @@ public class RegistratonGUI extends JFrame implements ActionListener{
 						
 						lblemail=new JLabel("Email : ");
 						lblemail.setBounds(250,280,180,30);
+						lblemail.setForeground(Color.white);
 						lblemail.setFont(f1);
 						add(lblemail);
 						
@@ -92,6 +99,7 @@ public class RegistratonGUI extends JFrame implements ActionListener{
 						
 						lblUserId = new JLabel("Username : ");
 						lblUserId.setBounds(250,330,150,30); 
+						lblUserId.setForeground(Color.white);
 						lblUserId.setFont(f1);
 						add(lblUserId);
 						
@@ -101,6 +109,7 @@ public class RegistratonGUI extends JFrame implements ActionListener{
 						
 						lblPsw=new JLabel("Password : ");
 						lblPsw.setBounds(250,380,150,30);
+						lblPsw.setForeground(Color.white);
 						lblPsw.setFont(f1);
 						add(lblPsw);
 				
@@ -121,10 +130,12 @@ public class RegistratonGUI extends JFrame implements ActionListener{
 						add(txtPhno);*/
 						
 						
-						btnSubmit =  new JButton();
+						btnSubmit =  new JButton("Submit");
 						btnSubmit.setBounds(510,460,100,30);
-						
-						 Image img;
+						btnSubmit.setOpaque(true);
+						btnSubmit.setBorderPainted(false);
+						btnSubmit.setFont(new Font("Britannic Bold", Font.PLAIN, 20));
+						 /*Image img;
 							try {
 								img = ImageIO.read(getClass().getResource("/image/submit_icon.png"));
 								btnSubmit.setIcon(new ImageIcon(img));
@@ -132,20 +143,23 @@ public class RegistratonGUI extends JFrame implements ActionListener{
 							} catch (IOException e) {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
-							}
+							}*/
 						add(btnSubmit);
 						btnSubmit.addActionListener(this);
 						
 						btnBack =  new JButton("Back");
 						btnBack.setBounds(350,460,100,30);
-						try {
+						btnBack.setOpaque(true);
+						btnBack.setBorderPainted(false);
+						btnBack.setFont(new Font("Britannic Bold", Font.PLAIN, 20));
+						/*try {
 							img = ImageIO.read(getClass().getResource("/image/back.png"));
 							btnBack.setIcon(new ImageIcon(img));
 							btnBack.setBorder(null);
 						} catch (IOException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
-						}
+						}*/
 						add(btnBack);
 						btnBack.addActionListener(this);
 						

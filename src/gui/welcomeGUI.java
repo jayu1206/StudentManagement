@@ -16,6 +16,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -65,7 +66,7 @@ public class welcomeGUI extends JFrame implements ActionListener {
         mb.add(menu);  
         setJMenuBar(mb);*/
 		
-		final JToolBar toolBar = new JToolBar();
+		/*final JToolBar toolBar = new JToolBar();
 		toolBar.setBackground(new Color(135,206,250));
 		
 		btnMgroup = new JButton("Groups");
@@ -100,9 +101,51 @@ public class welcomeGUI extends JFrame implements ActionListener {
 		toolBar.add(btnMLogout);
 		
 		
-		getContentPane().add(toolBar, BorderLayout.NORTH);
+		getContentPane().add(toolBar, BorderLayout.NORTH);*/
 		
+		JMenuBar mb=new JMenuBar();
+		mb.setBackground(new Color(135,206,250));
+		mb.add(Box.createRigidArea(new Dimension(10,40)));
+
+        btnMgroup = new JButton("Groups");
+		btnMgroup.addActionListener(this);
+		btnMgroup.setBackground(new Color(135,206,250));
+		btnMgroup.setBorderPainted(false);
+		mb.add(btnMgroup); 
 		
+        setJMenuBar(mb);
+       
+       
+		
+		btnMstudents = new JButton("Student");
+		btnMstudents.addActionListener(this);
+		btnMstudents.setBackground(new Color(135,206,250));
+		btnMstudents.setBorderPainted(false);
+		mb.add(btnMstudents);  
+        setJMenuBar(mb);
+		
+		btnMreport = new JButton("Reports");
+		btnMreport.addActionListener(this);
+		btnMreport.setBackground(new Color(135,206,250));
+		btnMreport.setBorderPainted(false);
+		mb.add(btnMreport);  
+        setJMenuBar(mb);
+		
+		btnMImportExport = new JButton("Import / Export");
+		btnMImportExport.addActionListener(this);
+		btnMImportExport.setBackground(new Color(135,206,250));
+		btnMImportExport.setBorderPainted(false);
+		mb.add(btnMImportExport);  
+        setJMenuBar(mb);
+        
+        btnMLogout = new JButton("Logout");
+        btnMLogout.addActionListener(this);
+        btnMLogout.setBackground(new Color(107,5,37));
+        btnMLogout.setForeground(Color.white);
+        btnMLogout.setBorderPainted(false);
+		mb.add(btnMLogout);  
+        setJMenuBar(mb);
+        
 		
 		JPanel jsp1 = new JPanel(new BorderLayout());
 	 	jsp1.setBackground(new Color(141, 31, 6));

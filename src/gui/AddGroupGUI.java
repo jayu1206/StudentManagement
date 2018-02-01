@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.BasicStroke;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
@@ -18,6 +19,8 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -53,43 +56,44 @@ public class AddGroupGUI extends JFrame implements ActionListener{
 	
 	AddGroupGUI(){
 		
+		setLayout(new BorderLayout());
+		setContentPane(new JLabel(new ImageIcon(this.getClass().getResource("/image/black-back-ground.jpg"))));
+		setLayout(null);
+		
 		JMenuBar mb=new JMenuBar();
-		mb.setBackground(new Color(107,5,37));
-        
+		mb.setBackground(new Color(135,206,250));
+		mb.add(Box.createRigidArea(new Dimension(10,40)));
+
         btnMgroup = new JButton("Groups");
 		btnMgroup.addActionListener(this);
-		btnMgroup.setBackground(new Color(107,5,37));
-		btnMgroup.setForeground(Color.white);
+		btnMgroup.setBackground(new Color(135,206,250));
 		btnMgroup.setBorderPainted(false);
 		mb.add(btnMgroup); 
 		
         setJMenuBar(mb);
        
+       
 		
 		btnMstudents = new JButton("Student");
 		btnMstudents.addActionListener(this);
-		btnMstudents.setBackground(new Color(107,5,37));
-		btnMstudents.setForeground(Color.white);
+		btnMstudents.setBackground(new Color(135,206,250));
 		btnMstudents.setBorderPainted(false);
 		mb.add(btnMstudents);  
         setJMenuBar(mb);
 		
 		btnMreport = new JButton("Reports");
 		btnMreport.addActionListener(this);
-		btnMreport.setBackground(new Color(107,5,37));
-		btnMreport.setForeground(Color.white);
+		btnMreport.setBackground(new Color(135,206,250));
 		btnMreport.setBorderPainted(false);
 		mb.add(btnMreport);  
         setJMenuBar(mb);
 		
 		btnMImportExport = new JButton("Import / Export");
 		btnMImportExport.addActionListener(this);
-		btnMImportExport.setBackground(new Color(107,5,37));
-		btnMImportExport.setForeground(Color.white);
+		btnMImportExport.setBackground(new Color(135,206,250));
 		btnMImportExport.setBorderPainted(false);
 		mb.add(btnMImportExport);  
         setJMenuBar(mb);
-        
         
         btnMLogout = new JButton("Logout");
         btnMLogout.addActionListener(this);
@@ -110,7 +114,7 @@ public class AddGroupGUI extends JFrame implements ActionListener{
 		// step 3 : creating JLabel for Heading
 				JLabel heading_lbl=new JLabel();
 				heading_lbl.setBounds(320,15,500,40);
-				heading_lbl.setText("<html><font color=black size=8 ><u><b>Provide Groups details</b></u></html>");	
+				heading_lbl.setText("<html><font color=white size=8 ><u><b>Provide Groups details</b></u></html>");	
 				heading_lbl.setFont(f);
 				
 				add(heading_lbl);
@@ -121,7 +125,7 @@ public class AddGroupGUI extends JFrame implements ActionListener{
 				
 				lblClass = new JLabel("Class Name ");
 				lblClass.setBounds(300,150,160,30); 
-				lblClass.setForeground(Color.black);
+				lblClass.setForeground(Color.white);
 				lblClass.setFont(f1);
 				add(lblClass);
 				
@@ -133,7 +137,7 @@ public class AddGroupGUI extends JFrame implements ActionListener{
 				
 				lblStartDate = new JLabel("Start Date");
 				lblStartDate.setBounds(300,230,160,30); 
-				lblStartDate.setForeground(Color.black);
+				lblStartDate.setForeground(Color.white);
 				lblStartDate.setFont(f1);
 				add(lblStartDate);
 				

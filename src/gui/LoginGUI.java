@@ -14,6 +14,8 @@ import java.awt.Insets;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.beans.Visibility;
 import java.io.IOException;
 
@@ -134,6 +136,20 @@ public class LoginGUI extends JFrame implements ActionListener{
         c.insets = new Insets(5,5,5,5);
         jsp4.add(txtPsw,c);
         
+        /*txtPsw.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if(e.getKeyCode() == KeyEvent.VK_ENTER){
+                    // something like...
+                   //mTextField.getText();
+                   // or...
+                   //mButton.doClick();
+                	System.out.println("hiii");
+                }
+            }
+
+        });*/
+        
         
         btnSubmit = new JButton("       Login        ");
         c.gridx = 1;
@@ -155,6 +171,9 @@ public class LoginGUI extends JFrame implements ActionListener{
 		btnSubmit.setFont(new Font("Britannic Bold", Font.PLAIN, 20));
         jsp4.add(btnSubmit,c);
         btnSubmit.addActionListener(this);
+        getRootPane().setDefaultButton(btnSubmit);
+        
+        
         
         
         c.gridx = 0;
@@ -240,6 +259,16 @@ public class LoginGUI extends JFrame implements ActionListener{
 			}
 			
 		}
+		
+		
+		
+		/* if (e.getKeyCode()==KeyEvent.VK_ENTER){
+		        System.out.println("Hello");
+
+		        JOptionPane.showMessageDialog(null , "You've Submitted the name " + nameInput.getText());
+		    }
+*/
+		
 		
 	}
 	
