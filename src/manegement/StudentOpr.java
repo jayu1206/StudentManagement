@@ -712,4 +712,74 @@ public class StudentOpr extends StudentDAO {
 		return flag;
 	}
 
+	@Override
+	public boolean deleteDecoding(String value) {
+		// TODO Auto-generated method stub
+		Connection conn=null;
+		PreparedStatement statement=null;
+		boolean flag=false;
+		
+		try{
+			
+			conn=connection.getConnection();
+			 String sql = "DELETE FROM  decoding  WHERE decoId=?";
+		      System.out.println("SQL : "+sql);
+		      statement = conn.prepareStatement(sql);
+		      statement.setInt(1, Integer.parseInt(value));
+		      statement.executeUpdate();
+		      flag=true;
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			//STEP 6: Clean-up environment
+		      try {
+		    	  statement.close();
+			     conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		      
+			 
+		 }
+		
+		return flag;
+	}
+
+	@Override
+	public boolean deleteRate(String value) {
+		// TODO Auto-generated method stub
+		Connection conn=null;
+		PreparedStatement statement=null;
+		boolean flag=false;
+		
+		try{
+			
+			conn=connection.getConnection();
+			 String sql = "DELETE FROM  rate  WHERE rateId=?";
+		      System.out.println("SQL : "+sql);
+		      statement = conn.prepareStatement(sql);
+		      statement.setInt(1, Integer.parseInt(value));
+		      statement.executeUpdate();
+		      flag=true;
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			//STEP 6: Clean-up environment
+		      try {
+		    	  statement.close();
+			     conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		      
+			 
+		 }
+		
+		return flag;
+	}
+
 }

@@ -55,6 +55,7 @@ public class ProcessOpr extends ProcessDAO{
 				props.setProperty("Password", pass);
 				count = 1;
 				props.setProperty("Count", count+"");
+				props.setProperty("DbCount", 0+"");
 				props.store(out, null);
 				System.out.println("Config Property Successfully Updated..");
 				out.close();	
@@ -94,6 +95,22 @@ public class ProcessOpr extends ProcessDAO{
 			sr.runScript(reader);
 			flag=true;
 	    	
+			File resource = new File(this.getClass().getClassLoader().getResource("First.properties").getFile());
+			String fileName = resource.getName();
+			
+			//System.out.println("The file you want (Hope so, I got no IDE): " + fileName.toString());
+			
+			
+				FileOutputStream out = new FileOutputStream(fileName);
+				Properties props1 = new Properties();
+				count = 1;
+				props1.setProperty("DbCount", count+"");
+				props1.store(out, null);
+				//System.out.println("Config Property Successfully Updated..");
+				out.close();	
+			
+			
+			
 	    } catch (Exception e) {
 	      e.printStackTrace();
 	      flag=false;

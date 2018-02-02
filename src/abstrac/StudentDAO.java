@@ -33,6 +33,9 @@ public abstract class StudentDAO {
 	public abstract boolean deleteDecodingData(int decodId);
 	
 	public abstract boolean deleteRateData(int recordId);
-	
+
+	public abstract boolean deleteDecoding(String value);
+
+	public abstract boolean deleteRate(String value);
 	
 }

@@ -17,6 +17,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.ArrayList;
+import java.util.Properties;
 import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -38,11 +39,19 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.plaf.basic.BasicComboBoxRenderer;
 
+import org.jdatepicker.impl.JDatePanelImpl;
+import org.jdatepicker.impl.JDatePickerImpl;
+import org.jdatepicker.impl.UtilDateModel;
+
 import bean.GroupBean;
 import bean.StudentBean;
+import bean.adminBean;
+import manegement.DateLabelFormatter;
 import manegement.GroupOpr;
+import manegement.LoginOpr;
 import manegement.StudentOpr;
 import abstrac.GroupDAO;
+import abstrac.LoginDAO;
 import abstrac.StudentDAO;
 
 public class StudentAddGui extends JFrame implements ActionListener {
@@ -63,6 +72,7 @@ public class StudentAddGui extends JFrame implements ActionListener {
 	JTextField txtFirstname,txtLastName,txtgrade,txtdob,txtstdate,txtteacher,txtage;
 	JComboBox comboBox;
 	String classId,className;
+	JDatePickerImpl DOBdatePicker, STdatePicker ; ;
 	
 	StudentAddGui(String classId,String className){
 		
@@ -210,22 +220,36 @@ public class StudentAddGui extends JFrame implements ActionListener {
 			txtgrade.setFont(f2);
 			add(txtgrade);
 			
-			lbldob = new JLabel("DOB");
-			lbldob.setBounds(280,330,80,30); 
+			lbldob = new JLabel("Date of birth");
+			lbldob.setBounds(280,330,200,30); 
 			lbldob.setForeground(Color.white);
 			lbldob.setFont(f1);
 			add(lbldob);
 			
-			txtdob = new JTextField();
-			txtdob.setBounds(430,330,200,30); 
-			txtdob.setFont(f2);
-			add(txtdob);
+			Properties p = new Properties();
+			p.put("text.today", "Today");
+			p.put("text.month", "Month");
+			p.put("text.year", "Year");
 			
-			JLabel hint=new JLabel("DD-MM-YYYY");
+			UtilDateModel dtmodel = new UtilDateModel();
+			dtmodel.setDate(2000, 1, 1);
+			dtmodel.setSelected(true);
+			JDatePanelImpl datePanel =new JDatePanelImpl(dtmodel, p);
+			DOBdatePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
+			DOBdatePicker.setBounds(450,330,180,30);
+			add(DOBdatePicker);
+			
+			
+		/*	txtdob = new JTextField();
+			txtdob.setBounds(450,330,200,30); 
+			txtdob.setFont(f2);
+			add(txtdob);*/
+			
+			/*JLabel hint=new JLabel("DD-MM-YYYY");
 			hint.setBounds(640,330,200,30); 
 			hint.setForeground(Color.white);
 			hint.setFont(f2);
-			add(hint);
+			add(hint);*/
 			
 			
 			lblstdate = new JLabel("Start Date");
@@ -234,18 +258,27 @@ public class StudentAddGui extends JFrame implements ActionListener {
 			lblstdate.setFont(f1);
 			add(lblstdate);
 			
+			UtilDateModel dtmodel2 = new UtilDateModel();
+			//dtmodel2.setDate(2000, 1, 1);
+			dtmodel2.setSelected(true);
+			JDatePanelImpl datePanel2 =new JDatePanelImpl(dtmodel2, p);
+			STdatePicker = new JDatePickerImpl(datePanel2, new DateLabelFormatter());
+			STdatePicker.setBounds(430,410,200,30);
+			add(STdatePicker);
 			
-			
-			txtstdate = new JTextField();
+		/*	txtstdate = new JTextField();
 			txtstdate.setBounds(430,410,200,30); 
 			txtstdate.setFont(f2);
-			add(txtstdate);
+			add(txtstdate);*/
 			
-			hint=new JLabel("DD-MM-YYYY");
+			/*hint=new JLabel("DD-MM-YYYY");
 			hint.setBounds(640,410,200,30); 
 			hint.setForeground(Color.white);
 			hint.setFont(f2);
-			add(hint);
+			add(hint);*/
+			
+			LoginDAO dao= new LoginOpr();
+			adminBean bean= dao.getUserName();
 			
 			
 			lblteacher = new JLabel("Teacher");
@@ -256,6 +289,8 @@ public class StudentAddGui extends JFrame implements ActionListener {
 			
 			txtteacher = new JTextField();
 			txtteacher.setBounds(430,490,200,30); 
+			txtteacher.setText(bean.getFirstName()+ " "+bean.getLastName());
+			txtteacher.setEditable(false);
 			txtteacher.setFont(f2);
 			add(txtteacher);
 			
@@ -352,12 +387,12 @@ public class StudentAddGui extends JFrame implements ActionListener {
 			else if(txtgrade.getText().length()==0){
 				JOptionPane.showMessageDialog(this,"Please provide Student Grade");
 			}
-			else if(txtdob.getText().length()==0){
+			/*else if(txtdob.getText().length()==0){
 				JOptionPane.showMessageDialog(this,"Please provide Student DOB");
 			}
 			else if(txtstdate.getText().length()==0){
-				JOptionPane.showMessageDialog(this,"Please provide Student DOB");
-			}
+				JOptionPane.showMessageDialog(this,"Please provide Start Date");
+			}*/
 			else if(txtteacher.getText().length()==0){
 				JOptionPane.showMessageDialog(this,"Please provide Class Teacher");
 			}
@@ -381,7 +416,7 @@ public class StudentAddGui extends JFrame implements ActionListener {
 		        }
 		        
 		        
-				Matcher mtch = dateFrmtPtrn.matcher(txtdob.getText());
+				/*Matcher mtch = dateFrmtPtrn.matcher(txtdob.getText());
 		        if(!mtch.matches()){
 		        	JOptionPane.showMessageDialog(this,"DOB Date Format invalid");
 		        	flag=false;
@@ -391,7 +426,7 @@ public class StudentAddGui extends JFrame implements ActionListener {
 		        if(!mtch.matches()){
 		        	JOptionPane.showMessageDialog(this,"Start Date Format invalid");
 		        	flag=false;
-		       }
+		       }*/
 		        
 		        if(flag){
 		        	Item item = (Item)comboBox.getSelectedItem();
@@ -402,8 +437,8 @@ public class StudentAddGui extends JFrame implements ActionListener {
 		        	bean.setStudFirstName(txtFirstname.getText());
 		        	bean.setStudLastName(txtLastName.getText());
 		        	bean.setGrade(Integer.parseInt(txtgrade.getText()));
-		        	bean.setDob(txtdob.getText());
-		        	bean.setStDate(txtstdate.getText());
+		        	bean.setDob(DOBdatePicker.getJFormattedTextField().getText());
+		        	bean.setStDate(STdatePicker.getJFormattedTextField().getText());
 		        	bean.setTeacher(txtteacher.getText());
 		        	bean.setAge(txtage.getText());
 		        	

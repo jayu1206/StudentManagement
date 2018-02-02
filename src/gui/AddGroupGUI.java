@@ -17,11 +17,20 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.io.IOException;
+import java.io.InputStream;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Properties;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
+import javax.swing.JFormattedTextField.AbstractFormatter;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -33,8 +42,16 @@ import javax.swing.JTextField;
 import javax.swing.border.AbstractBorder;
 import javax.swing.border.EmptyBorder;
 
+
+
+
+import org.jdatepicker.impl.JDatePanelImpl;
+import org.jdatepicker.impl.JDatePickerImpl;
+import org.jdatepicker.impl.UtilDateModel;
+
 import bean.GroupBean;
 import abstrac.GroupDAO;
+import manegement.DateLabelFormatter;
 import manegement.DatePicker;
 import manegement.GroupOpr;
 
@@ -54,6 +71,7 @@ public class AddGroupGUI extends JFrame implements ActionListener{
 	JButton  btnMgroup,btnMstudents,btnMreport,btnMImportExport,btnMLogout;
 	JMenuItem group,students,report;
 	JMenu menu;
+	JDatePickerImpl datePicker ;
 	
 	AddGroupGUI(){
 		
@@ -142,20 +160,36 @@ public class AddGroupGUI extends JFrame implements ActionListener{
 				lblStartDate.setFont(f1);
 				add(lblStartDate);
 				
-				txtStartDate = new JTextField();
-				txtStartDate.setBounds(500,230,200,30); 
+				
+				Properties p = new Properties();
+				p.put("text.today", "Today");
+				p.put("text.month", "Month");
+				p.put("text.year", "Year");
+				
+				UtilDateModel model = new UtilDateModel();
+				//model.setDate(1990, 8, 24);
+				model.setSelected(true);
+				JDatePanelImpl datePanel =new JDatePanelImpl(model, p);
+				datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
+				datePicker.setBounds(500,230,200,30);
+				add(datePicker);
+				
+				
+				/*txtStartDate = new JTextField();
+				txtStartDate.setBounds(500,230,200,20); 
 				txtStartDate.setEditable(false);
 				txtStartDate.setFont(f2);
-				add(txtStartDate);
+				//txtStartDate.setText(datePicker.getModel().getValue()+"");
+				add(txtStartDate);*/
 				
-				btnDT = new JButton("..hii");
+				/*btnDT = new JButton("..hii");
 				btnDT.setBounds(720,230,20,20);
 				btnDT.setOpaque(true);
 				btnDT.setBorderPainted(false);
 				btnDT.setFont(new Font("Britannic Bold", Font.PLAIN, 20));
 				add(btnDT);
 				btnDT.addActionListener(this);
-				
+				*/
 				btnSubmit = new JButton("Add");
 				btnSubmit.setBounds(380,310,250,40);
 				btnSubmit.setOpaque(true);
@@ -232,22 +266,25 @@ public class AddGroupGUI extends JFrame implements ActionListener{
 			new GroupStudImportExportGUI("", "");
 		}
 		
-		if(e.getSource()==btnDT){
-			txtStartDate.setText(new DatePicker(this).setPickedDate());
-		}
+		/*if(e.getSource()==datePicker){
+			
+			Date selectedDate = (Date) datePicker.getModel().getValue();
+			SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy");
+			//String dt=
+			txtStartDate.setText(dateFormatter.format(selectedDate));
+		}*/
 		GroupDAO dao=null;
 		if(e.getSource()==btnSubmit){
 			if(txtClass.getText().length() == 0){
 				JOptionPane.showMessageDialog(this,"Please insert Class Name");
 				
 			}
-			else if(txtStartDate.getText().length() == 0){
-				JOptionPane.showMessageDialog(this,"Please Select Date");
-			}else{
+			else{
 				dao=new GroupOpr();
 				GroupBean bean=new GroupBean();
 				bean.setGroupName(txtClass.getText());
-				bean.setStartDate(txtStartDate.getText());
+				
+				bean.setStartDate(datePicker.getJFormattedTextField().getText());
 				boolean flag= dao.insertGroups(bean);
 				if(flag){
 					JOptionPane.showMessageDialog(this,"Groups Created");

@@ -13,10 +13,12 @@ import java.awt.Insets;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -29,6 +31,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
+import manegement.GroupOpr;
 import manegement.StudentOpr;
 import abstrac.StudentDAO;
 import bean.StudentBean;
@@ -44,6 +47,7 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 	JMenuItem group,students,report;
 	JMenu menu;
 	String classId,className;
+	JMenuItem delete,deleteRate;
 	
 	/* For 1st tab data  */
 	JLabel lblstudNo,lblFirstName,lblLastName,lblGrade,lblAge,lblteacher;
@@ -370,8 +374,8 @@ public JPanel createContactPanel2(StudentBean studBean) {
      		    new Dimension(800,300)); 
          
       // double click on table row and open other window code
-        /* jt.setDefaultEditor(Object.class, null);
-	       jt.setUI(new BasicTableUI() {
+        // jt.setDefaultEditor(Object.class, null);
+	      /* jt.setUI(new BasicTableUI() {
 		    	// Create the mouse listener for the JTable.
 		    	protected MouseInputListener createMouseInputListener() {
 			    	return new MouseInputHandler() {
@@ -381,10 +385,55 @@ public JPanel createContactPanel2(StudentBean studBean) {
 					    		//new AddGroupGUI();
 					    	}
 				    	}
+			    		
+			    		public void mouseReleased(MouseEvent e) {
+		        	        int r = jt.rowAtPoint(e.getPoint());
+		        	        if (r >= 0 && r < jt.getRowCount()) {
+		        	            jt.setRowSelectionInterval(r, r);
+		        	        } else {
+		        	            jt.clearSelection();
+		        	        }
+
+		        	        int rowindex = jt.getSelectedRow();
+		        	        if (rowindex < 0)
+		        	            return;
+		        	        if (e.isPopupTrigger() && e.getComponent() instanceof JTable ) {
+		        	            JPopupMenu popup = new JPopupMenu("Delete"); 
+		        	            popup.show(e.getComponent(), e.getX(), e.getY());
+		        	        }
+		        	    }
 			    	};
 		    	}
 	    	});
 		*/
+         
+         delete = new JMenuItem("Delete");
+         JPopupMenu popup = new JPopupMenu("Delete");
+         popup.add(delete);  
+         
+         jt.addMouseListener(new MouseAdapter() {
+        	    @Override
+        	    public void mouseReleased(MouseEvent e) {
+        	        int r = jt.rowAtPoint(e.getPoint());
+        	        if (r >= 0 && r < jt.getRowCount()) {
+        	        	jt.setRowSelectionInterval(r, r);
+        	        } else {
+        	        	jt.clearSelection();
+        	        }
+
+        	        int rowindex = jt.getSelectedRow();
+        	        if (rowindex < 0)
+        	            return;
+        	        if (e.isPopupTrigger() && e.getComponent() instanceof JTable ) {
+        	             
+        	            
+        	            popup.show(e.getComponent(), e.getX(), e.getY());
+        	        }
+        	    }
+        	});
+         
+         delete.addActionListener(this);
+         
          
          for(StudentDecoding decoBean : studBean.getListDecoding()){
         	 
@@ -509,7 +558,34 @@ public JPanel createContactPanel3(StudentBean studBean) {
      jtRate.setPreferredScrollableViewportSize(
  		    new Dimension(800,300)); 
      
-	
+     deleteRate = new JMenuItem("Delete");
+     JPopupMenu popup = new JPopupMenu("Delete");
+     popup.add(deleteRate);  
+     
+     jtRate.addMouseListener(new MouseAdapter() {
+    	    @Override
+    	    public void mouseReleased(MouseEvent e) {
+    	        int r = jtRate.rowAtPoint(e.getPoint());
+    	        if (r >= 0 && r < jtRate.getRowCount()) {
+    	        	jtRate.setRowSelectionInterval(r, r);
+    	        } else {
+    	        	jtRate.clearSelection();
+    	        }
+
+    	        int rowindex = jtRate.getSelectedRow();
+    	        if (rowindex < 0)
+    	            return;
+    	        if (e.isPopupTrigger() && e.getComponent() instanceof JTable ) {
+    	             
+    	            
+    	            popup.show(e.getComponent(), e.getX(), e.getY());
+    	        }
+    	    }
+    	});
+     
+     deleteRate.addActionListener(this);
+     
+     
      for(StudentRate rateBean : studBean.getListRate()){
     	 modelRate.addRow(new Object[]{rateBean.getRateId(),rateBean.getWeek(),rateBean.getDate(),rateBean.getText()
     			 ,rateBean.getTime(),rateBean.getCwpm(),rateBean.getErrors()});
@@ -640,6 +716,17 @@ private void centerFrame() {
 			
 			boolean flag=true;
 			for(int i =0 ; i<row ; i++){
+				
+				if(jt.getModel().getValueAt(i, 1).toString().length()==0 &&
+				jt.getModel().getValueAt(i, 2).toString().length()==0 &&
+				jt.getModel().getValueAt(i, 3).toString().length()==0 &&
+				jt.getModel().getValueAt(i, 4).toString().length()==0 &&
+				jt.getModel().getValueAt(i, 5).toString().length()==0 &&
+				jt.getModel().getValueAt(i, 6).toString().length()==0 ){
+						continue;
+					
+				}
+				
 				if(jt.getModel().getValueAt(i, 1).toString().length()==0){
 					JOptionPane.showMessageDialog(this,"Please provide Week ");
 					flag=false;
@@ -740,6 +827,19 @@ if(e.getSource()==btnSaveRate){
 			
 			boolean flag=true;
 			for(int i =0 ; i<row ; i++){
+				
+				if(jtRate.getModel().getValueAt(i, 1).toString().length()==0 &&
+					jtRate.getModel().getValueAt(i, 2).toString().length()==0 &&
+					jtRate.getModel().getValueAt(i, 3).toString().length()==0 &&
+					jtRate.getModel().getValueAt(i, 4).toString().length()==0 &&
+					jtRate.getModel().getValueAt(i, 5).toString().length()==0 &&
+					jtRate.getModel().getValueAt(i, 6).toString().length()==0 ){
+					
+								continue;
+							
+						}
+				
+				
 				if(jtRate.getModel().getValueAt(i, 1).toString().length()==0){
 					JOptionPane.showMessageDialog(this,"Please provide Week "); // Integer
 					flag=false;
@@ -923,6 +1023,73 @@ if(e.getSource()==btnSaveRate){
 			new PlotRateGUI(bean, classId, className);			
 			
 		}
+		
+		
+		
+		if(e.getSource()==delete){
+			DefaultTableModel dtm = (DefaultTableModel) jt.getModel();  
+            int selRow = jt.getSelectedRow();
+           // int selCol = jt.getSelectedColumn();
+			if(selRow<0){
+				JOptionPane.showMessageDialog(this,"Please select Group");
+				 
+				
+			}else{
+				
+				int n = JOptionPane.showConfirmDialog(this
+                        , "Delete Seleced Decoding?",
+                        "Confirm Delete",
+                        JOptionPane.YES_NO_OPTION);
+				 if (n == JOptionPane.YES_OPTION) {
+					   String value = jt.getModel().getValueAt(selRow, 0).toString();
+					   
+					   boolean flag= dao.deleteDecoding(value);
+					   if(flag){
+						   dtm.removeRow(selRow); 
+					   }else{
+						   JOptionPane.showMessageDialog(this,"Failed! Please try again..");
+					   }
+		               
+				 } 				
+				
+			}
+			
+			
+		}
+		
+		
+		
+		if(e.getSource()==deleteRate){
+			DefaultTableModel dtm = (DefaultTableModel) jtRate.getModel();  
+            int selRow = jtRate.getSelectedRow();
+           // int selCol = jt.getSelectedColumn();
+			if(selRow<0){
+				JOptionPane.showMessageDialog(this,"Please select Group");
+				 
+				
+			}else{
+				
+				int n = JOptionPane.showConfirmDialog(this
+                        , "Delete Seleced Rate?",
+                        "Confirm Delete",
+                        JOptionPane.YES_NO_OPTION);
+				 if (n == JOptionPane.YES_OPTION) {
+					   String value = jtRate.getModel().getValueAt(selRow, 0).toString();
+					   
+					   boolean flag= dao.deleteRate(value);
+					   if(flag){
+						   dtm.removeRow(selRow); 
+					   }else{
+						   JOptionPane.showMessageDialog(this,"Failed! Please try again..");
+					   }
+		               
+				 } 				
+				
+			}
+			
+			
+		}
+		
 		
 		
 	}

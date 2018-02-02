@@ -15,6 +15,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 
@@ -533,7 +534,7 @@ public class GroupStudImportExportGUI extends javax.swing.JFrame implements java
 			
 			Item studItem = (Item)cbStudentList.getSelectedItem();
 
-			if (studItem.getId() != 0 && studItem != null){
+			if (studItem != null && studItem.getId() != 0){
 				//By id of student All
 				
 				try{

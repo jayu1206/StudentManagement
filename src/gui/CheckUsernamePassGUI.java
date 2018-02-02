@@ -12,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
 
 import javax.imageio.ImageIO;
@@ -155,8 +156,17 @@ public class CheckUsernamePassGUI extends JFrame implements ActionListener{
 				boolean status= proDAO.addProperty(USER,PASS);
 				System.out.println("hiiiiiiii status : "+status);
 				if(status){
-					status = false;
-					status = proDAO.runSQLFile();
+					
+					InputStream in2 = this.getClass().getClassLoader().getResourceAsStream("./First.properties");
+					Properties props = new Properties();
+					props.load(in2);
+					String dbcount = props.getProperty("DbCount");
+					if(Integer.parseInt(dbcount)!=0){
+						status = false;
+						status = proDAO.runSQLFile();
+					}
+					
+					
 					if(status){
 						LegalGUIDAO dao2 = new LegalGuiOpr();
 						boolean flag = false;

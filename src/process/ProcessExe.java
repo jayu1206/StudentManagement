@@ -93,7 +93,7 @@ public class ProcessExe extends JFrame{
 			}
 
 		} catch (Exception e) {
-			System.out.println("error===" + e.getMessage());
+			//System.out.println("error===" + e.getMessage());
 			e.printStackTrace();
 		}
 
@@ -125,6 +125,35 @@ public class ProcessExe extends JFrame{
 				System.out.println("Mysql is intsalled");
 				flag = true;
 			}
+			
+			if(flag==false){
+				
+				
+				Class.forName("com.mysql.jdbc.Driver");
+				System.out.println("Connecting to database...");
+				 conn = DriverManager.getConnection(DB_URL, USER, "");
+				 stmt = conn.createStatement();
+				 res = stmt.executeQuery("select @@datadir");
+				 Mysqlpath = "";
+
+				while (res.next()) {
+					Mysqlpath = res.getString(1);
+				}
+
+				Mysqlpath = Mysqlpath.replace("Data", "bin");
+				System.err.println("Mysql path is :" + Mysqlpath);
+				if (Mysqlpath.length() == 0) {
+					// Installation of Mysql
+					System.out.println("Mysql is not installed");
+					flag = false;
+				} else {
+					System.out.println("Mysql is intsalled");
+					flag = true;
+				}
+			}
+			
+			
+			
 
 		} catch (SQLException se) {
 

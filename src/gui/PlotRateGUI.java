@@ -252,6 +252,11 @@ public class PlotRateGUI extends JFrame implements ActionListener{
 			
 		}
 		
+		if(e.getSource()==btnMImportExport){
+			setVisible(false);
+			new GroupStudImportExportGUI("", "");
+		}
+		
 		if(e.getSource() == btnContinue){
 			if(allRadio.isSelected()){
 				setVisible(false);
