@@ -38,12 +38,6 @@ public class LegalGuiOpr extends LegalGUIDAO{
 			}catch(Exception e){
 				e.printStackTrace();
 				
-				 try {
-					throw new SQLException("You can\'t divide by zero!");
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}  
 				/*String message = e.getMessage();
 			    if (message.contains("Access denied")) {
 			     System.out.println("Call to GUI for ask DB User name and Password");

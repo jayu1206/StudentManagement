@@ -104,23 +104,26 @@ public class welcomeGUI extends JFrame implements ActionListener {
 		getContentPane().add(toolBar, BorderLayout.NORTH);*/
 		
 		JMenuBar mb=new JMenuBar();
+		
 		mb.setBackground(new Color(135,206,250));
+		mb.setOpaque(true);
 		mb.add(Box.createRigidArea(new Dimension(10,40)));
 
         btnMgroup = new JButton("Groups");
 		btnMgroup.addActionListener(this);
 		btnMgroup.setBackground(new Color(135,206,250));
 		btnMgroup.setBorderPainted(false);
+		btnMgroup.setOpaque(true);
 		mb.add(btnMgroup); 
 		
         setJMenuBar(mb);
-       
        
 		
 		btnMstudents = new JButton("Student");
 		btnMstudents.addActionListener(this);
 		btnMstudents.setBackground(new Color(135,206,250));
 		btnMstudents.setBorderPainted(false);
+		btnMstudents.setOpaque(true);
 		mb.add(btnMstudents);  
         setJMenuBar(mb);
 		
@@ -128,6 +131,7 @@ public class welcomeGUI extends JFrame implements ActionListener {
 		btnMreport.addActionListener(this);
 		btnMreport.setBackground(new Color(135,206,250));
 		btnMreport.setBorderPainted(false);
+		btnMreport.setOpaque(true);
 		mb.add(btnMreport);  
         setJMenuBar(mb);
 		
@@ -135,6 +139,7 @@ public class welcomeGUI extends JFrame implements ActionListener {
 		btnMImportExport.addActionListener(this);
 		btnMImportExport.setBackground(new Color(135,206,250));
 		btnMImportExport.setBorderPainted(false);
+		btnMImportExport.setOpaque(true);
 		mb.add(btnMImportExport);  
         setJMenuBar(mb);
         
@@ -142,8 +147,11 @@ public class welcomeGUI extends JFrame implements ActionListener {
         btnMLogout.addActionListener(this);
         btnMLogout.setBackground(new Color(107,5,37));
         btnMLogout.setForeground(Color.white);
+        btnMLogout.setOpaque(true);
         btnMLogout.setBorderPainted(false);
 		mb.add(btnMLogout);  
+		
+		
         setJMenuBar(mb);
         
 		

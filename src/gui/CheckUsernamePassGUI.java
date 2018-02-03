@@ -161,7 +161,8 @@ public class CheckUsernamePassGUI extends JFrame implements ActionListener{
 					Properties props = new Properties();
 					props.load(in2);
 					String dbcount = props.getProperty("DbCount");
-					if(Integer.parseInt(dbcount)!=0){
+					System.out.println("db count "+dbcount);
+					if(Integer.parseInt(dbcount)==0){
 						status = false;
 						status = proDAO.runSQLFile();
 					}

@@ -10,7 +10,8 @@ import abstrac.LoginDAO;
 
 public class LoginOpr extends LoginDAO {
 
-	ConnectionOpr connection=new ConnectionOpr();
+	ConnectionOpr connection= null;
+	
 	
 	@Override
 	public boolean getAuthentication(String userId, String psw) {
@@ -20,7 +21,7 @@ public class LoginOpr extends LoginDAO {
 		ResultSet rs=null;
 		boolean flag= false;
 		try{
-			
+			connection =  new ConnectionOpr();
 			conn=connection.getConnection();
 			stmt = conn.createStatement();
 		     
@@ -57,7 +58,7 @@ public class LoginOpr extends LoginDAO {
 		ResultSet rs=null;
 		adminBean bean=null;
 		try{
-			
+			connection =  new ConnectionOpr();
 			conn=connection.getConnection();
 			stmt = conn.createStatement();
 		     

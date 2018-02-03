@@ -43,6 +43,13 @@ public class ProcessOpr extends ProcessDAO{
 			//File compiledJar = resource.getParentFile();
 			//File newResource = new File(compiledJar.getParentFile(), fileName);
 			
+			
+			InputStream in = this.getClass().getClassLoader().getResourceAsStream("./First.properties");
+			Properties props = new Properties();
+			props.load(in);
+			String dbcn=props.getProperty("DbCount");
+			in.close();
+			
 			File resource = new File(this.getClass().getClassLoader().getResource("First.properties").getFile());
 			String fileName = resource.getName();
 			
@@ -50,12 +57,12 @@ public class ProcessOpr extends ProcessDAO{
 			
 			
 				FileOutputStream out = new FileOutputStream(fileName);
-				Properties props = new Properties();
+				 props = new Properties();
 				props.setProperty("User", uname);
 				props.setProperty("Password", pass);
 				count = 1;
 				props.setProperty("Count", count+"");
-				props.setProperty("DbCount", 0+"");
+				props.setProperty("DbCount", dbcn);
 				props.store(out, null);
 				System.out.println("Config Property Successfully Updated..");
 				out.close();	
@@ -78,8 +85,10 @@ public class ProcessOpr extends ProcessDAO{
 	    	InputStream in = this.getClass().getClassLoader().getResourceAsStream("./First.properties");
 			Properties props = new Properties();
 			props.load(in);
+			String userName = props.getProperty("User");
+			String psw = props.getProperty("Password");
 			Connection con = DriverManager.getConnection(
-				"jdbc:mysql://localhost:3306/",props.getProperty("User"),props.getProperty("Password"));
+				"jdbc:mysql://localhost:3306/",userName,psw);
 			
 			/*Connection con = DriverManager.getConnection(
 					"jdbc:mysql://localhost:3306/","root","admin");*/
@@ -94,7 +103,10 @@ public class ProcessOpr extends ProcessDAO{
 			// Exctute script
 			sr.runScript(reader);
 			flag=true;
-	    	
+			
+			
+			
+	    	in.close();
 			File resource = new File(this.getClass().getClassLoader().getResource("First.properties").getFile());
 			String fileName = resource.getName();
 			
@@ -104,12 +116,17 @@ public class ProcessOpr extends ProcessDAO{
 				FileOutputStream out = new FileOutputStream(fileName);
 				Properties props1 = new Properties();
 				count = 1;
+				props1.setProperty("User", userName);
+				props1.setProperty("Password", psw);
+				count = 1;
+				props1.setProperty("Count", count+"");
 				props1.setProperty("DbCount", count+"");
+				
 				props1.store(out, null);
 				//System.out.println("Config Property Successfully Updated..");
 				out.close();	
 			
-			
+				flag=true;
 			
 	    } catch (Exception e) {
 	      e.printStackTrace();

@@ -23,8 +23,6 @@ import java.beans.Visibility;
 import java.io.IOException;
 import java.sql.SQLException;
 
-import javafx.scene.control.Alert;
-import javafx.scene.text.TextAlignment;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -40,7 +38,6 @@ import process.ProcessExe;
 import manegement.LegalGuiOpr;
 import abstrac.LegalGUIDAO;
 
-import com.sun.javafx.font.Metrics;
 
 
 public class legalGUI  extends JFrame implements ActionListener {
@@ -64,7 +61,7 @@ public class legalGUI  extends JFrame implements ActionListener {
 	public legalGUI(){
 		
 		
-		
+		System.out.println("In legal GUI Method");
 		 	JPanel jsp1 = new JPanel(new BorderLayout());
 		 	jsp1.setBackground(new Color(141, 31, 6));
 		 	
@@ -89,8 +86,8 @@ public class legalGUI  extends JFrame implements ActionListener {
 	        		+ "<center><h4>Texas Scottish Rite Hospital for Children and the authors of this software accept no responsibility for damages</h4> </center></br>"
 	        		+ "<center><h4>Tresulting from the use of this product and make no warranty or representation, either expressed or implied, including</h4> </center></br>"
 	        		+ "<center><h4>but not limited to, any implied warranty of merchantability or fitness for a particular purpose. This software is provided</h4></center> </br>"
-	        		+ "<center><h4>“AS IS,”, and you, its user, assumes all risk when using it. Texas Scottish Rite Hospital for Children is not responsible</h4> </center></br>"
-	        		+ "<center><h4>for the security of accuracy of student information and test result data (collectively “Data” ). You, the user, are</h4> </center></br>"
+	        		+ "<center><h4>ï¿½AS IS,ï¿½, and you, its user, assumes all risk when using it. Texas Scottish Rite Hospital for Children is not responsible</h4> </center></br>"
+	        		+ "<center><h4>for the security of accuracy of student information and test result data (collectively ï¿½Dataï¿½ ). You, the user, are</h4> </center></br>"
 	        		+ "<center><h4>responsible for the security and accuracy of this Data as required by law.</h4> </center></br>"
 	        		+ "</body></html>");
 						
@@ -178,8 +175,9 @@ public class legalGUI  extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e){
 		// TODO Auto-generated method stub
-		LegalGUIDAO dao = new LegalGuiOpr();
+		
 		if(accept.isSelected()){
+			LegalGuiOpr dao = new LegalGuiOpr();
 			if(e.getSource()==btnAccept){
 //				JOptionPane.showMessageDialog(this,"Login GUI Calling");
 				boolean flag =false;
@@ -197,7 +195,7 @@ public class legalGUI  extends JFrame implements ActionListener {
 				}catch(Exception ee){
 					setVisible(false);
 		    		      System.out.println("Call to GUI for ask DB User name and Password");      
-		    		      new CheckUsernamePassGUI("DB User name and Password is wrong");
+		    		      new CheckUsernamePassGUI("");
 		    		
 				}
 				

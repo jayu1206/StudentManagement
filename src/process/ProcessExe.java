@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -30,7 +31,7 @@ public class ProcessExe extends JFrame{
 	// Database credentials
 	final String USER = "root";
 	final String PASS = "admin";
-	boolean flag = false;
+	String flag = "N";    // Y = Installed  N = Not installed U= Call for DB user id and psw
 
 	int count = 0;
 
@@ -38,12 +39,21 @@ public class ProcessExe extends JFrame{
 
 		try {
 
+			// First Check mysql installation
+			
+			
 			flag = checkMysql();
 			// System.out.println(flag);
-			if (flag) {
 			
+			if(flag.equals("D")){
+				new CheckUsernamePassGUI("DB User name and Password is wrong");
+			}
+			
+			else if(flag.equals("Y")){
+			
+				new legalGUI();
 				
-				String resourceName = "First.properties";
+				/*String resourceName = "First.properties";
 				ClassLoader loader = Thread.currentThread().getContextClassLoader();
 				Properties props = new Properties();
 				try(InputStream resourceStream = loader.getResourceAsStream(resourceName)) {
@@ -61,9 +71,10 @@ public class ProcessExe extends JFrame{
 					this.setVisible(false);					
 					new legalGUI();
 				}
-				
+*/				
 
-			} else {
+			} 
+			else {
 				// Install Process of Mysql
 				//new CheckOSGUI();
 				String osname = System.getProperty("os.name");
@@ -85,9 +96,69 @@ public class ProcessExe extends JFrame{
 						e1.printStackTrace();
 					}
 				}else if (osname.contains("Linux")){
+					
 					System.out.println("Linux PC");
-				}else{
-					System.out.println("MAC PC");
+					
+				}else if (osname.contains("Mac")){
+					System.out.println("Mac");
+					System.out.println("Processing...");
+					
+					
+					// mysql workbanch installer 
+					
+					
+					
+					File file = new File(this.getClass().getResource("/mysql/mysql-workbench-community-6.3.10-macos-x86_64.dmg").getFile());
+					
+					String mysqlpath = file.getAbsolutePath();
+					System.out.println(mysqlpath);
+					
+					//String cmd = "/Users/mrugalpanchal/Desktop/Jar/mysql/mysql-5.7.21-1-macos10.13-x86_64.dmg"; 
+					Runtime r = Runtime.getRuntime(); 
+					ProcessBuilder p = new ProcessBuilder(new String[] { "/usr/bin/open", mysqlpath }); 
+					Process pro; 
+					try { 
+						pro = p.start(); 
+						InputStream is = pro.getInputStream(); 
+						InputStreamReader isr = new InputStreamReader(is); 
+						BufferedReader br = new BufferedReader(isr); 
+						String line; 
+						while ((line = br.readLine()) != null) { 
+							System.out.println(line); 
+							} 
+						
+						
+					}catch(Exception e){
+						e.printStackTrace();
+					}
+					
+					
+					// Mysql installer
+					
+					 file = new File(this.getClass().getResource("/mysql/mysql-5.7.21-1-macos10.13-x86_64.dmg").getFile());
+					
+					 mysqlpath = file.getAbsolutePath();
+					System.out.println(mysqlpath);
+					
+					//String cmd = "/Users/mrugalpanchal/Desktop/Jar/mysql/mysql-5.7.21-1-macos10.13-x86_64.dmg"; 
+					 r = Runtime.getRuntime(); 
+					 p = new ProcessBuilder(new String[] { "/usr/bin/open", mysqlpath }); 
+					
+					try { 
+						pro = p.start(); 
+						InputStream is = pro.getInputStream(); 
+						InputStreamReader isr = new InputStreamReader(is); 
+						BufferedReader br = new BufferedReader(isr); 
+						String line; 
+						while ((line = br.readLine()) != null) { 
+							System.out.println(line); 
+							} 
+						
+						
+					}catch(Exception e){
+						e.printStackTrace();
+					}
+					
 				}			
 				
 			}
@@ -100,10 +171,11 @@ public class ProcessExe extends JFrame{
 	}
 
 	
-	private boolean checkMysql() {
+	private String checkMysql() {
 		// TODO Auto-generated method stub
 		try {
 
+			System.out.println("First check mysql server .........");
 			Class.forName("com.mysql.jdbc.Driver");
 			System.out.println("Connecting to database...");
 			Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
@@ -120,14 +192,18 @@ public class ProcessExe extends JFrame{
 			if (Mysqlpath.length() == 0) {
 				// Installation of Mysql
 				System.out.println("Mysql is not installed");
-				flag = false;
+				flag = "N";
 			} else {
 				System.out.println("Mysql is intsalled");
-				flag = true;
+				flag = "Y";
 			}
 			
-			if(flag==false){
+			
+			
+			
+			if(flag.equals("N")){
 				
+				System.out.println("First check XAMPP server .........");
 				
 				Class.forName("com.mysql.jdbc.Driver");
 				System.out.println("Connecting to database...");
@@ -144,11 +220,11 @@ public class ProcessExe extends JFrame{
 				System.err.println("Mysql path is :" + Mysqlpath);
 				if (Mysqlpath.length() == 0) {
 					// Installation of Mysql
-					System.out.println("Mysql is not installed");
-					flag = false;
+					System.out.println("XAMPP is not installed");
+					flag = "N";
 				} else {
-					System.out.println("Mysql is intsalled");
-					flag = true;
+					System.out.println("XAMPP is intsalled");
+					flag = "Y";
 				}
 			}
 			
@@ -157,11 +233,12 @@ public class ProcessExe extends JFrame{
 
 		} catch (SQLException se) {
 
+			
 			String message = se.getMessage();
 			if (message.contains("Access denied")) {
 				System.out.println("Call to GUI for ask DB User name and Password");
-				
-				new CheckUsernamePassGUI("DB User name and Password is wrong");
+				flag="D";
+				//new CheckUsernamePassGUI("DB User name and Password is wrong");
 			}
 		} catch (Exception ee) {
 			ee.printStackTrace();
@@ -171,16 +248,17 @@ public class ProcessExe extends JFrame{
 		return flag;
 	}
 
-	public static void main(String args[]) {
+	/*public static void main(String args[]) {
 
 		try {
 			ProcessExe objExe = new ProcessExe();
 			objExe.checkMySqlSystem(0);
 		} catch (Exception e) {
 
+			e.printStackTrace();
 			System.exit(0);
 		}
 
-	}
+	}*/
 
 }

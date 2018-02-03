@@ -22,7 +22,6 @@ import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javafx.scene.control.ComboBox;
 
 import javax.swing.Box;
 import javax.swing.ImageIcon;

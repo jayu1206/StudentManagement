@@ -11,7 +11,7 @@ import abstrac.RegistrationDAO;
 
 public class RegistrationOpr extends RegistrationDAO{
 
-	ConnectionOpr connection=new ConnectionOpr();
+	ConnectionOpr connection= null;
 	
 	@Override
 	public boolean insertUser(adminBean bean) {
@@ -20,6 +20,7 @@ public class RegistrationOpr extends RegistrationDAO{
 		PreparedStatement statement=null;
 		boolean flag=false;
 		try{
+			connection =  new ConnectionOpr();
 			 conn=connection.getConnection();
 			
 			//STEP 4: Execute a query
@@ -70,7 +71,7 @@ public class RegistrationOpr extends RegistrationDAO{
 		ResultSet rs=null;
 		boolean flag= false;
 		try{
-			
+			connection =  new ConnectionOpr();
 			conn=connection.getConnection();
 			stmt = conn.createStatement();
 		     
