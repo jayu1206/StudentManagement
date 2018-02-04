@@ -38,4 +38,6 @@ public abstract class StudentDAO {
 
 	public abstract boolean deleteRate(String value);
 	
+	public abstract StudentBean getStudentById(int studentID);
+	
 }

@@ -86,12 +86,12 @@ public class StudentGUI extends JFrame implements ActionListener {
 		mb.add(btnMstudents);  
         setJMenuBar(mb);
 		
-		btnMreport = new JButton("Reports");
-		btnMreport.addActionListener(this);
-		btnMreport.setBackground(new Color(135,206,250));
-		btnMreport.setBorderPainted(false);
-		mb.add(btnMreport);  
-        setJMenuBar(mb);
+//		btnMreport = new JButton("Reports");
+//		btnMreport.addActionListener(this);
+//		btnMreport.setBackground(new Color(135,206,250));
+//		btnMreport.setBorderPainted(false);
+//		mb.add(btnMreport);  
+//        setJMenuBar(mb);
 		
 		btnMImportExport = new JButton("Import / Export");
 		btnMImportExport.addActionListener(this);

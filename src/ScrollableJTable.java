@@ -35,7 +35,7 @@ public class ScrollableJTable extends JFrame implements ActionListener{
 		btnMreport = new JButton("Reports");
 		btnMreport.addActionListener(this);
 		mb.add(btnMreport);  
-      setJMenuBar(mb);
+       setJMenuBar(mb);
 		
 		btnMImportExport = new JButton("Import / Export");
 		btnMImportExport.addActionListener(this);

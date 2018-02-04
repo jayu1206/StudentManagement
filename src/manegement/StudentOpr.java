@@ -786,4 +786,54 @@ public class StudentOpr extends StudentDAO {
 		return flag;
 	}
 
+	@Override
+	public StudentBean getStudentById(int studentID) {
+		
+		// TODO Auto-generated method stub
+		Statement stmt=null;
+		Connection conn=null;
+		ResultSet rs=null;
+		StudentBean bean = new StudentBean();
+		try{
+			
+			conn=connection.getConnection();
+			stmt = conn.createStatement();
+			String sql="";
+		    sql = "SELECT * FROM student where id="+studentID;
+		    rs = stmt.executeQuery(sql);
+		     
+		      while(rs.next()){
+		    	 bean = new StudentBean();
+		    	 bean.setId(rs.getInt(1));
+		    	 bean.setGroupId(rs.getInt(2));
+		    	 bean.setStudFirstName(rs.getString(3));
+		    	 bean.setGrade(rs.getInt(4));
+		    	 bean.setDob(rs.getString(5));
+		    	 bean.setStDate(rs.getString(6));
+		    	 bean.setTeacher(rs.getString(7));
+		    	 bean.setStudLastName(rs.getString(8));
+		    	 bean.setAge(rs.getString(9));
+		    	  
+		       }
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			
+			try {
+				rs.close();
+				stmt.close();
+				conn.close();
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
+		}
+		
+		return bean;
+		
+	}
+
 }

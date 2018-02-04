@@ -2,9 +2,7 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GraphicsEnvironment;
 import java.awt.Point;
@@ -23,11 +21,12 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
+import abstrac.StudentDAO;
 import bean.StudentBean;
+import manegement.StudentOpr;
 
 public class DecodePlotGUI extends JFrame implements ActionListener{
 	
@@ -51,7 +50,10 @@ public class DecodePlotGUI extends JFrame implements ActionListener{
 		
 		this.classId=classId;
 		this.className=className;
-		this.bean = bean;
+		
+		StudentDAO studDao= new StudentOpr();
+        StudentBean studdata=studDao.getAllStudentsWithDecod_Rate_Data(bean.getId());
+        this.bean = studdata;
 		
 		setLayout(new BorderLayout());
 		setContentPane(new JLabel(new ImageIcon(this.getClass().getResource("/image/black-back-ground.jpg"))));
@@ -78,12 +80,12 @@ public class DecodePlotGUI extends JFrame implements ActionListener{
 		mb.add(btnMstudents);  
         setJMenuBar(mb);
 		
-		btnMreport = new JButton("Reports");
-		btnMreport.addActionListener(this);
-		btnMreport.setBackground(new Color(135,206,250));
-		btnMreport.setBorderPainted(false);
-		mb.add(btnMreport);  
-        setJMenuBar(mb);
+//		btnMreport = new JButton("Reports");
+//		btnMreport.addActionListener(this);
+//		btnMreport.setBackground(new Color(135,206,250));
+//		btnMreport.setBorderPainted(false);
+//		mb.add(btnMreport);  
+//        setJMenuBar(mb);
 		
 		btnMImportExport = new JButton("Import / Export");
 		btnMImportExport.addActionListener(this);

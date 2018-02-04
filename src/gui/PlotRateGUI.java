@@ -24,7 +24,9 @@ import javax.swing.JMenuItem;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
+import abstrac.StudentDAO;
 import bean.StudentBean;
+import manegement.StudentOpr;
 
 public class PlotRateGUI extends JFrame implements ActionListener{
 	
@@ -46,9 +48,11 @@ public class PlotRateGUI extends JFrame implements ActionListener{
 	
 	PlotRateGUI(StudentBean bean, String classId, String className){
 		
-		this.classId=classId;
-		this.className=className;
-		this.bean = bean;
+		this.classId = classId;
+		this.className = className;
+		StudentDAO studDao = new StudentOpr();
+		StudentBean studdata = studDao.getAllStudentsWithDecod_Rate_Data(bean.getId());
+		this.bean = studdata;
 		
 		setLayout(new BorderLayout());
 		setContentPane(new JLabel(new ImageIcon(this.getClass().getResource("/image/black-back-ground.jpg"))));
@@ -75,12 +79,12 @@ public class PlotRateGUI extends JFrame implements ActionListener{
 		mb.add(btnMstudents);  
         setJMenuBar(mb);
 		
-		btnMreport = new JButton("Reports");
-		btnMreport.addActionListener(this);
-		btnMreport.setBackground(new Color(135,206,250));
-		btnMreport.setBorderPainted(false);
-		mb.add(btnMreport);  
-        setJMenuBar(mb);
+//		btnMreport = new JButton("Reports");
+//		btnMreport.addActionListener(this);
+//		btnMreport.setBackground(new Color(135,206,250));
+//		btnMreport.setBorderPainted(false);
+//		mb.add(btnMreport);  
+//        setJMenuBar(mb);
 		
 		btnMImportExport = new JButton("Import / Export");
 		btnMImportExport.addActionListener(this);
@@ -276,6 +280,9 @@ public class PlotRateGUI extends JFrame implements ActionListener{
 			txtend.setText("");
 		}
 		
+		 if(e.getSource()==btnMLogout){
+	            System.exit(0);
+		 }
 		
 	}
 	
