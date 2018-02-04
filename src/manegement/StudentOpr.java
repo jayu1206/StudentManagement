@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import jdk.nashorn.internal.ir.Flags;
 import bean.GroupBean;
 import bean.StudentBean;
 import bean.StudentDecoding;
@@ -248,7 +247,7 @@ public class StudentOpr extends StudentDAO {
 		boolean flag=false;
 		
 		try{
-			
+			connection =  new ConnectionOpr();
 			/* delete from decoding and rate data first   */
 			
 			flag = deleteDecodingData(Integer.parseInt(value));
@@ -289,6 +288,7 @@ public class StudentOpr extends StudentDAO {
 		boolean flag=false;
 		
 		try{
+			connection =  new ConnectionOpr();
 			 conn=connection.getConnection();
 			
 			//STEP 4: Execute a query
@@ -336,7 +336,7 @@ public class StudentOpr extends StudentDAO {
 		ResultSet rs=null;
 		int i=0;
 	try{
-			
+		connection =  new ConnectionOpr();
 			conn=connection.getConnection();
 			stmt = conn.createStatement();
 		     
@@ -378,6 +378,7 @@ public class StudentOpr extends StudentDAO {
 		int i=0;
 	try{
 			
+		connection =  new ConnectionOpr();
 			conn=connection.getConnection();
 			stmt = conn.createStatement();
 		     
@@ -419,6 +420,7 @@ public class StudentOpr extends StudentDAO {
 		boolean flag=false;
 		
 		try{
+			connection =  new ConnectionOpr();
 			 conn=connection.getConnection();
 			
 			 
@@ -493,7 +495,7 @@ public class StudentOpr extends StudentDAO {
 		ResultSet rs=null;
 		boolean i=false;
 	try{
-			
+		connection =  new ConnectionOpr();
 			conn=connection.getConnection();
 			stmt = conn.createStatement();
 		     
@@ -533,6 +535,7 @@ public class StudentOpr extends StudentDAO {
 		boolean flag=false;
 		
 		try{
+			connection =  new ConnectionOpr();
 			 conn=connection.getConnection();
 			
 			 
@@ -606,7 +609,7 @@ public class StudentOpr extends StudentDAO {
 		ResultSet rs=null;
 		boolean i=false;
 	try{
-			
+		connection =  new ConnectionOpr();
 			conn=connection.getConnection();
 			stmt = conn.createStatement();
 		     
@@ -646,6 +649,7 @@ public class StudentOpr extends StudentDAO {
 		boolean flag=false;
 		
 		try{
+			connection =  new ConnectionOpr();
 			
 			/* delete from decoding and rate data first   */
 			
@@ -683,7 +687,7 @@ public class StudentOpr extends StudentDAO {
 		boolean flag=false;
 		
 		try{
-			
+			connection =  new ConnectionOpr();
 			/* delete from decoding and rate data first   */
 			
 			conn=connection.getConnection();
@@ -720,7 +724,7 @@ public class StudentOpr extends StudentDAO {
 		boolean flag=false;
 		
 		try{
-			
+			connection =  new ConnectionOpr();
 			conn=connection.getConnection();
 			 String sql = "DELETE FROM  decoding  WHERE decoId=?";
 		      System.out.println("SQL : "+sql);
@@ -755,7 +759,7 @@ public class StudentOpr extends StudentDAO {
 		boolean flag=false;
 		
 		try{
-			
+			connection =  new ConnectionOpr();
 			conn=connection.getConnection();
 			 String sql = "DELETE FROM  rate  WHERE rateId=?";
 		      System.out.println("SQL : "+sql);

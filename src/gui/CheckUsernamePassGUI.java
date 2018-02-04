@@ -56,9 +56,13 @@ public class CheckUsernamePassGUI extends JFrame implements ActionListener{
 		// TODO Auto-generated constructor stub
 		
 		if(msg.length()>0){				
-			//JOptionPane.showMessageDialog(this,msg);	
+			//JOptionPane.showMessageDialog(this,!Wrong Please Try Again);	
 			this.setVisible(false);
 		}
+		
+		/*if(msg.length()>0 && msg.equals("!Wrong Please Try Again")){
+			
+		}*/
 		
 		setLayout(new BorderLayout());
 		setContentPane(new JLabel(new ImageIcon(this.getClass().getResource("/image/black-back-ground.jpg"))));
@@ -167,7 +171,7 @@ public class CheckUsernamePassGUI extends JFrame implements ActionListener{
 						status = proDAO.runSQLFile();
 					}
 					
-					
+					System.out.println("After run the script file ....."+status);
 					if(status){
 						LegalGUIDAO dao2 = new LegalGuiOpr();
 						boolean flag = false;
@@ -181,13 +185,18 @@ public class CheckUsernamePassGUI extends JFrame implements ActionListener{
 							setVisible(false);
 							new RegistratonGUI();
 						}
+					}else{
+						JOptionPane.showMessageDialog(this,"!Wrong Please Try Again");
+						setVisible(false);
+						new CheckUsernamePassGUI("");
 					}
 				}
 				
 			
 			} catch (Exception ex) {
 				// TODO Auto-generated catch block
-				ex.printStackTrace();
+				
+				//ex.printStackTrace();
 			}
 			
 		}

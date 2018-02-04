@@ -1,4 +1,7 @@
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.regex.Matcher;
@@ -31,9 +34,29 @@ public class demoExefile {
         	
         	System.out.println("false");
         }*/
-		System.out.println(System.getProperty("os.name"));
+		//System.out.println(System.getProperty("os.name"));
 		
 		// System.getProperties().list(System.getProperty("os.name"));
+		
+		
+		
+		
+		String cmd = "/Users/mrugalpanchal/Desktop/Jar/mysql/mysql-5.7.21-1-macos10.13-x86_64.dmg"; 
+		Runtime r = Runtime.getRuntime(); 
+		ProcessBuilder p = new ProcessBuilder(new String[] { "/usr/bin/open", cmd }); 
+		Process pro; 
+		try { 
+			pro = p.start(); 
+			InputStream is = pro.getInputStream(); 
+			InputStreamReader isr = new InputStreamReader(is); 
+			BufferedReader br = new BufferedReader(isr); 
+			String line; 
+			while ((line = br.readLine()) != null) { 
+				System.out.println(line); 
+				} 
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 		
 		
 	}
