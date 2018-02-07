@@ -173,7 +173,7 @@ public class StudentAddGui extends JFrame implements ActionListener {
 			
 		       
 		        comboBox = new JComboBox( model );
-		        comboBox.setBounds(430,90,200,30);
+		        comboBox.setBounds(450,90,200,30);
 		        comboBox.setFont(f2);
 		        comboBox.setRenderer( new ItemRenderer() );
 		        comboBox.addActionListener( this );
@@ -187,12 +187,12 @@ public class StudentAddGui extends JFrame implements ActionListener {
 			
 			
 			txtFirstname = new JTextField();
-			txtFirstname.setBounds(430,170,200,30); 
+			txtFirstname.setBounds(450,170,200,30); 
 			txtFirstname.setFont(f2);
 			add(txtFirstname);
 			
 			txtLastName = new JTextField();
-			txtLastName.setBounds(640,170,200,30); 
+			txtLastName.setBounds(660,170,200,30); 
 			txtLastName.setFont(f2);
 			add(txtLastName);
 			
@@ -215,7 +215,7 @@ public class StudentAddGui extends JFrame implements ActionListener {
 			add(lblgrade);
 			
 			txtgrade = new JTextField();
-			txtgrade.setBounds(430,250,200,30); 
+			txtgrade.setBounds(450,250,200,30); 
 			txtgrade.setFont(f2);
 			add(txtgrade);
 			
@@ -235,7 +235,7 @@ public class StudentAddGui extends JFrame implements ActionListener {
 			dtmodel.setSelected(true);
 			JDatePanelImpl datePanel =new JDatePanelImpl(dtmodel, p);
 			DOBdatePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
-			DOBdatePicker.setBounds(450,330,180,30);
+			DOBdatePicker.setBounds(450,330,200,30);
 			add(DOBdatePicker);
 			
 			
@@ -262,7 +262,7 @@ public class StudentAddGui extends JFrame implements ActionListener {
 			dtmodel2.setSelected(true);
 			JDatePanelImpl datePanel2 =new JDatePanelImpl(dtmodel2, p);
 			STdatePicker = new JDatePickerImpl(datePanel2, new DateLabelFormatter());
-			STdatePicker.setBounds(430,410,200,30);
+			STdatePicker.setBounds(450,410,200,30);
 			add(STdatePicker);
 			
 		/*	txtstdate = new JTextField();
@@ -287,7 +287,7 @@ public class StudentAddGui extends JFrame implements ActionListener {
 			add(lblteacher);
 			
 			txtteacher = new JTextField();
-			txtteacher.setBounds(430,490,200,30); 
+			txtteacher.setBounds(450,490,200,30); 
 			txtteacher.setText(bean.getFirstName()+ " "+bean.getLastName());
 			txtteacher.setEditable(false);
 			txtteacher.setFont(f2);
@@ -301,18 +301,18 @@ public class StudentAddGui extends JFrame implements ActionListener {
 			add(lblage);
 			
 			txtage = new JTextField();
-			txtage.setBounds(430,570,200,30); 
+			txtage.setBounds(450,570,200,30); 
 			txtage.setFont(f2);
 			add(txtage);
 			
 			lblAegEg=new JLabel("(eg : 7-9)");
-			lblAegEg.setBounds(640,570,200,30); 
+			lblAegEg.setBounds(660,570,200,30); 
 			lblAegEg.setForeground(Color.white);
 			lblAegEg.setFont(f2);
 			add(lblAegEg);
 			
 			btnSubmit = new JButton("Add");
-			btnSubmit.setBounds(430,640,200,40); 
+			btnSubmit.setBounds(450,640,200,40); 
 			btnSubmit.setBackground(Color.white);
 			btnSubmit.setOpaque(true);
 			btnSubmit.setBorderPainted(false);
