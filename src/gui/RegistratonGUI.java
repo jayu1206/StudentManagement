@@ -444,8 +444,8 @@ public void actionPerformed(ActionEvent e) {
 	{ 
 		new RegistratonGUI();
 	
-	}
-	*/
+	}*/
+	
 	
 
 }

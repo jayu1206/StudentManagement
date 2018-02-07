@@ -1,31 +1,38 @@
 package gui;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GraphicsEnvironment;
+import java.awt.HeadlessException;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
 
 import javax.swing.Box;
 import javax.swing.ButtonGroup;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -34,6 +41,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.ListCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import abstrac.GroupDAO;
@@ -44,7 +52,8 @@ import manegement.GroupOpr;
 import manegement.StudentOpr;
 import process.CSVUtils;
 
-public class GroupStudImportExportGUI extends javax.swing.JFrame implements java.awt.event.ActionListener {
+public class GroupStudImportExportGUI extends JFrame implements ActionListener {
+
 	JButton btnSubmit;
 	JButton btnDelete;
 	JButton btnBack;
@@ -96,10 +105,12 @@ public class GroupStudImportExportGUI extends javax.swing.JFrame implements java
 	JRadioButton r1;
 	JRadioButton r2;
 	ButtonGroup bg;
-	// Vector model, model2;
 	ArrayList<GroupBean> list;
 	ArrayList<StudentBean> studList;
+	Vector studVector = new Vector();
+	Vector v = new Vector();
 	StudentDAO studDAO = new StudentOpr();
+	ArrayList listId = new ArrayList();
 
 	GroupStudImportExportGUI(String classId, String className) {
 
@@ -239,10 +250,53 @@ public class GroupStudImportExportGUI extends javax.swing.JFrame implements java
 		cbGrpList.addActionListener(this);
 		add(cbGrpList);
 
+		// cbStudentList = new JComboBox();
+		// cbStudentList.setBounds(400, 460, 90, 30);
+		// // cbStudentList.addActionListener(this);
+		// add(cbStudentList);
+
+		v.add("Select Option");
 		cbStudentList = new JComboBox();
-		cbStudentList.setBounds(400, 460, 90, 30);
-		// cbStudentList.addActionListener(this);
+		cbStudentList.setBounds(400, 460, 130, 30);
+		cbStudentList.addItem(v);
+		cbStudentList.setRenderer(new Comborenderer());
+
+		// cbStudentList = new CustomComboCheck(v,listId);
+
 		add(cbStudentList);
+
+		cbStudentList.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent ae) {
+				// TODO Auto-generated method stub
+				ourItemSelected();
+
+			}
+
+			private void ourItemSelected() {
+				// TODO Auto-generated method stub
+
+				Object selected = cbStudentList.getSelectedItem();
+				if (selected instanceof JCheckBox) {
+
+					JCheckBox chk = (JCheckBox) selected;
+					chk.setSelected(!chk.isSelected());
+					repaint();
+
+					// Get and Dispaly Last selcted items
+					Object[] selection = chk.getSelectedObjects();
+					if (selection != null) {
+
+						for (Object lastItem : selection) {
+							//JOptionPane.showMessageDialog(null, lastItem.toString());
+							listId.add(lastItem.toString());
+						}
+					}
+				}
+
+			}
+
+		});
 
 		cbGrpExportList = new JComboBox(model);
 		cbGrpExportList.setBounds(400, 420, 90, 30);
@@ -494,15 +548,31 @@ public class GroupStudImportExportGUI extends javax.swing.JFrame implements java
 			Item item = (Item) cbGrpExportList.getSelectedItem();
 			int grpId = item.getId();
 			studList = studDAO.getAllStudents(grpId + "");
-			cbStudentList.removeAllItems();
-			if (!studList.isEmpty()){
-	            cbStudentList.addItem(new Item(0, "All"));
-	        }  
-			for (StudentBean bean : studList) {
-				cbStudentList.addItem(new Item(bean.getId(), bean.getStudFirstName() + " " + bean.getStudLastName()));
+
+			v.removeAllElements();
+			v.add("Select Option");
+			if (!studList.isEmpty()) {
+
+				v.add(new JCheckBox("ALL", false));
 			}
-			cbStudentList.setRenderer(new ItemRenderer());
+			for (StudentBean bean : studList) {
+				v.add(new JCheckBox(bean.getStudFirstName() + " " + bean.getStudLastName() + " - " + bean.getId(),
+						false));
+			}
+			cbStudentList.setModel(new DefaultComboBoxModel(v));
 			add(cbStudentList);
+
+			// cbStudentList.removeAllItems();
+			//
+			// if (!studList.isEmpty()){
+			// cbStudentList.addItem(new Item(0, "All"));
+			// }
+			// for (StudentBean bean : studList) {
+			// cbStudentList.addItem(new Item(bean.getId(),
+			// bean.getStudFirstName() + " " + bean.getStudLastName()));
+			// }
+			// cbStudentList.setRenderer(new ItemRenderer());
+			// add(cbStudentList);
 
 		}
 
@@ -521,106 +591,106 @@ public class GroupStudImportExportGUI extends javax.swing.JFrame implements java
 			new StudentGUI("", "");
 		}
 
-		//Export button 
-	    if (e.getSource() == btnExport) {
-	 
-	        if (txtExportFilePath.getText().length() <= 0) {
-	            JOptionPane.showMessageDialog(this, "Please Select Folder for File Save.");
-	        }else{
-	            System.out.println("Only perticular user");
-	            
-	            Item studItem = (Item)cbStudentList.getSelectedItem();
-	 
-	            int studentID = studItem.getId();
-	            if (studentID != 0){                
-	                
-	                try{
-	                    StudentBean studBean = studDAO.getStudentById(studentID);
-	                    
-	                    String csvFile = txtExportFilePath.getText()+"/ExportFile.csv";
-	                    FileWriter writer = new FileWriter(csvFile);
-	                    List<String> stud = new ArrayList<String>(); 
-	                    stud.add(" ");
-	                    stud.add("GROUP ID");
-	                    stud.add("FIRST NAME");
-	                    stud.add("LAST NAME");
-	                    stud.add("GRADE");
-	                    stud.add("DATE OF BIRTH");
-	                    stud.add("START DATE");
-	                    stud.add("TEACHER");
-	                    stud.add("AGE");
-	                    stud.add(",");
-	                    stud.add("\n");
-	                    stud.add(studBean.getGroupId()+"");
-	                    stud.add(studBean.getStudFirstName());
-	                    stud.add(studBean.getStudLastName());  
-	                    stud.add(studBean.getGrade()+"");
-	                    stud.add(studBean.getDob());
-	                    stud.add(studBean.getStDate()); 
-	                    stud.add(studBean.getTeacher());    
-	                    stud.add(studBean.getAge()+"");
+		// Export button
+		if (e.getSource() == btnExport) {
 
-	                    CSVUtils.writeLine(writer, stud);        
-	                    writer.flush();
-	                    writer.close();
-	                    JOptionPane.showMessageDialog(this,"File Created Successfully");
-	                    
-	                }catch(Exception ex){
-	                    ex.printStackTrace();
-	                }
-	            }else {
-	                
-	                System.out.println("Print all user data");
-	                try{
-	 
-	                    Item item = (Item)cbGrpExportList.getSelectedItem();
-	                    int grpId = item.getId();
-	                    studList = studDAO.getAllStudents(grpId+"");
-	 
-	                    
-	                    String csvFile = txtExportFilePath.getText()+"/ExportFile.csv";
-	                    FileWriter writer = new FileWriter(csvFile);
-	                    List<String> stud = new ArrayList<String>(); 
-	                    
-	                    stud.add(" ");
-	                    stud.add("GROUP ID");
-	                    stud.add("FIRST NAME");
-	                    stud.add("LAST NAME");
-	                    stud.add("GRADE");
-	                    stud.add("DATE OF BIRTH");
-	                    stud.add("START DATE");
-	                    stud.add("TEACHER");
-	                    stud.add("AGE");
-	                    stud.add(",");
-	                    stud.add("\n");
-	                    for (StudentBean bean: studList) {
-	                        
-	                        stud.add(bean.getGroupId()+"");
-	                        stud.add(bean.getStudFirstName());
-	                        stud.add(bean.getStudLastName());  
-	                        stud.add(bean.getGrade()+"");
-	                        stud.add(bean.getDob());
-	                        stud.add(bean.getStDate()); 
-	                        stud.add(bean.getTeacher());
-	                        stud.add(bean.getAge());
-	                        stud.add("\n"); 
-	                        
-	                    }
-	                    CSVUtils.writeLine(writer, stud);        
-	                    writer.flush();
-	                    writer.close();
-	                    JOptionPane.showMessageDialog(this,"File Created Successfully");
-	                    
-	                }catch(Exception ex){
-	                    ex.printStackTrace();
-	                }
-	            }
+			if (txtExportFilePath.getText().length() <= 0) {
+				JOptionPane.showMessageDialog(this, "Please Select Folder for File Save.");
+			} else {
 
-	        }       
-	    
-	    }		
-		
-	
+				try {
+
+					// System.out.println("Only perticular user");
+					ArrayList id = new ArrayList();
+					for (Object str : listId) {
+						System.out.println(str.toString());
+						if (!str.toString().equalsIgnoreCase("ALL")) {
+							String temp[] = str.toString().split("-");
+							id.add(temp[1].trim());
+
+						} else {
+							id.add("0");
+							break;
+						}
+
+					}
+
+					String csvFile = txtExportFilePath.getText() + "/ExportFile.csv";
+					FileWriter writer = null;
+
+					writer = new FileWriter(csvFile);
+
+					List<String> stud = new ArrayList<String>();
+					stud.add(" ");
+					stud.add("GROUP ID");
+					stud.add("FIRST NAME");
+					stud.add("LAST NAME");
+					stud.add("GRADE");
+					stud.add("DATE OF BIRTH");
+					stud.add("START DATE");
+					stud.add("TEACHER");
+					stud.add("AGE");
+					stud.add(",");
+					stud.add("\n");
+
+					boolean flag = false;
+					for (int i = 0; i < id.size(); i++) {
+						if (Integer.parseInt(id.get(i).toString()) == 0) {
+							flag = true;
+							break;
+						}
+					}
+
+					if (!flag) {
+
+						for (int i = 0; i < id.size(); i++) {
+
+							// JOptionPane.showMessageDialog(this, id.get(i));
+							int studentID = Integer.parseInt(id.get(i).toString());
+							if (studentID != 0) {
+
+								StudentBean studBean = studDAO.getStudentById(studentID);
+								stud.add(studBean.getGroupId() + "");
+								stud.add(studBean.getStudFirstName());
+								stud.add(studBean.getStudLastName());
+								stud.add(studBean.getGrade() + "");
+								stud.add(studBean.getDob());
+								stud.add(studBean.getStDate());
+								stud.add(studBean.getTeacher());
+								stud.add(studBean.getAge() + "");
+								stud.add("\n");
+
+							}
+						}
+					} else {
+						Item item = (Item) cbGrpExportList.getSelectedItem();
+						int grpId = item.getId();
+						studList = studDAO.getAllStudents(grpId + "");
+						for (StudentBean bean : studList) {
+
+							stud.add(bean.getGroupId() + "");
+							stud.add(bean.getStudFirstName());
+							stud.add(bean.getStudLastName());
+							stud.add(bean.getGrade() + "");
+							stud.add(bean.getDob());
+							stud.add(bean.getStDate());
+							stud.add(bean.getTeacher());
+							stud.add(bean.getAge());
+							stud.add("\n");
+						}
+					}
+					CSVUtils.writeLine(writer, stud);
+					writer.flush();
+					writer.close();
+					JOptionPane.showMessageDialog(this, "File Created Successfully");
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+
+			}
+
+		}
 
 	}
 
@@ -628,4 +698,5 @@ public class GroupStudImportExportGUI extends javax.swing.JFrame implements java
 	 * public static void main(String[] args) { //new
 	 * GroupStudImportExportGUI(); }
 	 */
+
 }

@@ -26,6 +26,7 @@ import java.util.regex.Pattern;
 import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -544,3 +545,27 @@ class Item
         return description;
     }
 }
+
+class ItemJCheckBox
+{
+    private int id;
+    private JCheckBox jcheckbox;
+
+   
+    public ItemJCheckBox(int id, JCheckBox jcheckbox)
+    {
+        this.id = id;
+        this.jcheckbox = jcheckbox;
+    }
+
+    public JCheckBox getJcheckbox() {
+		return jcheckbox;
+	}
+
+	public int getId()
+    {
+        return id;
+    }
+    
+}
+
