@@ -85,7 +85,7 @@ public class DecodePlotGraphGUI extends JFrame implements ActionListener,Printab
 			add(lblTeacher);
 			
 			
-			lblCurrentDate = new JLabel("Curren Date  :  "+new Date()+"");
+			lblCurrentDate = new JLabel("Current Date  :  "+new Date()+"");
 			lblCurrentDate.setBounds(650,45,300,40); 
 			lblCurrentDate.setForeground(Color.white);
 			lblCurrentDate.setFont(f1);
