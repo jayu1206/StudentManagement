@@ -40,7 +40,7 @@ public class welcomeGUI extends JFrame implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	JMenu menu;
 	JMenuItem group,students,report;
-	JButton btnMgroup,btnMstudents,btnMreport,btnMImportExport,btnMLogout;
+	JButton btnMgroup,btnMstudents,btnMreport,btnMImportExport,btnMLogout,btnMmyProfile;
 	
 	welcomeGUI() {
 		// TODO Auto-generated constructor stub
@@ -109,6 +109,14 @@ public class welcomeGUI extends JFrame implements ActionListener {
 		mb.setOpaque(true);
 		mb.add(Box.createRigidArea(new Dimension(10,40)));
 
+		
+		btnMmyProfile = new JButton("My Profile");
+		btnMmyProfile.addActionListener(this);
+		btnMmyProfile.setBackground(new Color(135,206,250));
+		btnMmyProfile.setBorderPainted(false);
+		mb.add(btnMmyProfile); 
+		
+		
         btnMgroup = new JButton("Groups");
 		btnMgroup.addActionListener(this);
 		btnMgroup.setBackground(new Color(135,206,250));
@@ -220,6 +228,10 @@ public class welcomeGUI extends JFrame implements ActionListener {
 		if(e.getSource()==btnMImportExport){
 			setVisible(false);
 			new GroupStudImportExportGUI("", "");
+		}
+		if(e.getSource() == btnMmyProfile){
+			this.setVisible(false);
+			new MyProfileGUI();
 		}
 		
 	}

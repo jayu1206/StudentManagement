@@ -58,7 +58,7 @@ public class GroupGUI extends JFrame implements ActionListener{
 	DefaultTableModel model ;
 	JTable jt;
 	JButton btnSubmit,btnDelete,btnImportExport,btnBack,btnExit;
-	JButton  btnMgroup,btnMstudents,btnMreport,btnMImportExport,btnMLogout;
+	JButton  btnMgroup,btnMstudents,btnMreport,btnMImportExport,btnMLogout,btnMmyProfile;
 	JMenuItem group,students,report;
 	JMenu menu;
 
@@ -71,6 +71,14 @@ public class GroupGUI extends JFrame implements ActionListener{
 		JMenuBar mb=new JMenuBar();
 		mb.setBackground(new Color(135,206,250));
 		mb.add(Box.createRigidArea(new Dimension(10,40)));
+		
+		btnMmyProfile = new JButton("My Profile");
+		btnMmyProfile.addActionListener(this);
+		btnMmyProfile.setBackground(new Color(135,206,250));
+		btnMmyProfile.setBorderPainted(false);
+		mb.add(btnMmyProfile); 
+		
+        setJMenuBar(mb);
 		
         btnMgroup = new JButton("Groups");
 		btnMgroup.addActionListener(this);
@@ -358,6 +366,11 @@ public class GroupGUI extends JFrame implements ActionListener{
 			System.exit(0);
 			
 		}
+		if(e.getSource() == btnMmyProfile){
+			this.setVisible(false);
+			new MyProfileGUI();
+		}
+		
 		if(e.getSource()==btnDelete){
 			DefaultTableModel dtm = (DefaultTableModel) jt.getModel();  
             int selRow = jt.getSelectedRow();

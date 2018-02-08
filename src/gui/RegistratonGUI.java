@@ -1,6 +1,5 @@
 package gui;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import manegement.RegistrationOpr;
@@ -9,8 +8,6 @@ import bean.adminBean;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.beans.Visibility;
-import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

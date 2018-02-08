@@ -61,7 +61,7 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 	JButton btnMgroup;
 	JButton btnMstudents;
 	JButton btnMreport;
-	JButton btnMImportExport, btnMLogout;
+	JButton btnMImportExport, btnMLogout,btnMmyProfile;
 	JButton btnImport;
 	JButton btnExport;
 	JMenuItem group;
@@ -125,6 +125,13 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 		mb.setBackground(new Color(135, 206, 250));
 		mb.add(Box.createRigidArea(new Dimension(10, 40)));
 
+		btnMmyProfile = new JButton("My Profile");
+		btnMmyProfile.addActionListener(this);
+		btnMmyProfile.setBackground(new Color(135,206,250));
+		btnMmyProfile.setBorderPainted(false);
+		mb.add(btnMmyProfile); 
+		
+		
 		btnMgroup = new JButton("Groups");
 		btnMgroup.addActionListener(this);
 		btnMgroup.setBackground(new Color(135, 206, 250));
@@ -591,6 +598,11 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 			new StudentGUI("", "");
 		}
 
+		if(e.getSource() == btnMmyProfile){
+			this.setVisible(false);
+			new MyProfileGUI();
+		}
+		
 		// Export button
 		if (e.getSource() == btnExport) {
 

@@ -69,6 +69,9 @@ public class LoginOpr extends LoginDAO {
 		    	  bean=new adminBean();
 		    	  bean.setFirstName(rs.getString("firstname"));
 		    	  bean.setLastName(rs.getString("lastname"));
+		    	  bean.setUserID(rs.getString("userid"));
+		    	  bean.setId(rs.getInt("id"));
+		    	  bean.setEmail(rs.getString("email"));
 		    	  
 		       }
 		}catch(Exception e){

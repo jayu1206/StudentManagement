@@ -23,6 +23,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
+
 import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -63,7 +64,7 @@ public class StudentAddGui extends JFrame implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	
 	
-	JButton  btnMgroup,btnMstudents,btnMreport,btnMImportExport,btnMLogout;
+	JButton  btnMgroup,btnMstudents,btnMreport,btnMImportExport,btnMLogout,btnMmyProfile;
 	JButton btnSubmit;
 	JMenuItem group,students,report;
 	JMenu menu;
@@ -88,6 +89,14 @@ public class StudentAddGui extends JFrame implements ActionListener {
 		mb.setBackground(new Color(135,206,250));
 		mb.add(Box.createRigidArea(new Dimension(10,40)));
 
+		
+		btnMmyProfile = new JButton("My Profile");
+		btnMmyProfile.addActionListener(this);
+		btnMmyProfile.setBackground(new Color(135,206,250));
+		btnMmyProfile.setBorderPainted(false);
+		mb.add(btnMmyProfile); 
+		
+		
         btnMgroup = new JButton("Groups");
 		btnMgroup.addActionListener(this);
 		btnMgroup.setBackground(new Color(135,206,250));
@@ -475,6 +484,11 @@ public class StudentAddGui extends JFrame implements ActionListener {
 			new GroupGUI();
 			
 			
+		}
+		
+		if(e.getSource() == btnMmyProfile){
+			this.setVisible(false);
+			new MyProfileGUI();
 		}
 		
 		

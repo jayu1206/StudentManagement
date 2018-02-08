@@ -100,4 +100,51 @@ public class RegistrationOpr extends RegistrationDAO{
 		return flag;
 	}
 
+	@Override
+	public boolean updateNewPassword(adminBean bean) {
+		// TODO Auto-generated method stub
+		Connection conn=null;
+		PreparedStatement statement=null;
+		boolean flag=false;
+		try{
+			connection =  new ConnectionOpr();
+			 conn=connection.getConnection();
+			
+			//STEP 4: Execute a query
+		      
+		      String sql = "UPDATE admin SET password=? WHERE id=?";
+		      
+		      statement = conn.prepareStatement(sql);
+		     
+		      statement.setString(1, bean.getPsw());
+		      statement.setInt(2, bean.getId());
+		      
+		      statement.execute();
+		      
+		      flag=true;
+		     
+			 
+		 }catch(Exception e){
+			 flag=false;
+			 e.printStackTrace();
+			 
+		 }finally{
+				//STEP 6: Clean-up environment
+		      try {
+		    	  statement.close();
+			     conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				 flag=false;
+				e.printStackTrace();
+			}
+		      
+			 
+		 }
+		
+		
+		
+		return flag;
+	}
+
 }

@@ -45,6 +45,7 @@ import javax.swing.border.EmptyBorder;
 
 
 
+
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
@@ -68,7 +69,7 @@ public class AddGroupGUI extends JFrame implements ActionListener{
 	JTextField txtClass,txtStartDate;
 	JButton btnSubmit,btnDT;
 	JPasswordField txtPsw;
-	JButton  btnMgroup,btnMstudents,btnMreport,btnMImportExport,btnMLogout;
+	JButton  btnMgroup,btnMstudents,btnMreport,btnMImportExport,btnMLogout,btnMmyProfile;
 	JMenuItem group,students,report;
 	JMenu menu;
 	JDatePickerImpl datePicker ;
@@ -83,6 +84,12 @@ public class AddGroupGUI extends JFrame implements ActionListener{
 		mb.setBackground(new Color(135,206,250));
 		mb.add(Box.createRigidArea(new Dimension(10,40)));
 
+		btnMmyProfile = new JButton("My Profile");
+		btnMmyProfile.addActionListener(this);
+		btnMmyProfile.setBackground(new Color(135,206,250));
+		btnMmyProfile.setBorderPainted(false);
+		mb.add(btnMmyProfile); 
+		
         btnMgroup = new JButton("Groups");
 		btnMgroup.addActionListener(this);
 		btnMgroup.setBackground(new Color(135,206,250));
@@ -301,6 +308,10 @@ public class AddGroupGUI extends JFrame implements ActionListener{
 			}
 		}
 		
+		if(e.getSource() == btnMmyProfile){
+			this.setVisible(false);
+			new MyProfileGUI();
+		}
 		
 	}
 	
