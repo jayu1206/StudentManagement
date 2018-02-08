@@ -289,7 +289,7 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 					JCheckBox chk = (JCheckBox) selected;
 					chk.setSelected(!chk.isSelected());
 					repaint();
-
+					
 					// Get and Dispaly Last selcted items
 					Object[] selection = chk.getSelectedObjects();
 					if (selection != null) {
@@ -297,7 +297,14 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 						for (Object lastItem : selection) {
 							//JOptionPane.showMessageDialog(null, lastItem.toString());
 							listId.add(lastItem.toString());
+							System.out.println(lastItem.toString());
 						}
+					}else{
+						//String str[]= chk.getText().split("-");
+						//int temp
+						listId.remove(chk.getText());
+						System.out.println(chk.getText());
+						
 					}
 				}
 
