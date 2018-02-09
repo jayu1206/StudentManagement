@@ -114,8 +114,9 @@ public class welcomeGUI extends JFrame implements ActionListener {
 		btnMmyProfile.addActionListener(this);
 		btnMmyProfile.setBackground(new Color(135,206,250));
 		btnMmyProfile.setBorderPainted(false);
+		btnMmyProfile.setOpaque(true);
 		mb.add(btnMmyProfile); 
-		
+		setJMenuBar(mb);
 		
         btnMgroup = new JButton("Groups");
 		btnMgroup.addActionListener(this);

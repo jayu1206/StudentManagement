@@ -340,7 +340,7 @@ public class GroupGUI extends JFrame implements ActionListener{
 		if(e.getSource()==btnMLogout){
 			System.exit(0);
 		}
-		if(e.getSource()==btnMImportExport){
+		if(e.getSource()==btnMImportExport || e.getSource()==btnImportExport){
 			setVisible(false);
 			new GroupStudImportExportGUI("", "");
 		}
