@@ -153,7 +153,7 @@ public class DecodePlotGUI extends JFrame implements ActionListener{
 					bG.add(allRadio);
 			        bG.add(weekRadio);
 			        allRadio.setSelected(true);
-			        weekRadio.setSelected(true);
+			      //  weekRadio.setSelected(true);
 			        
 			        allRadio.setBounds(250,250,150,40); 
 			        allRadio.setBackground(Color.black);
@@ -203,6 +203,7 @@ public class DecodePlotGUI extends JFrame implements ActionListener{
 					indiStudDataRadio.setBackground(Color.black);
 					indiStudDataRadio.setForeground(Color.white);
 					indiStudDataRadio.setFont(f2);
+					indiStudDataRadio.setSelected(true);
 					add(indiStudDataRadio);
 					
 					studDataClsAvgRadio.setBounds(250,510,300,40); 

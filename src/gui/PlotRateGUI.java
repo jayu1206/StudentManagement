@@ -153,7 +153,7 @@ public class PlotRateGUI extends JFrame implements ActionListener{
 					bG.add(allRadio);
 			        bG.add(weekRadio);
 			        allRadio.setSelected(true);
-			        weekRadio.setSelected(true);
+			       // weekRadio.setSelected(true);
 			        
 			        allRadio.setBounds(250,250,150,40); 
 			        allRadio.setBackground(Color.black);

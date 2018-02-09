@@ -224,8 +224,8 @@ public class legalGUI  extends JFrame implements ActionListener {
 	}
 
 	public static void main(String args[]){  
-		new legalGUI();
-		//new GroupGUI();
+	//	new legalGUI();
+		new GroupGUI();
 //		ProcessExe objExe=new ProcessExe();
 //		objExe.checkMySqlSystem(0);
 		

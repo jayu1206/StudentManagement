@@ -238,7 +238,7 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 
 		GroupDAO dao = new GroupOpr();
 		list = dao.getAllGroups();
-
+		model.addElement(new Item(0, "Select Group"));
 		for (bean.GroupBean bean : list) {
 			model.addElement(new Item(bean.getGroupID(), bean.getGroupName()));
 		}
@@ -609,6 +609,13 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 			this.setVisible(false);
 			new MyProfileGUI();
 		}
+		
+		if(e.getSource() == btnBack){
+			this.setVisible(false);
+			new welcomeGUI();
+		}
+		
+		
 		
 		// Export button
 		if (e.getSource() == btnExport) {
