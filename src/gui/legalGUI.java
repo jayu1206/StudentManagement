@@ -193,9 +193,9 @@ public class legalGUI  extends JFrame implements ActionListener {
 						new RegistratonGUI();
 					}
 				}catch(Exception ee){
-					setVisible(false);
-		    		      System.out.println("Call to GUI for ask DB User name and Password");      
-		    		      new CheckUsernamePassGUI("");
+					//setVisible(false);
+		    		   //   System.out.println("Call to GUI for ask DB User name and Password");      
+		    		    //  new CheckUsernamePassGUI("");
 		    		
 				}
 				
@@ -225,10 +225,10 @@ public class legalGUI  extends JFrame implements ActionListener {
 
 	public static void main(String args[]){  
 	//	new legalGUI();
-		new GroupGUI();
-//		ProcessExe objExe=new ProcessExe();
-//		objExe.checkMySqlSystem(0);
-		
+	//	new GroupGUI();
+		ProcessExe objExe=new ProcessExe();
+		objExe.checkMySqlSystem(0);
+	
 	}
 
 	

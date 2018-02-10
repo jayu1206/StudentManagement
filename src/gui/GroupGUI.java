@@ -75,6 +75,7 @@ public class GroupGUI extends JFrame implements ActionListener{
 		btnMmyProfile = new JButton("My Profile");
 		btnMmyProfile.addActionListener(this);
 		btnMmyProfile.setBackground(new Color(135,206,250));
+		btnMmyProfile.setBorder(null);
 		btnMmyProfile.setBorderPainted(false);
 		mb.add(btnMmyProfile); 
 		
