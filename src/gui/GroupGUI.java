@@ -35,14 +35,18 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.JToolBar;
 import javax.swing.ListSelectionModel;
+import javax.swing.RowFilter;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.MouseInputListener;
 import javax.swing.plaf.basic.BasicTableUI;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 import bean.GroupBean;
 import manegement.GroupOpr;
@@ -225,21 +229,56 @@ public class GroupGUI extends JFrame implements ActionListener{
 		        */
 		        JTableHeader header= jt.getTableHeader();
 			       header.setBackground(Color.yellow);
+			       
+			       
+			       final TableRowSorter<TableModel> sorter;
+			       sorter = new TableRowSorter<TableModel>(model);
+			       jt.setRowSorter(sorter);
+			       
 		         JScrollPane scroller = new JScrollPane(jt, 
 		                 JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED); 
 		  
 		         add(scroller, BorderLayout.CENTER); 
 		         pack();
 
-		         
-		        heading_lbl=new JLabel();
-				heading_lbl.setBounds(300,360,500,120);
-				heading_lbl.setText("<html><font color=red size=5><u><b>Select Group to display list or edit student List</b></u></html>");	
+				
+				 JPanel pnl = new JPanel();
+				 pnl.setBackground(Color.WHITE);
+				 pnl.setFont(new Font("Britannic Bold", Font.PLAIN, 15));
+				    pnl.add(new JLabel("Filter : "));
+				    final JTextField txtFE = new JTextField(20);
+				    pnl.add(txtFE);
+				    JButton btnSetFE = new JButton("Set Filter");
+				    ActionListener al;
+				    al = new ActionListener() {
+				      public void actionPerformed(ActionEvent e) {
+				        String expr = txtFE.getText();
+				        sorter.setRowFilter(RowFilter.regexFilter(expr));
+				        sorter.setSortKeys(null);
+				        
+				        
+				      }
+				    };
+				    btnSetFE.addActionListener(al);
+				   // btnSetFE.setBackground(Color.WHITE);
+				    btnSetFE.setOpaque(true);
+				    btnSetFE.setBorderPainted(false);
+				    btnSetFE.setFont(new Font("Britannic Bold", Font.PLAIN, 15));
+				    pnl.add(btnSetFE);
+				    pnl.setBounds(240,400,502,45);
+				    add(pnl);
+				
+				
+				    
+				       heading_lbl=new JLabel();
+						heading_lbl.setBounds(300,400,500,120);
+						heading_lbl.setText("<html><font color=red size=5><u><b>Select Group to display list or edit student List</b></u></html>");	
 
-				// applying font on  heading Label
-				heading_lbl.setFont(f);
-				add(heading_lbl);
-		        
+						// applying font on  heading Label
+						heading_lbl.setFont(f);
+						add(heading_lbl);
+				       
+				
 		        
 		        Image img;
 		         btnSubmit = new JButton("Add New Group");
@@ -374,7 +413,8 @@ public class GroupGUI extends JFrame implements ActionListener{
 		
 		if(e.getSource()==btnDelete){
 			DefaultTableModel dtm = (DefaultTableModel) jt.getModel();  
-            int selRow = jt.getSelectedRow();
+            int selRow =  jt.getSelectedRow();
+            int modelRow = jt.convertRowIndexToModel(selRow);
            // int selCol = jt.getSelectedColumn();
 			if(selRow<0){
 				JOptionPane.showMessageDialog(this,"Please select Group");
@@ -387,11 +427,13 @@ public class GroupGUI extends JFrame implements ActionListener{
                         "Confirm Delete",
                         JOptionPane.YES_NO_OPTION);
 				 if (n == JOptionPane.YES_OPTION) {
-					   String value = jt.getModel().getValueAt(selRow, 0).toString();
+					 
+					   String value = jt.getModel().getValueAt(modelRow, 0).toString();
+					   //String value2 = jt.getModel().getValueAt(modelRow, 0).toString();
 					   dao=new GroupOpr();
 					   boolean flag= dao.deleteGroups(value);
 					   if(flag){
-						   dtm.removeRow(selRow); 
+						   dtm.removeRow(modelRow); 
 					   }else{
 						   JOptionPane.showMessageDialog(this,"Failed! Please try again..");
 					   }
@@ -406,9 +448,9 @@ public class GroupGUI extends JFrame implements ActionListener{
 		
 	}
 	
-/*public static void main(String args[]){
+public static void main(String args[]){
 		
 		new GroupGUI();
-	}*/
+	}
 
 }
