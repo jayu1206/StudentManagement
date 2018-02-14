@@ -19,6 +19,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -245,10 +246,10 @@ public class GroupGUI extends JFrame implements ActionListener{
 				 JPanel pnl = new JPanel();
 				 pnl.setBackground(Color.WHITE);
 				 pnl.setFont(new Font("Britannic Bold", Font.PLAIN, 15));
-				    pnl.add(new JLabel("Filter : "));
+				    pnl.add(new JLabel("Search : "));
 				    final JTextField txtFE = new JTextField(20);
 				    pnl.add(txtFE);
-				    JButton btnSetFE = new JButton("Set Filter");
+				    JButton btnSetFE = new JButton("Submit");
 				    ActionListener al;
 				    al = new ActionListener() {
 				      public void actionPerformed(ActionEvent e) {

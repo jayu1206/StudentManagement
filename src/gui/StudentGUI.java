@@ -243,10 +243,10 @@ public class StudentGUI extends JFrame implements ActionListener {
 			         JPanel pnl = new JPanel();
 					 pnl.setBackground(Color.WHITE);
 					 pnl.setFont(new Font("Britannic Bold", Font.PLAIN, 15));
-					    pnl.add(new JLabel("Filter : "));
+					    pnl.add(new JLabel("Search : "));
 					    final JTextField txtFE = new JTextField(20);
 					    pnl.add(txtFE);
-					    JButton btnSetFE = new JButton("Set Filter");
+					    JButton btnSetFE = new JButton("Submit");
 					    ActionListener al;
 					    al = new ActionListener() {
 					      public void actionPerformed(ActionEvent e) {

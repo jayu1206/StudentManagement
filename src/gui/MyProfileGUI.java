@@ -129,8 +129,17 @@ public class MyProfileGUI extends JFrame implements ActionListener{
 						txtUserId.setEditable(false);
 						add(txtUserId);
 						
+						
+						//bG.add(changePsw);
+						changePsw.setBounds(300, 400, 350, 40);
+						changePsw.setBackground(Color.black);
+						changePsw.setForeground(Color.white);
+						changePsw.setFont(f1);
+						changePsw.addActionListener(this);
+						add(changePsw);
+						
 						lblPsw=new JLabel("New Password : ");
-						lblPsw.setBounds(250,380,150,30);
+						lblPsw.setBounds(250,460,200,30);
 						lblPsw.setForeground(Color.white);
 						lblPsw.setFont(f1);
 						add(lblPsw);
@@ -138,17 +147,9 @@ public class MyProfileGUI extends JFrame implements ActionListener{
 						// Creating JTextField for Father's name
 						txtPsw=new JPasswordField();
 						txtPsw.setEditable(false);
-						txtPsw.setBounds(500,380,180,30);
+						txtPsw.setBounds(500,460,180,30);
 						add(txtPsw);
 						
-						
-						//bG.add(changePsw);
-						changePsw.setBounds(300, 460, 350, 40);
-						changePsw.setBackground(Color.black);
-						changePsw.setForeground(Color.white);
-						changePsw.setFont(f1);
-						changePsw.addActionListener(this);
-						add(changePsw);
 						
 						/*lblPhno=new JLabel("Phone No : ");
 						lblPhno.setBounds(50,240,150,30);
