@@ -36,9 +36,16 @@ import org.jfree.chart.axis.NumberTickUnit;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
+import org.jfree.data.function.LineFunction2D;
+import org.jfree.data.general.DatasetUtilities;
+import org.jfree.data.statistics.Regression;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
+
+
+
+
 
 
 import bean.StudentBean;
@@ -56,13 +63,16 @@ public class DecodePlotGraphGUI extends JFrame implements ActionListener,Printab
 	JLabel lblStudent,lblTeacher,lblCurrentDate;
 	JButton btnBack,btnPrint;
 	StudentBean bean=new StudentBean();
+	String graphType = "";
 	
 	
-	DecodePlotGraphGUI(StudentBean bean, String classId, String className){
+	DecodePlotGraphGUI(StudentBean bean, String classId, String className, String str){
 		
 		this.classId=classId;
 		this.className=className;
 		this.bean=bean;
+		graphType = str;
+		
 		
 		setLayout(new BorderLayout());
 		setContentPane(new JLabel(new ImageIcon(this.getClass().getResource("/image/black-back-ground.jpg"))));
@@ -100,6 +110,25 @@ public class DecodePlotGraphGUI extends JFrame implements ActionListener,Printab
 			 //setContentPane(p1); //add(p1);
 			 final XYDataset dataset = createDataset(bean);
 		     final JFreeChart chart = createChart(dataset);
+		     drawRegressionLine(chart,dataset);
+				
+		     // If we have an input parameter, predict the price and draw the new point
+				/*if (args.length >= 1 && args[0] != null) {
+					// Estimate the linear function given the input data
+					double regressionParameters[] = Regression.getOLSRegression(
+							dataset, 0);
+					double x = Double.parseDouble(args[0]);
+
+					// Prepare a line function using the found parameters
+					LineFunction2D linefunction2d = new LineFunction2D(
+							regressionParameters[0], regressionParameters[1]);
+					// This is the estimated price
+					double y = linefunction2d.getValue(x);
+
+					drawInputPoint(x, y);
+				}
+		     
+		     */
 		     final ChartPanel chartPanel = new ChartPanel(chart);
 		     chartPanel.setPreferredSize(new java.awt.Dimension(800, 550));
 		     p1.add(chartPanel);
@@ -188,6 +217,31 @@ public class DecodePlotGraphGUI extends JFrame implements ActionListener,Printab
 		
 	}
 	
+	private void drawRegressionLine(JFreeChart chart, XYDataset inputData) {
+		// Get the parameters 'a' and 'b' for an equation y = a + b * x,
+		// fitted to the inputData using ordinary least squares regression.
+		// a - regressionParameters[0], b - regressionParameters[1]
+		double regressionParameters[] = Regression.getOLSRegression(inputData,
+				0);
+
+		// Prepare a line function using the found parameters
+		LineFunction2D linefunction2d = new LineFunction2D(
+				regressionParameters[0], regressionParameters[1]);
+
+		// Creates a dataset by taking sample values from the line function
+		XYDataset dataset = DatasetUtilities.sampleFunction2D(linefunction2d,
+				0D, 30, 2, "Plotted Dates : - through - ");
+
+		// Draw the line dataset
+		XYPlot xyplot = chart.getXYPlot();
+		xyplot.setDataset(1, dataset);
+		XYLineAndShapeRenderer xylineandshaperenderer = new XYLineAndShapeRenderer(
+				true, false);
+        
+		xylineandshaperenderer.setSeriesPaint(3, Color.YELLOW);
+		xyplot.setRenderer(1, xylineandshaperenderer);
+	}
+	
 	
 private XYDataset createDataset(StudentBean bean) {
         
@@ -198,6 +252,7 @@ private XYDataset createDataset(StudentBean bean) {
         	
         		series1.add(deco.getWeek(), deco.getScore());
         }
+        
         
         
           
@@ -274,10 +329,10 @@ private XYDataset createDataset(StudentBean bean) {
         
     }
 	
-	public static void main(String args[]){
-		new DecodePlotGraphGUI(null,"", "");
+	/*public static void main(String args[]){
+		new DecodePlotGraphGUI(null,"", "","");
 		
-	}
+	}*/
 
 
 	@Override
