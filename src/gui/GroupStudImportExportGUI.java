@@ -48,6 +48,8 @@ import abstrac.GroupDAO;
 import abstrac.StudentDAO;
 import bean.GroupBean;
 import bean.StudentBean;
+import bean.StudentDecoding;
+import bean.StudentRate;
 import manegement.GroupOpr;
 import manegement.StudentOpr;
 import process.CSVUtils;
@@ -642,69 +644,177 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 
 					}
 
+					
+					
 					String csvFile = txtExportFilePath.getText() + "/ExportFile.csv";
 					FileWriter writer = null;
 
 					writer = new FileWriter(csvFile);
-
 					List<String> stud = new ArrayList<String>();
-					stud.add(" ");
-					stud.add("GROUP ID");
-					stud.add("FIRST NAME");
-					stud.add("LAST NAME");
-					stud.add("GRADE");
-					stud.add("DATE OF BIRTH");
-					stud.add("START DATE");
-					stud.add("TEACHER");
-					stud.add("AGE");
-					stud.add(",");
-					stud.add("\n");
-
-					boolean flag = false;
-					for (int i = 0; i < id.size(); i++) {
-						if (Integer.parseInt(id.get(i).toString()) == 0) {
-							flag = true;
-							break;
-						}
-					}
-
-					if (!flag) {
-
-						for (int i = 0; i < id.size(); i++) {
-
-							// JOptionPane.showMessageDialog(this, id.get(i));
-							int studentID = Integer.parseInt(id.get(i).toString());
-							if (studentID != 0) {
-
-								StudentBean studBean = studDAO.getStudentById(studentID);
-								stud.add(studBean.getGroupId() + "");
-								stud.add(studBean.getStudFirstName());
-								stud.add(studBean.getStudLastName());
-								stud.add(studBean.getGrade() + "");
-								stud.add(studBean.getDob());
-								stud.add(studBean.getStDate());
-								stud.add(studBean.getTeacher());
-								stud.add(studBean.getAge() + "");
-								stud.add("\n");
-
-							}
-						}
-					} else {
+					
+					if(listId.size()==0){
+						stud.add(" ");
+						stud.add("Group Name");
+						stud.add("Start Date");
+						stud.add(",");
+						stud.add("\n");
+						
 						Item item = (Item) cbGrpExportList.getSelectedItem();
 						int grpId = item.getId();
-						studList = studDAO.getAllStudents(grpId + "");
-						for (StudentBean bean : studList) {
-
-							stud.add(bean.getGroupId() + "");
-							stud.add(bean.getStudFirstName());
-							stud.add(bean.getStudLastName());
-							stud.add(bean.getGrade() + "");
-							stud.add(bean.getDob());
-							stud.add(bean.getStDate());
-							stud.add(bean.getTeacher());
-							stud.add(bean.getAge());
+						GroupDAO dao=new GroupOpr();
+						
+						 GroupBean bean =  dao.getGroup(grpId);
+							stud.add(bean.getGroupName());
+							stud.add(bean.getStartDate());
 							stud.add("\n");
-						}
+						
+					}else{
+								
+								
+								
+								stud.add(" ");
+								stud.add("GROUP ID");
+								stud.add("FIRST NAME");
+								stud.add("LAST NAME");
+								stud.add("GRADE");
+								stud.add("DATE OF BIRTH");
+								stud.add("START DATE");
+								stud.add("TEACHER");
+								stud.add("AGE");
+								stud.add(",");
+								stud.add("\n");
+			
+								boolean flag = false;
+								for (int i = 0; i < id.size(); i++) {
+									if (Integer.parseInt(id.get(i).toString()) == 0) {
+										flag = true;
+										break;
+									}
+								}
+			
+								if (!flag) {
+			
+									for (int i = 0; i < id.size(); i++) {
+			
+										// JOptionPane.showMessageDialog(this, id.get(i));
+										int studentID = Integer.parseInt(id.get(i).toString());
+										if (studentID != 0) {
+			
+											StudentBean studBean = studDAO.getStudentById(studentID);
+											stud.add(studBean.getGroupId() + "");
+											stud.add(studBean.getStudFirstName());
+											stud.add(studBean.getStudLastName());
+											stud.add(studBean.getGrade() + "");
+											stud.add(studBean.getDob());
+											stud.add(studBean.getStDate());
+											stud.add(studBean.getTeacher());
+											stud.add(studBean.getAge() + "");
+											stud.add("\n");
+											stud.add(" ");stud.add(" ");stud.add(" ");
+											stud.add(" Decoding Data");
+											stud.add("\n");
+											stud.add("Week");
+											stud.add("Date");
+											stud.add("Book");
+											stud.add("Lesson");
+											stud.add("Form");
+											stud.add("Score");
+											stud.add("\n");
+											for(StudentDecoding decode :  studBean.getListDecoding()){
+												stud.add(decode.getWeek()+"");
+												stud.add(decode.getDate()+"");
+												stud.add(decode.getBook()+"");
+												stud.add(decode.getLesson()+"");
+												stud.add(decode.getForm()+"");
+												stud.add(decode.getScore()+"");
+												stud.add("\n");
+											}
+											stud.add("\n");
+											stud.add(" ");stud.add(" ");stud.add(" ");
+											stud.add(" Rate Data");
+											stud.add("\n");
+											stud.add("Date");
+											stud.add("Text");
+											stud.add("Time");
+											stud.add("CWPM");
+											stud.add("Errors");
+											stud.add("Week");
+											stud.add("\n");
+											
+											for(StudentRate rate :  studBean.getListRate()){
+												stud.add(rate.getDate()+"");
+												stud.add(rate.getText()+"");
+												stud.add(rate.getTime()+"");
+												stud.add(rate.getCwpm()+"");
+												stud.add(rate.getErrors()+"");
+												stud.add(rate.getWeek()+"");
+												stud.add("\n");
+											}
+											
+											
+			
+										}
+									}
+								} else {
+									Item item = (Item) cbGrpExportList.getSelectedItem();
+									int grpId = item.getId();
+									studList = studDAO.getAllStudents(grpId + "");
+									for (StudentBean bean : studList) {
+			
+										stud.add(bean.getGroupId() + "");
+										stud.add(bean.getStudFirstName());
+										stud.add(bean.getStudLastName());
+										stud.add(bean.getGrade() + "");
+										stud.add(bean.getDob());
+										stud.add(bean.getStDate());
+										stud.add(bean.getTeacher());
+										stud.add(bean.getAge());
+										stud.add("\n");
+										stud.add(" ");stud.add(" ");stud.add(" ");
+										stud.add(" Decoding Data");
+										stud.add("\n");
+										stud.add("Week");
+										stud.add("Date");
+										stud.add("Book");
+										stud.add("Lesson");
+										stud.add("Form");
+										stud.add("Score");
+										stud.add("\n");
+										for(StudentDecoding decode :  bean.getListDecoding()){
+											stud.add(decode.getWeek()+"");
+											stud.add(decode.getDate()+"");
+											stud.add(decode.getBook()+"");
+											stud.add(decode.getLesson()+"");
+											stud.add(decode.getForm()+"");
+											stud.add(decode.getScore()+"");
+											stud.add("\n");
+										}
+										
+										stud.add("\n");
+										stud.add(" ");stud.add(" ");stud.add(" ");
+										stud.add(" Rate Data");
+										stud.add("\n");
+										stud.add("Date");
+										stud.add("Text");
+										stud.add("Time");
+										stud.add("CWPM");
+										stud.add("Errors");
+										stud.add("Week");
+										stud.add("\n");
+										for(StudentRate rate :  bean.getListRate()){
+											stud.add(rate.getDate()+"");
+											stud.add(rate.getText()+"");
+											stud.add(rate.getTime()+"");
+											stud.add(rate.getCwpm()+"");
+											stud.add(rate.getErrors()+"");
+											stud.add(rate.getWeek()+"");
+											stud.add("\n");
+										}
+										
+										
+										//stud.add("\n");
+									}
+								}
 					}
 					CSVUtils.writeLine(writer, stud);
 					writer.flush();

@@ -12,6 +12,8 @@ public abstract class GroupDAO {
 	public abstract boolean insertGroups(GroupBean bean);
 
 	public abstract boolean deleteGroups(String value);
+	
+	public abstract  GroupBean getGroup(int id);
 
 	
 

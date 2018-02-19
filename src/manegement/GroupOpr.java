@@ -138,4 +138,48 @@ public class GroupOpr extends GroupDAO {
 		return flag;
 	}
 
+	@Override
+	public GroupBean getGroup(int id) {
+		// TODO Auto-generated method stub
+		Statement stmt=null;
+		Connection conn=null;
+		ResultSet rs=null;
+		//ArrayList<GroupBean> list=new ArrayList<GroupBean>();
+		GroupBean bean=null;
+	try{
+			
+			conn=connection.getConnection();
+			stmt = conn.createStatement();
+		     
+		     String sql = "SELECT * FROM groups where groupId="+id+"  ";
+		     rs = stmt.executeQuery(sql);
+		     
+		      while(rs.next()){
+		    	  bean = new GroupBean();
+		    	  bean.setGroupID(rs.getInt(1));
+		    	  bean.setGroupName(rs.getString(2));
+		    	  bean.setStartDate(rs.getString(3));
+		    	 // list.add(bean);
+		    	  
+		       }
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			
+			try {
+				rs.close();
+				stmt.close();
+				conn.close();
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
+		}
+		
+		return bean;
+	}
+
 }
