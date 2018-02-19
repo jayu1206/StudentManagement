@@ -312,7 +312,12 @@ public class DecodePlotGUI extends JFrame implements ActionListener{
 		if(e.getSource() == btnContinue){
 			if(allRadio.isSelected() && indiStudDataRadio.isSelected()){
 				setVisible(false);
-				new DecodePlotGraphGUI(bean,classId,className);
+				new DecodePlotGraphGUI(bean,classId,className,"All");
+			}
+			
+			if(allRadio.isSelected() && studDataClsAvgRadio.isSelected()){
+				setVisible(false);
+				new DecodePlotGraphGUI(bean,classId,className,"Avg");
 			}
 			
 			
