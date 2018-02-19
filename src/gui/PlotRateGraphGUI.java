@@ -12,6 +12,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.awt.print.PrinterJob;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -31,10 +32,12 @@ import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.SubCategoryAxis;
+import org.jfree.chart.labels.StandardCategoryItemLabelGenerator;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.general.DatasetUtilities;
 
 import bean.StudentBean;
 import bean.StudentRate;
@@ -175,6 +178,26 @@ public class PlotRateGraphGUI extends JFrame implements ActionListener{
 
 	private JFreeChart createChart(CategoryDataset dataset) {
 
+		
+	/*	final JFreeChart chart = ChartFactory.createStackedBarChart(
+				  "Student Progress: Reading Rate ", "Category", "Correct Words Per Minute",
+				  dataset, PlotOrientation.VERTICAL, true, true, false);
+
+				  chart.setBackgroundPaint(new Color(249, 231, 236));
+
+				  CategoryPlot plot = chart.getCategoryPlot();
+				  plot.getRenderer().setSeriesPaint(0, new Color(0, 0, 255));
+				  plot.getRenderer().setSeriesPaint(1, new Color(128, 0, 0));
+				 
+				  plot.getRenderer().setBaseItemLabelGenerator(
+						    new StandardCategoryItemLabelGenerator(
+						        "{2}", NumberFormat.getInstance()));
+				  plot.getRenderer().setItemLabelsVisible(true);
+				  return chart;
+		*/
+		
+		
+		
         final JFreeChart chart = ChartFactory.createStackedBarChart(
             "Student Progress: Reading Rate",  // chart title
             "Category",                  // domain axis label
@@ -186,7 +209,7 @@ public class PlotRateGraphGUI extends JFrame implements ActionListener{
             false                        // urls
         );
     
-        
+     /*   
         SubCategoryAxis domainAxis = new SubCategoryAxis("Text / Month");
         domainAxis.setCategoryMargin(0.05);
         Set<Integer> list = new HashSet(); 
@@ -201,7 +224,16 @@ public class PlotRateGraphGUI extends JFrame implements ActionListener{
 //        domainAxis.addSubCategory("Product 3");
         
         CategoryPlot plot = (CategoryPlot) chart.getPlot();
-        plot.setDomainAxis(domainAxis);
+        plot.setDomainAxis(domainAxis);*/
+        
+        CategoryPlot plot = chart.getCategoryPlot();
+		  plot.getRenderer().setSeriesPaint(0, new Color(0, 0, 255));
+		  plot.getRenderer().setSeriesPaint(1, new Color(128, 0, 0));
+		 
+		  plot.getRenderer().setBaseItemLabelGenerator(
+				    new StandardCategoryItemLabelGenerator(
+				        "{2}", NumberFormat.getInstance()));
+		  plot.getRenderer().setItemLabelsVisible(true);
         return chart;
         
     }
@@ -210,6 +242,35 @@ public class PlotRateGraphGUI extends JFrame implements ActionListener{
 	private CategoryDataset createDataset() {
 		
 		
+	
+		/* double[][] data = new double[bean.getListRate().size()][bean.getListRate().size()];
+				 
+				 {
+				  {210, 300, 320, 265, 299, 200},
+				  {200, 304, 201, 201, 340, 300},
+				  };
+		 
+		 //int i = 0 ;
+		 
+		 for(int i =0 ; i<2 ; i++){
+			 for(int j = 0 ; j<bean.getListRate().size() ; j++){
+				 
+			 }
+			 
+		 }
+		 
+		 for(StudentRate rate : bean.getListRate()){
+		      // data[i][i] = rate.getCwpm(), rate.getText();
+					
+					 //result.addValue(rate.getCwpm(), rate.getText()+"", rate.getText()+"");
+				 
+				 
+			 }
+		 
+				  return DatasetUtilities.createCategoryDataset(
+				  "Team ", "Match", data);*/
+		 
+	
 		 DefaultCategoryDataset result = new DefaultCategoryDataset();
 		 
 		 for(StudentRate rate : bean.getListRate()){
@@ -220,7 +281,7 @@ public class PlotRateGraphGUI extends JFrame implements ActionListener{
 				 initDate = new SimpleDateFormat("dd-MM-yyyy").parse(rate.getDate());
 				 SimpleDateFormat formatter = new SimpleDateFormat("MM-yyyy");
 				 String parsedDate = formatter.format(initDate);
-				 result.addValue(rate.getCwpm(), rate.getText()+"", parsedDate);
+				 result.addValue(rate.getCwpm(),rate.getText()+"",rate.getTime()+"" );
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

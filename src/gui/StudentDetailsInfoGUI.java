@@ -844,7 +844,7 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 					}
 					
 					// Check Text Only 2 Times
-					firstText = Integer.parseInt(jtRate.getModel().getValueAt(i, 3).toString());					
+					firstText = Integer.parseInt(jtRate.getModel().getValueAt(i, 4).toString());					
 					list.add(firstText);				
 					count=Collections.frequency(list, firstText);
 					
@@ -868,7 +868,7 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 						flag = dao.insertRateData(bean);
 
 					}else{
-						JOptionPane.showMessageDialog(this, "Value is repeated check value");
+						JOptionPane.showMessageDialog(this, "Maximum attempt only 2 times");
 					}
 
 				}

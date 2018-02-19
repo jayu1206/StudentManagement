@@ -143,7 +143,7 @@ public class StudentOpr extends StudentDAO {
 		    	 stmt2.close();
 		    	 bean.setListDecoding(listDeco);
 		    	 
-		    	 sql = "SELECT * FROM rate where studId="+bean.getId()+" ";
+		    	 sql = "SELECT * FROM rate where studId="+bean.getId()+" order by time ";
 		    	 stmt3 = conn.createStatement();
 		    	 rs3= stmt3.executeQuery(sql);
 		    	 listRate = new ArrayList<StudentRate>();
