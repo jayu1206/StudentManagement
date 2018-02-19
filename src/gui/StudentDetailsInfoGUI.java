@@ -18,6 +18,13 @@ import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -63,6 +70,8 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 	DefaultTableModel modelRate;
 	JTable jtRate;
 	JButton btnAddRate, btnSaveRate, btnPloatRate;
+	
+
 
 	StudentDetailsInfoGUI(StudentBean bean, String classId, String className) {
 
@@ -754,6 +763,9 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 				jtRate.getCellEditor().stopCellEditing();
 
 			boolean flag = true;
+			int count= 0 ;
+			int firstText;
+			List list = new ArrayList();
 			for (int i = 0; i < row; i++) {
 
 				if (jtRate.getModel().getValueAt(i, 1).toString().length() == 0
@@ -827,11 +839,22 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 					Matcher mtch = dateFrmtPtrn.matcher(jtRate.getModel().getValueAt(i, 2).toString());
 					if (!mtch.matches()) {
 						JOptionPane.showMessageDialog(this, "Date format should be DD-MM-YYYY");
-						flag = false;
+						flag = false;		
+
 					}
-
+					
+					// Check Text Only 2 Times
+					firstText = Integer.parseInt(jtRate.getModel().getValueAt(i, 3).toString());					
+					list.add(firstText);				
+					count=Collections.frequency(list, firstText);
+					
+					if (count >= 3){			    		
+						flag = false;	
+			    	}	
+					
+					
 					if (flag) {
-
+						
 						StudentRate bean = new StudentRate();
 						bean.setRateId(Integer.parseInt(jtRate.getModel().getValueAt(i, 0).toString()));
 						bean.setStudId(this.bean.getId());
@@ -844,6 +867,8 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 
 						flag = dao.insertRateData(bean);
 
+					}else{
+						JOptionPane.showMessageDialog(this, "Value is repeated check value");
 					}
 
 				}

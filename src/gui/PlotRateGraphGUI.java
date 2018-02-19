@@ -14,7 +14,12 @@ import java.awt.event.WindowListener;
 import java.awt.print.PrinterJob;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -184,11 +189,13 @@ public class PlotRateGraphGUI extends JFrame implements ActionListener{
         
         SubCategoryAxis domainAxis = new SubCategoryAxis("Text / Month");
         domainAxis.setCategoryMargin(0.05);
-        
+        Set<Integer> list = new HashSet(); 
         for(StudentRate rate : bean.getListRate()){
         	
-        	domainAxis.addSubCategory(rate.getText()+"");
+        	list.add(rate.getText());
 		}
+        Arrays.sort(list.toArray());
+        domainAxis.addSubCategory(list.toString().replace("[", "").replace("]", ""));
        // domainAxis.addSubCategory("Product 1");
  //       domainAxis.addSubCategory("Product 2");
 //        domainAxis.addSubCategory("Product 3");
