@@ -272,20 +272,20 @@ public class PlotRateGraphGUI extends JFrame implements ActionListener{
 		 
 	
 		 DefaultCategoryDataset result = new DefaultCategoryDataset();
-		 
+		// int i = 1;
+		 int tempCwpm = 0;
 		 for(StudentRate rate : bean.getListRate()){
 	        
-			Date initDate;
-			
-			try {
-				 initDate = new SimpleDateFormat("dd-MM-yyyy").parse(rate.getDate());
-				 SimpleDateFormat formatter = new SimpleDateFormat("MM-yyyy");
-				 String parsedDate = formatter.format(initDate);
-				 result.addValue(rate.getCwpm(),rate.getText()+"",rate.getTime()+"" );
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}	 
+			 if(rate.getTime() == 2){
+				 int finalcwpm = rate.getCwpm() - tempCwpm;
+				 result.addValue(finalcwpm,rate.getTime()+"" ,rate.getText()+"");
+			 }else{
+				 
+				 tempCwpm= rate.getCwpm();
+				 result.addValue(rate.getCwpm(),rate.getTime()+"" ,rate.getText()+"");
+			 }
+		//	i++;	 
+			 
 			 
 		 }
 

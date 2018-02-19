@@ -797,7 +797,13 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 				} else if (jtRate.getModel().getValueAt(i, 6).toString().length() == 0) {
 					JOptionPane.showMessageDialog(this, "Please provide Errors "); // Integer
 					flag = false;
-				} else {
+				} else if(!jtRate.getModel().getValueAt(i, 4).toString().equals("1") && 
+						!jtRate.getModel().getValueAt(i, 4).toString().equals("2") ){
+					
+					JOptionPane.showMessageDialog(this, "Times values accepted only 1 & 2 "); // Integer
+					flag = false;
+					
+				}else {
 
 					try {
 						Integer.parseInt(jtRate.getModel().getValueAt(i, 1).toString());
@@ -844,7 +850,7 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 					}
 					
 					// Check Text Only 2 Times
-					firstText = Integer.parseInt(jtRate.getModel().getValueAt(i, 4).toString());					
+					firstText = Integer.parseInt(jtRate.getModel().getValueAt(i, 3).toString());					
 					list.add(firstText);				
 					count=Collections.frequency(list, firstText);
 					
