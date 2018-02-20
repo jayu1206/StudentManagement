@@ -1,6 +1,7 @@
 package abstrac;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import bean.StudentBean;
 import bean.StudentDecoding;
@@ -39,5 +40,7 @@ public abstract class StudentDAO {
 	public abstract boolean deleteRate(String value);
 	
 	public abstract StudentBean getStudentById(int studentID);
+
+	public abstract List getAvgofStud(List ids);
 	
 }

@@ -17,7 +17,9 @@ import java.awt.print.PageFormat;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -43,13 +45,10 @@ import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
-
-
-
-
-
+import abstrac.StudentDAO;
 import bean.StudentBean;
 import bean.StudentDecoding;
+import manegement.StudentOpr;
 
 public class DecodePlotGraphGUI extends JFrame implements ActionListener,Printable{
 
@@ -64,8 +63,8 @@ public class DecodePlotGraphGUI extends JFrame implements ActionListener,Printab
 	JButton btnBack,btnPrint;
 	StudentBean bean=new StudentBean();
 	String graphType = "";
-	
-	
+	StudentDAO studDao = new StudentOpr();
+	StudentBean studdata = null;
 	DecodePlotGraphGUI(StudentBean bean, String classId, String className, String str){
 		
 		this.classId=classId;
@@ -245,13 +244,40 @@ public class DecodePlotGraphGUI extends JFrame implements ActionListener,Printab
 	
 private XYDataset createDataset(StudentBean bean) {
         
-        final XYSeries series1 = new XYSeries("");
+        final XYSeries series1 = new XYSeries("First");
+        final XYSeries series2 = new XYSeries("Second");
         
-      //  Set<StudentDecoding> set=new TreeSet<StudentDecoding>();
-        for(StudentDecoding deco : bean.getListDecoding()){
+//  		Set<StudentDecoding> set=new TreeSet<StudentDecoding>();
+            for(StudentDecoding deco : bean.getListDecoding()){
+            	
+            	series1.add(deco.getWeek(), deco.getScore());
+            }
+            
+            
+		if(graphType.contains("Avg")){
         	
-        		series1.add(deco.getWeek(), deco.getScore());
+        	//Get Students Score Avg
+        	System.out.println(bean);
+        	ArrayList<StudentBean> list=studDao.getAllStudents(classId);
+    		float sum = 0;
+    		float avg = 0;
+    		int total = 0;
+    		List ids = new ArrayList<>();
+    		for(StudentBean studbean : list){
+             	
+    			ids.add(studbean.getId());
+            }
+    		List avgList = studDao.getAvgofStud(ids);
+    		System.out.println(avgList);
+    		for (int i=0; i<avgList.size(); i++){
+    			Double[] d = (Double[])avgList.get(i);
+    			series2.add(Double.parseDouble(d[0].toString()), Double.parseDouble(d[1].toString()));
+    		}
+        	
         }
+        
+        
+      
         
         
         
@@ -280,14 +306,19 @@ private XYDataset createDataset(StudentBean bean) {
 
         final XYSeriesCollection dataset = new XYSeriesCollection();
         dataset.addSeries(series1);
-       //dataset.addSeries(series2);
+        if (graphType.contains("Avg")){
+        	dataset.addSeries(series2);
+        }
+        
        /* dataset.addSeries(series3);*/
                 
         return dataset;
         
     }
     
-    /**
+
+
+	/**
      * Creates a chart.
      * 
      * @param dataset  the data for the chart.

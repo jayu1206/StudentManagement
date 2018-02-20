@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
 import bean.GroupBean;
 import bean.StudentBean;
@@ -941,6 +942,61 @@ public class StudentOpr extends StudentDAO {
 		
 		return bean;
 		
+	}
+
+	@Override
+	public List getAvgofStud(List ids) {
+		// TODO Auto-generated method stub
+		Statement stmt=null;
+		ResultSet rs=null;
+		
+		Statement stmt2=null;
+		ResultSet rs2=null;
+		
+		Statement stmt3=null;
+		ResultSet rs3=null;
+		
+		
+		Connection conn=null;
+		
+		//ArrayList<StudentBean> list=new ArrayList<StudentBean>();
+		StudentDecoding bean=null;
+		List avgList = null;
+		
+	try{
+			
+			conn=connection.getConnection();
+			stmt = conn.createStatement();
+			String sql="";
+			sql = "SELECT week, avg(score) FROM decoding WHERE studId IN ("+ ids.toString().replace("[", "").replace("]", "") +") group by week";
+		    
+		      
+		     rs = stmt.executeQuery(sql);
+		     
+		     avgList = new ArrayList<>();
+		      while(rs.next()){
+		    	 
+		    	 avgList.add(new Double[]{rs.getDouble(1), rs.getDouble(2)});
+	
+		       }
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			
+			try {
+				rs.close();
+				stmt.close();
+				conn.close();
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
+		}
+		
+		return avgList;
 	}
 
 }
