@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.BasicStroke;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -17,6 +18,8 @@ import java.awt.print.PageFormat;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -35,8 +38,16 @@ import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.axis.NumberTickUnit;
+import org.jfree.chart.labels.CategoryItemLabelGenerator;
+import org.jfree.chart.labels.ItemLabelAnchor;
+import org.jfree.chart.labels.ItemLabelPosition;
+import org.jfree.chart.labels.StandardCategoryItemLabelGenerator;
+import org.jfree.chart.labels.StandardXYItemLabelGenerator;
+import org.jfree.chart.labels.StandardXYToolTipGenerator;
+import org.jfree.chart.labels.XYItemLabelGenerator;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
+import org.jfree.chart.renderer.xy.XYItemRenderer;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.data.function.LineFunction2D;
 import org.jfree.data.general.DatasetUtilities;
@@ -44,6 +55,7 @@ import org.jfree.data.statistics.Regression;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
+import org.jfree.ui.TextAnchor;
 
 import abstrac.StudentDAO;
 import bean.StudentBean;
@@ -110,7 +122,8 @@ public class DecodePlotGraphGUI extends JFrame implements ActionListener,Printab
 			 final XYDataset dataset = createDataset(bean);
 		     final JFreeChart chart = createChart(dataset);
 		     drawRegressionLine(chart,dataset);
-				
+		     
+		        
 		     // If we have an input parameter, predict the price and draw the new point
 				/*if (args.length >= 1 && args[0] != null) {
 					// Estimate the linear function given the input data
@@ -229,7 +242,7 @@ public class DecodePlotGraphGUI extends JFrame implements ActionListener,Printab
 
 		// Creates a dataset by taking sample values from the line function
 		XYDataset dataset = DatasetUtilities.sampleFunction2D(linefunction2d,
-				0D, 30, 2, "Plotted Dates : - through - ");
+				0D, 30, 2, "Estimated Progress");
 
 		// Draw the line dataset
 		XYPlot xyplot = chart.getXYPlot();
@@ -237,15 +250,32 @@ public class DecodePlotGraphGUI extends JFrame implements ActionListener,Printab
 		XYLineAndShapeRenderer xylineandshaperenderer = new XYLineAndShapeRenderer(
 				true, false);
         
+		 StandardXYToolTipGenerator ttG =
+				    new StandardXYToolTipGenerator("{1},{2}",  NumberFormat.getInstance(),  NumberFormat.getInstance());
+		 
 		xylineandshaperenderer.setSeriesPaint(3, Color.YELLOW);
+		xylineandshaperenderer.setBaseToolTipGenerator(new StandardXYToolTipGenerator());
+		xylineandshaperenderer.setBaseToolTipGenerator(ttG);
+	
 		xyplot.setRenderer(1, xylineandshaperenderer);
+		
+		  XYItemRenderer renderer1 = chart.getXYPlot().getRenderer();
+		  renderer1.setBaseItemLabelsVisible(true);
+		  renderer1.setBaseToolTipGenerator(new StandardXYToolTipGenerator());
+		 
+		  renderer1.setBaseToolTipGenerator(ttG);
+		  
+		  xyplot.setRenderer(0,renderer1);
+	
+		
+		
 	}
 	
 	
 private XYDataset createDataset(StudentBean bean) {
         
-        final XYSeries series1 = new XYSeries("First");
-        final XYSeries series2 = new XYSeries("Second");
+        final XYSeries series1 = new XYSeries("Student Score");
+         XYSeries series2 = null;
         
 //  		Set<StudentDecoding> set=new TreeSet<StudentDecoding>();
             for(StudentDecoding deco : bean.getListDecoding()){
@@ -255,7 +285,7 @@ private XYDataset createDataset(StudentBean bean) {
             
             
 		if(graphType.contains("Avg")){
-        	
+			series2 = new XYSeries("Class Average");
         	//Get Students Score Avg
         	System.out.println(bean);
         	ArrayList<StudentBean> list=studDao.getAllStudents(classId);
@@ -278,22 +308,6 @@ private XYDataset createDataset(StudentBean bean) {
         
         
       
-        
-        
-        
-          
-        
-        
-        /*final XYSeries series2 = new XYSeries("Second");
-        series2.add(1.0, 5.0);
-        series2.add(2.0, 7.0);
-        series2.add(3.0, 6.0);
-        series2.add(4.0, 8.0);
-        series2.add(5.0, 4.0);
-        series2.add(6.0, 4.0);
-        series2.add(7.0, 2.0);
-        series2.add(8.0, 1.0);*/
-
         /* final XYSeries series3 = new XYSeries("Third");
         series3.add(3.0, 4.0);
         series3.add(4.0, 3.0);
@@ -303,9 +317,12 @@ private XYDataset createDataset(StudentBean bean) {
         series3.add(8.0, 3.0);
         series3.add(9.0, 4.0);
         series3.add(10.0, 3.0);*/
+		
+		
 
         final XYSeriesCollection dataset = new XYSeriesCollection();
         dataset.addSeries(series1);
+        
         if (graphType.contains("Avg")){
         	dataset.addSeries(series2);
         }
@@ -345,16 +362,21 @@ private XYDataset createDataset(StudentBean bean) {
         plot.setBackgroundPaint(Color.lightGray);
         plot.setDomainGridlinePaint(Color.white);
         plot.setRangeGridlinePaint(Color.white);
+       
         
-        final XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer();
-        renderer.setSeriesLinesVisible(0, true);
-        renderer.setSeriesShapesVisible(1, false);
-        plot.setRenderer(renderer);
-         
         NumberAxis xAxis = new NumberAxis("Week");
         xAxis.setTickUnit(new NumberTickUnit(1));
         plot.setDomainAxis(xAxis);
         
+        final XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer();
+        renderer.setSeriesLinesVisible(0, false);
+        renderer.setSeriesShapesVisible(1, true);
+        renderer.setBaseLinesVisible(true);
+        renderer.setBaseItemLabelsVisible(Boolean.TRUE);
+        renderer.setBaseItemLabelGenerator((XYItemLabelGenerator) new StandardXYItemLabelGenerator());
+        plot.setRenderer(renderer);
+       
+       
                 
         return chart;
         
