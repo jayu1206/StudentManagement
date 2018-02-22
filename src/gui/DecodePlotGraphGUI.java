@@ -121,7 +121,7 @@ public class DecodePlotGraphGUI extends JFrame implements ActionListener,Printab
 			 //setContentPane(p1); //add(p1);
 			 final XYDataset dataset = createDataset(bean);
 		     final JFreeChart chart = createChart(dataset);
-		     drawRegressionLine(chart,dataset);
+		    // drawRegressionLine(chart,dataset);
 		     
 		        
 		     // If we have an input parameter, predict the price and draw the new point
@@ -275,17 +275,32 @@ public class DecodePlotGraphGUI extends JFrame implements ActionListener,Printab
 private XYDataset createDataset(StudentBean bean) {
         
         final XYSeries series1 = new XYSeries("Student Score");
-         XYSeries series2 = null;
-        
-//  		Set<StudentDecoding> set=new TreeSet<StudentDecoding>();
+         
             for(StudentDecoding deco : bean.getListDecoding()){
             	
             	series1.add(deco.getWeek(), deco.getScore());
             }
             
             
+            
+            
+            ArrayList regLineAB= getLinearRegressionLine(bean.getListDecoding());
+            double beta1 = (double) regLineAB.get(0);
+            double beta0 = (double) regLineAB.get(1);
+            System.out.println("beta1 "+beta1);
+            final XYSeries series2 = new XYSeries("Third");
+            
+            for(StudentDecoding deco : bean.getListDecoding()){
+            	//System.out.println(" Reg : "+ (  (beta1*deco.getWeek())+beta0  ));
+            	double tempFinal = (  (beta1*deco.getWeek())+beta0  );
+            	series2.add(deco.getWeek(),tempFinal);
+            	
+            }
+            
+            
+            XYSeries series3 = null;
 		if(graphType.contains("Avg")){
-			series2 = new XYSeries("Class Average");
+			series3 = new XYSeries("Class Average");
         	//Get Students Score Avg
         	System.out.println(bean);
         	ArrayList<StudentBean> list=studDao.getAllStudents(classId);
@@ -301,7 +316,7 @@ private XYDataset createDataset(StudentBean bean) {
     		System.out.println(avgList);
     		for (int i=0; i<avgList.size(); i++){
     			Double[] d = (Double[])avgList.get(i);
-    			series2.add(Double.parseDouble(d[0].toString()), Double.parseDouble(d[1].toString()));
+    			series3.add(Double.parseDouble(d[0].toString()), Double.parseDouble(d[1].toString()));
     		}
         	
         }
@@ -322,17 +337,74 @@ private XYDataset createDataset(StudentBean bean) {
 
         final XYSeriesCollection dataset = new XYSeriesCollection();
         dataset.addSeries(series1);
+        dataset.addSeries(series2);
         
         if (graphType.contains("Avg")){
-        	dataset.addSeries(series2);
+        	dataset.addSeries(series3);
         }
         
-       /* dataset.addSeries(series3);*/
+        
                 
         return dataset;
         
     }
     
+
+
+	private ArrayList getLinearRegressionLine(
+		ArrayList<StudentDecoding> listDecoding) {
+	// TODO Auto-generated method stub
+		ArrayList listOfAB=new ArrayList<>();
+		int MAXN = 1000;
+        int n = 0;
+        double[] xTemp =new double[listDecoding.size()]; //{1,2,3,4};
+        double[] yTemp = new double[listDecoding.size()]; //{5,7,7,8};
+        
+        int i=0;
+        for(StudentDecoding deco : listDecoding){
+        	xTemp[i]=deco.getWeek();
+        	yTemp[i] = deco.getScore();
+        	i++;
+        }
+        
+        
+        double[] x = new double[MAXN];
+        double[] y = new double[MAXN];
+
+        // first pass: read in data, compute xbar and ybar
+        double sumx = 0.0, sumy = 0.0, sumx2 = 0.0;
+       for(int j = 0 ; j<xTemp.length ; j++){
+            x[n] = xTemp[n];
+            y[n] = yTemp[n];
+            sumx  += x[n];
+            sumx2 += x[n] * x[n];
+            sumy  += y[n];
+            n++;
+        }
+        double xbar = sumx / n;
+        double ybar = sumy / n;
+
+        // second pass: compute summary statistics
+        double xxbar = 0.0, yybar = 0.0, xybar = 0.0;
+        for (int i1 = 0; i1 < n; i1++) {
+            xxbar += (x[i1] - xbar) * (x[i1] - xbar);
+            yybar += (y[i1] - ybar) * (y[i1] - ybar);
+            xybar += (x[i1] - xbar) * (y[i1] - ybar);
+        }
+        double beta1 = xybar / xxbar;
+        double beta0 = ybar - beta1 * xbar;
+
+        // print results
+        System.out.println("y   = " + beta1 + " * x + " + beta0);
+        
+        listOfAB.add(beta1);
+        listOfAB.add(beta0);
+        
+		
+		
+		
+	return listOfAB;
+}
 
 
 	/**

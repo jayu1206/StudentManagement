@@ -200,7 +200,7 @@ public class PlotRateGraphGUI extends JFrame implements ActionListener{
 		
         final JFreeChart chart = ChartFactory.createStackedBarChart(
             "Student Progress: Reading Rate",  // chart title
-            "Category",                  // domain axis label
+            "Text",                  // domain axis label
             "Correct Words Per Minute",                     // range axis label
             dataset,                     // data
             PlotOrientation.VERTICAL,    // the plot orientation
