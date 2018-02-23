@@ -15,6 +15,7 @@ public abstract class GroupDAO {
 	
 	public abstract  GroupBean getGroup(int id);
 
+	public abstract boolean updateGroups(GroupBean bean);
 	
 
 }

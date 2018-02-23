@@ -182,4 +182,50 @@ public class GroupOpr extends GroupDAO {
 		return bean;
 	}
 
+	@Override
+	public boolean updateGroups(GroupBean bean) {
+		// TODO Auto-generated method stub
+		Connection conn=null;
+		PreparedStatement statement=null;
+		boolean flag=false;
+		
+		try{
+			connection =  new ConnectionOpr();
+			 conn=connection.getConnection();
+			
+			//STEP 4: Execute a query
+			
+		      String sql = "UPDATE groups SET groupName=?,startDate=? WHERE groupID=?";
+		      
+		      statement = conn.prepareStatement(sql);
+		     
+		      statement.setString(1, bean.getGroupName());
+		      statement.setString(2, bean.getStartDate());
+		      statement.setInt(3, bean.getGroupID());
+		      statement.executeUpdate();
+		      
+		      flag=true;
+		     
+			 
+		 }catch(Exception e){
+			 flag=false;
+			 e.printStackTrace();
+			 
+		 }finally{
+				//STEP 6: Clean-up environment
+		      try {
+		    	  statement.close();
+			     conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				 flag=false;
+				e.printStackTrace();
+			}
+		      
+			 
+		 }
+		
+		return flag;
+	}
+
 }

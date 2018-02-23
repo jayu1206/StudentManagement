@@ -66,7 +66,7 @@ public class GroupGUI extends JFrame implements ActionListener{
 	JButton  btnMgroup,btnMstudents,btnMreport,btnMImportExport,btnMLogout,btnMmyProfile;
 	JMenuItem group,students,report;
 	JMenu menu;
-
+	JMenuItem edit;
 	GroupGUI(){
 		
 		setLayout(new BorderLayout());
@@ -214,7 +214,32 @@ public class GroupGUI extends JFrame implements ActionListener{
 			    	}
 		    	});
 		       
-		       
+		        edit = new JMenuItem("Edit");
+				JPopupMenu popup = new JPopupMenu("Edit");
+				popup.add(edit);
+
+				jt.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseReleased(MouseEvent e) {
+						int r = jt.rowAtPoint(e.getPoint());
+						if (r >= 0 && r < jt.getRowCount()) {
+							jt.setRowSelectionInterval(r, r);
+						} else {
+							jt.clearSelection();
+						}
+
+						int rowindex = jt.getSelectedRow();
+						if (rowindex < 0)
+							return;
+						if (e.isPopupTrigger() && e.getComponent() instanceof JTable) {
+
+							popup.show(e.getComponent(), e.getX(), e.getY());
+						}
+					}
+				});
+
+				edit.addActionListener(this);
+				
 		       GroupDAO dao=new GroupOpr();
 		        ArrayList<GroupBean> list = dao.getAllGroups();
 		        
@@ -444,6 +469,18 @@ public class GroupGUI extends JFrame implements ActionListener{
 			}
 			
 			
+		}
+		
+		if (e.getSource() == edit) {
+			
+			GroupDAO groupDAO = new GroupOpr();
+			DefaultTableModel dtm = (DefaultTableModel) jt.getModel();
+			int selRow = jt.getSelectedRow();
+			String value = jt.getModel().getValueAt(selRow, 0).toString();
+			System.out.println(value);
+			GroupBean gBean =  groupDAO.getGroup(Integer.parseInt(value));
+			this.setVisible(false);
+			new UpdateGroupGUI(gBean);
 		}
 		
 		

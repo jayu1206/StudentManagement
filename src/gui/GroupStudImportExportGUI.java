@@ -9,14 +9,24 @@ import java.awt.HeadlessException;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -44,6 +54,8 @@ import javax.swing.JTextField;
 import javax.swing.ListCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
+import org.apache.commons.io.FileUtils;
+
 import abstrac.GroupDAO;
 import abstrac.StudentDAO;
 import bean.GroupBean;
@@ -59,7 +71,7 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 	JButton btnSubmit;
 	JButton btnDelete;
 	JButton btnBack;
-	JButton btnExit;
+	JButton btnExit, btnSample;
 	JButton btnMgroup;
 	JButton btnMstudents;
 	JButton btnMreport;
@@ -184,7 +196,7 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 		add(heading_lbl);
 
 		lblImport = new JLabel("Import");
-		lblImport.setBounds(200, 150, 110, 40);
+		lblImport.setBounds(200, 120, 110, 40);
 		lblImport.setFont(f);
 		getForeground();
 		lblImport.setForeground(Color.white);
@@ -192,8 +204,8 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 
 		r1 = new javax.swing.JRadioButton("Group");
 		r2 = new javax.swing.JRadioButton("Student");
-		r1.setBounds(250, 200, 100, 30);
-		r2.setBounds(250, 250, 100, 30);
+		r1.setBounds(250, 170, 100, 30);
+		r2.setBounds(250, 220, 100, 30);
 		r1.addActionListener(this);
 		r2.addActionListener(this);
 		bg = new javax.swing.ButtonGroup();
@@ -206,21 +218,21 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 		 */
 
 		lblImportGFile = new JLabel("Import File :");
-		lblImportGFile.setBounds(400, 180, 150, 60);
+		lblImportGFile.setBounds(400, 150, 150, 60);
 		lblImportGFile.setFont(f);
 		getForeground();
 		lblImportGFile.setForeground(Color.white);
 		add(lblImportGFile);
 
 		lblNewStudGroup = new JLabel("New Student Group :");
-		lblNewStudGroup.setBounds(400, 270, 250, 60);
+		lblNewStudGroup.setBounds(400, 240, 250, 60);
 		lblNewStudGroup.setFont(f);
 		getForeground();
 		lblNewStudGroup.setForeground(Color.white);
 		add(lblNewStudGroup);
 
 		txtImportFilePath = new JTextField();
-		txtImportFilePath.setBounds(550, 200, 130, 30);
+		txtImportFilePath.setBounds(550, 170, 130, 30);
 		add(txtImportFilePath);
 
 		txtExportFilePath = new JTextField();
@@ -228,7 +240,7 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 		add(txtExportFilePath);
 
 		btn3 = new JButton("File");
-		btn3.setBounds(700, 200, 50, 30);
+		btn3.setBounds(700, 170, 50, 30);
 		btn3.setBackground(Color.WHITE);
 		btn3.setOpaque(true);
 		btn3.setBorderPainted(false);
@@ -255,7 +267,7 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 		// }
 
 		cbGrpList = new JComboBox(model);
-		cbGrpList.setBounds(650, 290, 130, 30);
+		cbGrpList.setBounds(650, 260, 130, 30);
 		cbGrpList.setRenderer(new ItemRenderer());
 		cbGrpList.addActionListener(this);
 		add(cbGrpList);
@@ -322,7 +334,7 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 		add(cbGrpExportList);
 
 		btnImport = new JButton("Import");
-		btnImport.setBounds(400, 350, 100, 30);
+		btnImport.setBounds(400, 310, 100, 30);
 		btnImport.setBackground(Color.WHITE);
 		btnImport.setOpaque(true);
 		btnImport.setBorderPainted(false);
@@ -330,6 +342,16 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 		add(btnImport);
 		getContentPane().add(btnImport);
 		btnImport.addActionListener(this);
+		
+		btnSample = new JButton("Sample Data");
+		btnSample.setBounds(400, 350, 150, 30);
+		btnSample.setBackground(Color.WHITE);
+		btnSample.setOpaque(true);
+		btnSample.setBorderPainted(false);
+		btnSample.setFont(new Font("Britannic Bold", 0, 15));
+		add(btnSample);
+		getContentPane().add(btnSample);
+		btnSample.addActionListener(this);
 
 		btnExport = new JButton("Export");
 		btnExport.setBounds(400, 520, 100, 30);
@@ -618,6 +640,35 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 			new welcomeGUI();
 		}
 		
+		if(e.getSource() == btnSample){
+			//this.setVisible(false);
+			//new welcomeGUI();
+			
+			String path1 = "./temp/group.csv";
+			String path11 = "./mysql/group.csv";	    
+		    
+			String path2  = "./temp/ExportFile.csv";
+			String path22  = "./mysql/ExportFile.csv";
+		   
+			try {
+					
+				File source = new File(path1);
+				File dest = new File(path11);
+				FileUtils.copyFile(source, dest);
+				
+				File source1 = new File(path2);
+				File dest1 = new File(path22);
+				FileUtils.copyFile(source1, dest1);
+			
+			    System.out.println("File downloaded");
+			    JOptionPane.showMessageDialog(this, "File Download at "+dest.getAbsolutePath());
+			} catch (IOException ee) {
+			    ee.printStackTrace();
+			}
+
+			
+			
+		}
 		
 		
 		// Export button
@@ -830,6 +881,8 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 		}
 
 	}
+
+
 
 	/*
 	 * public static void main(String[] args) { //new
