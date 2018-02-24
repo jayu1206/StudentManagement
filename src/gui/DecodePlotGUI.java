@@ -312,12 +312,20 @@ public class DecodePlotGUI extends JFrame implements ActionListener{
 		if(e.getSource() == btnContinue){
 			if(allRadio.isSelected() && indiStudDataRadio.isSelected()){
 				setVisible(false);
-				new DecodePlotGraphGUI(bean,classId,className,"All");
+				new DecodePlotGraphGUI(bean,classId,className,"All", "","");
 			}
 			
 			if(allRadio.isSelected() && studDataClsAvgRadio.isSelected()){
 				setVisible(false);
-				new DecodePlotGraphGUI(bean,classId,className,"Avg");
+				new DecodePlotGraphGUI(bean,classId,className,"Avg","","");
+			}
+			
+			if (weekRadio.isSelected() && indiStudDataRadio.isSelected()){
+				
+				setVisible(false);
+				String txtBegin = txtbegin.getText();
+				String txtEnd = txtend.getText();
+				new DecodePlotGraphGUI(bean,classId,className,"All", txtBegin, txtEnd);
 			}
 			
 			
@@ -326,9 +334,14 @@ public class DecodePlotGUI extends JFrame implements ActionListener{
 		if(weekRadio.isSelected()){
 			txtbegin.setText("Begin");
 			txtend.setText("End");
+			txtbegin.setEditable(true);
+			txtend.setEditable(true);
 		}else{
 			txtbegin.setText("");
 			txtend.setText("");
+			txtbegin.setEditable(false);
+			txtend.setEditable(false);
+			
 		}
 		
 		

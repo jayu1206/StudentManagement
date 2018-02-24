@@ -31,6 +31,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
@@ -78,12 +79,36 @@ public class DecodePlotGraphGUI extends JFrame implements ActionListener,Printab
 	String graphType = "";
 	StudentDAO studDao = new StudentOpr();
 	StudentBean studdata = null;
-	DecodePlotGraphGUI(StudentBean bean, String classId, String className, String str){
+	DecodePlotGraphGUI(StudentBean bean, String classId, String className, String str, String txtBegin, String txtend){
 		
 		this.classId=classId;
 		this.className=className;
 		this.bean=bean;
 		graphType = str;
+		
+		
+		try {
+			
+			if(!txtBegin.isEmpty() && !txtend.isEmpty()){
+				int beginTxt = Integer.parseInt(txtBegin);
+				int endTxt = Integer.parseInt(txtend);
+				if (endTxt >= beginTxt){
+					StudentBean studBean = studDao.getStudentbyDecodingAndRatingByweek(bean.getId(), txtBegin, txtend);
+					this.bean = studBean;
+				}else{
+					JOptionPane.showMessageDialog(this,beginTxt+" is NOT less then "+endTxt );
+				}				
+			}					
+          
+        } catch (NumberFormatException e) {
+            System.out.println("You've entered non-integer number");
+            System.out.println("This caused " + e);
+			JOptionPane.showMessageDialog(this,"Enter Number only (e.g 1 and 3)");
+
+        }
+		
+		
+		
 		
 		
 		setLayout(new BorderLayout());

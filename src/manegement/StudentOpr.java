@@ -999,4 +999,215 @@ public class StudentOpr extends StudentDAO {
 		return avgList;
 	}
 
+	@Override
+	public StudentBean getStudentbyDecodingAndRatingByweek(int id,  String txtBegin, String txtend) {
+		
+		// TODO Auto-generated method stub
+		Statement stmt=null;
+		Connection conn=null;
+		ResultSet rs=null;
+		
+		Statement stmt2=null;
+		ResultSet rs2=null;
+		
+		Statement stmt3=null;
+		ResultSet rs3=null;
+		
+		
+		
+		StudentBean bean = new StudentBean();
+		try{
+			
+			conn=connection.getConnection();
+			stmt = conn.createStatement();
+			String sql="";
+		    sql = "SELECT * FROM student where id="+id;
+		    rs = stmt.executeQuery(sql);
+		    ArrayList<StudentDecoding> listDeco=null;
+		     ArrayList<StudentRate> listRate=null;
+		     
+		      while(rs.next()){
+		    	 bean = new StudentBean();
+		    	 bean.setId(rs.getInt(1));
+		    	 bean.setGroupId(rs.getInt(2));
+		    	 bean.setStudFirstName(rs.getString(3));
+		    	 bean.setGrade(rs.getInt(4));
+		    	 bean.setDob(rs.getString(5));
+		    	 bean.setStDate(rs.getString(6));
+		    	 bean.setTeacher(rs.getString(7));
+		    	 bean.setStudLastName(rs.getString(8));
+		    	 bean.setAge(rs.getString(9));
+		    	 
+		    	 sql = "SELECT * FROM decoding where week >= "+txtBegin+" and week <="+txtend+" and studId="+bean.getId()+" ";
+		    	 stmt2 = conn.createStatement();
+		    	 rs2 = stmt2.executeQuery(sql);
+		    	 listDeco = new ArrayList<StudentDecoding>();
+		    	 while(rs2.next()){
+		    		 StudentDecoding decobean=new StudentDecoding();
+		    		 decobean.setDecoId(rs2.getInt(1));
+		    		 decobean.setStudId(bean.getId());
+		    		 decobean.setWeek(rs2.getInt(3));
+		    		 decobean.setDate(rs2.getString(4));
+		    		 decobean.setBook(rs2.getInt(5));
+		    		 decobean.setLesson(rs2.getInt(6));
+		    		 decobean.setForm(rs2.getString(7));
+		    		 decobean.setScore(rs2.getInt(8));
+		    		 listDeco.add(decobean);
+		    		 
+		    	 }
+		    	 rs2.close();
+		    	 stmt2.close();
+		    	 bean.setListDecoding(listDeco);
+		    	 		    	 
+		    	 sql = "SELECT * FROM rate where week >="+txtBegin+" and week <="+txtend+" and studId="+bean.getId()+" order by time ";
+		    	 stmt3 = conn.createStatement();
+		    	 rs3= stmt3.executeQuery(sql);
+		    	 listRate = new ArrayList<StudentRate>();
+		    	 while(rs3.next()){
+		    		 StudentRate ratebean=new StudentRate();
+		    		 ratebean.setRateId(rs3.getInt(1));
+		    		 ratebean.setStudId(rs3.getInt(2));
+		    		 ratebean.setDate(rs3.getString(3));
+		    		 ratebean.setText(rs3.getInt(4));
+		    		 ratebean.setTime(rs3.getInt(5));
+		    		 ratebean.setCwpm(rs3.getInt(6));
+		    		 ratebean.setErrors(rs3.getInt(7));
+		    		 ratebean.setWeek(rs3.getInt(8));
+		    		 listRate.add(ratebean);
+		    		 
+		    	 }
+		    	 rs3.close();
+		    	 stmt3.close();
+		    	 
+		    	 bean.setListRate(listRate);
+		    	  
+		       }
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			
+			try {
+				rs.close();
+				stmt.close();
+				conn.close();
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
+		}
+		
+		return bean;
+		
+	}
+
+	@Override
+	public StudentBean getStudentbyDecodingAndRatingByText(int id, String txtBegin, String txtEnd) {
+		
+
+		
+		// TODO Auto-generated method stub
+		Statement stmt=null;
+		Connection conn=null;
+		ResultSet rs=null;
+		
+		Statement stmt2=null;
+		ResultSet rs2=null;
+		
+		Statement stmt3=null;
+		ResultSet rs3=null;
+		
+		
+		
+		StudentBean bean = new StudentBean();
+		try{
+			
+			conn=connection.getConnection();
+			stmt = conn.createStatement();
+			String sql="";
+		    sql = "SELECT * FROM student where id="+id;
+		    rs = stmt.executeQuery(sql);
+		    ArrayList<StudentDecoding> listDeco=null;
+		     ArrayList<StudentRate> listRate=null;
+		     
+		      while(rs.next()){
+		    	 bean = new StudentBean();
+		    	 bean.setId(rs.getInt(1));
+		    	 bean.setGroupId(rs.getInt(2));
+		    	 bean.setStudFirstName(rs.getString(3));
+		    	 bean.setGrade(rs.getInt(4));
+		    	 bean.setDob(rs.getString(5));
+		    	 bean.setStDate(rs.getString(6));
+		    	 bean.setTeacher(rs.getString(7));
+		    	 bean.setStudLastName(rs.getString(8));
+		    	 bean.setAge(rs.getString(9));
+		    	 
+		    	 sql = "SELECT * FROM decoding where studId="+bean.getId()+" ";
+		    	 stmt2 = conn.createStatement();
+		    	 rs2 = stmt2.executeQuery(sql);
+		    	 listDeco = new ArrayList<StudentDecoding>();
+		    	 while(rs2.next()){
+		    		 StudentDecoding decobean=new StudentDecoding();
+		    		 decobean.setDecoId(rs2.getInt(1));
+		    		 decobean.setStudId(bean.getId());
+		    		 decobean.setWeek(rs2.getInt(3));
+		    		 decobean.setDate(rs2.getString(4));
+		    		 decobean.setBook(rs2.getInt(5));
+		    		 decobean.setLesson(rs2.getInt(6));
+		    		 decobean.setForm(rs2.getString(7));
+		    		 decobean.setScore(rs2.getInt(8));
+		    		 listDeco.add(decobean);
+		    		 
+		    	 }
+		    	 rs2.close();
+		    	 stmt2.close();
+		    	 bean.setListDecoding(listDeco);
+		    	 		    	 
+		    	 sql = "SELECT * FROM rate where text >="+txtBegin+" and text <="+txtEnd+" and studId="+bean.getId()+" order by time ";
+		    	 stmt3 = conn.createStatement();
+		    	 rs3= stmt3.executeQuery(sql);
+		    	 listRate = new ArrayList<StudentRate>();
+		    	 while(rs3.next()){
+		    		 StudentRate ratebean=new StudentRate();
+		    		 ratebean.setRateId(rs3.getInt(1));
+		    		 ratebean.setStudId(rs3.getInt(2));
+		    		 ratebean.setDate(rs3.getString(3));
+		    		 ratebean.setText(rs3.getInt(4));
+		    		 ratebean.setTime(rs3.getInt(5));
+		    		 ratebean.setCwpm(rs3.getInt(6));
+		    		 ratebean.setErrors(rs3.getInt(7));
+		    		 ratebean.setWeek(rs3.getInt(8));
+		    		 listRate.add(ratebean);
+		    		 
+		    	 }
+		    	 rs3.close();
+		    	 stmt3.close();
+		    	 
+		    	 bean.setListRate(listRate);
+		    	  
+		       }
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			
+			try {
+				rs.close();
+				stmt.close();
+				conn.close();
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
+		}
+		
+		return bean;
+		
+	
+	}
+
 }

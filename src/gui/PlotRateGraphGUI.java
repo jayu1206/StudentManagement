@@ -13,34 +13,28 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.awt.print.PrinterJob;
 import java.text.NumberFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.axis.SubCategoryAxis;
 import org.jfree.chart.labels.StandardCategoryItemLabelGenerator;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
-import org.jfree.data.general.DatasetUtilities;
 
+import abstrac.StudentDAO;
 import bean.StudentBean;
 import bean.StudentRate;
+import manegement.StudentOpr;
 
 public class PlotRateGraphGUI extends JFrame implements ActionListener{
 
@@ -49,14 +43,40 @@ public class PlotRateGraphGUI extends JFrame implements ActionListener{
 	JLabel lblStudent,lblTeacher,lblCurrentDate;
 	JButton btnBack,btnPrint;
 	StudentBean bean =new StudentBean();
+	StudentDAO studDao = new StudentOpr();
 	
-	PlotRateGraphGUI(StudentBean bean, String classId, String className){
+	PlotRateGraphGUI(StudentBean bean, String classId, String className, String txtBegin, String txtEnd){
 		
 
 		
 		this.classId=classId;
 		this.className=className;
 		this.bean=bean;
+		
+		if(!txtBegin.isEmpty() && !txtEnd.isEmpty()){
+			
+			try {
+				
+				int beginTxt = Integer.parseInt(txtBegin);
+				int endTxt = Integer.parseInt(txtEnd);
+				if (endTxt >= beginTxt){
+					StudentBean studBean = studDao.getStudentbyDecodingAndRatingByText(bean.getId(), txtBegin, txtEnd);
+					this.bean = studBean;
+				}else{
+					JOptionPane.showMessageDialog(this,beginTxt+" is not less then "+endTxt );
+				}
+              
+            } catch (NumberFormatException e) {
+                System.out.println("You've entered non-integer number");
+                System.out.println("This caused " + e);
+				JOptionPane.showMessageDialog(this,"Enter Number only (e.g 1 and 3)");
+
+            }
+			
+			
+			
+			
+		}
 		
 		setLayout(new BorderLayout());
 		setContentPane(new JLabel(new ImageIcon(this.getClass().getResource("/image/black-back-ground.jpg"))));
@@ -208,23 +228,7 @@ public class PlotRateGraphGUI extends JFrame implements ActionListener{
             true,                        // tooltips
             false                        // urls
         );
-    
-     /*   
-        SubCategoryAxis domainAxis = new SubCategoryAxis("Text / Month");
-        domainAxis.setCategoryMargin(0.05);
-        Set<Integer> list = new HashSet(); 
-        for(StudentRate rate : bean.getListRate()){
-        	
-        	list.add(rate.getText());
-		}
-        Arrays.sort(list.toArray());
-        domainAxis.addSubCategory(list.toString().replace("[", "").replace("]", ""));
-       // domainAxis.addSubCategory("Product 1");
- //       domainAxis.addSubCategory("Product 2");
-//        domainAxis.addSubCategory("Product 3");
-        
-        CategoryPlot plot = (CategoryPlot) chart.getPlot();
-        plot.setDomainAxis(domainAxis);*/
+  
         
         CategoryPlot plot = chart.getCategoryPlot();
 		  plot.getRenderer().setSeriesPaint(0, new Color(0, 0, 255));

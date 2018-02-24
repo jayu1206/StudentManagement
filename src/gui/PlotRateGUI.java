@@ -274,8 +274,15 @@ public class PlotRateGUI extends JFrame implements ActionListener{
 			if(allRadio.isSelected()){
 				setVisible(false);
 				//new DecodePlotGraphGUI(bean,classId,className);
-				new PlotRateGraphGUI(bean,classId,className);
+				new PlotRateGraphGUI(bean,classId,className,"","");
 				
+			}
+			if (weekRadio.isSelected()){
+				
+				setVisible(false);
+				String txtBegin = txtbegin.getText();
+				String txtEnd = txtend.getText();
+				new PlotRateGraphGUI(bean,classId,className, txtBegin, txtEnd);
 			}
 			
 			
@@ -283,10 +290,14 @@ public class PlotRateGUI extends JFrame implements ActionListener{
 		
 		if(weekRadio.isSelected()){
 			txtbegin.setText("Begin");
-			txtend.setText("End");
+			txtend.setText("End");			
+			txtbegin.setEditable(true);
+			txtend.setEditable(true);
 		}else{
 			txtbegin.setText("");
 			txtend.setText("");
+			txtbegin.setEditable(false);
+			txtend.setEditable(false);
 		}
 		
 		 if(e.getSource()==btnMLogout){
