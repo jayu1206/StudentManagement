@@ -343,8 +343,8 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 		getContentPane().add(btnImport);
 		btnImport.addActionListener(this);
 		
-		btnSample = new JButton("Sample Data");
-		btnSample.setBounds(400, 350, 150, 30);
+		btnSample = new JButton("Import Format");
+		btnSample.setBounds(530, 310, 200, 30);
 		btnSample.setBackground(Color.WHITE);
 		btnSample.setOpaque(true);
 		btnSample.setBorderPainted(false);

@@ -311,7 +311,7 @@ private XYDataset createDataset(StudentBean bean) {
             double beta1 = (double) regLineAB.get(0);
             double beta0 = (double) regLineAB.get(1);
             System.out.println("beta1 "+beta1);
-            final XYSeries series2 = new XYSeries("Third");
+            final XYSeries series2 = new XYSeries("Estimated Progress");
             
             for(StudentDecoding deco : bean.getListDecoding()){
             	//System.out.println(" Reg : "+ (  (beta1*deco.getWeek())+beta0  ));
