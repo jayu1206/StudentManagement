@@ -207,11 +207,11 @@ public class DecodePlotGUI extends JFrame implements ActionListener{
 					indiStudDataRadio.setSelected(true);
 					add(indiStudDataRadio);
 					
-					studDataClsAvgRadio.setBounds(250,510,300,40); 
-					studDataClsAvgRadio.setBackground(Color.black);
-					studDataClsAvgRadio.setForeground(Color.white);
-					studDataClsAvgRadio.setFont(f2);
-					add(studDataClsAvgRadio);
+//					studDataClsAvgRadio.setBounds(250,510,300,40); 
+//					studDataClsAvgRadio.setBackground(Color.black);
+//					studDataClsAvgRadio.setForeground(Color.white);
+//					studDataClsAvgRadio.setFont(f2);
+//					add(studDataClsAvgRadio);
 					
 					
 					

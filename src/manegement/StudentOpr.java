@@ -1210,4 +1210,58 @@ public class StudentOpr extends StudentDAO {
 	
 	}
 
+	@Override
+	public int insertStudentByCSV(StudentBean bean) {
+		// TODO Auto-generated method stub
+		Connection conn=null;
+		PreparedStatement statement=null;
+		boolean flag=false;
+		 int auto_id = 0;
+		
+		try{
+			 conn=connection.getConnection();
+			
+			//STEP 4: Execute a query
+		      
+		      String sql = "INSERT INTO student(groupid,studFirstName,grade,dob,startDt,teacher,studLastName,age) VALUES(?,?,?,?,?,?,?,?)";
+		      
+		      statement = conn.prepareStatement(sql);
+		     
+		      statement.setInt(1, bean.getGroupId());
+		      statement.setString(2, bean.getStudFirstName());
+		      statement.setInt(3, bean.getGrade());
+		      statement.setString(4, bean.getDob());
+		      statement.setString(5, bean.getStDate());
+		      statement.setString(6, bean.getTeacher());
+		      statement.setString(7, bean.getStudLastName());
+		      statement.setString(8, bean.getAge());
+		      statement.execute();
+		      
+		      //flag=true;
+		      ResultSet rs = statement.getGeneratedKeys();
+		      rs.next();
+		      auto_id = rs.getInt(1);
+		     
+			 
+		 }catch(Exception e){
+			 flag=false;
+			 e.printStackTrace();
+			 
+		 }finally{
+				//STEP 6: Clean-up environment
+		      try {
+		    	  statement.close();
+			     conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				 flag=false;
+				e.printStackTrace();
+			}
+		      
+			 
+		 }
+		
+		return auto_id;
+	}
+
 }

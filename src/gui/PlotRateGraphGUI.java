@@ -25,6 +25,7 @@ import javax.swing.JPanel;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.SubCategoryAxis;
 import org.jfree.chart.labels.StandardCategoryItemLabelGenerator;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
@@ -238,6 +239,13 @@ public class PlotRateGraphGUI extends JFrame implements ActionListener{
 				    new StandardCategoryItemLabelGenerator(
 				        "{2}", NumberFormat.getInstance()));
 		  plot.getRenderer().setItemLabelsVisible(true);
+		  
+		  SubCategoryAxis domainAxis = new SubCategoryAxis("");
+	        domainAxis.setCategoryMargin(0.05);
+	        domainAxis.addSubCategory("Text");
+	        plot.setDomainAxis(domainAxis);
+	        
+		  
         return chart;
         
     }

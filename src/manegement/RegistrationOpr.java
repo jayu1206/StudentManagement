@@ -112,12 +112,16 @@ public class RegistrationOpr extends RegistrationDAO{
 			
 			//STEP 4: Execute a query
 		      
-		      String sql = "UPDATE admin SET password=? WHERE id=?";
+		      String sql = "UPDATE admin SET password=?,firstName=?,lastName=?,email=?,userID=? WHERE id=?";
 		      
 		      statement = conn.prepareStatement(sql);
 		     
 		      statement.setString(1, bean.getPsw());
-		      statement.setInt(2, bean.getId());
+		      statement.setString(2, bean.getFirstName());
+		      statement.setString(3, bean.getLastName());
+		      statement.setString(4, bean.getEmail());
+		      statement.setString(5, bean.getUserID());
+		      statement.setInt(6, bean.getId());
 		      
 		      statement.execute();
 		      

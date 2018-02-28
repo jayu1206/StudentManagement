@@ -46,5 +46,7 @@ public abstract class StudentDAO {
 	public abstract StudentBean getStudentbyDecodingAndRatingByweek(int id, String txtBegin, String txtend);
 
 	public abstract StudentBean getStudentbyDecodingAndRatingByText(int id, String txtBegin, String txtEnd);
+
+	public abstract int insertStudentByCSV(StudentBean bean);
 	
 }

@@ -224,10 +224,17 @@ public class MyProfileGUI extends JFrame implements ActionListener{
 			
 			if(changePsw.isSelected()){
 				txtPsw.setEditable(true);
+				txtFirstName.setEditable(true);
+				txtLastName.setEditable(true);
+				txtemail.setEditable(true);
+				txtUserId.setEditable(true);
 				//JOptionPane.showMessageDialog(this,"Failed! Please try again..");
 			}else{
 				txtPsw.setText("");
-				txtPsw.setEditable(false);
+				txtPsw.setEditable(false);				
+				txtFirstName.setEditable(false);
+				txtLastName.setEditable(false);
+				txtemail.setEditable(false);		
 				
 			}
 		
@@ -241,6 +248,10 @@ public class MyProfileGUI extends JFrame implements ActionListener{
 						
 					}else{
 						bean.setPsw(txtPsw.getText());
+						bean.setFirstName(txtFirstName.getText());
+						bean.setLastName(txtLastName.getText());
+						bean.setEmail(txtemail.getText());
+						bean.setUserID(txtUserId.getText());
 						boolean flag = dao.updateNewPassword(bean);
 						if(flag){
 							JOptionPane.showMessageDialog(this,"Password Change Successfully ");

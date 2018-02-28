@@ -31,6 +31,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
+import java.util.stream.Stream;
 
 import javax.swing.Box;
 import javax.swing.ButtonGroup;
@@ -55,6 +56,8 @@ import javax.swing.ListCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import org.apache.commons.io.FileUtils;
+
+import com.sun.xml.internal.fastinfoset.util.StringArray;
 
 import abstrac.GroupDAO;
 import abstrac.StudentDAO;
@@ -542,19 +545,23 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 					String fileName = txtImportFilePath.getText();
 					Path pathToFile = Paths.get(fileName);
 					StudentBean bean = new StudentBean();
+					//StudentDecoding StudDecoBean = new StudentDecoding();
 					StudentDAO dao = new StudentOpr();
 					boolean done = false;
+					int studID = 0;
 					try {
 
 						BufferedReader br = Files.newBufferedReader(pathToFile, StandardCharsets.US_ASCII);
 						String line = br.readLine();
 						Item item = (Item) cbGrpList.getSelectedItem();
+						
+						
+						int iteration = 0;
 						while ((line = br.readLine()) != null) {
-							if (!line.isEmpty()) {
+							String[] data = line.split(",");
+							if (data.length != 0) {
 
-								String[] data = line.split(",");
-								if (data.length != 0) {
-
+								if (iteration == 0){
 									bean.setGroupId(item.getId());
 									bean.setStudFirstName(data[2]);
 									bean.setStudLastName(data[3]);
@@ -563,13 +570,93 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 									bean.setStDate(data[6]);
 									bean.setTeacher(data[7]);
 									bean.setAge(data[8]);
-									done = dao.insertStudent(bean);
-								} else {
-									JOptionPane.showMessageDialog(this, "File is Empty");
-									break;
+									System.out.println("Student Data : " + bean);
+									studID = dao.insertStudentByCSV(bean);
+									iteration++;
 								}
+							
+								
+							} else {
+								JOptionPane.showMessageDialog(this, "File is Empty");
+								break;
 							}
+
+							
+							String header1 = data[1];
+							//String header2 = null;
+							
+							if (header1.contains("Decoding Data")){
+								int iteration1 = 0;
+								
+								StudentDecoding studDecoBean = new StudentDecoding();
+								StudentRate studRateBean = new StudentRate();
+								while ((line = br.readLine()) != null) {
+									String[] studDeco = line.split(",");
+									String header2 = studDeco[1];
+									if(iteration1 == 0) {
+								        iteration1++;  
+								        continue;
+								    }									
+									
+									if (studDeco.length != 0 && iteration1 == 1) {
+									
+										
+										if (header2.contains("Rate Data")){
+											
+												iteration++;
+												break;											
+										}
+										studDecoBean.setStudId(studID);
+										studDecoBean.setWeek(Integer.parseInt(studDeco[1]));
+										studDecoBean.setDate(studDeco[2]);
+										studDecoBean.setBook(Integer.parseInt(studDeco[3]));
+										studDecoBean.setLesson(Integer.parseInt(studDeco[4]));
+										studDecoBean.setForm(studDeco[5]);
+										studDecoBean.setScore(Integer.parseInt(studDeco[6]));	
+										System.out.println("Decoding Data : " + studDecoBean);
+										done = dao.insertDecoderData(studDecoBean);
+									}	
+									
+								}								
+							}
+							
+							if(iteration == 2) {
+								iteration++;  
+						        continue;
+						    }	
+							if (iteration == 3){
+								
+								StudentRate studRateBean = new StudentRate();
+								while ((line = br.readLine()) != null) {
+									String[] studBean = line.split(",");
+									
+									if (studBean.length > 1){
+									
+										String header3 = studBean[1];
+										if (header3.contains("GROUP ID")){
+											iteration = 0;
+											break;
+										}
+										studRateBean.setStudId(studID);
+										studRateBean.setDate(studBean[1]);
+										studRateBean.setText(Integer.parseInt(studBean[2]));
+										studRateBean.setTime(Integer.parseInt(studBean[3]));
+										studRateBean.setCwpm(Integer.parseInt(studBean[4]));
+										studRateBean.setErrors(Integer.parseInt(studBean[5]));
+										studRateBean.setWeek(Integer.parseInt(studBean[6]));
+										System.out.println("Rating Data : "+studRateBean);
+										done = dao.insertRateData(studRateBean);
+									}
+									
+								}							
+								
+							}
+							
+													
+							
 						}
+						
+
 						if (done) {
 							JOptionPane.showMessageDialog(this, "Students Added Successfully");
 							setVisible(false);
@@ -719,21 +806,8 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 							stud.add(bean.getStartDate());
 							stud.add("\n");
 						
-					}else{
+					}else{					
 								
-								
-								
-								stud.add(" ");
-								stud.add("GROUP ID");
-								stud.add("FIRST NAME");
-								stud.add("LAST NAME");
-								stud.add("GRADE");
-								stud.add("DATE OF BIRTH");
-								stud.add("START DATE");
-								stud.add("TEACHER");
-								stud.add("AGE");
-								stud.add(",");
-								stud.add("\n");
 			
 								boolean flag = false;
 								for (int i = 0; i < id.size(); i++) {
@@ -744,13 +818,26 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 								}
 			
 								if (!flag) {
-			
+									
+									stud.add(" ");
 									for (int i = 0; i < id.size(); i++) {
-			
+										
 										// JOptionPane.showMessageDialog(this, id.get(i));
 										int studentID = Integer.parseInt(id.get(i).toString());
 										if (studentID != 0) {
 			
+											//stud.add(" ");
+											stud.add("GROUP ID");
+											stud.add("FIRST NAME");
+											stud.add("LAST NAME");
+											stud.add("GRADE");
+											stud.add("DATE OF BIRTH");
+											stud.add("START DATE");
+											stud.add("TEACHER");
+											stud.add("AGE");
+											stud.add(",");
+											stud.add("\n");
+											
 											StudentBean studBean = studDAO.getStudentById(studentID);
 											stud.add(studBean.getGroupId() + "");
 											stud.add(studBean.getStudFirstName());
@@ -761,7 +848,7 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 											stud.add(studBean.getTeacher());
 											stud.add(studBean.getAge() + "");
 											stud.add("\n");
-											stud.add(" ");stud.add(" ");stud.add(" ");
+//											stud.add(" ");stud.add(" ");stud.add(" ");
 											stud.add(" Decoding Data");
 											stud.add("\n");
 											stud.add("Week");
@@ -780,8 +867,8 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 												stud.add(decode.getScore()+"");
 												stud.add("\n");
 											}
-											stud.add("\n");
-											stud.add(" ");stud.add(" ");stud.add(" ");
+//											stud.add("\n");
+//											stud.add(" ");stud.add(" ");stud.add(" ");
 											stud.add(" Rate Data");
 											stud.add("\n");
 											stud.add("Date");
@@ -807,11 +894,27 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 										}
 									}
 								} else {
+									
+									
+									stud.add(" ");
 									Item item = (Item) cbGrpExportList.getSelectedItem();
 									int grpId = item.getId();
 									studList = studDAO.getAllStudents(grpId + "");
 									for (StudentBean bean : studList) {
 			
+										//stud.add(" ");
+										stud.add("GROUP ID");
+										stud.add("FIRST NAME");
+										stud.add("LAST NAME");
+										stud.add("GRADE");
+										stud.add("DATE OF BIRTH");
+										stud.add("START DATE");
+										stud.add("TEACHER");
+										stud.add("AGE");
+										stud.add(",");
+										stud.add("\n");
+										
+										
 										stud.add(bean.getGroupId() + "");
 										stud.add(bean.getStudFirstName());
 										stud.add(bean.getStudLastName());
@@ -821,7 +924,7 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 										stud.add(bean.getTeacher());
 										stud.add(bean.getAge());
 										stud.add("\n");
-										stud.add(" ");stud.add(" ");stud.add(" ");
+//										stud.add(" ");stud.add(" ");stud.add(" ");
 										stud.add(" Decoding Data");
 										stud.add("\n");
 										stud.add("Week");
@@ -841,8 +944,8 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 											stud.add("\n");
 										}
 										
-										stud.add("\n");
-										stud.add(" ");stud.add(" ");stud.add(" ");
+//										stud.add("\n");
+//										stud.add(" ");stud.add(" ");stud.add(" ");
 										stud.add(" Rate Data");
 										stud.add("\n");
 										stud.add("Date");
@@ -880,6 +983,15 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 
 		}
 
+	}
+
+	private boolean isEmptyStringArray(String[] studDeco) {
+		 for(int i=0; i<studDeco.length; i++){ 
+			  if(studDeco[i] != null){
+			    return true;
+			  }
+		 }
+		return false;
 	}
 
 
