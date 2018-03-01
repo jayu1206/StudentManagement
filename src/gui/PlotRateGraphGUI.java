@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GraphicsEnvironment;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -25,6 +26,8 @@ import javax.swing.JPanel;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.LegendItem;
+import org.jfree.chart.LegendItemCollection;
 import org.jfree.chart.axis.SubCategoryAxis;
 import org.jfree.chart.labels.StandardCategoryItemLabelGenerator;
 import org.jfree.chart.plot.CategoryPlot;
@@ -240,11 +243,15 @@ public class PlotRateGraphGUI extends JFrame implements ActionListener{
 				        "{2}", NumberFormat.getInstance()));
 		  plot.getRenderer().setItemLabelsVisible(true);
 		  
-		  SubCategoryAxis domainAxis = new SubCategoryAxis("");
+		 SubCategoryAxis domainAxis = new SubCategoryAxis("");
 	        domainAxis.setCategoryMargin(0.05);
-	        domainAxis.addSubCategory("Text");
+	        domainAxis.addSubCategory("1 - Text");
+	        domainAxis.addSubCategory("2 - Level");
+	        domainAxis.addSubCategory("12-01-2015 - Date");
+
 	        plot.setDomainAxis(domainAxis);
-	        
+
+
 		  
         return chart;
         

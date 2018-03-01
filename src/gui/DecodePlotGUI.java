@@ -21,6 +21,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
@@ -311,8 +312,16 @@ public class DecodePlotGUI extends JFrame implements ActionListener{
 		
 		if(e.getSource() == btnContinue){
 			if(allRadio.isSelected() && indiStudDataRadio.isSelected()){
-				setVisible(false);
-				new DecodePlotGraphGUI(bean,classId,className,"All", "","");
+				
+				int size = bean.getListDecoding().size();
+				if (size >= 3){
+					setVisible(false);
+					new DecodePlotGraphGUI(bean,classId,className,"All", "","");
+				}else{
+					JOptionPane.showMessageDialog(this,"Selected Data is Low. Add More Data");
+				}
+	        
+				
 			}
 			
 			if(allRadio.isSelected() && studDataClsAvgRadio.isSelected()){

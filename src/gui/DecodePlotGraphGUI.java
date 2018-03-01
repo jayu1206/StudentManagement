@@ -312,14 +312,14 @@ private XYDataset createDataset(StudentBean bean) {
             double beta0 = (double) regLineAB.get(1);
             System.out.println("beta1 "+beta1);
             final XYSeries series2 = new XYSeries("Estimated Progress");
-            
+          
             for(StudentDecoding deco : bean.getListDecoding()){
-            	//System.out.println(" Reg : "+ (  (beta1*deco.getWeek())+beta0  ));
-            	double tempFinal = (  (beta1*deco.getWeek())+beta0  );
-            	series2.add(deco.getWeek(),tempFinal);
-            	
+                     //  System.out.println(" Count : "+ bean.getListDecoding().size());
+            		double tempFinal = (  (beta1*deco.getWeek())+beta0  );
+                    series2.add(deco.getWeek(),tempFinal);
             }
-            
+          
+          
             
         XYSeries series3 = null;
 		if(graphType.contains("Avg")){
@@ -339,7 +339,7 @@ private XYDataset createDataset(StudentBean bean) {
 			double betaA = (double) regLineABAvg.get(0);
 			double betaB = (double) regLineABAvg.get(1);
 			System.out.println("beta1 " + beta1);
-
+			
 			for (StudentDecoding deco : bean.getListDecoding()) {
 				// System.out.println(" Reg : "+ ( (beta1*deco.getWeek())+beta0));
 				double regABAvg = ((betaA * deco.getWeek()) + betaB);
