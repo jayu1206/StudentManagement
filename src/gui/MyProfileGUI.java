@@ -87,7 +87,7 @@ public class MyProfileGUI extends JFrame implements ActionListener{
 						// Creating JTextField for Father's name
 						txtFirstName=new JTextField();
 						txtFirstName.setText(bean.getFirstName());
-						txtFirstName.setEditable(false);
+						//txtFirstName.setEditable(false);
 						txtFirstName.setBounds(500,190,180,30);
 						add(txtFirstName);
 		
@@ -101,7 +101,7 @@ public class MyProfileGUI extends JFrame implements ActionListener{
 						txtLastName=new JTextField();
 						txtLastName.setBounds(500,235,180,30);
 						txtLastName.setText(bean.getLastName());
-						txtLastName.setEditable(false);
+						//txtLastName.setEditable(false);
 						add(txtLastName);
 						
 						lblemail=new JLabel("Email : ");
@@ -113,7 +113,7 @@ public class MyProfileGUI extends JFrame implements ActionListener{
 						txtemail=new JTextField();
 						txtemail.setBounds(500,280,180,30);
 						txtemail.setText(bean.getEmail());
-						txtemail.setEditable(false);
+						//txtemail.setEditable(false);
 						add(txtemail);
 						
 						
@@ -126,7 +126,7 @@ public class MyProfileGUI extends JFrame implements ActionListener{
 						txtUserId=new JTextField();
 						txtUserId.setBounds(500,330,180,30);
 						txtUserId.setText(bean.getUserID());
-						txtUserId.setEditable(false);
+						//txtUserId.setEditable(false);
 						add(txtUserId);
 						
 						
@@ -254,7 +254,7 @@ public class MyProfileGUI extends JFrame implements ActionListener{
 						bean.setUserID(txtUserId.getText());
 						boolean flag = dao.updateNewPassword(bean);
 						if(flag){
-							JOptionPane.showMessageDialog(this,"Password Change Successfully ");
+							JOptionPane.showMessageDialog(this,"Profile Updated Successfully ");
 							setVisible(false);
 							new welcomeGUI();
 						}
@@ -262,6 +262,19 @@ public class MyProfileGUI extends JFrame implements ActionListener{
 					
 					
 					
+					
+				}else{
+					bean.setPsw(bean.getPsw());
+					bean.setFirstName(txtFirstName.getText());
+					bean.setLastName(txtLastName.getText());
+					bean.setEmail(txtemail.getText());
+					bean.setUserID(txtUserId.getText());
+					boolean flag = dao.updateNewPassword(bean);
+					if(flag){
+						JOptionPane.showMessageDialog(this,"Profile Updated Successfully ");
+						setVisible(false);
+						new welcomeGUI();
+					}
 					
 				}
 				
