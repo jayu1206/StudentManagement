@@ -637,6 +637,8 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 			}
 
 			model.addRow(new Object[] { nexVal, "", "", "", "", "", "" });
+			
+			jt.changeSelection(row,0,true,false);
 
 		}
 
@@ -652,7 +654,7 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 			}
 
 			modelRate.addRow(new Object[] { nexVal, "", "", "", "", "", "" });
-
+			jtRate.changeSelection(row,0,true,false);
 		}
 
 		if (e.getSource() == btnSaveDecoding) {
@@ -941,8 +943,16 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 		}
 
 		if (e.getSource() == btnPloatDecoding) {
-			setVisible(false);
-			new DecodePlotGUI(bean, classId, className);
+			
+			int size = bean.getListDecoding().size();
+			if (size >= 3){
+				setVisible(false);
+				new DecodePlotGUI(bean, classId, className);
+				
+			}else{
+				JOptionPane.showMessageDialog(this,"Selected Data is Low. Add More Data");
+			}
+			
 
 		}
 

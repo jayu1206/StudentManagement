@@ -201,7 +201,7 @@ public class MyProfileGUI extends JFrame implements ActionListener{
 						centerFrame();
 					    setTitle("Progress Monitor Data Manager");
 					    setDefaultCloseOperation(javax.swing.
-					            WindowConstants.DISPOSE_ON_CLOSE);
+					            WindowConstants.EXIT_ON_CLOSE);
 					    c.setLayout(null);    
 						c.setBackground(new Color(135,206,250));  
 						setVisible(true); 
