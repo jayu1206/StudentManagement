@@ -132,7 +132,7 @@ public class PlotRateGraphGUI extends JFrame implements ActionListener{
 			
 			/* P1 for first tab data  */
 			 JPanel p1=new JPanel();//createContactPanel1();   // Call method for set the 1st tab frame contenct
-			 p1.setBounds(60,100,850,600);    
+			 p1.setBounds(60,100,850,550);    
 			 p1.setBackground(Color.black);  
 			 //setContentPane(p1); //add(p1);
 		//	 final XYDataset dataset = createDataset(bean);
@@ -163,23 +163,34 @@ public class PlotRateGraphGUI extends JFrame implements ActionListener{
 				 jt.setRowHeight(20);
 				 
 				 jt.setFont(new Font("Times New Roman", Font.PLAIN, 18));
-			     
-				 jt.setPreferredSize(new java.awt.Dimension(400, 100)); 
+				 jt.setDefaultEditor(Object.class, null);
+				 jt.setPreferredSize(new java.awt.Dimension(400, 121)); 
 				// jt.setPreferredSize(new Dimension(500, 300));
 				 jt.setModel(model);
-				 //model.addRow(new Object[]{"class details"});
+				
 				
 				 model.addColumn("Change");
 		         model.addColumn("Date");
 		         model.addColumn("Errors");		
 		          
+		         
+		         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+		         centerRenderer.setHorizontalAlignment( JLabel.CENTER );
+		         
+		         jt.getColumnModel().getColumn(0).setCellRenderer( centerRenderer );
+		         jt.getColumnModel().getColumn(1).setCellRenderer( centerRenderer );
+		         jt.getColumnModel().getColumn(2).setCellRenderer( centerRenderer );
+		         
+		         
 		         model.addRow(tblListText.toArray());
 		         model.addRow(tblListCWPM.toArray());
 		         model.addRow(tblListPriDate.toArray());
 		         model.addRow(tblListPriErrors.toArray());
 		         model.addRow(tblListPostDate.toArray());
 		         model.addRow(tblListPostErrors.toArray());
-		         jt.setDefaultEditor(Object.class, null);
+		        
+		         JTableHeader header= jt.getTableHeader();
+			     header.setBackground(Color.yellow);
 		         
 		         p1.add(jt);	
 			     getContentPane().add(p1);

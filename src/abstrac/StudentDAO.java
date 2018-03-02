@@ -43,7 +43,7 @@ public abstract class StudentDAO {
 
 	public abstract List getAvgofStud(List ids);
 
-	public abstract StudentBean getStudentbyDecodingAndRatingByweek(int id, String txtBegin, String txtend);
+	public abstract StudentBean getStudentbyDecodingAndRatingByweek(int id, int beginTxt, int endTxt);
 
 	public abstract StudentBean getStudentbyDecodingAndRatingByText(int id, String txtBegin, String txtEnd);
 

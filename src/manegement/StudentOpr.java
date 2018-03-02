@@ -1000,7 +1000,7 @@ public class StudentOpr extends StudentDAO {
 	}
 
 	@Override
-	public StudentBean getStudentbyDecodingAndRatingByweek(int id,  String txtBegin, String txtend) {
+	public StudentBean getStudentbyDecodingAndRatingByweek(int id,  int txtBegin, int txtend) {
 		
 		// TODO Auto-generated method stub
 		Statement stmt=null;
@@ -1038,7 +1038,8 @@ public class StudentOpr extends StudentDAO {
 		    	 bean.setStudLastName(rs.getString(8));
 		    	 bean.setAge(rs.getString(9));
 		    	 
-		    	 sql = "SELECT * FROM decoding where week >= "+txtBegin+" and week <="+txtend+" and studId="+bean.getId()+" ";
+		    	 sql = "SELECT * FROM decoding where studId="+bean.getId()+" and week BETWEEN "+txtBegin+" AND "+txtend+" ";
+		    	 System.out.println(sql);
 		    	 stmt2 = conn.createStatement();
 		    	 rs2 = stmt2.executeQuery(sql);
 		    	 listDeco = new ArrayList<StudentDecoding>();
@@ -1059,7 +1060,7 @@ public class StudentOpr extends StudentDAO {
 		    	 stmt2.close();
 		    	 bean.setListDecoding(listDeco);
 		    	 		    	 
-		    	 sql = "SELECT * FROM rate where week >="+txtBegin+" and week <="+txtend+" and studId="+bean.getId()+" order by time ";
+		    	 sql = "SELECT * FROM rate where  studId="+bean.getId()+" order by time ";
 		    	 stmt3 = conn.createStatement();
 		    	 rs3= stmt3.executeQuery(sql);
 		    	 listRate = new ArrayList<StudentRate>();

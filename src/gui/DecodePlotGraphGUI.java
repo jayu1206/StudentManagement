@@ -93,7 +93,8 @@ public class DecodePlotGraphGUI extends JFrame implements ActionListener,Printab
 				int beginTxt = Integer.parseInt(txtBegin);
 				int endTxt = Integer.parseInt(txtend);
 				if (endTxt >= beginTxt){
-					StudentBean studBean = studDao.getStudentbyDecodingAndRatingByweek(bean.getId(), txtBegin, txtend);
+					System.out.println(beginTxt + " "+endTxt);
+					StudentBean studBean = studDao.getStudentbyDecodingAndRatingByweek(bean.getId(), beginTxt, endTxt);
 					this.bean = studBean;
 				}else{
 					JOptionPane.showMessageDialog(this,beginTxt+" is NOT less then "+endTxt );
@@ -145,7 +146,7 @@ public class DecodePlotGraphGUI extends JFrame implements ActionListener,Printab
 			 p1.setBounds(60,100,850,600);    
 			 p1.setBackground(Color.black);  
 			 //setContentPane(p1); //add(p1);
-			 final XYDataset dataset = createDataset(bean);
+			 final XYDataset dataset = createDataset(this.bean);
 		     final JFreeChart chart = createChart(dataset);
 		    // drawRegressionLine(chart,dataset);
 		     
@@ -325,8 +326,7 @@ private XYDataset createDataset(StudentBean bean) {
 		if(graphType.contains("Avg")){
 			
 			series3 = new XYSeries("Class Average");
-			// Get Students Score Avg
-			System.out.println(bean);
+			
 			ArrayList<StudentBean> list = studDao.getAllStudents(classId);
 			List ids = new ArrayList<>();
 			for (StudentBean studbean : list) {
@@ -338,7 +338,7 @@ private XYDataset createDataset(StudentBean bean) {
 			ArrayList regLineABAvg = getLinearRegressionLineforAvg(avgList);
 			double betaA = (double) regLineABAvg.get(0);
 			double betaB = (double) regLineABAvg.get(1);
-			System.out.println("beta1 " + beta1);
+			//System.out.println("beta1 " + beta1);
 			
 			for (StudentDecoding deco : bean.getListDecoding()) {
 				// System.out.println(" Reg : "+ ( (beta1*deco.getWeek())+beta0));

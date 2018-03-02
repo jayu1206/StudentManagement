@@ -318,7 +318,7 @@ public class DecodePlotGUI extends JFrame implements ActionListener{
 					setVisible(false);
 					new DecodePlotGraphGUI(bean,classId,className,"All", "","");
 				}else{
-					JOptionPane.showMessageDialog(this,"Selected Data is Low. Add More Data");
+					JOptionPane.showMessageDialog(this,"Please provide more data");
 				}
 	        
 				
@@ -331,23 +331,40 @@ public class DecodePlotGUI extends JFrame implements ActionListener{
 			
 			if (weekRadio.isSelected() && indiStudDataRadio.isSelected()){
 				
-				setVisible(false);
+				
 				String txtBegin = txtbegin.getText();
 				String txtEnd = txtend.getText();
-				new DecodePlotGraphGUI(bean,classId,className,"All", txtBegin, txtEnd);
+				
+				try{
+					int beginTxt = Integer.parseInt(txtBegin);
+					int endTxt = Integer.parseInt(txtEnd);
+					if (endTxt >= beginTxt){
+						setVisible(false);
+						new DecodePlotGraphGUI(bean,classId,className,"All", txtBegin, txtEnd);
+					}else{
+						JOptionPane.showMessageDialog(this,beginTxt+" is NOT less then "+endTxt );
+					}
+				
+				} catch (NumberFormatException ee) {
+		            System.out.println("You've entered non-integer number");
+		            System.out.println("This caused " + ee);
+					JOptionPane.showMessageDialog(this,"Enter Number only (e.g 1 and 3)");
+
+		        }
+				
 			}
 			
 			
 		}
 		
 		if(weekRadio.isSelected()){
-			txtbegin.setText("Begin");
-			txtend.setText("End");
+			txtbegin.setText("");
+			txtend.setText("");
 			txtbegin.setEditable(true);
 			txtend.setEditable(true);
 		}else{
-			txtbegin.setText("");
-			txtend.setText("");
+			txtbegin.setText("Begin");
+			txtend.setText("End");
 			txtbegin.setEditable(false);
 			txtend.setEditable(false);
 			
