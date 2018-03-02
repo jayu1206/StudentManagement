@@ -14,7 +14,11 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.awt.print.PrinterJob;
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -22,6 +26,11 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -37,6 +46,7 @@ import org.jfree.data.category.DefaultCategoryDataset;
 
 import abstrac.StudentDAO;
 import bean.StudentBean;
+import bean.StudentDecoding;
 import bean.StudentRate;
 import manegement.StudentOpr;
 
@@ -48,7 +58,16 @@ public class PlotRateGraphGUI extends JFrame implements ActionListener{
 	JButton btnBack,btnPrint;
 	StudentBean bean =new StudentBean();
 	StudentDAO studDao = new StudentOpr();
-	
+	 List tblListText = new ArrayList<>();
+	 List tblListCWPM = new ArrayList<>();
+	 List tblListPostDate = new ArrayList<>();
+	 List tblListPostErrors = new ArrayList<>();
+	 List tblListPriDate = new ArrayList<>();
+	 List tblListPriErrors = new ArrayList<>();
+	 
+	 DefaultTableModel model;
+	 JTable jt;
+	 HashSet<Object> setText=new HashSet<Object>();
 	PlotRateGraphGUI(StudentBean bean, String classId, String className, String txtBegin, String txtEnd){
 		
 
@@ -127,13 +146,44 @@ public class PlotRateGraphGUI extends JFrame implements ActionListener{
 //			         createDataset(bean),          
 //			         PlotOrientation.VERTICAL,           
 //			         true, true, false);
+			
 			 
 			  	final CategoryDataset dataset = createDataset();
 		        final JFreeChart chart = createChart(dataset);
 		        final ChartPanel chartPanel = new ChartPanel(chart);
-		        chartPanel.setPreferredSize(new java.awt.Dimension(800, 500));
+		        chartPanel.setPreferredSize(new java.awt.Dimension(700, 400));
 		        p1.add(chartPanel);
 				getContentPane().add(p1);
+				
+				
+				
+				 model = new DefaultTableModel();
+				 
+				 jt=new JTable(); 
+				 jt.setRowHeight(20);
+				 
+				 jt.setFont(new Font("Times New Roman", Font.PLAIN, 18));
+			     
+				 jt.setPreferredSize(new java.awt.Dimension(400, 100)); 
+				// jt.setPreferredSize(new Dimension(500, 300));
+				 jt.setModel(model);
+				 //model.addRow(new Object[]{"class details"});
+				
+				 model.addColumn("Change");
+		         model.addColumn("Date");
+		         model.addColumn("Errors");		
+		          
+		         model.addRow(tblListText.toArray());
+		         model.addRow(tblListCWPM.toArray());
+		         model.addRow(tblListPriDate.toArray());
+		         model.addRow(tblListPriErrors.toArray());
+		         model.addRow(tblListPostDate.toArray());
+		         model.addRow(tblListPostErrors.toArray());
+		         jt.setDefaultEditor(Object.class, null);
+		         
+		         p1.add(jt);	
+			     getContentPane().add(p1);
+		         
 				
 //		     final  ChartPanel chartPanel = new ChartPanel( chart ); 
 //		     chartPanel.setPreferredSize(new java.awt.Dimension( 700 , 500 ) );  
@@ -245,10 +295,7 @@ public class PlotRateGraphGUI extends JFrame implements ActionListener{
 		  
 		 SubCategoryAxis domainAxis = new SubCategoryAxis("");
 	        domainAxis.setCategoryMargin(0.05);
-	        domainAxis.addSubCategory("1 - Text");
-	        domainAxis.addSubCategory("2 - Level");
-	        domainAxis.addSubCategory("12-01-2015 - Date");
-
+//	        domainAxis.addSubCategory("1 - Text");
 	        plot.setDomainAxis(domainAxis);
 
 
@@ -293,20 +340,37 @@ public class PlotRateGraphGUI extends JFrame implements ActionListener{
 		 DefaultCategoryDataset result = new DefaultCategoryDataset();
 		// int i = 1;
 		 int tempCwpm = 0;
+		   
+		 tblListText.add("Text");
+		 tblListCWPM.add("Change");
+		 tblListPostDate.add("Post Date");
+		 tblListPostErrors.add("Post Errors");
+		 tblListPriDate.add("Pre Date");
+		 tblListPriErrors.add("Pre Errors");
+
 		 for(StudentRate rate : bean.getListRate()){
 	        
+			 
 			 if(rate.getTime() == 2){
 				 int finalcwpm = rate.getCwpm() - tempCwpm;
 				 result.addValue(finalcwpm,rate.getTime()+"" ,rate.getText()+"");
+				
+				 tblListCWPM.add(finalcwpm);
+				 tblListPostDate.add(rate.getDate());
+				 tblListPostErrors.add(rate.getErrors());
+				
 			 }else{
-				 
+				
 				 tempCwpm= rate.getCwpm();
 				 result.addValue(rate.getCwpm(),rate.getTime()+"" ,rate.getText()+"");
+				 tblListPriDate.add(rate.getDate());
+				 tblListPriErrors.add(rate.getErrors());
 			 }
+			 setText.add(rate.getText());			 
 		//	i++;	 
 			 
-			 
 		 }
+		 tblListText.addAll(setText);
 
          return result;
 	}
