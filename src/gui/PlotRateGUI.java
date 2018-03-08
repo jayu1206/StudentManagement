@@ -63,53 +63,108 @@ public class PlotRateGUI extends JFrame implements ActionListener{
 		mb.add(Box.createRigidArea(new Dimension(10,40)));
 
 		
-		btnMmyProfile = new JButton("My Profile");
-		btnMmyProfile.addActionListener(this);
-		btnMmyProfile.setBackground(new Color(135,206,250));
-		btnMmyProfile.setBorder(null);
-		btnMmyProfile.setBorderPainted(false);
-		mb.add(btnMmyProfile); 
+		String osname = System.getProperty("os.name");
+		if (osname.contains("Mac")){
+			btnMmyProfile = new JButton("My Profile");
+			btnMmyProfile.addActionListener(this);
+			
+			//btnMmyProfile.setBackground(new Color(135,206,250));
+			//btnMmyProfile.setBorder(null);
+			//btnMmyProfile.setBorderPainted(false);
+			//btnMmyProfile.setOpaque(true);
+			mb.add(btnMmyProfile); 
+			setJMenuBar(mb);
+			
+			
+			btnMgroup = new JButton("Groups");
+			btnMgroup.addActionListener(this);
+			btnMgroup.setBackground(new Color(135,206,250));
+//			btnMgroup.setBorderPainted(false);
+//			btnMgroup.setOpaque(true);
+			mb.add(btnMgroup); 
+			
+	        setJMenuBar(mb);
+	       
+			
+			btnMstudents = new JButton("Student");
+			btnMstudents.addActionListener(this);
+			btnMstudents.setBackground(new Color(135,206,250));
+//			btnMstudents.setBorderPainted(false);
+//			btnMstudents.setOpaque(true);
+			mb.add(btnMstudents);  
+	        setJMenuBar(mb);
+			
+			
+			btnMImportExport = new JButton("Import / Export");
+			btnMImportExport.addActionListener(this);
+			btnMImportExport.setBackground(new Color(135,206,250));
+//			btnMImportExport.setBorderPainted(false);
+//			btnMImportExport.setOpaque(true);
+			mb.add(btnMImportExport);  
+	        setJMenuBar(mb);
+	        
+	        btnMLogout = new JButton("Logout");
+	        btnMLogout.addActionListener(this);
+	        btnMLogout.setBackground(new Color(135,206,250));
+//	        btnMLogout.setForeground(Color.white);
+//	        btnMLogout.setOpaque(true);
+//	        btnMLogout.setBorderPainted(false);
+			mb.add(btnMLogout);  
+			
+			
+	        setJMenuBar(mb);
+			
+		}else{
+			btnMmyProfile = new JButton("My Profile");
+			btnMmyProfile.addActionListener(this);
+			btnMmyProfile.setBackground(new Color(135,206,250));
+			btnMmyProfile.setBorder(null);
+			btnMmyProfile.setBorderPainted(false);
+			btnMmyProfile.setOpaque(true);
+			mb.add(btnMmyProfile); 
+			setJMenuBar(mb);
+			
+			
+			btnMgroup = new JButton("Groups");
+			btnMgroup.addActionListener(this);
+			btnMgroup.setBackground(new Color(135,206,250));
+			btnMgroup.setBorderPainted(false);
+			btnMgroup.setOpaque(true);
+			mb.add(btnMgroup); 
+			
+	        setJMenuBar(mb);
+	       
+			
+			btnMstudents = new JButton("Student");
+			btnMstudents.addActionListener(this);
+			btnMstudents.setBackground(new Color(135,206,250));
+			btnMstudents.setBorderPainted(false);
+			btnMstudents.setOpaque(true);
+			mb.add(btnMstudents);  
+	        setJMenuBar(mb);
+			
+
+			
+			btnMImportExport = new JButton("Import / Export");
+			btnMImportExport.addActionListener(this);
+			btnMImportExport.setBackground(new Color(135,206,250));
+			btnMImportExport.setBorderPainted(false);
+			btnMImportExport.setOpaque(true);
+			mb.add(btnMImportExport);  
+	        setJMenuBar(mb);
+	        
+	        btnMLogout = new JButton("Logout");
+	        btnMLogout.addActionListener(this);
+	        btnMLogout.setBackground(new Color(107,5,37));
+	        btnMLogout.setForeground(Color.white);
+	        btnMLogout.setOpaque(true);
+	        btnMLogout.setBorderPainted(false);
+			mb.add(btnMLogout);  
+			
+			
+	        setJMenuBar(mb);
+		}
 		
-		
-        btnMgroup = new JButton("Groups");
-		btnMgroup.addActionListener(this);
-		btnMgroup.setBackground(new Color(135,206,250));
-		btnMgroup.setBorderPainted(false);
-		mb.add(btnMgroup); 
-		
-        setJMenuBar(mb);
-       
-       
-		
-		btnMstudents = new JButton("Student");
-		btnMstudents.addActionListener(this);
-		btnMstudents.setBackground(new Color(135,206,250));
-		btnMstudents.setBorderPainted(false);
-		mb.add(btnMstudents);  
-        setJMenuBar(mb);
-		
-//		btnMreport = new JButton("Reports");
-//		btnMreport.addActionListener(this);
-//		btnMreport.setBackground(new Color(135,206,250));
-//		btnMreport.setBorderPainted(false);
-//		mb.add(btnMreport);  
-//        setJMenuBar(mb);
-		
-		btnMImportExport = new JButton("Import / Export");
-		btnMImportExport.addActionListener(this);
-		btnMImportExport.setBackground(new Color(135,206,250));
-		btnMImportExport.setBorderPainted(false);
-		mb.add(btnMImportExport);  
-        setJMenuBar(mb);
-        
-        btnMLogout = new JButton("Logout");
-        btnMLogout.addActionListener(this);
-        btnMLogout.setBackground(new Color(107,5,37));
-        btnMLogout.setForeground(Color.white);
-        btnMLogout.setBorderPainted(false);
-		mb.add(btnMLogout);  
-        setJMenuBar(mb);
-        
         
 		setPreferredSize(new Dimension(1000, 800));
 		setLocationRelativeTo(null);
@@ -132,7 +187,13 @@ public class PlotRateGUI extends JFrame implements ActionListener{
 				
 				
 					lblstudent = new JLabel("Student");
-					lblstudent.setBounds(200,120,100,30); 
+					if (osname.contains("Mac")){
+						lblstudent.setBounds(200,120,120,30);  
+						}else{
+							lblstudent.setBounds(200,120,100,30);  
+						}
+					
+					
 					lblstudent.setForeground(Color.white);
 					lblstudent.setFont(f1);
 					add(lblstudent);
@@ -178,7 +239,12 @@ public class PlotRateGUI extends JFrame implements ActionListener{
 					
 					
 					lblthrough = new JLabel("through");
-					lblthrough.setBounds(600,305,100,40); 
+					if (osname.contains("Mac")){
+						lblthrough.setBounds(600,305,120,40); 
+						}else{
+							lblthrough.setBounds(600,305,100,40); 
+						}
+					//lblthrough.setBounds(600,305,100,40); 
 					lblthrough.setForeground(Color.white);
 					lblthrough.setFont(f1);
 					add(lblthrough);
@@ -249,40 +315,53 @@ public class PlotRateGUI extends JFrame implements ActionListener{
 		// TODO Auto-generated method stub
 		
 		if(e.getSource()==btnBack){
-			setVisible(false);
-			new StudentDetailsInfoGUI(bean, classId, className);
+			synchronized (this) {
+				new StudentDetailsInfoGUI(bean, classId, className);
+				this.setVisible(false);
+			}
 			
 		}		
 		
 		if(e.getSource()==  btnMstudents){
-			setVisible(false);
-    		new StudentGUI(classId, className);
+			synchronized (this) {
+	    		new StudentGUI(classId, className);
+	    		this.setVisible(false);
+			}
 		}
 		
 		if(e.getSource()==btnMgroup){
-			dispose();
-			new GroupGUI();
+			synchronized (this) {
+				new GroupGUI();
+				this.dispose();
+			}
 			
 		}
 		
 		if(e.getSource()==btnMImportExport){
-			setVisible(false);
-			new GroupStudImportExportGUI("", "");
+			synchronized (this) {
+				new GroupStudImportExportGUI("", "");
+				this.setVisible(false);
+			}
 		}
 		
 		if(e.getSource() == btnContinue){
 			if(allRadio.isSelected()){
-				setVisible(false);
-				//new DecodePlotGraphGUI(bean,classId,className);
-				new PlotRateGraphGUI(bean,classId,className,"","");
+				synchronized (this) {
+					
+					//new DecodePlotGraphGUI(bean,classId,className);
+					new PlotRateGraphGUI(bean,classId,className,"","");
+					setVisible(false);
+				}
 				
 			}
 			if (weekRadio.isSelected()){
 				
-				setVisible(false);
-				String txtBegin = txtbegin.getText();
-				String txtEnd = txtend.getText();
-				new PlotRateGraphGUI(bean,classId,className, txtBegin, txtEnd);
+				synchronized (this) {
+					String txtBegin = txtbegin.getText();
+					String txtEnd = txtend.getText();
+					new PlotRateGraphGUI(bean,classId,className, txtBegin, txtEnd);
+					this.setVisible(false);
+				}
 			}
 			
 			
@@ -305,8 +384,10 @@ public class PlotRateGUI extends JFrame implements ActionListener{
 		 }
 		 
 		 if(e.getSource() == btnMmyProfile){
-				this.setVisible(false);
+			 synchronized (this) {
 				new MyProfileGUI();
+				this.setVisible(false);
+			 }
 			}
 		
 	}

@@ -246,16 +246,20 @@ public class LoginGUI extends JFrame implements ActionListener{
 			try{
 				flag=dao.getAuthentication(txtUserId.getText().trim(),txtPsw.getText());
 				if(flag){
-					setVisible(false); 
-					new welcomeGUI();
+					synchronized (this) {
+						new welcomeGUI();
+						this.setVisible(false); 
+					}
 				}else{
 					
 					JOptionPane.showMessageDialog(this,"Invalid user id and password");
 				}
 			}catch(Exception ee){
-				setVisible(false);
-  		      System.out.println("Call to GUI for ask DB User name and Password");      
-  		      new CheckUsernamePassGUI("DB User name and Password is wrong");
+				synchronized (this) {
+		  		      System.out.println("Call to GUI for ask DB User name and Password");      
+		  		      new CheckUsernamePassGUI("DB User name and Password is wrong");
+		  		    setVisible(false);
+				}
 			}
 			
 		}

@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GraphicsEnvironment;
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -12,6 +14,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.awt.print.PageFormat;
+import java.awt.print.Printable;
+import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -19,6 +24,8 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+
+import javafx.print.Printer;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -44,13 +51,15 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 
+import com.sun.javafx.print.PrinterImpl;
+
 import abstrac.StudentDAO;
 import bean.StudentBean;
 import bean.StudentDecoding;
 import bean.StudentRate;
 import manegement.StudentOpr;
 
-public class PlotRateGraphGUI extends JFrame implements ActionListener{
+public class PlotRateGraphGUI extends JFrame implements ActionListener, Printable{
 
 	
 	String classId,className;
@@ -164,22 +173,28 @@ public class PlotRateGraphGUI extends JFrame implements ActionListener{
 				 
 				 jt.setFont(new Font("Times New Roman", Font.PLAIN, 18));
 				 jt.setDefaultEditor(Object.class, null);
-				 jt.setPreferredSize(new java.awt.Dimension(400, 121)); 
+				 jt.setPreferredSize(new java.awt.Dimension(700, 121)); 
 				// jt.setPreferredSize(new Dimension(500, 300));
 				 jt.setModel(model);
 				
+				 for(int j = 0 ; j<tblListText.size() ; j++){
+					 model.addColumn("TExt"+j);
+				 }
 				
-				 model.addColumn("Change");
-		         model.addColumn("Date");
-		         model.addColumn("Errors");		
+				
+		       /*  model.addColumn("Date");
+		         model.addColumn("Errors");	*/
 		          
 		         
 		         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
 		         centerRenderer.setHorizontalAlignment( JLabel.CENTER );
 		         
-		         jt.getColumnModel().getColumn(0).setCellRenderer( centerRenderer );
+		         for(int j = 0 ; j<tblListText.size() ; j++){
+		        	 jt.getColumnModel().getColumn(j).setCellRenderer( centerRenderer );
+				 }
+		         /*jt.getColumnModel().getColumn(0).setCellRenderer( centerRenderer );
 		         jt.getColumnModel().getColumn(1).setCellRenderer( centerRenderer );
-		         jt.getColumnModel().getColumn(2).setCellRenderer( centerRenderer );
+		         jt.getColumnModel().getColumn(2).setCellRenderer( centerRenderer );*/
 		         
 		         
 		         model.addRow(tblListText.toArray());
@@ -296,9 +311,10 @@ public class PlotRateGraphGUI extends JFrame implements ActionListener{
   
         
         CategoryPlot plot = chart.getCategoryPlot();
-		  plot.getRenderer().setSeriesPaint(0, new Color(0, 0, 255));
-		  plot.getRenderer().setSeriesPaint(1, new Color(128, 0, 0));
-		 
+		  plot.getRenderer().setSeriesPaint(0, new Color(129, 218, 245));
+		  plot.getRenderer().setSeriesPaint(1, new Color(250,88,88));
+		  plot.getRenderer().setSeriesPaint(2, new Color(153, 255, 153));
+		 // plot.getRenderer().setSeriesOutlinePaint(0, new Color(153, 255, 153));
 		  plot.getRenderer().setBaseItemLabelGenerator(
 				    new StandardCategoryItemLabelGenerator(
 				        "{2}", NumberFormat.getInstance()));
@@ -404,12 +420,34 @@ public class PlotRateGraphGUI extends JFrame implements ActionListener{
 		// TODO Auto-generated method stub
 		
 		if(e.getSource()== btnBack){
-			setVisible(false);
-			new PlotRateGUI(bean, classId, className);
+			synchronized (this) {
+				new PlotRateGUI(bean, classId, className);
+				setVisible(false);
+			}
 		}
 		if(e.getSource()==btnPrint){
+			
+			/*PrinterJob pjob = PrinterJob.getPrinterJob();
+			PageFormat preformat = pjob.defaultPage();
+			preformat.setOrientation(PageFormat.LANDSCAPE);
+			PageFormat postformat = pjob.pageDialog(preformat);
+			//If user does not hit cancel then print.
+			if (preformat != postformat) {
+			    //Set print component
+			    pjob.setPrintable(this, postformat);
+			    if (pjob.printDialog()) {
+			        try {
+						pjob.print();
+					} catch (PrinterException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+			    }
+			}*/
+			
 			 PrinterJob printJob = PrinterJob.getPrinterJob();
-			// printJob.setPrintable((btnPrint) e.getSource());
+			 printJob.setPrintable(this);
+			 
 			 if(printJob.printDialog()){
 				    try { printJob.print(); } 
 				    catch (Exception PrinterExeption
@@ -420,10 +458,53 @@ public class PlotRateGraphGUI extends JFrame implements ActionListener{
 	}
 	
 
-	public static void main(String[] args) {
+
+	@Override
+	public int print(Graphics gx, PageFormat pf, int page)
+			throws PrinterException {
 		// TODO Auto-generated method stub
+		if (page>0){return NO_SUCH_PAGE;} //Only one page
 		
-		//new PlotRateGraphGUI();
+		
+		
+		
+		            Graphics2D g = (Graphics2D)gx; //Cast to Graphics2D object
+		            pf.setOrientation(PageFormat.PORTRAIT);
+		            g.translate(pf.getImageableX(), pf.getImageableY()); //Match origins to imageable area
+		            
+		            Dimension size = this.getSize(); // component size
+		            double pageWidth = pf.getImageableWidth(); // Page width
+		            double pageHeight = pf.getImageableHeight(); // Page height
+		            
+		         
+		            // If the component is too wide or tall for the page, scale it down
+		            if (size.width > pageWidth) {
+		              double factor = pageWidth / size.width; // How much to scale
+		              g.scale(factor, factor); // Adjust coordinate system
+		              pageWidth /= factor; // Adjust page size up
+		              pageHeight /= factor;
+		            }
+		            if (size.height > pageHeight) { // Do the same thing for height
+		              double factor = pageHeight / size.height;
+		              g.scale(factor, factor);
+		              pageWidth /= factor;
+		              pageHeight /= factor;
+		            }
+		            
+		            g.translate((pageWidth - size.width) / 4, (pageHeight - size.height) / 4);
+		            
+		         // Draw a line around the outside of the drawing area and label it
+		            g.drawRect(-1, -1, size.width + 2, size.height + 2);
+		           
+
+		            // Set a clipping region so the component can't draw outside of
+		            // its won bounds.
+		           // g.setClip(0, 0, size.width, size.height);
+		            
+		            this.print(g);
+		            //g.drawString (this, 100, 100); //Print Hello World at offset (100, 100)
+		
+		            return PAGE_EXISTS; //Page exists (offsets start at zero!)
 
 	}
 

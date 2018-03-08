@@ -44,7 +44,7 @@ public class MyProfileGUI extends JFrame implements ActionListener{
 	ButtonGroup bG = new ButtonGroup();
 	adminBean bean = null;
 	MyProfileGUI(){
-		
+		String osname = System.getProperty("os.name");
 		
 		LoginDAO dao= new LoginOpr();
 		bean= dao.getUserName();		
@@ -131,7 +131,12 @@ public class MyProfileGUI extends JFrame implements ActionListener{
 						
 						
 						//bG.add(changePsw);
-						changePsw.setBounds(300, 400, 350, 40);
+						if (osname.contains("Mac")){
+							changePsw.setBounds(300, 400, 400, 40);
+						}else{
+							changePsw.setBounds(300, 400, 350, 40);
+						}
+						
 						changePsw.setBackground(Color.black);
 						changePsw.setForeground(Color.white);
 						changePsw.setFont(f1);
@@ -161,7 +166,12 @@ public class MyProfileGUI extends JFrame implements ActionListener{
 						
 						
 						btnSubmit =  new JButton("Submit");
-						btnSubmit.setBounds(510,550,100,30);
+						if (osname.contains("Mac")){
+							btnSubmit.setBounds(510,550,120,30);
+						}else{
+							btnSubmit.setBounds(510,550,100,30);
+						}
+						//btnSubmit.setBounds(510,550,100,30);
 						btnSubmit.setOpaque(true);
 						btnSubmit.setBorderPainted(false);
 						btnSubmit.setFont(new Font("Britannic Bold", Font.PLAIN, 20));
@@ -255,8 +265,10 @@ public class MyProfileGUI extends JFrame implements ActionListener{
 						boolean flag = dao.updateNewPassword(bean);
 						if(flag){
 							JOptionPane.showMessageDialog(this,"Profile Updated Successfully ");
-							setVisible(false);
-							new welcomeGUI();
+							synchronized (this) {
+								new welcomeGUI();
+								this.setVisible(false);
+							}
 						}
 					}
 					
@@ -272,8 +284,10 @@ public class MyProfileGUI extends JFrame implements ActionListener{
 					boolean flag = dao.updateNewPassword(bean);
 					if(flag){
 						JOptionPane.showMessageDialog(this,"Profile Updated Successfully ");
-						setVisible(false);
-						new welcomeGUI();
+						synchronized (this) {
+							new welcomeGUI();
+							this.setVisible(false);
+						}
 					}
 					
 				}
@@ -282,15 +296,17 @@ public class MyProfileGUI extends JFrame implements ActionListener{
 			
 				
 			if(e.getSource()==btnBack){
-				setVisible(false);
-				new welcomeGUI();
+				synchronized (this) {
+					new welcomeGUI();
+					this.setVisible(false);
+				}
 			}
 		
 	}
 	
-	public static void main(String args[])
+	/*public static void main(String args[])
 	{ 
 		new MyProfileGUI();
 	
-	}
+	}*/
 }

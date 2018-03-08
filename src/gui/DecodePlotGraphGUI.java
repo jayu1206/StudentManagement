@@ -240,12 +240,14 @@ public class DecodePlotGraphGUI extends JFrame implements ActionListener,Printab
 		// TODO Auto-generated method stub
 		
 		if(e.getSource()== btnBack){
-			setVisible(false);
-			new DecodePlotGUI(bean, classId, className);
+			synchronized (this) {
+				new DecodePlotGUI(bean, classId, className);
+				setVisible(false);
+			}
 		}
 		if(e.getSource()==btnPrint){
 			 PrinterJob printJob = PrinterJob.getPrinterJob();
-			// printJob.setPrintable((btnPrint) e.getSource());
+			 printJob.setPrintable(this);
 			 if(printJob.printDialog()){
 				    try { printJob.print(); } 
 				    catch (Exception PrinterExeption

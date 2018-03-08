@@ -186,11 +186,15 @@ public class legalGUI  extends JFrame implements ActionListener {
 					
 					if(flag){
 //						JOptionPane.showMessageDialog(this,"true");
-						setVisible(false);
+						synchronized (this) {
 							new LoginGUI();
+							this.setVisible(false);
+						}
 					}else{
-						setVisible(false);
-						new RegistratonGUI();
+						synchronized (this) {
+							new RegistratonGUI();
+							this.setVisible(false);
+						}
 					}
 				}catch(Exception ee){
 					//setVisible(false);
@@ -225,7 +229,7 @@ public class legalGUI  extends JFrame implements ActionListener {
 
 	public static void main(String args[]){  
 	//	new legalGUI();
-	//	new GroupGUI();
+//		new GroupGUI();
 	ProcessExe objExe=new ProcessExe();
 	objExe.checkMySqlSystem(0);
 	

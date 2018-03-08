@@ -128,9 +128,11 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 	Vector v = new Vector();
 	StudentDAO studDAO = new StudentOpr();
 	ArrayList listId = new ArrayList();
-
+	String osname = System.getProperty("os.name");
+	
 	GroupStudImportExportGUI(String classId, String className) {
 
+		
 		this.classId = classId;
 		this.className = className;
 
@@ -142,50 +144,108 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 		mb.setBackground(new Color(135, 206, 250));
 		mb.add(Box.createRigidArea(new Dimension(10, 40)));
 
-		btnMmyProfile = new JButton("My Profile");
-		btnMmyProfile.addActionListener(this);
-		btnMmyProfile.setBackground(new Color(135,206,250));
-		btnMmyProfile.setBorder(null);
-		btnMmyProfile.setBorderPainted(false);
-		mb.add(btnMmyProfile); 
 		
+		if (osname.contains("Mac")){
+			btnMmyProfile = new JButton("My Profile");
+			btnMmyProfile.addActionListener(this);
+			
+			//btnMmyProfile.setBackground(new Color(135,206,250));
+			//btnMmyProfile.setBorder(null);
+			//btnMmyProfile.setBorderPainted(false);
+			//btnMmyProfile.setOpaque(true);
+			mb.add(btnMmyProfile); 
+			setJMenuBar(mb);
+			
+			
+			btnMgroup = new JButton("Groups");
+			btnMgroup.addActionListener(this);
+			btnMgroup.setBackground(new Color(135,206,250));
+//			btnMgroup.setBorderPainted(false);
+//			btnMgroup.setOpaque(true);
+			mb.add(btnMgroup); 
+			
+	        setJMenuBar(mb);
+	       
+			
+			btnMstudents = new JButton("Student");
+			btnMstudents.addActionListener(this);
+			btnMstudents.setBackground(new Color(135,206,250));
+//			btnMstudents.setBorderPainted(false);
+//			btnMstudents.setOpaque(true);
+			mb.add(btnMstudents);  
+	        setJMenuBar(mb);
+			
+			
+			btnMImportExport = new JButton("Import / Export");
+			btnMImportExport.addActionListener(this);
+			btnMImportExport.setBackground(new Color(135,206,250));
+//			btnMImportExport.setBorderPainted(false);
+//			btnMImportExport.setOpaque(true);
+			mb.add(btnMImportExport);  
+	        setJMenuBar(mb);
+	        
+	        btnMLogout = new JButton("Logout");
+	        btnMLogout.addActionListener(this);
+	        btnMLogout.setBackground(new Color(135,206,250));
+//	        btnMLogout.setForeground(Color.white);
+//	        btnMLogout.setOpaque(true);
+//	        btnMLogout.setBorderPainted(false);
+			mb.add(btnMLogout);  
+			
+			
+	        setJMenuBar(mb);
+			
+		}else{
+			btnMmyProfile = new JButton("My Profile");
+			btnMmyProfile.addActionListener(this);
+			btnMmyProfile.setBackground(new Color(135,206,250));
+			btnMmyProfile.setBorder(null);
+			btnMmyProfile.setBorderPainted(false);
+			btnMmyProfile.setOpaque(true);
+			mb.add(btnMmyProfile); 
+			setJMenuBar(mb);
+			
+			
+			btnMgroup = new JButton("Groups");
+			btnMgroup.addActionListener(this);
+			btnMgroup.setBackground(new Color(135,206,250));
+			btnMgroup.setBorderPainted(false);
+			btnMgroup.setOpaque(true);
+			mb.add(btnMgroup); 
+			
+	        setJMenuBar(mb);
+	       
+			
+			btnMstudents = new JButton("Student");
+			btnMstudents.addActionListener(this);
+			btnMstudents.setBackground(new Color(135,206,250));
+			btnMstudents.setBorderPainted(false);
+			btnMstudents.setOpaque(true);
+			mb.add(btnMstudents);  
+	        setJMenuBar(mb);
+			
+
+			
+			btnMImportExport = new JButton("Import / Export");
+			btnMImportExport.addActionListener(this);
+			btnMImportExport.setBackground(new Color(135,206,250));
+			btnMImportExport.setBorderPainted(false);
+			btnMImportExport.setOpaque(true);
+			mb.add(btnMImportExport);  
+	        setJMenuBar(mb);
+	        
+	        btnMLogout = new JButton("Logout");
+	        btnMLogout.addActionListener(this);
+	        btnMLogout.setBackground(new Color(107,5,37));
+	        btnMLogout.setForeground(Color.white);
+	        btnMLogout.setOpaque(true);
+	        btnMLogout.setBorderPainted(false);
+			mb.add(btnMLogout);  
+			
+			
+	        setJMenuBar(mb);
+		}
 		
-		btnMgroup = new JButton("Groups");
-		btnMgroup.addActionListener(this);
-		btnMgroup.setBackground(new Color(135, 206, 250));
-		btnMgroup.setBorderPainted(false);
-		mb.add(btnMgroup);
-
-		setJMenuBar(mb);
-
-		btnMstudents = new JButton("Student");
-		btnMstudents.addActionListener(this);
-		btnMstudents.setBackground(new Color(135, 206, 250));
-		btnMstudents.setBorderPainted(false);
-		mb.add(btnMstudents);
-		setJMenuBar(mb);
-
-		// btnMreport = new JButton("Reports");
-		// btnMreport.addActionListener(this);
-		// btnMreport.setBackground(new Color(135,206,250));
-		// btnMreport.setBorderPainted(false);
-		// mb.add(btnMreport);
-		// setJMenuBar(mb);
-
-		btnMImportExport = new JButton("Import / Export");
-		btnMImportExport.addActionListener(this);
-		btnMImportExport.setBackground(new Color(135, 206, 250));
-		btnMImportExport.setBorderPainted(false);
-		mb.add(btnMImportExport);
-		setJMenuBar(mb);
-
-		btnMLogout = new JButton("Logout");
-		btnMLogout.addActionListener(this);
-		btnMLogout.setBackground(new Color(107, 5, 37));
-		btnMLogout.setForeground(Color.white);
-		btnMLogout.setBorderPainted(false);
-		mb.add(btnMLogout);
-		setJMenuBar(mb);
 
 		setPreferredSize(new java.awt.Dimension(1000, 800));
 		setLocationRelativeTo(null);
@@ -708,34 +768,63 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 		}
 
 		if (e.getSource() == btnMgroup) {
-			this.setVisible(false);
-			new GroupGUI();
+			synchronized (this) {
+				new GroupGUI();
+				this.setVisible(false);
+			}
+			
 		}
 
 		if (e.getSource() == btnMstudents) {
-			this.setVisible(false);
-			new StudentGUI("", "");
+			synchronized (this) {
+				new StudentGUI("", "");
+				this.setVisible(false);
+			}
 		}
 
 		if(e.getSource() == btnMmyProfile){
-			this.setVisible(false);
-			new MyProfileGUI();
+			synchronized (this) {
+				new MyProfileGUI();
+				this.setVisible(false);
+			}
 		}
 		
 		if(e.getSource() == btnBack){
-			this.setVisible(false);
-			new welcomeGUI();
+			synchronized (this) {
+				new welcomeGUI();
+				this.setVisible(false);
+			}
 		}
 		
 		if(e.getSource() == btnSample){
 			//this.setVisible(false);
 			//new welcomeGUI();
+			//Desktop
+			String path1="";
+			String path2="";
+			String path11 ="";
+			String path22 = "";
+			if (osname.contains("Mac")){
+				path1 = "./mysql/group.csv";
+				path2  = "./mysql/Student.csv";
+				path11 = "./group.csv";	    		    
+				 path22  = "./Student.csv";
+				
+			}else{
+				/*path1 = "./temp/group.csv";
+			    path2  = "./temp/Student.csv";
+			    path11 = "./mysql/group.csv";	    		    
+				 path22  = "./mysql/Student.csv";*/
+				path1 = "./mysql/group.csv";
+				path2  = "./mysql/Student.csv";
+				path11 = "./group.csv";	    		    
+				path22  = "./Student.csv";
+			    
+			}
+					
 			
-			String path1 = "./temp/group.csv";
-			String path11 = "./mysql/group.csv";	    
-		    
-			String path2  = "./temp/ExportFile.csv";
-			String path22  = "./mysql/ExportFile.csv";
+			
+			 
 		   
 			try {
 					

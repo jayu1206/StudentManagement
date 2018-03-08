@@ -70,7 +70,7 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 	DefaultTableModel modelRate;
 	JTable jtRate;
 	JButton btnAddRate, btnSaveRate, btnPloatRate;
-	
+	String osname = System.getProperty("os.name");
 
 
 	StudentDetailsInfoGUI(StudentBean bean, String classId, String className) {
@@ -87,50 +87,108 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 		mb.setBackground(new Color(135, 206, 250));
 		mb.add(Box.createRigidArea(new Dimension(10, 40)));
 
-		btnMmyProfile = new JButton("My Profile");
-		btnMmyProfile.addActionListener(this);
-		btnMmyProfile.setBackground(new Color(135,206,250));
-		btnMmyProfile.setBorder(null);
-		btnMmyProfile.setBorderPainted(false);
-		mb.add(btnMmyProfile);
 		
+		if (osname.contains("Mac")){
+			btnMmyProfile = new JButton("My Profile");
+			btnMmyProfile.addActionListener(this);
+			
+			//btnMmyProfile.setBackground(new Color(135,206,250));
+			//btnMmyProfile.setBorder(null);
+			//btnMmyProfile.setBorderPainted(false);
+			//btnMmyProfile.setOpaque(true);
+			mb.add(btnMmyProfile); 
+			setJMenuBar(mb);
+			
+			
+			btnMgroup = new JButton("Groups");
+			btnMgroup.addActionListener(this);
+			btnMgroup.setBackground(new Color(135,206,250));
+//			btnMgroup.setBorderPainted(false);
+//			btnMgroup.setOpaque(true);
+			mb.add(btnMgroup); 
+			
+	        setJMenuBar(mb);
+	       
+			
+			btnMstudents = new JButton("Student");
+			btnMstudents.addActionListener(this);
+			btnMstudents.setBackground(new Color(135,206,250));
+//			btnMstudents.setBorderPainted(false);
+//			btnMstudents.setOpaque(true);
+			mb.add(btnMstudents);  
+	        setJMenuBar(mb);
+			
+			
+			btnMImportExport = new JButton("Import / Export");
+			btnMImportExport.addActionListener(this);
+			btnMImportExport.setBackground(new Color(135,206,250));
+//			btnMImportExport.setBorderPainted(false);
+//			btnMImportExport.setOpaque(true);
+			mb.add(btnMImportExport);  
+	        setJMenuBar(mb);
+	        
+	        btnMLogout = new JButton("Logout");
+	        btnMLogout.addActionListener(this);
+	        btnMLogout.setBackground(new Color(135,206,250));
+//	        btnMLogout.setForeground(Color.white);
+//	        btnMLogout.setOpaque(true);
+//	        btnMLogout.setBorderPainted(false);
+			mb.add(btnMLogout);  
+			
+			
+	        setJMenuBar(mb);
+			
+		}else{
+			btnMmyProfile = new JButton("My Profile");
+			btnMmyProfile.addActionListener(this);
+			btnMmyProfile.setBackground(new Color(135,206,250));
+			btnMmyProfile.setBorder(null);
+			btnMmyProfile.setBorderPainted(false);
+			btnMmyProfile.setOpaque(true);
+			mb.add(btnMmyProfile); 
+			setJMenuBar(mb);
+			
+			
+			btnMgroup = new JButton("Groups");
+			btnMgroup.addActionListener(this);
+			btnMgroup.setBackground(new Color(135,206,250));
+			btnMgroup.setBorderPainted(false);
+			btnMgroup.setOpaque(true);
+			mb.add(btnMgroup); 
+			
+	        setJMenuBar(mb);
+	       
+			
+			btnMstudents = new JButton("Student");
+			btnMstudents.addActionListener(this);
+			btnMstudents.setBackground(new Color(135,206,250));
+			btnMstudents.setBorderPainted(false);
+			btnMstudents.setOpaque(true);
+			mb.add(btnMstudents);  
+	        setJMenuBar(mb);
+			
+
+			
+			btnMImportExport = new JButton("Import / Export");
+			btnMImportExport.addActionListener(this);
+			btnMImportExport.setBackground(new Color(135,206,250));
+			btnMImportExport.setBorderPainted(false);
+			btnMImportExport.setOpaque(true);
+			mb.add(btnMImportExport);  
+	        setJMenuBar(mb);
+	        
+	        btnMLogout = new JButton("Logout");
+	        btnMLogout.addActionListener(this);
+	        btnMLogout.setBackground(new Color(107,5,37));
+	        btnMLogout.setForeground(Color.white);
+	        btnMLogout.setOpaque(true);
+	        btnMLogout.setBorderPainted(false);
+			mb.add(btnMLogout);  
+			
+			
+	        setJMenuBar(mb);
+		}
 		
-		btnMgroup = new JButton("Groups");
-		btnMgroup.addActionListener(this);
-		btnMgroup.setBackground(new Color(135, 206, 250));
-		btnMgroup.setBorderPainted(false);
-		mb.add(btnMgroup);
-
-		setJMenuBar(mb);
-
-		btnMstudents = new JButton("Student");
-		btnMstudents.addActionListener(this);
-		btnMstudents.setBackground(new Color(135, 206, 250));
-		btnMstudents.setBorderPainted(false);
-		mb.add(btnMstudents);
-		setJMenuBar(mb);
-
-		// btnMreport = new JButton("Reports");
-		// btnMreport.addActionListener(this);
-		// btnMreport.setBackground(new Color(135,206,250));
-		// btnMreport.setBorderPainted(false);
-		// mb.add(btnMreport);
-		// setJMenuBar(mb);
-
-		btnMImportExport = new JButton("Import / Export");
-		btnMImportExport.addActionListener(this);
-		btnMImportExport.setBackground(new Color(135, 206, 250));
-		btnMImportExport.setBorderPainted(false);
-		mb.add(btnMImportExport);
-		setJMenuBar(mb);
-
-		btnMLogout = new JButton("Logout");
-		btnMLogout.addActionListener(this);
-		btnMLogout.setBackground(new Color(107, 5, 37));
-		btnMLogout.setForeground(Color.white);
-		btnMLogout.setBorderPainted(false);
-		mb.add(btnMLogout);
-		setJMenuBar(mb);
 
 		setPreferredSize(new Dimension(1000, 800));
 		setLocationRelativeTo(null);
@@ -381,26 +439,59 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 		delete = new JMenuItem("Delete");
 		JPopupMenu popup = new JPopupMenu("Delete");
 		popup.add(delete);
+		
 
-		jt.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				int r = jt.rowAtPoint(e.getPoint());
-				if (r >= 0 && r < jt.getRowCount()) {
-					jt.setRowSelectionInterval(r, r);
-				} else {
-					jt.clearSelection();
+		if (osname.contains("Mac")){
+			jt.addMouseListener(new MouseAdapter() {
+				
+				@Override
+				public void mouseReleased(MouseEvent e) {
+					if (e.getButton() == java.awt.event.MouseEvent.BUTTON3) {
+						//System.out.println("In side after ckucj");
+						int r = jt.rowAtPoint(e.getPoint());
+						if (r >= 0 && r < jt.getRowCount()) {
+							jt.setRowSelectionInterval(r, r);
+						} else {
+							jt.clearSelection();
+						}
+	
+						int rowindex = jt.getSelectedRow();
+						//System.out.println("rowindex" +rowindex);
+						if (rowindex < 0){
+							return;
+						}
+						popup.show(e.getComponent(), e.getX(), e.getY());
+						if (e.isPopupTrigger() && e.getComponent() instanceof JTable) {
+							//System.out.println("In popup show");
+							popup.show(e.getComponent(), e.getX(), e.getY());
+						}
+					}
 				}
+			});
+		}else{
+			
+			jt.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseReleased(MouseEvent e) {
+					int r = jt.rowAtPoint(e.getPoint());
+					if (r >= 0 && r < jt.getRowCount()) {
+						jt.setRowSelectionInterval(r, r);
+					} else {
+						jt.clearSelection();
+					}
 
-				int rowindex = jt.getSelectedRow();
-				if (rowindex < 0)
-					return;
-				if (e.isPopupTrigger() && e.getComponent() instanceof JTable) {
+					int rowindex = jt.getSelectedRow();
+					if (rowindex < 0)
+						return;
+					if (e.isPopupTrigger() && e.getComponent() instanceof JTable) {
 
-					popup.show(e.getComponent(), e.getX(), e.getY());
+						popup.show(e.getComponent(), e.getX(), e.getY());
+					}
 				}
-			}
-		});
+			});
+		}
+		
+		
 
 		delete.addActionListener(this);
 
@@ -520,26 +611,59 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 		JPopupMenu popup = new JPopupMenu("Delete");
 		popup.add(deleteRate);
 
-		jtRate.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				int r = jtRate.rowAtPoint(e.getPoint());
-				if (r >= 0 && r < jtRate.getRowCount()) {
-					jtRate.setRowSelectionInterval(r, r);
-				} else {
-					jtRate.clearSelection();
+		
+		if (osname.contains("Mac")){
+		
+			
+			jtRate.addMouseListener(new MouseAdapter() {
+				@Override
+				
+				public void mouseReleased(MouseEvent e) {
+					if (e.getButton() == java.awt.event.MouseEvent.BUTTON3) {
+						int r = jtRate.rowAtPoint(e.getPoint());
+						if (r >= 0 && r < jtRate.getRowCount()) {
+							jtRate.setRowSelectionInterval(r, r);
+						} else {
+							jtRate.clearSelection();
+						}
+		
+						int rowindex = jtRate.getSelectedRow();
+						if (rowindex < 0)
+							return;
+						
+						popup.show(e.getComponent(), e.getX(), e.getY());
+						if (e.isPopupTrigger() && e.getComponent() instanceof JTable) {
+		
+							popup.show(e.getComponent(), e.getX(), e.getY());
+						}
+					}
 				}
-
-				int rowindex = jtRate.getSelectedRow();
-				if (rowindex < 0)
-					return;
-				if (e.isPopupTrigger() && e.getComponent() instanceof JTable) {
-
-					popup.show(e.getComponent(), e.getX(), e.getY());
+			});
+		}else{
+		
+		
+		
+		
+			jtRate.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseReleased(MouseEvent e) {
+					int r = jtRate.rowAtPoint(e.getPoint());
+					if (r >= 0 && r < jtRate.getRowCount()) {
+						jtRate.setRowSelectionInterval(r, r);
+					} else {
+						jtRate.clearSelection();
+					}
+	
+					int rowindex = jtRate.getSelectedRow();
+					if (rowindex < 0)
+						return;
+					if (e.isPopupTrigger() && e.getComponent() instanceof JTable) {
+	
+						popup.show(e.getComponent(), e.getX(), e.getY());
+					}
 				}
-			}
-		});
-
+			});
+		}
 		deleteRate.addActionListener(this);
 
 		for (StudentRate rateBean : studBean.getListRate()) {
@@ -889,13 +1013,17 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 		}
 
 		if (e.getSource() == btnBack) {
-			this.setVisible(false);
-			new StudentGUI(classId, className);
+			synchronized (this) {
+				new StudentGUI(classId, className);
+				this.setVisible(false);
+			}
 
 		}
 		if (e.getSource() == btnMImportExport) {
-			setVisible(false);
-			new GroupStudImportExportGUI(classId, className);
+			synchronized (this) {
+				new GroupStudImportExportGUI(classId, className);
+				this.setVisible(false);
+			}
 		}
 		if (e.getSource() == btnExit) {
 			System.exit(0);
@@ -943,38 +1071,50 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 		}
 
 		if (e.getSource() == btnPloatDecoding) {
-			
+			StudentDAO studDao= new StudentOpr();
+			 this.bean=studDao.getAllStudentsWithDecod_Rate_Data(bean.getId());
 			int size = bean.getListDecoding().size();
+			
 			if (size >= 3){
-				setVisible(false);
-				new DecodePlotGUI(bean, classId, className);
+				synchronized (this) {
+					new DecodePlotGUI(bean, classId, className);
+					this.setVisible(false);
+				}
 				
 			}else{
-				JOptionPane.showMessageDialog(this,"Selected Data is Low. Add More Data");
+				JOptionPane.showMessageDialog(this,"To Plot Graph We need at least 3 records.");
 			}
 			
 
 		}
 
 		if (e.getSource() == btnMstudents) {
-			setVisible(false);
-			new StudentGUI(classId, className);
+			synchronized (this) {
+				new StudentGUI(classId, className);
+				this.setVisible(false);
+			}
 		}
 
 		if (e.getSource() == btnMgroup) {
-			dispose();
-			new GroupGUI();
+			synchronized (this) {
+				new GroupGUI();
+				this.dispose();
+			}
 
 		}
 
 		if(e.getSource() == btnMmyProfile){
-			this.setVisible(false);
-			new MyProfileGUI();
+			synchronized (this) {
+				new MyProfileGUI();
+				this.setVisible(false);
+			}
 		}
 		
 		if (e.getSource() == btnPloatRate) {
-			dispose();
-			new PlotRateGUI(bean, classId, className);
+			synchronized (this) {
+				new PlotRateGUI(bean, classId, className);
+				this.dispose();
+			}
 
 		}
 

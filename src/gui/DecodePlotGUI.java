@@ -64,52 +64,108 @@ public class DecodePlotGUI extends JFrame implements ActionListener{
 		mb.setBackground(new Color(135,206,250));
 		mb.add(Box.createRigidArea(new Dimension(10,40)));
 
-		btnMmyProfile = new JButton("My Profile");
-		btnMmyProfile.addActionListener(this);
-		btnMmyProfile.setBackground(new Color(135,206,250));
-		btnMmyProfile.setBorder(null);
-		btnMmyProfile.setBorderPainted(false);
-		mb.add(btnMmyProfile);
+		String osname = System.getProperty("os.name");
+		if (osname.contains("Mac")){
+			btnMmyProfile = new JButton("My Profile");
+			btnMmyProfile.addActionListener(this);
+			
+			//btnMmyProfile.setBackground(new Color(135,206,250));
+			//btnMmyProfile.setBorder(null);
+			//btnMmyProfile.setBorderPainted(false);
+			//btnMmyProfile.setOpaque(true);
+			mb.add(btnMmyProfile); 
+			setJMenuBar(mb);
+			
+			
+			btnMgroup = new JButton("Groups");
+			btnMgroup.addActionListener(this);
+			btnMgroup.setBackground(new Color(135,206,250));
+//			btnMgroup.setBorderPainted(false);
+//			btnMgroup.setOpaque(true);
+			mb.add(btnMgroup); 
+			
+	        setJMenuBar(mb);
+	       
+			
+			btnMstudents = new JButton("Student");
+			btnMstudents.addActionListener(this);
+			btnMstudents.setBackground(new Color(135,206,250));
+//			btnMstudents.setBorderPainted(false);
+//			btnMstudents.setOpaque(true);
+			mb.add(btnMstudents);  
+	        setJMenuBar(mb);
+			
+			
+			btnMImportExport = new JButton("Import / Export");
+			btnMImportExport.addActionListener(this);
+			btnMImportExport.setBackground(new Color(135,206,250));
+//			btnMImportExport.setBorderPainted(false);
+//			btnMImportExport.setOpaque(true);
+			mb.add(btnMImportExport);  
+	        setJMenuBar(mb);
+	        
+	        btnMLogout = new JButton("Logout");
+	        btnMLogout.addActionListener(this);
+	        btnMLogout.setBackground(new Color(135,206,250));
+//	        btnMLogout.setForeground(Color.white);
+//	        btnMLogout.setOpaque(true);
+//	        btnMLogout.setBorderPainted(false);
+			mb.add(btnMLogout);  
+			
+			
+	        setJMenuBar(mb);
+			
+		}else{
+			btnMmyProfile = new JButton("My Profile");
+			btnMmyProfile.addActionListener(this);
+			btnMmyProfile.setBackground(new Color(135,206,250));
+			btnMmyProfile.setBorder(null);
+			btnMmyProfile.setBorderPainted(false);
+			btnMmyProfile.setOpaque(true);
+			mb.add(btnMmyProfile); 
+			setJMenuBar(mb);
+			
+			
+			btnMgroup = new JButton("Groups");
+			btnMgroup.addActionListener(this);
+			btnMgroup.setBackground(new Color(135,206,250));
+			btnMgroup.setBorderPainted(false);
+			btnMgroup.setOpaque(true);
+			mb.add(btnMgroup); 
+			
+	        setJMenuBar(mb);
+	       
+			
+			btnMstudents = new JButton("Student");
+			btnMstudents.addActionListener(this);
+			btnMstudents.setBackground(new Color(135,206,250));
+			btnMstudents.setBorderPainted(false);
+			btnMstudents.setOpaque(true);
+			mb.add(btnMstudents);  
+	        setJMenuBar(mb);
+			
+
+			
+			btnMImportExport = new JButton("Import / Export");
+			btnMImportExport.addActionListener(this);
+			btnMImportExport.setBackground(new Color(135,206,250));
+			btnMImportExport.setBorderPainted(false);
+			btnMImportExport.setOpaque(true);
+			mb.add(btnMImportExport);  
+	        setJMenuBar(mb);
+	        
+	        btnMLogout = new JButton("Logout");
+	        btnMLogout.addActionListener(this);
+	        btnMLogout.setBackground(new Color(107,5,37));
+	        btnMLogout.setForeground(Color.white);
+	        btnMLogout.setOpaque(true);
+	        btnMLogout.setBorderPainted(false);
+			mb.add(btnMLogout);  
+			
+			
+	        setJMenuBar(mb);
+		}
 		
-        btnMgroup = new JButton("Groups");
-		btnMgroup.addActionListener(this);
-		btnMgroup.setBackground(new Color(135,206,250));
-		btnMgroup.setBorderPainted(false);
-		mb.add(btnMgroup); 
-		
-        setJMenuBar(mb);
-       
-       
-		
-		btnMstudents = new JButton("Student");
-		btnMstudents.addActionListener(this);
-		btnMstudents.setBackground(new Color(135,206,250));
-		btnMstudents.setBorderPainted(false);
-		mb.add(btnMstudents);  
-        setJMenuBar(mb);
-		
-//		btnMreport = new JButton("Reports");
-//		btnMreport.addActionListener(this);
-//		btnMreport.setBackground(new Color(135,206,250));
-//		btnMreport.setBorderPainted(false);
-//		mb.add(btnMreport);  
-//        setJMenuBar(mb);
-		
-		btnMImportExport = new JButton("Import / Export");
-		btnMImportExport.addActionListener(this);
-		btnMImportExport.setBackground(new Color(135,206,250));
-		btnMImportExport.setBorderPainted(false);
-		mb.add(btnMImportExport);  
-        setJMenuBar(mb);
-        
-        btnMLogout = new JButton("Logout");
-        btnMLogout.addActionListener(this);
-        btnMLogout.setBackground(new Color(107,5,37));
-        btnMLogout.setForeground(Color.white);
-        btnMLogout.setBorderPainted(false);
-		mb.add(btnMLogout);  
-        setJMenuBar(mb);
-        
 		setPreferredSize(new Dimension(1000, 800));
 		setLocationRelativeTo(null);
 		
@@ -179,7 +235,12 @@ public class DecodePlotGUI extends JFrame implements ActionListener{
 					
 					
 					lblthrough = new JLabel("through");
-					lblthrough.setBounds(600,305,100,40); 
+					if (osname.contains("Mac")){
+						lblthrough.setBounds(600,305,120,40); 
+						}else{
+							lblthrough.setBounds(600,305,100,40); 
+						}
+					
 					lblthrough.setForeground(Color.white);
 					lblthrough.setFont(f1);
 					add(lblthrough);
@@ -315,8 +376,12 @@ public class DecodePlotGUI extends JFrame implements ActionListener{
 				
 				int size = bean.getListDecoding().size();
 				if (size >= 3){
-					setVisible(false);
-					new DecodePlotGraphGUI(bean,classId,className,"All", "","");
+					synchronized (this) {
+						new DecodePlotGraphGUI(bean,classId,className,"All", "","");
+						setVisible(false);
+					}
+					
+					
 				}else{
 					JOptionPane.showMessageDialog(this,"Please provide more data");
 				}
@@ -325,8 +390,11 @@ public class DecodePlotGUI extends JFrame implements ActionListener{
 			}
 			
 			if(allRadio.isSelected() && studDataClsAvgRadio.isSelected()){
-				setVisible(false);
-				new DecodePlotGraphGUI(bean,classId,className,"Avg","","");
+				synchronized (this) {
+					new DecodePlotGraphGUI(bean,classId,className,"Avg","","");
+					setVisible(false);
+					
+				}
 			}
 			
 			if (weekRadio.isSelected() && indiStudDataRadio.isSelected()){
@@ -339,8 +407,10 @@ public class DecodePlotGUI extends JFrame implements ActionListener{
 					int beginTxt = Integer.parseInt(txtBegin);
 					int endTxt = Integer.parseInt(txtEnd);
 					if (endTxt >= beginTxt){
-						setVisible(false);
-						new DecodePlotGraphGUI(bean,classId,className,"All", txtBegin, txtEnd);
+						synchronized (this) {	
+							new DecodePlotGraphGUI(bean,classId,className,"All", txtBegin, txtEnd);
+							setVisible(false);
+						}
 					}else{
 						JOptionPane.showMessageDialog(this,beginTxt+" is NOT less then "+endTxt );
 					}

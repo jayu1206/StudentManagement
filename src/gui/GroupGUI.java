@@ -40,12 +40,16 @@ import javax.swing.JTextField;
 import javax.swing.JToolBar;
 import javax.swing.ListSelectionModel;
 import javax.swing.RowFilter;
+import javax.swing.UIManager;
+import javax.swing.border.Border;
+import javax.swing.border.MatteBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.MouseInputListener;
 import javax.swing.plaf.basic.BasicTableUI;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
@@ -77,54 +81,108 @@ public class GroupGUI extends JFrame implements ActionListener{
 		mb.setBackground(new Color(135,206,250));
 		mb.add(Box.createRigidArea(new Dimension(10,40)));
 		
-		btnMmyProfile = new JButton("My Profile");
-		btnMmyProfile.addActionListener(this);
-		btnMmyProfile.setBackground(new Color(135,206,250));
-		btnMmyProfile.setBorder(null);
-		btnMmyProfile.setBorderPainted(false);
-		mb.add(btnMmyProfile); 
+		String osname = System.getProperty("os.name");
+		if (osname.contains("Mac")){
+			btnMmyProfile = new JButton("My Profile");
+			btnMmyProfile.addActionListener(this);
+			
+			//btnMmyProfile.setBackground(new Color(135,206,250));
+			//btnMmyProfile.setBorder(null);
+			//btnMmyProfile.setBorderPainted(false);
+			//btnMmyProfile.setOpaque(true);
+			mb.add(btnMmyProfile); 
+			setJMenuBar(mb);
+			
+			
+			btnMgroup = new JButton("Groups");
+			btnMgroup.addActionListener(this);
+			btnMgroup.setBackground(new Color(135,206,250));
+//			btnMgroup.setBorderPainted(false);
+//			btnMgroup.setOpaque(true);
+			mb.add(btnMgroup); 
+			
+	        setJMenuBar(mb);
+	       
+			
+			btnMstudents = new JButton("Student");
+			btnMstudents.addActionListener(this);
+			btnMstudents.setBackground(new Color(135,206,250));
+//			btnMstudents.setBorderPainted(false);
+//			btnMstudents.setOpaque(true);
+			mb.add(btnMstudents);  
+	        setJMenuBar(mb);
+			
+			
+			btnMImportExport = new JButton("Import / Export");
+			btnMImportExport.addActionListener(this);
+			btnMImportExport.setBackground(new Color(135,206,250));
+//			btnMImportExport.setBorderPainted(false);
+//			btnMImportExport.setOpaque(true);
+			mb.add(btnMImportExport);  
+	        setJMenuBar(mb);
+	        
+	        btnMLogout = new JButton("Logout");
+	        btnMLogout.addActionListener(this);
+	        btnMLogout.setBackground(new Color(135,206,250));
+//	        btnMLogout.setForeground(Color.white);
+//	        btnMLogout.setOpaque(true);
+//	        btnMLogout.setBorderPainted(false);
+			mb.add(btnMLogout);  
+			
+			
+	        setJMenuBar(mb);
+			
+		}else{
+			btnMmyProfile = new JButton("My Profile");
+			btnMmyProfile.addActionListener(this);
+			btnMmyProfile.setBackground(new Color(135,206,250));
+			btnMmyProfile.setBorder(null);
+			btnMmyProfile.setBorderPainted(false);
+			btnMmyProfile.setOpaque(true);
+			mb.add(btnMmyProfile); 
+			setJMenuBar(mb);
+			
+			
+			btnMgroup = new JButton("Groups");
+			btnMgroup.addActionListener(this);
+			btnMgroup.setBackground(new Color(135,206,250));
+			btnMgroup.setBorderPainted(false);
+			btnMgroup.setOpaque(true);
+			mb.add(btnMgroup); 
+			
+	        setJMenuBar(mb);
+	       
+			
+			btnMstudents = new JButton("Student");
+			btnMstudents.addActionListener(this);
+			btnMstudents.setBackground(new Color(135,206,250));
+			btnMstudents.setBorderPainted(false);
+			btnMstudents.setOpaque(true);
+			mb.add(btnMstudents);  
+	        setJMenuBar(mb);
+			
+
+			
+			btnMImportExport = new JButton("Import / Export");
+			btnMImportExport.addActionListener(this);
+			btnMImportExport.setBackground(new Color(135,206,250));
+			btnMImportExport.setBorderPainted(false);
+			btnMImportExport.setOpaque(true);
+			mb.add(btnMImportExport);  
+	        setJMenuBar(mb);
+	        
+	        btnMLogout = new JButton("Logout");
+	        btnMLogout.addActionListener(this);
+	        btnMLogout.setBackground(new Color(107,5,37));
+	        btnMLogout.setForeground(Color.white);
+	        btnMLogout.setOpaque(true);
+	        btnMLogout.setBorderPainted(false);
+			mb.add(btnMLogout);  
+			
+			
+	        setJMenuBar(mb);
+		}
 		
-        setJMenuBar(mb);
-		
-        btnMgroup = new JButton("Groups");
-		btnMgroup.addActionListener(this);
-		btnMgroup.setBackground(new Color(135,206,250));
-		btnMgroup.setBorderPainted(false);
-		mb.add(btnMgroup); 
-		
-        setJMenuBar(mb);
-       
-       
-		
-		btnMstudents = new JButton("Student");
-		btnMstudents.addActionListener(this);
-		btnMstudents.setBackground(new Color(135,206,250));
-		btnMstudents.setBorderPainted(false);
-		mb.add(btnMstudents);  
-        setJMenuBar(mb);
-		
-//		btnMreport = new JButton("Reports");
-//		btnMreport.addActionListener(this);
-//		btnMreport.setBackground(new Color(135,206,250));
-//		btnMreport.setBorderPainted(false);
-//		mb.add(btnMreport);  
-//        setJMenuBar(mb);
-		
-		btnMImportExport = new JButton("Import / Export");
-		btnMImportExport.addActionListener(this);
-		btnMImportExport.setBackground(new Color(135,206,250));
-		btnMImportExport.setBorderPainted(false);
-		mb.add(btnMImportExport);  
-        setJMenuBar(mb);
-        
-        btnMLogout = new JButton("Logout");
-        btnMLogout.addActionListener(this);
-        btnMLogout.setBackground(new Color(107,5,37));
-        btnMLogout.setForeground(Color.white);
-        btnMLogout.setBorderPainted(false);
-		mb.add(btnMLogout);  
-        setJMenuBar(mb);
-        
         
 		setPreferredSize(new Dimension(1000, 800));
 		setLocationRelativeTo(null);
@@ -177,11 +235,12 @@ public class GroupGUI extends JFrame implements ActionListener{
 		         
 		         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
 		         centerRenderer.setHorizontalAlignment( JLabel.CENTER );
+		         //centerRenderer.setBorder(BorderFactory.createCompoundBorder(UIManager.getBorder("TableHeader.cellBorder"),BorderFactory.createEmptyBorder(0, 10, 0, 10)));
 		         
 		         jt.getColumnModel().getColumn(0).setCellRenderer( centerRenderer );
 		         jt.getColumnModel().getColumn(1).setCellRenderer( centerRenderer );
 		         jt.getColumnModel().getColumn(2).setCellRenderer( centerRenderer );
-		       
+		         
 		       //  jt.setPreferredScrollableViewportSize(new Dimension(300, 100));
 		        // jt.setBackground(Color.yellow);
 		       //  jt.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
@@ -247,12 +306,26 @@ public class GroupGUI extends JFrame implements ActionListener{
 		        	 model.addRow(new Object[]{bean.getGroupID(),bean.getGroupName(),bean.getStartDate()});
 		        	 
 		         }
+		        
 		        /*JPanel panel = new JPanel ();
 		        model.setBorder (BorderFactory.createTitledBorder (BorderFactory.createEtchedBorder (),
 		                                                            "Table Title",
 		                                                            TitledBorder.CENTER,
 		                                                            TitledBorder.TOP));
 		        */
+		       // Color color = UIManager.getColor("Table.gridColor");
+//		        MatteBorder border = new MatteBorder(1, 1, 1, 1, Color.blue);
+//		        jt.setBorder(border);
+		        
+//		        for (int i = 0; i < jt.getColumnCount(); i++) {
+//		        	for (int j = 0; j < jt.getRowCount(); j++) {
+//		        		
+//		        	}
+//		            jt.getTableHeader().getColumnModel().getColumn(i).setHeaderRenderer(new HeaderRenderer(jt));
+//		            jt.get
+//		        }
+//		        
+		        
 		        JTableHeader header= jt.getTableHeader();
 			       header.setBackground(Color.yellow);
 			       
@@ -308,7 +381,12 @@ public class GroupGUI extends JFrame implements ActionListener{
 		        
 		        Image img;
 		         btnSubmit = new JButton("Add New Group");
-		         btnSubmit.setBounds(210,500,150,40);
+		         if (osname.contains("Mac")){
+		        	 btnSubmit.setBounds(210,500,170,40);
+					}else{
+						btnSubmit.setBounds(210,500,150,40);
+					}
+		         
 		         btnSubmit.setBackground(Color.WHITE);
 		         btnSubmit.setOpaque(true);
 		         btnSubmit.setBorderPainted(false);
@@ -397,8 +475,10 @@ public class GroupGUI extends JFrame implements ActionListener{
 		// TODO Auto-generated method stub
 		GroupDAO dao=null;
 		if(e.getSource()==btnSubmit){
-			dispose();
-			new AddGroupGUI();
+			synchronized (this) {
+				new AddGroupGUI();
+				dispose();
+			}
 			
 			
 		}
@@ -407,25 +487,34 @@ public class GroupGUI extends JFrame implements ActionListener{
 			System.exit(0);
 		}
 		if(e.getSource()==btnMImportExport || e.getSource()==btnImportExport){
-			setVisible(false);
-			new GroupStudImportExportGUI("", "");
+			synchronized (this) {
+				setVisible(false);
+				new GroupStudImportExportGUI("", "");
+			}
+			
 		}
 		if(e.getSource()==btnMgroup){
-			dispose();
-			new GroupGUI();
+			synchronized (this) {
+				new GroupGUI();
+				dispose();
+			}
 			
 			
 		}
 		if(e.getSource()==btnMstudents){
-			dispose();
-			new StudentGUI("", "");
+			synchronized (this) {
+				new StudentGUI("", "");
+				dispose();
+			}
 			
 			
 		}
 		
 		if(e.getSource()==btnBack){
-			this.setVisible(false);
-			new welcomeGUI();
+			synchronized (this) {
+				new welcomeGUI();
+				this.setVisible(false);
+			}
 			
 		}
 		if(e.getSource()==btnExit){
@@ -433,8 +522,10 @@ public class GroupGUI extends JFrame implements ActionListener{
 			
 		}
 		if(e.getSource() == btnMmyProfile){
-			this.setVisible(false);
-			new MyProfileGUI();
+			synchronized (this) {
+				new MyProfileGUI();
+				this.setVisible(false);
+			}
 		}
 		
 		if(e.getSource()==btnDelete){
@@ -477,14 +568,39 @@ public class GroupGUI extends JFrame implements ActionListener{
 			DefaultTableModel dtm = (DefaultTableModel) jt.getModel();
 			int selRow = jt.getSelectedRow();
 			String value = jt.getModel().getValueAt(selRow, 0).toString();
-			System.out.println(value);
+		
 			GroupBean gBean =  groupDAO.getGroup(Integer.parseInt(value));
-			this.setVisible(false);
-			new UpdateGroupGUI(gBean);
+			synchronized (this) {
+				new UpdateGroupGUI(gBean);
+				this.setVisible(false);
+			}
 		}
 		
 		
 	}
+	
+	private static class HeaderRenderer implements TableCellRenderer {
+        private DefaultTableCellRenderer renderer;
+
+        private HeaderRenderer(JTable table) {
+            renderer = (DefaultTableCellRenderer) table.getTableHeader().getDefaultRenderer();
+        }
+
+        @Override
+        public Component getTableCellRendererComponent(JTable table,
+                Object value, boolean isSelected, boolean hasFocus,
+                int row, int column) {
+            JComponent comp = (JComponent) renderer.getTableCellRendererComponent(table, value, 
+                    isSelected, hasFocus, row, column);
+            Border originalBorder = comp.getBorder();
+            MatteBorder border = new MatteBorder(1, 1, 1, 1, Color.blue);
+	        comp.setBorder(border);
+	        
+            //comp.setBorder( 
+            //        BorderFactory.createEmptyBorder(0, 20, 0, 0));
+            return comp;
+        }
+    }
 	
 public static void main(String args[]){
 		
