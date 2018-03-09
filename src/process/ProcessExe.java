@@ -19,11 +19,14 @@ import java.util.Properties;
 
 import javax.swing.JFrame;
 
+import sun.util.logging.resources.logging;
+
 import com.ibatis.common.jdbc.ScriptRunner;
 import com.orsonpdf.font.TrueTypeFont;
 
 import gui.CheckOSGUI;
 import gui.CheckUsernamePassGUI;
+import gui.LoginGUI;
 import gui.legalGUI;
 import gui.welcomeGUI;
 
@@ -58,7 +61,7 @@ public class ProcessExe extends JFrame{
 	        	 rs.close();
 	        	 stmt.close();
 	        	 c.close();
-	        	 new legalGUI();
+	        	 new LoginGUI();
 	         }
 	        	 
 			

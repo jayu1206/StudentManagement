@@ -49,7 +49,7 @@ public class LoginGUI extends JFrame implements ActionListener{
 	JButton btnSubmit;
 	
 	
-	LoginGUI(){
+	public LoginGUI(){
 		
 		JPanel jsp1 = new JPanel(new BorderLayout());
 	 	jsp1.setBackground(new Color(141, 31, 6));
