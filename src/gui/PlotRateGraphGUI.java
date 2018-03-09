@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GraphicsEnvironment;
@@ -466,8 +467,6 @@ public class PlotRateGraphGUI extends JFrame implements ActionListener, Printabl
 		if (page>0){return NO_SUCH_PAGE;} //Only one page
 		
 		
-		
-		
 		            Graphics2D g = (Graphics2D)gx; //Cast to Graphics2D object
 		            pf.setOrientation(PageFormat.PORTRAIT);
 		            g.translate(pf.getImageableX(), pf.getImageableY()); //Match origins to imageable area
@@ -491,18 +490,10 @@ public class PlotRateGraphGUI extends JFrame implements ActionListener, Printabl
 		              pageHeight /= factor;
 		            }
 		            
-		            g.translate((pageWidth - size.width) / 4, (pageHeight - size.height) / 4);
-		            
-		         // Draw a line around the outside of the drawing area and label it
-		            g.drawRect(-1, -1, size.width + 2, size.height + 2);
-		           
-
-		            // Set a clipping region so the component can't draw outside of
-		            // its won bounds.
-		           // g.setClip(0, 0, size.width, size.height);
+		            g.translate((int) pf.getImageableX(), (int) pf.getImageableY());
 		            
 		            this.print(g);
-		            //g.drawString (this, 100, 100); //Print Hello World at offset (100, 100)
+		     
 		
 		            return PAGE_EXISTS; //Page exists (offsets start at zero!)
 

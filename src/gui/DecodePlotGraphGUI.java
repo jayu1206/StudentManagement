@@ -246,8 +246,10 @@ public class DecodePlotGraphGUI extends JFrame implements ActionListener,Printab
 			}
 		}
 		if(e.getSource()==btnPrint){
+			
 			 PrinterJob printJob = PrinterJob.getPrinterJob();
 			 printJob.setPrintable(this);
+			 
 			 if(printJob.printDialog()){
 				    try { printJob.print(); } 
 				    catch (Exception PrinterExeption
@@ -257,6 +259,47 @@ public class DecodePlotGraphGUI extends JFrame implements ActionListener,Printab
 		}
 		
 	}
+	
+
+	@Override
+	public int print(Graphics gx, PageFormat pf, int page)
+			throws PrinterException {
+		// TODO Auto-generated method stub
+		if (page>0){return NO_SUCH_PAGE;} //Only one page
+		
+		
+		            Graphics2D g = (Graphics2D)gx; //Cast to Graphics2D object
+		            pf.setOrientation(PageFormat.PORTRAIT);
+		            g.translate(pf.getImageableX(), pf.getImageableY()); //Match origins to imageable area
+		            
+		            Dimension size = this.getSize(); // component size
+		            double pageWidth = pf.getImageableWidth(); // Page width
+		            double pageHeight = pf.getImageableHeight(); // Page height
+		            
+		         
+		            // If the component is too wide or tall for the page, scale it down
+		            if (size.width > pageWidth) {
+		              double factor = pageWidth / size.width; // How much to scale
+		              g.scale(factor, factor); // Adjust coordinate system
+		              pageWidth /= factor; // Adjust page size up
+		              pageHeight /= factor;
+		            }
+		            if (size.height > pageHeight) { // Do the same thing for height
+		              double factor = pageHeight / size.height;
+		              g.scale(factor, factor);
+		              pageWidth /= factor;
+		              pageHeight /= factor;
+		            }
+		            
+		            g.translate((int) pf.getImageableX(), (int) pf.getImageableY());
+		            
+		            this.print(g);
+		     
+		
+		            return PAGE_EXISTS; //Page exists (offsets start at zero!)
+
+	}
+	
 	
 	private void drawRegressionLine(JFreeChart chart, XYDataset inputData) {
 		// Get the parameters 'a' and 'b' for an equation y = a + b * x,
@@ -561,23 +604,5 @@ private XYDataset createDataset(StudentBean bean) {
 	}*/
 
 
-	@Override
-	public int print( Graphics g, PageFormat pf, int pi)
-			throws PrinterException {
-		// TODO Auto-generated method stub
-		System.out.println("mybutton print");
-	    if (pi >= 1) {
-	      return Printable.NO_SUCH_PAGE;
-	  }
-
-	  Graphics2D g2 = (Graphics2D) g;
-	  g2.translate(
-	  pf.getImageableX(), pf.getImageableY());
-	  Font  f = new Font("Monospaced",Font.PLAIN,12);
-	  System.out.println (f);
-	 // g2.setFONT (f);
-	  paint(g2);
-	  return Printable.PAGE_EXISTS;
-	}
 
 }
