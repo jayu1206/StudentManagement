@@ -73,7 +73,7 @@ public class AddGroupGUI extends JFrame implements ActionListener{
 	JButton  btnMgroup,btnMstudents,btnMreport,btnMImportExport,btnMLogout,btnMmyProfile;
 	JMenuItem group,students,report;
 	JMenu menu;
-	JDatePickerImpl datePicker ;
+	JDatePickerImpl datePicker;
 	
 	AddGroupGUI(){
 		
@@ -228,14 +228,14 @@ public class AddGroupGUI extends JFrame implements ActionListener{
 				
 				
 				Properties p = new Properties();
-				p.put("text.today", "Today");
 				p.put("text.month", "Month");
+				p.put("text.today", "Today");				
 				p.put("text.year", "Year");
 				
 				UtilDateModel model = new UtilDateModel();
 				//model.setDate(1990, 8, 24);
 				model.setSelected(true);
-				JDatePanelImpl datePanel =new JDatePanelImpl(model, p);
+				JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
 				datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
 				datePicker.setBounds(500,230,200,30);
 				add(datePicker);
