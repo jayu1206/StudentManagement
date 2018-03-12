@@ -323,14 +323,24 @@ public class PlotRateGraphGUI extends JFrame implements ActionListener, Printabl
 		  
 		 SubCategoryAxis domainAxis = new SubCategoryAxis("");
 	        domainAxis.setCategoryMargin(0.05);
-//	        domainAxis.addSubCategory("1 - Text");
+	       // domainAxis.addSubCategory("1 - Text");
 	        plot.setDomainAxis(domainAxis);
+	        plot.setFixedLegendItems(createLegendItems());
 
-
-		  
         return chart;
         
     }
+
+
+	private LegendItemCollection createLegendItems() {
+		  LegendItemCollection result = new LegendItemCollection();
+	        LegendItem item1 = new LegendItem("1 to Base Lin", new Color(129, 218, 245));
+	        LegendItem item2 = new LegendItem("2 to Gain / Los", new Color(250,88,88));
+	        result.add(item1);
+	        result.add(item2);
+	        return result;
+	}
+
 
 
 	private CategoryDataset createDataset() {
