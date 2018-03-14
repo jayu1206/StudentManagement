@@ -850,10 +850,10 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 					}
 
 					Pattern dateFrmtPtrn = Pattern
-							.compile("(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])-((19|20)\\d\\d)");
+							.compile("(0?[1-9]|1[012])/(0?[1-9]|[12][0-9]|3[01])/((19|20)\\d\\d)");
 					Matcher mtch = dateFrmtPtrn.matcher(jt.getModel().getValueAt(i, 2).toString());
 					if (!mtch.matches()) {
-						JOptionPane.showMessageDialog(this, "Date format should be MM-DD-YYYY");
+						JOptionPane.showMessageDialog(this, "Date format should be MM/DD/YYYY");
 						flag = false;
 					}
 
@@ -967,10 +967,10 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 					}
 
 					Pattern dateFrmtPtrn = Pattern
-							.compile("(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])-((19|20)\\d\\d)");
+							.compile("(0?[1-9]|1[012])/(0?[1-9]|[12][0-9]|3[01])/((19|20)\\d\\d)");
 					Matcher mtch = dateFrmtPtrn.matcher(jtRate.getModel().getValueAt(i, 2).toString());
 					if (!mtch.matches()) {
-						JOptionPane.showMessageDialog(this, "Date format should be MM-DD-YYYY");
+						JOptionPane.showMessageDialog(this, "Date format should be MM/DD/YYYY");
 						flag = false;		
 
 					}

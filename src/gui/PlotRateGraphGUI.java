@@ -20,6 +20,7 @@ import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -132,7 +133,7 @@ public class PlotRateGraphGUI extends JFrame implements ActionListener, Printabl
 			add(lblTeacher);
 			
 			
-			lblCurrentDate = new JLabel("Current Date  :  "+new Date()+"");
+			lblCurrentDate = new JLabel("Current Date  :  "+new SimpleDateFormat("MM/dd/yyyy").format(new Date())+"");
 			lblCurrentDate.setBounds(650,45,300,40); 
 			lblCurrentDate.setForeground(Color.white);
 			lblCurrentDate.setFont(f1);
@@ -335,7 +336,7 @@ public class PlotRateGraphGUI extends JFrame implements ActionListener, Printabl
 	private LegendItemCollection createLegendItems() {
 		  LegendItemCollection result = new LegendItemCollection();
 	        LegendItem item1 = new LegendItem("1 Base Lin", new Color(129, 218, 245));
-	        LegendItem item2 = new LegendItem("2 Gain / Los", new Color(250,88,88));
+	        LegendItem item2 = new LegendItem("2 Gain / Loss", new Color(250,88,88));
 	        result.add(item1);
 	        result.add(item2);
 	        return result;
@@ -460,7 +461,13 @@ public class PlotRateGraphGUI extends JFrame implements ActionListener, Printabl
 			 printJob.setPrintable(this);
 			 
 			 if(printJob.printDialog()){
-				    try { printJob.print(); } 
+				    try {
+				    	btnBack.setVisible(false);
+				    	btnPrint.setVisible(false);
+				    	printJob.print(); 
+				    	btnBack.setVisible(true);
+				    	btnPrint.setVisible(true);	
+				    } 
 				    catch (Exception PrinterExeption
 				    ) { }
 				  }

@@ -20,6 +20,7 @@ import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -133,7 +134,7 @@ public class DecodePlotGraphGUI extends JFrame implements ActionListener,Printab
 			add(lblTeacher);
 			
 			
-			lblCurrentDate = new JLabel("Current Date  :  "+new Date()+"");
+			lblCurrentDate = new JLabel("Current Date  :  "+new SimpleDateFormat("MM/dd/yyyy").format(new Date())+"");
 			lblCurrentDate.setBounds(650,45,300,40); 
 			lblCurrentDate.setForeground(Color.white);
 			lblCurrentDate.setFont(f1);
@@ -251,7 +252,13 @@ public class DecodePlotGraphGUI extends JFrame implements ActionListener,Printab
 			 printJob.setPrintable(this);
 			 
 			 if(printJob.printDialog()){
-				    try { printJob.print(); } 
+				    try { 
+				    	btnBack.setVisible(false);
+				    	btnPrint.setVisible(false);
+				    	printJob.print(); 
+				    	btnBack.setVisible(true);
+				    	btnPrint.setVisible(true);
+				    } 
 				    catch (Exception PrinterExeption
 				    ) { }
 				  }
