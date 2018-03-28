@@ -41,7 +41,7 @@ public class demoExefile {
 		
 		
 		
-		String cmd = "/Users/mrugalpanchal/Desktop/Jar/mysql/mysql-5.7.21-1-macos10.13-x86_64.dmg"; 
+		String cmd = "/Users/mrugalpanchal/Desktop/Jar/data/mysql-5.7.21-1-macos10.13-x86_64.dmg"; 
 		Runtime r = Runtime.getRuntime(); 
 		ProcessBuilder p = new ProcessBuilder(new String[] { "/usr/bin/open", cmd }); 
 		Process pro; 

@@ -114,7 +114,7 @@ public class DecodePlotGraphGUI extends JFrame implements ActionListener,Printab
 		
 		
 		setLayout(new BorderLayout());
-		setContentPane(new JLabel(new ImageIcon(this.getClass().getResource("/image/black-back-ground.jpg"))));
+		setContentPane(new JLabel(new ImageIcon(this.getClass().getResource("/image/blue.jpg"))));
 		setLayout(null);
 		
 		Font f1=new Font("Serif",Font.BOLD,20);

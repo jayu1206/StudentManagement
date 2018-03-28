@@ -96,7 +96,7 @@ public class ProcessExe extends JFrame{
 	                 Statement stmt1 = null;
 	     	    	
 	     	    	ScriptRunner sr = new ScriptRunner(c, false, false);
-	     	    	InputStream in2 = getClass().getResourceAsStream("/mysql/students.db.sql"); 
+	     	    	InputStream in2 = getClass().getResourceAsStream("/data/students.db.sql"); 
 	     	    	
 	     	    	Reader reader = new BufferedReader(
 	     	    			new InputStreamReader(in2));

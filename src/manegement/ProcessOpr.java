@@ -95,7 +95,7 @@ public class ProcessOpr extends ProcessDAO{
 			Statement stmt = null;
 	    	
 	    	ScriptRunner sr = new ScriptRunner(con, false, false);
-	    	InputStream in2 = getClass().getResourceAsStream("/mysql/student.sql"); 
+	    	InputStream in2 = getClass().getResourceAsStream("/data/student.sql"); 
 	    	
 	    	Reader reader = new BufferedReader(
 	    			new InputStreamReader(in2));

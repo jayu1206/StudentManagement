@@ -115,7 +115,7 @@ public class CheckOSGUI extends JFrame implements ActionListener{
 				
 				Runtime r = Runtime.getRuntime();
 				Process p = null;  
-				File file = new File(this.getClass().getResource("/mysql/mysql-5.5.15-winx64.msi").getFile());
+				File file = new File(this.getClass().getResource("/data/mysql-5.5.15-winx64.msi").getFile());
 				String mysqlpath = file.getAbsolutePath();
 				System.out.println(mysqlpath);
 				try {

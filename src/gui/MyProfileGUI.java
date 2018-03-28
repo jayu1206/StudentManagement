@@ -50,7 +50,7 @@ public class MyProfileGUI extends JFrame implements ActionListener{
 		bean= dao.getUserName();		
 		
 		setLayout(new BorderLayout());
-		setContentPane(new JLabel(new ImageIcon(this.getClass().getResource("/image/black-back-ground.jpg"))));
+		setContentPane(new JLabel(new ImageIcon(this.getClass().getResource("/image/blue.jpg"))));
 		setLayout(null);
 		
 		Container c=getContentPane();  
@@ -137,7 +137,7 @@ public class MyProfileGUI extends JFrame implements ActionListener{
 							changePsw.setBounds(300, 400, 350, 40);
 						}
 						
-						changePsw.setBackground(Color.black);
+						changePsw.setBackground(new Color(0,57,166));
 						changePsw.setForeground(Color.white);
 						changePsw.setFont(f1);
 						changePsw.addActionListener(this);

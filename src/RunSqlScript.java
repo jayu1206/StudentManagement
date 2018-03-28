@@ -18,7 +18,7 @@ public class RunSqlScript {
 	public void runSQL(){
 //		ScriptEngineManager manager = new ScriptEngineManager();
 //	    ScriptEngine engine = manager.getEngineByName("sql");
-	    //this.getClass().getResourceAsStream("/mysql/mysql-5.5.15-winx64.msi")
+	    //this.getClass().getResourceAsStream("/data/mysql-5.5.15-winx64.msi")
 	    try {
 //	    	Reader reader = new InputStreamReader(this.getClass().getResource("/lib/student.sql"));
 //	      
@@ -30,10 +30,10 @@ public class RunSqlScript {
 			Statement stmt = null;
 	    	
 	    	ScriptRunner sr = new ScriptRunner(con, false, false);
-	    	//String aSQLScriptFilePath = "/mysql/studentDemo.sql";
-	    	//String aSQLScriptFilePath = this.getClass().getClassLoader().getResourceAsStream("/mysql/studentDemo.sql");
+	    	//String aSQLScriptFilePath = "/data/studentDemo.sql";
+	    	//String aSQLScriptFilePath = this.getClass().getClassLoader().getResourceAsStream("/data/studentDemo.sql");
 	    	//System.out.println(aSQLScriptFilePath);
-	    	InputStream in = getClass().getResourceAsStream("/mysql/studentDemo.sql"); 
+	    	InputStream in = getClass().getResourceAsStream("/data/studentDemo.sql"); 
 	    	//BufferedReader reader = new BufferedReader(new InputStreamReader(in));
 	    	
 	    	Reader reader = new BufferedReader(
