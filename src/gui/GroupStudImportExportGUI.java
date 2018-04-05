@@ -279,10 +279,16 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 		r1 = new javax.swing.JRadioButton("Group");
 		r2 = new javax.swing.JRadioButton("Student");
 		r1.setBounds(250, 170, 100, 30);
-		r2.setBounds(250, 220, 100, 30);
+		r2.setBounds(250, 220, 120, 30);
 		r1.addActionListener(this);
 		r2.addActionListener(this);
 		bg = new javax.swing.ButtonGroup();
+		r1.setFont(f);
+		r2.setFont(f);
+		r1.setForeground(Color.white);
+		r2.setForeground(Color.white);
+		r1.setBackground(new Color(0,57,166));
+		r2.setBackground(new Color(0,57,166));
 		bg.add(r1);
 		bg.add(r2);
 		add(r1);
@@ -290,7 +296,22 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 		/*
 		 * setSize(300, 300); setLayout(null); setVisible(true);
 		 */
+		/*lblGroup = new JLabel("Group");
+		lblGroup.setBounds(250, 410, 110, 40);
+		lblGroup.setFont(f);
+		getForeground();
+		lblGroup.setForeground(Color.white);
+		add(lblGroup);
 
+		lblStudent = new JLabel("Student");
+		lblStudent.setBounds(250, 450, 110, 40);
+		lblStudent.setFont(f);
+		getForeground();
+		lblStudent.setForeground(Color.white);
+		add(lblStudent);
+		*/
+		
+		
 		lblImportGFile = new JLabel("Import File :");
 		lblImportGFile.setBounds(400, 150, 150, 60);
 		lblImportGFile.setFont(f);

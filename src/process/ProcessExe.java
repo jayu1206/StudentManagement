@@ -27,6 +27,7 @@ import com.orsonpdf.font.TrueTypeFont;
 import gui.CheckOSGUI;
 import gui.CheckUsernamePassGUI;
 import gui.LoginGUI;
+import gui.RegistratonGUI;
 import gui.legalGUI;
 import gui.welcomeGUI;
 
@@ -62,6 +63,8 @@ public class ProcessExe extends JFrame{
 	        	 stmt.close();
 	        	 c.close();
 	        	 new LoginGUI();
+	         }else{
+	        	 new RegistratonGUI();
 	         }
 	        	 
 			

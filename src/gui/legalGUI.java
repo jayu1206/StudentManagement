@@ -17,12 +17,12 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Insets;
 import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.Visibility;
 import java.io.IOException;
 import java.sql.SQLException;
-
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -49,104 +49,175 @@ public class legalGUI  extends JFrame implements ActionListener {
 	
 	
 	
-	JTextArea legalContent;
-	JCheckBox checkTerm;
-	final JLabel label = new JLabel(); 
-	JRadioButton accept = new JRadioButton("I Accept");
-    JRadioButton notaccept = new JRadioButton("I Do Not Accept");
+	JButton btnAccept;
+    JMenu menu;
+    JRadioButton accept = new JRadioButton("     I Accept     ");
+    JRadioButton notaccept = new JRadioButton("     I Do Not Accept     ");
     ButtonGroup bG = new ButtonGroup();
-    JButton btnAccept;
-	
-	
+    
+    
 	public legalGUI(){
 		
 		
-		System.out.println("In legal GUI Method");
-		 	JPanel jsp1 = new JPanel(new BorderLayout());
-		 	jsp1.setBackground(new Color(141, 31, 6));
-		 	
-		    ImageIcon image = new ImageIcon(this.getClass().getResource("/image/Image12_1.jpg"));
-		    JLabel label = new JLabel("", image, JLabel.CENTER);
-		    jsp1.add( label, BorderLayout.CENTER );
-		    
-		 	
-	        JPanel jsp2 = new JPanel(new GridLayout(2,1));	       
-	        jsp2.setSize(jsp2.getPreferredSize());
-	       
-	        
-	        JTextPane textPane = new JTextPane();
-	        textPane.setBackground(Color.DARK_GRAY);
-	        JScrollPane scrollPane = new JScrollPane(textPane);
-	        textPane.setEditable(false);
-	        textPane.setMargin(new Insets(scrollPane.getViewport().getHeight()
-	                , 0, 0, 0));
-	        textPane.setContentType("text/html");
-	        textPane.setText("<html><body style=\"font: Arial; color: white; padding: 1px; padding-top: 0;\">"
-	        		+ "<center> <h1>Legal Disclaimer</h1> </center></br>"
-	        		+ "<center><h4>Texas Scottish Rite Hospital for Children and the authors of this software accept no responsibility for damages</h4> </center></br>"
-	        		+ "<center><h4>Tresulting from the use of this product and make no warranty or representation, either expressed or implied, including</h4> </center></br>"
-	        		+ "<center><h4>but not limited to, any implied warranty of merchantability or fitness for a particular purpose. This software is provided</h4></center> </br>"
-	        		+ "<center><h4>ï¿½AS IS,ï¿½, and you, its user, assumes all risk when using it. Texas Scottish Rite Hospital for Children is not responsible</h4> </center></br>"
-	        		+ "<center><h4>for the security of accuracy of student information and test result data (collectively ï¿½Dataï¿½ ). You, the user, are</h4> </center></br>"
-	        		+ "<center><h4>responsible for the security and accuracy of this Data as required by law.</h4> </center></br>"
-	        		+ "</body></html>");
+		JMenuBar mb=new JMenuBar();
+			
+		mb = new JMenuBar() {
+			 
+            @Override
+            public void paintComponent(Graphics g) {
+                Dimension size = this.getSize();
+                g.drawImage(Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/image/Image12_1.jpg")), 0, 0, size.width, size.height, this);
+            }
+        };
+        mb.add(Box.createRigidArea(new Dimension(10,200)));
+        setJMenuBar(mb);
+        setLayout(null);
+        setPreferredSize(new Dimension(1000, 800));
+		setLocationRelativeTo(null);
+		
+        
+		Font f=new Font("Serif", Font.ITALIC | Font.BOLD, 20);   // Creating font style and size for heading
+
+		// step 3 : creating JLabel for Heading
+		JPanel textPanel=new JPanel();
+		//textPanel.setBounds(0,0,1000,500);
+				JLabel heading_lbl=new JLabel();
+				//heading_lbl.setBackground(Color.DARK_GRAY);
+				//heading_lbl.setBounds(5,0,1070,500);
+				heading_lbl.setText("<html>"
+						+ "<head> <title>Page Title</title> </head> <body bgcolor=#545454 style=\"padding: 7px;  \" > <font color=white>"
 						
-	        
-	        jsp2.add(textPane);
-	        
-	        GridBagConstraints c = new GridBagConstraints();
-	        JPanel jsp3 = new JPanel(new GridBagLayout());	
-	        
-	        bG.add(accept);
-	        bG.add(notaccept);
-	        accept.setSelected(true);
-	        //notaccept.setSelected(true);
-	       
-	        c.gridx = 1;
-	        c.gridy = 1;
-	        c.insets = new Insets(1,1,1,1);
-	        jsp3.add(accept);
-	        
-	        c.gridx = 0;
-	        c.gridy = 1;
-	        c.insets = new Insets(1,1,1,1);
-	        jsp3.add(notaccept,c);
-	        
-	        
-	        JPanel jsp4 = new JPanel();	
-	        btnAccept=new JButton();  
-	        Image img;
-			try {
-				img = ImageIO.read(getClass().getResource("/image/submit_icon.png"));
-				btnAccept.setIcon(new ImageIcon(img));
-				btnAccept.setBorder(null);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-	        
-	        jsp4.add(btnAccept); 
-	        btnAccept.addActionListener(this); 
-	       
-	        
-	        JSplitPane splitPane2 = new JSplitPane(JSplitPane.VERTICAL_SPLIT, 
-	                false, jsp3, jsp4);
-	        splitPane2.setDividerLocation(100 + splitPane2.getInsets().top);
-	        splitPane2.setDividerSize(0);
-	        
-	        
-	        
-	        
-	        jsp2.add(splitPane2,c);
-			
-			
-	        JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, 
-	                false, jsp1, jsp2);
-	        splitPane.setDividerLocation(200 + splitPane.getInsets().top);
-	        splitPane.setDividerSize(0);
-	        splitPane.setOneTouchExpandable(false);	        
-	        getContentPane().add(splitPane);
-	        
+						+ "<center><h3>GENERAL TERMS AND CONDITIONS</h3></center></br>"
+						+ "<center><h3>IMPORTANT - THIS IS A CONTRACT</h3></center>"
+						+ "<center><h3>CAREFULLY READ BEFORE USING THIS PRODUCT</h3></center>"
+						+ "<p>BY DOWNLOADING THE STUDENT PROGRESS MONITOR APPLICATION, YOU ACKNOWLEDGE THAT YOU HAVE <br/>\n READ THIS AGREEMENT, THAT YOU UNDERSTAND IT,AND THAT YOU AGREE"
+						+ "TO BE BOUND BY ITS TERMS AND <br/>\n CONDITIONS. IF YOU DO NOT AGREE TO THE TERMS AND CONDITIONS OF THIS AGREEMENT, PROMPTLY EXIT <br/>\n THE APPLICATION WITHOUT USING IT.</p>"
+
+						+ "<br/>\n<center><h2>1. License Grant and Restrictions</h2></center>"
+						
+						+ "<p><u>“Texas Scottish Rite Hospital for Children</u> (“Owner”) grants you a non-exclusive, non-transferable, limited license to access <br/>\n and use the <u>“Student Progress Monitor” Application</u> (“Student Progress Monitor”),"
+						+ "including the right to: (a) electronically <br/>\n  display and use the Student Progress Monitor;and (b) unless otherwise prohibited, store up to two copies of the Student <br/>\n  Progress Monitor in machine-readable form for one "
+						+ "person’s exclusive use to support normal work activities. Any right not <br/>\n  expressly granted to you by this Agreement is hereby expressly reserved by Owner.</p>"
+						
+						+ "<br/>\n<p>You expressly agree: (1) not to alter, modify, remove or obscure any copyright notice or other notice contained in the Student <br/>\n Progress Monitor; (2) not to allow your user identification and password to be used by"
+						+ "any other person to access the Student <br/>\n Progress Monitor; (3) not to use the Student Progress Monitor for the benefit of any other person or entity that is not an <br/>\n authorized user or licensee of the Student Progress "
+						+ "Monitor;(4) not to use the Student Progress Monitor in any way that <br/>\n infringes the copyrights, confidentiality or proprietary rights of Owner, Owner’s third party suppliers, or students whose <br/>\n information is stored in"
+						+ "the Student Progress Monitor; (5) not to directly or indirectly use or allow others to use the Student <br/>\n Progress Monitor or any information about them in the development of any product that is competitive with the"
+						+ " Student <br/>\n Progress  Monitor; (6) to be bound by the terms of this Agreement; and (7) that Owner is the owner of all copyrights and <br/>\n intellectual property of Owner and that those rights are valid and enforceable by Owner.</p>"
+						
+						+ "<br/>\n<p>YOU FURTHER ACKNOWLEDGE AND AGREE THAT OWNER IS NOT RESPONSIBLE FOR THE SECURITY OR <br/>\n ACCURACY OF STUDENT INFORMATION AND TEST RESULT DATA (COLLECTIVELY,"
+						+ "“DATA”). YOU, THEREFORE,<br/>\n ACKNOWLEDGE AND AGREE THAT YOU ARE SOLELY RESPONSIBLE FOR THE SECURITY, ACCURACY, AND <br/>\n PRIVACY OF DATA AS REQUIRED BY LAW, "
+						+ "INCLUDING BUT NOT LIMITED TO YOUR STRICT COMPLIANCE WITH <br/>\n THE FAMILY EDUCATIONAL RIGHTS AND PRIVACY ACT (“FERPA”)..  </p>"
+						
+						+ "<br/>\n<center><h2>2. Ownership</h2></center>"
+						
+						+ "<p>You further agree and acknowledge that you have no ownership rights in the Student Progress Monitor or copies thereof.<br/>\n Rather, you have a limited license to use the Student Progress Monitor in accordance with this "
+						+ "Agreement for so long as this <br/>\n Agreement remains in full force and effect. All right, title and interest (including copyrights and other intellectual property <br/>\n rights) in the Student Progress Monitor (in both print "
+						+ "and machine-readable form) shall remain at all times with Owner or <br/>\n its third party suppliers. Any other use of the Student Progress Monitor by any person, business, corporation, government <br/>\n organization or any "
+						+ "other entity is strictly forbidden and is a violation of this Agreement. While the creation, revision,<br/>\n duplication, or making of derivatives is strictly forbidden, in the case that you make any such new copyrightable"
+						+ "matter, you <br/>\n hereby expressly and irrevocably assign those copyrights to Owner without compensation.</p>"
+						
+						+ "<br/>\n<center><h2>3. Access</h2></center>"
+						
+						+ "<p>Only authorized individuals may access and use the Student Progress Monitor. You may be required to change your password <br/>\n from time to time. You may not have access to the Student Progress Monitor at all times."
+						+ "The Student Progress Monitor may <br/>\n be changed, added or withdrawn without notice by Owner at any time and at Owner’s sole discretion. </p>"
+						
+						+ "<br/>\n<center><h2>4. Limited Warranty</h2></center>"
+						
+						+ "<p>THE STUDENT PROGRESS MONITOR IS PROVIDED ON AN “AS IS”, “AS AVAILABLE” BASIS AND OWNER AND <br/>\n EACH THIRD PARTY SUPPLIER EXPRESSLY DISCLAIM ALL WARRANTIES OF ANY KIND,"
+						+ "EITHER EXPRESSED OR <br/>\n IMPLIED, INCLUDING, WITHOUT LIMITATION, IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS <br/>\n FOR A PARTICULAR PURPOSE. OWNER DOES NOT WARRANT THAT "
+						+ "STUDENT PROGRESS MONITOR WILL MEET <br/>\n ANY REQUIREMENTS OR NEEDS YOU MAY HAVE, OR THAT THE STUDENT PROGRESS MONITOR WILL THE <br/>\n OPERATE ERROR FREE, OR IN AN UNINTERRUPTED"
+						+ "FASHION, OR THAT ANY DEFECTS OR ERRORS IN THE <br/>\n STUDENT PROGRESS MONITOR WILL BE CORRECTED, OR THAT THE STUDENT PROGRESS MONITOR ARE <br/>\n COMPATIBLE WITH ANY PARTICULAR"
+						+ "PLATFORM. SOME JURISDICTIONS DO NOT ALLOW THE WAIVER OR <br/>\n EXCLUSION OF IMPLIED WARRANTIES SO THEY MAY NOT APPLY TO YOU. </p>"
+						
+						+ "<br/>\n<center><h2>5. Limitation of Liability</h2></center>"
+						
+						+ "<p>A “Covered Party” means: (a) Owner, its affiliates, and their officers, directors, trustees, employees, subcontractors, agents,<br/>\n successor or assigns; and (b) each third party supplier of Student Progress Monitor, its "
+						+ "affiliates, and their officers, directors,<br/>\n employees, subcontractors, agents, successor or assigns. </p>"
+						
+						+ "<br/>\n<p>A Covered Party shall not be liable for any loss,injury, claim, liability or damage of any kind resulting in any way from:(i) any <br/>\nerrors in or omissions from the Student Progress Monitor ; (ii) the unavailability "
+						+ "or interruption of the Student Progress <br/>\n Monitor or any features thereof; (iii) your use of the Student Progress Monitor (regardless of whether you received any <br/>\n assistance from a Covered Party in using the Student "
+						+ " Progress Monitor); (iv) your use of any equipment in connection with <br/>\n the Student Progress Monitor; (v) the content of the Student Progress Monitor; or (vi) any delay or failure in performance <br/>\nbeyond the reasonable "
+						+ "control of a Covered Party.</p>"
+						
+						+ "<br/>\n<p>IN NO EVENT WILL A COVERED PARTY BE LIABLE TO YOU OR ANY THIRD PARTY FOR ANY DIRECT, INDIRECT,<br/>\n INCIDENTAL, SPECIAL, OR CONSEQUENTIAL DAMAGES OF ANY KIND WHATSOEVER"
+						+ "(INCLUDING, WITHOUT<br/>\n LIMITATION, ATTORNEYS FEES, INDIRECT, SPECIAL, PUNITIVE, OR EXEMPLARY DAMAGES FOR LOSS OF<br/>\n BUSINESS, LOSS OF PROFITS, BUSINESS INTERRUPTION, OR "
+						+ "LOSS OF BUSINESS INFORMATION) IN ANY WAY<br/>\n DUE TO, RESULTING FROM, OR ARISING IN CONNECTION WITH THE STUDENT PROGRESS MONITOR OR THE <br/>\nFAILURE OF ANY COVERED PARTY TO"
+						+ "PERFORM ITS OBLIGATIONS, REGARDLESS OF ANY NEGLIGENCE OF <br/>\nANY COVERED PARTY, EVEN IF THE COVERED PARTY HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH <br/>\nDAMAGES.</p>"
+						
+						+ "<br/>\n<p>A COVERED PARTY’S AGGREGATE LIABILITY WITH RESPECT TO ITS OBLIGATIONS UNDER THIS AGREEMENT,<br/>\n THE STUDENT PROGRESS MONITOR, OR OTHERWISE SHALL NOT EXCEED THE AMOUNT"
+						+ "OF THE LICENSE FEE<br/>\n PAID BY YOU. </p>"
+						
+						
+						+ "<br/>\n<center><h2>6. General</h2></center>"
+						
+						+ "<br/>\n<p>This Agreement is effective until it is terminated. Owner may suspend or discontinue providing the Student Progress Monitor<br/>\n to you without notice and pursue any other remedy legally available to it if you fail to comply"
+						+ "with any of your obligations <br/>\nhereunder. All provisions relating to proprietary rights and non-disclosure shall survive the termination of this Agreement. </p>"
+						
+						
+						+ "<br/>\n<p>This Agreement may be changed from time to time by written agreement or by notice from Owner. All notices and other <br/>\n communications hereunder shall be in writing or displayed electronically in the Student Progress Monitor."
+						+ " Notices shall be<br/>\n deemed to have been properly given on the date first made available, if displayed in the Student Progress Monitor, or on<br/>\n the date received, if delivered in any other manner. Your access to the Student"
+						+ "Progress Monitor may be terminated <br/>\n immediately upon notice to Owner if any change is unacceptable. Continued use of the Student Progress Monitor following <br/>\n any change constitutes acceptance of the change. You may"
+						+ "not assign your rights or delegate your duties under this Agreement <br/>\n without the prior written consent of Owner.</p>"
+						
+						+ "<br/>\n<p>The failure of Owner or any third party supplier of the Student Progress Monitor to enforce any provision hereof shall not <br/>\n constitute or be construed as a waiver of such provision or of the right to enforce it at a"
+						+ "later time. Each third party supplier<br/>\n of the Student Progress Monitor has the right to assert and enforce these provisions directly on its own behalf as a third party <br/>\n beneficiary.</p>"
+						
+						+ "<br/>\n<p>This Agreement shall constitute the entire Agreement between the parties hereto, and shall be construed, interpreted and  <br/>\n governed by the laws of the State of Texas without regard to conflicts of law provisions thereof."
+						+ " The exclusive forum for any <br/>\n disputes arising out of or relating to this Agreement shall be an appropriate federal or state court sitting in Dallas County,<br/>\n Texas, USA. Except as otherwise provided herein, any waiver or"
+						+ "modification of this Agreement shall only be effective if it is <br/>\n in writing and signed by both parties hereto. If any part of this Agreement is found invalid or unenforceable "
+						+ "by a court of <br/>\n competent jurisdiction, the "
+						+ "remainder of this Agreement shall be interpreted so as to reasonably effect the intention of the <br/>\n parties.</p>"
+						
+						+ "</body></html>");
+
+				// applying font on  heading Label
+				heading_lbl.setFont(f);
+				textPanel.add(heading_lbl);
+				
+				
+				//textPanel.setPreferredSize(new Dimension(500,450));
+				 JScrollPane scroller = new JScrollPane(textPanel, 
+		                 JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER); 
+				 scroller.setBounds(0, 0,1080,450);
+		  
+				add(scroller); 
+		        // pack();
+			//	add(heading_lbl);
+				
+				
+				 bG.add(accept);
+			     bG.add(notaccept);
+			     accept.setSelected(true);
+        
+			     accept.setBounds(300,480,200,40);
+			     accept.setBackground(Color.gray);
+			     accept.setForeground(Color.white);
+			     accept.setFont(new Font("Britannic Bold", Font.PLAIN, 20));
+			     accept.setFocusable(false);
+			     getContentPane().add(accept);
+			     
+			     
+			     notaccept.setBounds(520,480,250,40);
+			     notaccept.setBackground(Color.gray);
+			     notaccept.setForeground(Color.white);
+			     notaccept.setFont(new Font("Britannic Bold", Font.PLAIN, 20));
+			     notaccept.setFocusable(false);
+			     getContentPane().add(notaccept);
+			     
+			     btnAccept = new JButton("Submit");
+			     btnAccept.setBounds(920,480,150,40);
+			     btnAccept.setBackground(Color.WHITE);
+			     btnAccept.setOpaque(true);
+			     btnAccept.setBorderPainted(false);
+			     btnAccept.setFocusable(false);
+			     btnAccept.setFont(new Font("Britannic Bold", Font.PLAIN, 15));
+		       // getContentPane().add(btnContinue);
+		        getContentPane().add(btnAccept);
+		        btnAccept.addActionListener(this);
+		        getContentPane().setBackground(Color.gray);
+        
+       // pack();
 	        
 	    	setSize(1100,800);  
 			centerFrame();
@@ -175,7 +246,6 @@ public class legalGUI  extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e){
 		// TODO Auto-generated method stub
-		
 		if(accept.isSelected()){
 			LegalGuiOpr dao = new LegalGuiOpr();
 			if(e.getSource()==btnAccept){
@@ -201,10 +271,7 @@ public class legalGUI  extends JFrame implements ActionListener {
 		    		   //   System.out.println("Call to GUI for ask DB User name and Password");      
 		    		    //  new CheckUsernamePassGUI("");
 		    		
-				}
-				
-				
-				
+				}	
 				
 			}
 			
@@ -223,15 +290,13 @@ public class legalGUI  extends JFrame implements ActionListener {
 		
 		
 		
-		
-		
 	}
 
 	public static void main(String args[]){  
-	//	new legalGUI();
+		new legalGUI();
 //		new GroupGUI();
-	ProcessExe objExe=new ProcessExe();
-	objExe.checkMySqlSystem(0);
+	/*ProcessExe objExe=new ProcessExe();
+	objExe.checkMySqlSystem(0);*/
 	
 	}
 
