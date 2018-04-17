@@ -335,7 +335,7 @@ public class PlotRateGraphGUI extends JFrame implements ActionListener, Printabl
 
 	private LegendItemCollection createLegendItems() {
 		  LegendItemCollection result = new LegendItemCollection();
-	        LegendItem item1 = new LegendItem("1 Base Lin", new Color(129, 218, 245));
+	        LegendItem item1 = new LegendItem("1 Base Line", new Color(129, 218, 245));
 	        LegendItem item2 = new LegendItem("2 Gain / Loss", new Color(250,88,88));
 	        result.add(item1);
 	        result.add(item2);

@@ -77,15 +77,15 @@ public class legalGUI  extends JFrame implements ActionListener {
 		
         
 		Font f=new Font("Serif", Font.ITALIC | Font.BOLD, 20);   // Creating font style and size for heading
-
+		Font f2=new Font("Serif", Font.PLAIN, 20);
 		// step 3 : creating JLabel for Heading
 		JPanel textPanel=new JPanel();
 		//textPanel.setBounds(0,0,1000,500);
 				JLabel heading_lbl=new JLabel();
 				//heading_lbl.setBackground(Color.DARK_GRAY);
-				//heading_lbl.setBounds(5,0,1070,500);
+				//heading_lbl.setBounds(5,0,1070,500);  bgcolor=#545454
 				heading_lbl.setText("<html>"
-						+ "<head> <title>Page Title</title> </head> <body bgcolor=#545454 style=\"padding: 7px;  \" > <font color=white>"
+						+ "<head> <title>Page Title</title> </head> <body bgcolor=#0039a6 style=\"padding: 7px;  \" > <font color=white>"
 						
 						+ "<center><h3>GENERAL TERMS AND CONDITIONS</h3></center></br>"
 						+ "<center><h3>IMPORTANT - THIS IS A CONTRACT</h3></center>"
@@ -172,7 +172,7 @@ public class legalGUI  extends JFrame implements ActionListener {
 						+ "</body></html>");
 
 				// applying font on  heading Label
-				heading_lbl.setFont(f);
+				heading_lbl.setFont(f2);
 				textPanel.add(heading_lbl);
 				
 				
@@ -191,7 +191,7 @@ public class legalGUI  extends JFrame implements ActionListener {
 			     accept.setSelected(true);
         
 			     accept.setBounds(300,480,200,40);
-			     accept.setBackground(Color.gray);
+			     accept.setBackground(new Color(76,116,192));
 			     accept.setForeground(Color.white);
 			     accept.setFont(new Font("Britannic Bold", Font.PLAIN, 20));
 			     accept.setFocusable(false);
@@ -199,7 +199,7 @@ public class legalGUI  extends JFrame implements ActionListener {
 			     
 			     
 			     notaccept.setBounds(520,480,250,40);
-			     notaccept.setBackground(Color.gray);
+			     notaccept.setBackground(new Color(76,116,192));
 			     notaccept.setForeground(Color.white);
 			     notaccept.setFont(new Font("Britannic Bold", Font.PLAIN, 20));
 			     notaccept.setFocusable(false);
@@ -215,7 +215,7 @@ public class legalGUI  extends JFrame implements ActionListener {
 		       // getContentPane().add(btnContinue);
 		        getContentPane().add(btnAccept);
 		        btnAccept.addActionListener(this);
-		        getContentPane().setBackground(Color.gray);
+		        getContentPane().setBackground(new Color(76,116,192));
         
        // pack();
 	        
@@ -293,10 +293,10 @@ public class legalGUI  extends JFrame implements ActionListener {
 	}
 
 	public static void main(String args[]){  
-		new legalGUI();
+	//	new legalGUI();
 //		new GroupGUI();
-	/*ProcessExe objExe=new ProcessExe();
-	objExe.checkMySqlSystem(0);*/
+	ProcessExe objExe=new ProcessExe();
+	objExe.checkMySqlSystem(0);
 	
 	}
 

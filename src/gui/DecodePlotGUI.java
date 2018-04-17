@@ -267,7 +267,7 @@ public class DecodePlotGUI extends JFrame implements ActionListener{
 					lblPlot.setBounds(200,390,300,40); 
 					lblPlot.setForeground(Color.white);
 					lblPlot.setFont(f1);
-					add(lblPlot);
+					//add(lblPlot);
 					
 					
 					bG2.add(indiStudDataRadio);
@@ -278,7 +278,7 @@ public class DecodePlotGUI extends JFrame implements ActionListener{
 					indiStudDataRadio.setForeground(Color.white);
 					indiStudDataRadio.setFont(f2);
 					indiStudDataRadio.setSelected(true);
-					add(indiStudDataRadio);
+					//add(indiStudDataRadio);
 					
 //					studDataClsAvgRadio.setBounds(250,510,300,40); 
 //					studDataClsAvgRadio.setBackground(Color.black);

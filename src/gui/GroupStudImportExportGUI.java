@@ -31,6 +31,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 import javax.swing.Box;
@@ -600,8 +602,16 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 
 									GroupBean group = new GroupBean();
 									GroupOpr dao = new GroupOpr();
-									group.setGroupName(data[0]);
-									group.setStartDate(data[1]);
+									group.setGroupName(data[1]);
+									Pattern dateFrmtPtrn = Pattern
+											.compile("(0?[1-9]|1[012])/(0?[1-9]|[12][0-9]|3[01])/((19|20)\\d\\d)");
+									Matcher mtch = dateFrmtPtrn.matcher(data[2].trim());
+									if (!mtch.matches()) {
+										JOptionPane.showMessageDialog(this, "Date format should be MM/DD/YYYY");
+										break;	
+									}
+									
+									group.setStartDate(data[2]);
 									flag = dao.insertGroups(group);
 								} else {
 									JOptionPane.showMessageDialog(this, "File is Empty");
@@ -658,8 +668,24 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 									bean.setStudFirstName(data[2]);
 									bean.setStudLastName(data[3]);
 									bean.setGrade(Integer.parseInt(data[4]));
-									bean.setDob(data[5]);
-									bean.setStDate(data[6]);
+									
+									Pattern dateFrmtPtrn = Pattern
+											.compile("(0?[1-9]|1[012])/(0?[1-9]|[12][0-9]|3[01])/((19|20)\\d\\d)");
+									Matcher mtch = dateFrmtPtrn.matcher(data[5].trim());
+									if (!mtch.matches()) {
+										JOptionPane.showMessageDialog(this, "Date format should be MM/DD/YYYY");
+										break;	
+									}
+									
+									bean.setDob(data[5].trim());
+									
+									mtch = dateFrmtPtrn.matcher(data[6].trim());
+									if (!mtch.matches()) {
+										JOptionPane.showMessageDialog(this, "Date format should be MM/DD/YYYY");
+										break;	
+									}
+									
+									bean.setStDate(data[6].trim());
 									bean.setTeacher(data[7]);
 									bean.setAge(data[8]);
 									System.out.println("Student Data : " + bean);
@@ -700,7 +726,15 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 										}
 										studDecoBean.setStudId(studID);
 										studDecoBean.setWeek(Integer.parseInt(studDeco[1]));
-										studDecoBean.setDate(studDeco[2]);
+										Pattern dateFrmtPtrn = Pattern
+												.compile("(0?[1-9]|1[012])/(0?[1-9]|[12][0-9]|3[01])/((19|20)\\d\\d)");
+										Matcher mtch = dateFrmtPtrn.matcher(studDeco[2].trim());
+										if (!mtch.matches()) {
+											JOptionPane.showMessageDialog(this, "Date format should be MM/DD/YYYY");
+											break;	
+										}
+										
+										studDecoBean.setDate(studDeco[2].trim());
 										studDecoBean.setBook(Integer.parseInt(studDeco[3]));
 										studDecoBean.setLesson(Integer.parseInt(studDeco[4]));
 										studDecoBean.setForm(studDeco[5]);
@@ -730,7 +764,15 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 											break;
 										}
 										studRateBean.setStudId(studID);
-										studRateBean.setDate(studBean[1]);
+										Pattern dateFrmtPtrn = Pattern
+												.compile("(0?[1-9]|1[012])/(0?[1-9]|[12][0-9]|3[01])/((19|20)\\d\\d)");
+										Matcher mtch = dateFrmtPtrn.matcher(studBean[1].trim());
+										if (!mtch.matches()) {
+											JOptionPane.showMessageDialog(this, "Date format should be MM/DD/YYYY");
+											break;	
+										}
+										
+										studRateBean.setDate(studBean[1].trim());
 										studRateBean.setText(Integer.parseInt(studBean[2]));
 										studRateBean.setTime(Integer.parseInt(studBean[3]));
 										studRateBean.setCwpm(Integer.parseInt(studBean[4]));
@@ -964,8 +1006,8 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 											stud.add(studBean.getStudFirstName());
 											stud.add(studBean.getStudLastName());
 											stud.add(studBean.getGrade() + "");
-											stud.add(studBean.getDob());
-											stud.add(studBean.getStDate());
+											stud.add(" "+studBean.getDob()+"");
+											stud.add(" "+studBean.getStDate()+" ");
 											stud.add(studBean.getTeacher());
 											stud.add(studBean.getAge() + "");
 											stud.add("\n");
@@ -980,8 +1022,8 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 											stud.add("Score");
 											stud.add("\n");
 											for(StudentDecoding decode :  studBean.getListDecoding()){
-												stud.add(decode.getWeek()+"");
-												stud.add(decode.getDate()+"");
+												stud.add(decode.getWeek()+" ");
+												stud.add(" "+decode.getDate());
 												stud.add(decode.getBook()+"");
 												stud.add(decode.getLesson()+"");
 												stud.add(decode.getForm()+"");
@@ -1040,8 +1082,8 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 										stud.add(bean.getStudFirstName());
 										stud.add(bean.getStudLastName());
 										stud.add(bean.getGrade() + "");
-										stud.add(bean.getDob());
-										stud.add(bean.getStDate());
+										stud.add(" "+bean.getDob()+"");
+										stud.add(" "+bean.getStDate()+"");
 										stud.add(bean.getTeacher());
 										stud.add(bean.getAge());
 										stud.add("\n");
@@ -1057,7 +1099,7 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 										stud.add("\n");
 										for(StudentDecoding decode :  bean.getListDecoding()){
 											stud.add(decode.getWeek()+"");
-											stud.add(decode.getDate()+"");
+											stud.add(" "+decode.getDate()+"");
 											stud.add(decode.getBook()+"");
 											stud.add(decode.getLesson()+"");
 											stud.add(decode.getForm()+"");

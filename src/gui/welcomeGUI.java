@@ -223,6 +223,7 @@ public class welcomeGUI extends JFrame implements ActionListener {
 			
 			
 	        setJMenuBar(mb);
+	       
 		}
 		
         

@@ -337,10 +337,10 @@ public class StudentGUI extends JFrame implements ActionListener {
 			         
 			         	heading_lbl=new JLabel();
 						heading_lbl.setBounds(270,400,500,120);
-						heading_lbl.setText("<html><font color=red size=6><u><b>Select Group to display list or edit student List</b></u></html>");	
-
+						heading_lbl.setText("<html><font color=white size=5><b>Double click on student to enter decoding or reading data</b></html>");	
+						Font hf=new Font("Serif", Font.PLAIN | Font.BOLD, 20);
 						// applying font on  heading Label
-						heading_lbl.setFont(f);
+						heading_lbl.setFont(hf);
 						add(heading_lbl);
 		         
 						

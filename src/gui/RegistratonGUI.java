@@ -30,7 +30,7 @@ public class RegistratonGUI extends JFrame implements ActionListener{
 	 
 	// frame=new JFrame("Registration Form Example"); 
 	
-	RegistratonGUI(){
+	public RegistratonGUI(){
 		
 		setLayout(new BorderLayout());
 		setContentPane(new JLabel(new ImageIcon(this.getClass().getResource("/image/blue.jpg"))));
