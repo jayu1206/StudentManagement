@@ -214,6 +214,7 @@ public class MyProfileGUI extends JFrame implements ActionListener{
 					            WindowConstants.EXIT_ON_CLOSE);
 					    c.setLayout(null);    
 						c.setBackground(new Color(135,206,250));  
+						setResizable(false);
 						setVisible(true); 
 	}
 	private void centerFrame() {

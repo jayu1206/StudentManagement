@@ -271,6 +271,7 @@ public class PlotRateGraphGUI extends JFrame implements ActionListener, Printabl
 		addWindowListener(exitListener);
 		// pack();
 		setLayout(null);   
+		setResizable(false);
 		setVisible(true); 
 		
 	
@@ -317,11 +318,15 @@ public class PlotRateGraphGUI extends JFrame implements ActionListener, Printabl
 		  plot.getRenderer().setSeriesPaint(1, new Color(250,88,88));
 		  plot.getRenderer().setSeriesPaint(2, new Color(153, 255, 153));
 		 // plot.getRenderer().setSeriesOutlinePaint(0, new Color(153, 255, 153));
+		  plot.getRenderer().setBaseItemLabelFont( new Font("Calibri", Font.BOLD, 15));
 		  plot.getRenderer().setBaseItemLabelGenerator(
 				    new StandardCategoryItemLabelGenerator(
 				        "{2}", NumberFormat.getInstance()));
 		  plot.getRenderer().setItemLabelsVisible(true);
 		  
+		  
+		  plot.getRangeAxis().setUpperBound(200.00);
+		 // plot.getRangeAxis().setLowerBound(-50.00);
 		 SubCategoryAxis domainAxis = new SubCategoryAxis("");
 	        domainAxis.setCategoryMargin(0.05);
 	       // domainAxis.addSubCategory("1 - Text");
@@ -460,6 +465,10 @@ public class PlotRateGraphGUI extends JFrame implements ActionListener, Printabl
 			 PrinterJob printJob = PrinterJob.getPrinterJob();
 			 printJob.setPrintable(this);
 			 
+			 PageFormat preformat = printJob.defaultPage();
+				preformat.setOrientation(PageFormat.LANDSCAPE);
+				PageFormat postformat = printJob.pageDialog(preformat);
+				printJob.setPrintable(this, postformat);
 			 if(printJob.printDialog()){
 				    try {
 				    	btnBack.setVisible(false);
@@ -485,8 +494,8 @@ public class PlotRateGraphGUI extends JFrame implements ActionListener, Printabl
 		
 		
 		            Graphics2D g = (Graphics2D)gx; //Cast to Graphics2D object
-		            pf.setOrientation(PageFormat.PORTRAIT);
-		            g.translate(pf.getImageableX(), pf.getImageableY()); //Match origins to imageable area
+		            pf.setOrientation(PageFormat.LANDSCAPE);
+		            g.translate((pf.getImageableX()), (pf.getImageableY())); //Match origins to imageable area
 		            
 		            Dimension size = this.getSize(); // component size
 		            double pageWidth = pf.getImageableWidth(); // Page width
@@ -496,12 +505,14 @@ public class PlotRateGraphGUI extends JFrame implements ActionListener, Printabl
 		            // If the component is too wide or tall for the page, scale it down
 		            if (size.width > pageWidth) {
 		              double factor = pageWidth / size.width; // How much to scale
+		              factor = factor *1;
 		              g.scale(factor, factor); // Adjust coordinate system
 		              pageWidth /= factor; // Adjust page size up
 		              pageHeight /= factor;
 		            }
 		            if (size.height > pageHeight) { // Do the same thing for height
 		              double factor = pageHeight / size.height;
+		              factor = factor *1;
 		              g.scale(factor, factor);
 		              pageWidth /= factor;
 		              pageHeight /= factor;

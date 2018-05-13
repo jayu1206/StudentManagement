@@ -314,7 +314,8 @@ public class RegistratonGUI extends JFrame implements ActionListener{
 							    setDefaultCloseOperation(javax.swing.
 							            WindowConstants.DISPOSE_ON_CLOSE);
 							    c.setLayout(null);    
-								c.setBackground(new Color(135,206,250));  
+								c.setBackground(new Color(135,206,250));
+								setResizable(false);
 								setVisible(true); 
 								
 								

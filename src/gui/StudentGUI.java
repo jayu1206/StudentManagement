@@ -64,6 +64,10 @@ public class StudentGUI extends JFrame implements ActionListener {
 		this.classId=classId;
 		this.className=className;
 		
+		if(this.className.trim().length()== 0){
+			
+			this.className = "Listing All Students";		
+		}
 		
 		setLayout(new BorderLayout());
 		setContentPane(new JLabel(new ImageIcon(this.getClass().getResource("/image/blue.jpg"))));
@@ -208,7 +212,7 @@ public class StudentGUI extends JFrame implements ActionListener {
 				
 				JLabel heading_lbl2=new JLabel();
 				heading_lbl2.setBounds(210,140,1000,30);
-				heading_lbl2.setText("<html><font  size=6 color=rgb(0,57,166)><b>Take Flight Decoding and Reading <font color=white size=10>"+className+" </font> Rate Process Data Manager </b></html>");	
+				heading_lbl2.setText("<html><font  size=6 color=rgb(0,57,166)><b>Take Flight Decoding and Reading <font color=white size=10>"+this.className+" </font> Rate Process Data Manager </b></html>");	
 
 				// applying font on  heading Label
 				heading_lbl2.setFont(f);
@@ -412,6 +416,7 @@ public class StudentGUI extends JFrame implements ActionListener {
 		addWindowListener(exitListener);
 		// pack();
 		setLayout(null);   
+		setResizable(false);
 		setVisible(true); 
 
 		
@@ -499,7 +504,7 @@ public class StudentGUI extends JFrame implements ActionListener {
 			}else{
 				
 				int n = JOptionPane.showConfirmDialog(this
-                        , "Delete Seleced Student?",
+                        , "Delete Selected Student?",
                         "Confirm Delete",
                         JOptionPane.YES_NO_OPTION);
 				 if (n == JOptionPane.YES_OPTION) {

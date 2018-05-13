@@ -432,6 +432,7 @@ public class StudentAddGui extends JFrame implements ActionListener {
 		 setLayout(null);
 		 //c.setBackground(Color.black);  
 			c.setBackground(new Color(135,206,250));  
+			setResizable(false);
 			setVisible(true); 
 		
 		

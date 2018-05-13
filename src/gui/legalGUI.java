@@ -66,7 +66,7 @@ public class legalGUI  extends JFrame implements ActionListener {
             @Override
             public void paintComponent(Graphics g) {
                 Dimension size = this.getSize();
-                g.drawImage(Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/image/Image12_1.jpg")), 0, 0, size.width, size.height, this);
+                g.drawImage(Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/image/Image12_1_copy.jpg")), 0, 0, size.width, size.height, this);
             }
         };
         mb.add(Box.createRigidArea(new Dimension(10,200)));
@@ -85,7 +85,7 @@ public class legalGUI  extends JFrame implements ActionListener {
 				//heading_lbl.setBackground(Color.DARK_GRAY);
 				//heading_lbl.setBounds(5,0,1070,500);  bgcolor=#545454
 				heading_lbl.setText("<html>"
-						+ "<head> <title>Page Title</title> </head> <body bgcolor=#0039a6 style=\"padding: 7px;  \" > <font color=white>"
+						+ "<head> <title>Page Title</title> </head> <body bgcolor=#545454 style=\"padding: 7px;  \" > <font color=white>"
 						
 						+ "<center><h3>GENERAL TERMS AND CONDITIONS</h3></center></br>"
 						+ "<center><h3>IMPORTANT - THIS IS A CONTRACT</h3></center>"
@@ -172,14 +172,14 @@ public class legalGUI  extends JFrame implements ActionListener {
 						+ "</body></html>");
 
 				// applying font on  heading Label
-				heading_lbl.setFont(f2);
+				heading_lbl.setFont(f);   // f2 for normal text and f for italic text 
 				textPanel.add(heading_lbl);
 				
 				
 				//textPanel.setPreferredSize(new Dimension(500,450));
 				 JScrollPane scroller = new JScrollPane(textPanel, 
 		                 JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER); 
-				 scroller.setBounds(0, 0,1080,450);
+				 scroller.setBounds(0, 0,1080,480);
 		  
 				add(scroller); 
 		        // pack();
@@ -190,23 +190,23 @@ public class legalGUI  extends JFrame implements ActionListener {
 			     bG.add(notaccept);
 			     accept.setSelected(true);
         
-			     accept.setBounds(300,480,200,40);
-			     accept.setBackground(new Color(76,116,192));
+			     accept.setBounds(300,495,200,40);
+			     accept.setBackground(Color.gray);
 			     accept.setForeground(Color.white);
 			     accept.setFont(new Font("Britannic Bold", Font.PLAIN, 20));
 			     accept.setFocusable(false);
 			     getContentPane().add(accept);
 			     
 			     
-			     notaccept.setBounds(520,480,250,40);
-			     notaccept.setBackground(new Color(76,116,192));
+			     notaccept.setBounds(520,495,250,40);
+			     notaccept.setBackground(Color.gray);
 			     notaccept.setForeground(Color.white);
 			     notaccept.setFont(new Font("Britannic Bold", Font.PLAIN, 20));
 			     notaccept.setFocusable(false);
 			     getContentPane().add(notaccept);
 			     
 			     btnAccept = new JButton("Submit");
-			     btnAccept.setBounds(920,480,150,40);
+			     btnAccept.setBounds(920,495,150,40);
 			     btnAccept.setBackground(Color.WHITE);
 			     btnAccept.setOpaque(true);
 			     btnAccept.setBorderPainted(false);
@@ -215,7 +215,7 @@ public class legalGUI  extends JFrame implements ActionListener {
 		       // getContentPane().add(btnContinue);
 		        getContentPane().add(btnAccept);
 		        btnAccept.addActionListener(this);
-		        getContentPane().setBackground(new Color(76,116,192));
+		        getContentPane().setBackground(Color.gray);
         
        // pack();
 	        
@@ -223,6 +223,7 @@ public class legalGUI  extends JFrame implements ActionListener {
 			centerFrame();
 		    setTitle("Progress Monitor Data Manager");
 		    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		    setResizable(false);
 			setVisible(true); 
 		
 		
@@ -293,7 +294,7 @@ public class legalGUI  extends JFrame implements ActionListener {
 	}
 
 	public static void main(String args[]){  
-	//	new legalGUI();
+//		new legalGUI();
 //		new GroupGUI();
 	ProcessExe objExe=new ProcessExe();
 	objExe.checkMySqlSystem(0);

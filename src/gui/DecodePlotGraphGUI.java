@@ -52,6 +52,7 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYItemRenderer;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
+import org.jfree.data.Range;
 import org.jfree.data.function.LineFunction2D;
 import org.jfree.data.general.DatasetUtilities;
 import org.jfree.data.statistics.Regression;
@@ -216,7 +217,8 @@ public class DecodePlotGraphGUI extends JFrame implements ActionListener,Printab
 		};
 		addWindowListener(exitListener);
 		// pack();
-		setLayout(null);   
+		setLayout(null);  
+		setResizable(false);
 		setVisible(true); 
 		
 		
@@ -251,6 +253,11 @@ public class DecodePlotGraphGUI extends JFrame implements ActionListener,Printab
 			 PrinterJob printJob = PrinterJob.getPrinterJob();
 			 printJob.setPrintable(this);
 			 
+			 PageFormat preformat = printJob.defaultPage();
+				preformat.setOrientation(PageFormat.LANDSCAPE);
+				PageFormat postformat = printJob.pageDialog(preformat);
+				printJob.setPrintable(this, postformat);
+				
 			 if(printJob.printDialog()){
 				    try { 
 				    	btnBack.setVisible(false);
@@ -275,35 +282,37 @@ public class DecodePlotGraphGUI extends JFrame implements ActionListener,Printab
 		if (page>0){return NO_SUCH_PAGE;} //Only one page
 		
 		
-		            Graphics2D g = (Graphics2D)gx; //Cast to Graphics2D object
-		            pf.setOrientation(PageFormat.PORTRAIT);
-		            g.translate(pf.getImageableX(), pf.getImageableY()); //Match origins to imageable area
-		            
-		            Dimension size = this.getSize(); // component size
-		            double pageWidth = pf.getImageableWidth(); // Page width
-		            double pageHeight = pf.getImageableHeight(); // Page height
-		            
-		         
-		            // If the component is too wide or tall for the page, scale it down
-		            if (size.width > pageWidth) {
-		              double factor = pageWidth / size.width; // How much to scale
-		              g.scale(factor, factor); // Adjust coordinate system
-		              pageWidth /= factor; // Adjust page size up
-		              pageHeight /= factor;
-		            }
-		            if (size.height > pageHeight) { // Do the same thing for height
-		              double factor = pageHeight / size.height;
-		              g.scale(factor, factor);
-		              pageWidth /= factor;
-		              pageHeight /= factor;
-		            }
-		            
-		            g.translate((int) pf.getImageableX(), (int) pf.getImageableY());
-		            
-		            this.print(g);
-		     
-		
-		            return PAGE_EXISTS; //Page exists (offsets start at zero!)
+		Graphics2D g = (Graphics2D)gx; //Cast to Graphics2D object
+        pf.setOrientation(PageFormat.LANDSCAPE);
+        g.translate((pf.getImageableX()), (pf.getImageableY())); //Match origins to imageable area
+        
+        Dimension size = this.getSize(); // component size
+        double pageWidth = pf.getImageableWidth(); // Page width
+        double pageHeight = pf.getImageableHeight(); // Page height
+        
+     
+        // If the component is too wide or tall for the page, scale it down
+        if (size.width > pageWidth) {
+          double factor = pageWidth / size.width; // How much to scale
+          factor = factor *1;
+          g.scale(factor, factor); // Adjust coordinate system
+          pageWidth /= factor; // Adjust page size up
+          pageHeight /= factor;
+        }
+        if (size.height > pageHeight) { // Do the same thing for height
+          double factor = pageHeight / size.height;
+          factor = factor *1;
+          g.scale(factor, factor);
+          pageWidth /= factor;
+          pageHeight /= factor;
+        }
+        
+        g.translate((int) pf.getImageableX(), (int) pf.getImageableY());
+        
+        this.print(g);
+ 
+
+        return PAGE_EXISTS; //Page exists (offsets start at zero!)
 
 	}
 	
@@ -343,6 +352,7 @@ public class DecodePlotGraphGUI extends JFrame implements ActionListener,Printab
 		  renderer1.setBaseToolTipGenerator(new StandardXYToolTipGenerator());
 		 
 		  renderer1.setBaseToolTipGenerator(ttG);
+		  
 		  
 		  xyplot.setRenderer(0,renderer1);
 	
@@ -585,17 +595,36 @@ private XYDataset createDataset(StudentBean bean) {
         plot.setBackgroundPaint(Color.lightGray);
         plot.setDomainGridlinePaint(Color.white);
         plot.setRangeGridlinePaint(Color.white);
+        
        
         
         NumberAxis xAxis = new NumberAxis("Week");
+        /* X axis range set 0 to 50 with number tick meand dispaly to next number in x axis  */
+       
         xAxis.setTickUnit(new NumberTickUnit(1));
+      //  xAxis.setRange(0.0, 52.0);
+        
+        /* Code end  */
         plot.setDomainAxis(xAxis);
+       
+        
+        
+        
+        //Range auto = plot.getRangeAxis().getRange();
+        
+     //   plot.getRangeAxis().setUpperBound(50.00);
+        
+       /* NumberAxis yAxis = new NumberAxis("Number Correct");
+        yAxis.setTickUnit(new NumberTickUnit(10));
+        plot.setDomainAxis(yAxis);*/
+        
         
         final XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer();
         renderer.setSeriesLinesVisible(0, false);
         renderer.setSeriesShapesVisible(1, true);
         renderer.setBaseLinesVisible(true);
         renderer.setBaseItemLabelsVisible(Boolean.TRUE);
+        renderer.setBaseItemLabelFont( new Font("Calibri", Font.BOLD, 15));
         renderer.setBaseItemLabelGenerator((XYItemLabelGenerator) new StandardXYItemLabelGenerator());
         plot.setRenderer(renderer);
        

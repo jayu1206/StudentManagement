@@ -324,6 +324,7 @@ public class DecodePlotGUI extends JFrame implements ActionListener{
 				addWindowListener(exitListener);
 				// pack();
 				setLayout(null);   
+				setResizable(false);
 				setVisible(true); 
 
 		

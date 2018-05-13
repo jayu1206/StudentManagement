@@ -212,6 +212,7 @@ public class LoginGUI extends JFrame implements ActionListener{
 		centerFrame();
 	    setTitle("Progress Monitor Data Manager");
 	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	    setResizable(false);
 		setVisible(true); 
 		
 		

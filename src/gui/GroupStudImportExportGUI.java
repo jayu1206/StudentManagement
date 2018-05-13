@@ -522,6 +522,7 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 		centerFrame();
 		setTitle("Progress Monitor Data Manager");
 		// setDefaultCloseOperation(3);
+		setResizable(false);
 
 		setVisible(true);
 
@@ -583,7 +584,8 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 			if (e.getSource() == btnImport) {
 				if (txtImportFilePath.getText().length() <= 0) {
 					JOptionPane.showMessageDialog(this, "Please Select File");
-				} else {
+				}
+				else {
 					// group import file csv
 
 					String fileName = txtImportFilePath.getText();
@@ -637,10 +639,13 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 
 		if (r2.isSelected()) {
 			cbGrpList.setEnabled(true);
+			Item item = (Item) cbGrpList.getSelectedItem();
 			if (e.getSource() == btnImport) {
 
 				if (txtImportFilePath.getText().length() <= 0) {
 					JOptionPane.showMessageDialog(this, "Please Select File.");
+				}else if(item.getId()==0){
+					JOptionPane.showMessageDialog(this, "Please Select Group.");
 				} else {
 
 					// System.out.println("Checked and pressed");
@@ -651,13 +656,18 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 					StudentDAO dao = new StudentOpr();
 					boolean done = false;
 					int studID = 0;
+
 					try {
 
 						BufferedReader br = Files.newBufferedReader(pathToFile, StandardCharsets.US_ASCII);
 						String line = br.readLine();
-						Item item = (Item) cbGrpList.getSelectedItem();
 						
+						boolean dateFlag=checkDateFormatFile(br,line);
 						
+					if(dateFlag){
+							
+						br = Files.newBufferedReader(pathToFile, StandardCharsets.US_ASCII);
+						line = br.readLine();
 						int iteration = 0;
 						while ((line = br.readLine()) != null) {
 							String[] data = line.split(",");
@@ -789,7 +799,7 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 													
 							
 						}
-						
+					}
 
 						if (done) {
 							JOptionPane.showMessageDialog(this, "Students Added Successfully");
@@ -966,7 +976,7 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 						
 						 GroupBean bean =  dao.getGroup(grpId);
 							stud.add(bean.getGroupName());
-							stud.add(bean.getStartDate());
+							stud.add(" "+bean.getStartDate());
 							stud.add("\n");
 						
 					}else{					
@@ -1043,7 +1053,7 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 											stud.add("\n");
 											
 											for(StudentRate rate :  studBean.getListRate()){
-												stud.add(rate.getDate()+"");
+												stud.add(" "+rate.getDate()+"");
 												stud.add(rate.getText()+"");
 												stud.add(rate.getTime()+"");
 												stud.add(rate.getCwpm()+"");
@@ -1119,7 +1129,7 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 										stud.add("Week");
 										stud.add("\n");
 										for(StudentRate rate :  bean.getListRate()){
-											stud.add(rate.getDate()+"");
+											stud.add(" "+rate.getDate()+"");
 											stud.add(rate.getText()+"");
 											stud.add(rate.getTime()+"");
 											stud.add(rate.getCwpm()+"");
@@ -1146,6 +1156,126 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 
 		}
 
+	}
+
+	private boolean checkDateFormatFile(BufferedReader br, String line) {
+		// TODO Auto-generated method stub
+		
+		
+		boolean flag=true;
+		int iteration = 0;
+		try{
+			while ((line = br.readLine()) != null) {
+				String[] data = line.split(",");
+				if (data.length != 0) {
+	
+					if (iteration == 0){
+						
+						Pattern dateFrmtPtrn = Pattern
+								.compile("(0?[1-9]|1[012])/(0?[1-9]|[12][0-9]|3[01])/((19|20)\\d\\d)");
+						Matcher mtch = dateFrmtPtrn.matcher(data[5].trim());
+						if (!mtch.matches()) {
+							JOptionPane.showMessageDialog(this, "Date format should be MM/DD/YYYY");
+							flag=false;
+							break;	
+						}
+						
+						
+						mtch = dateFrmtPtrn.matcher(data[6].trim());
+						if (!mtch.matches()) {
+							JOptionPane.showMessageDialog(this, "Date format should be MM/DD/YYYY");
+							flag=false;
+							break;	
+						}
+					
+						iteration++;
+					}
+				
+					
+				} else {
+					JOptionPane.showMessageDialog(this, "File is Empty");
+					flag=false;
+					break;
+				}
+	
+				
+				String header1 = data[1];
+				//String header2 = null;
+				
+				if (header1.contains("Decoding Data")){
+					int iteration1 = 0;
+					
+					
+					while ((line = br.readLine()) != null) {
+						String[] studDeco = line.split(",");
+						String header2 = studDeco[1];
+						if(iteration1 == 0) {
+					        iteration1++;  
+					        continue;
+					    }									
+						
+						if (studDeco.length != 0 && iteration1 == 1) {
+						
+							
+							if (header2.contains("Rate Data")){
+								
+									iteration++;
+									break;											
+							}
+							
+							Pattern dateFrmtPtrn = Pattern
+									.compile("(0?[1-9]|1[012])/(0?[1-9]|[12][0-9]|3[01])/((19|20)\\d\\d)");
+							Matcher mtch = dateFrmtPtrn.matcher(studDeco[2].trim());
+							if (!mtch.matches()) {
+								JOptionPane.showMessageDialog(this, "Date format should be MM/DD/YYYY");
+								flag=false;
+								break;	
+							}
+							
+							
+						}	
+						
+					}								
+				}
+				
+				if(iteration == 2) {
+					iteration++;  
+			        continue;
+			    }	
+				if (iteration == 3){
+					
+					while ((line = br.readLine()) != null) {
+						String[] studBean = line.split(",");
+						
+						if (studBean.length > 1){
+						
+							String header3 = studBean[1];
+							if (header3.contains("GROUP ID")){
+								iteration = 0;
+								break;
+							}
+							
+							Pattern dateFrmtPtrn = Pattern
+									.compile("(0?[1-9]|1[012])/(0?[1-9]|[12][0-9]|3[01])/((19|20)\\d\\d)");
+							Matcher mtch = dateFrmtPtrn.matcher(studBean[1].trim());
+							if (!mtch.matches()) {
+								JOptionPane.showMessageDialog(this, "Date format should be MM/DD/YYYY");
+								flag=false;
+								break;	
+							}
+							
+						}
+						
+					}							
+					
+				}
+			}
+		}catch(Exception e){
+			System.out.println("Import validation error : "+e.getMessage());
+			
+		}
+		
+		return flag;
 	}
 
 	private boolean isEmptyStringArray(String[] studDeco) {

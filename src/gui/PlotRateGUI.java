@@ -303,8 +303,10 @@ public class PlotRateGUI extends JFrame implements ActionListener{
 				};
 				addWindowListener(exitListener);
 				// pack();
-				setLayout(null);   
+				setLayout(null); 
+				setResizable(false);
 				setVisible(true); 
+				
 		
 	}
 	

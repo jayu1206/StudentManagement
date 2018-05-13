@@ -100,7 +100,7 @@ public class welcomeGUI extends JFrame implements ActionListener {
 		//btnMImportExport.setBorderPainted(false);
 		btnMLogout.addActionListener(this);
 		toolBar.add(btnMLogout);
-		
+		 
 		
 		getContentPane().add(toolBar, BorderLayout.NORTH);*/
 		
@@ -262,6 +262,7 @@ public class welcomeGUI extends JFrame implements ActionListener {
 		centerFrame();
 	    setTitle("Progress Monitor Data Manager");
 	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	    setResizable(false);
 		setVisible(true); 
 	}
 	private void centerFrame() {

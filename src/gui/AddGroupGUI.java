@@ -210,7 +210,7 @@ public class AddGroupGUI extends JFrame implements ActionListener{
 		// step 3 : creating JLabel for Heading
 				JLabel heading_lbl=new JLabel();
 				heading_lbl.setBounds(320,15,500,40);
-				heading_lbl.setText("<html><font color=white size=8 ><u><b>Provide Groups details</b></u></html>");	
+				heading_lbl.setText("<html><font color=white size=8 ><u><b>Provide Group Detail</b></u></html>");	
 				heading_lbl.setFont(f);
 				
 				add(heading_lbl);
@@ -296,7 +296,8 @@ public class AddGroupGUI extends JFrame implements ActionListener{
 				
 				addWindowListener(exitListener);
 				setLayout(null); 
-				c.setBackground(new Color(135,206,250));  
+				c.setBackground(new Color(135,206,250)); 
+				setResizable(false);
 				setVisible(true); 
 				
 				
@@ -371,13 +372,13 @@ public class AddGroupGUI extends JFrame implements ActionListener{
 				bean.setStartDate(datePicker.getJFormattedTextField().getText());
 				boolean flag= dao.insertGroups(bean);
 				if(flag){
-					JOptionPane.showMessageDialog(this,"Groups Created");
+					JOptionPane.showMessageDialog(this,"Group Created Successfully");
 					synchronized (this) {
 						new GroupGUI();
 						this.setVisible(false);
 					}
 				}else{
-					JOptionPane.showMessageDialog(this,"Groups not created Please try again");
+					JOptionPane.showMessageDialog(this,"Group not created please try again");
 					txtClass.setText("");
 					txtStartDate.setText("");
 					

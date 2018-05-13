@@ -461,7 +461,8 @@ public class GroupGUI extends JFrame implements ActionListener{
 		    }
 		};
 		 addWindowListener(exitListener);
-	    c.setLayout(null);    
+	    c.setLayout(null); 
+	    setResizable(false);
 		setVisible(true); 
 		
 	}
@@ -551,7 +552,7 @@ public class GroupGUI extends JFrame implements ActionListener{
 			}else{
 				
 				int n = JOptionPane.showConfirmDialog(this
-                        , "Delete Seleced Group?",
+                        , "Remove group and its all students data?",
                         "Confirm Delete",
                         JOptionPane.YES_NO_OPTION);
 				 if (n == JOptionPane.YES_OPTION) {

@@ -736,6 +736,7 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 		 */
 
 		panel.setPreferredSize(new Dimension(380, 620));
+		setResizable(false);
 
 		return panel;
 	}

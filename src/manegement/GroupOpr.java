@@ -112,13 +112,27 @@ public class GroupOpr extends GroupDAO {
 		
 		try{
 			
-			conn=connection.getConnection();
-			 String sql = "DELETE FROM  groups  WHERE groupId=?";
-		      System.out.println("SQL : "+sql);
-		      statement = conn.prepareStatement(sql);
-		      statement.setInt(1, Integer.parseInt(value));
-		      statement.executeUpdate();
-		      flag=true;
+			
+			ArrayList<String> studlist=getStudentlistBaseonGroupID(value);
+			
+			StudentOpr studOpr=new StudentOpr();
+			
+			if(studlist.get(0)!=null){
+				for(String val : studlist){
+					flag = studOpr.deleteStudent(val);
+				}
+			}
+			
+			if(flag){
+				conn=connection.getConnection();
+				 String sql = "DELETE FROM  groups  WHERE groupId=?";
+			      System.out.println("SQL : "+sql);
+			      statement = conn.prepareStatement(sql);
+			      statement.setInt(1, Integer.parseInt(value));
+			      statement.executeUpdate();
+			      flag=true;
+			}
+			  
 			
 		}catch(Exception e){
 			e.printStackTrace();
@@ -136,6 +150,43 @@ public class GroupOpr extends GroupDAO {
 		 }
 		
 		return flag;
+	}
+
+	private ArrayList<String> getStudentlistBaseonGroupID(String id) {
+		// TODO Auto-generated method stub
+		Statement stmt=null;
+		Connection conn=null;
+		ResultSet rs=null;
+		ArrayList<String> list =new ArrayList<String>();
+		try{
+			
+			conn=connection.getConnection();
+			stmt = conn.createStatement();
+		     
+		     String sql = "SELECT id FROM student where groupid="+id+"  ";
+		     rs = stmt.executeQuery(sql);
+		    
+		      while(rs.next()){
+		    	  
+		    	  list.add(rs.getInt("id")+"");
+		    	  
+		       }
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			
+			try {
+				rs.close();
+				stmt.close();
+				conn.close();
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}	
+		
+		return list;
 	}
 
 	@Override
