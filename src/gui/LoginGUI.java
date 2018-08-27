@@ -51,22 +51,15 @@ public class LoginGUI extends JFrame implements ActionListener{
 	
 	public LoginGUI(){
 		
-		JPanel jsp1 = new JPanel(new BorderLayout());
-	 	jsp1.setBackground(new Color(141, 31, 6));
-	 	
-	 	
-	    ImageIcon image = new ImageIcon(this.getClass().getResource("/image/Image12_1.jpg"));
-	    JLabel label = new JLabel("", image, JLabel.CENTER);
-	    jsp1.add( label, BorderLayout.CENTER );
-	    
-	   
-	 	
-	    	    
-	    
-	    
-        JPanel jsp2 = new JPanel();	
-        jsp2.setBackground(Color.DARK_GRAY);
-        JTextPane textPane = new JTextPane();
+		setLayout(new BorderLayout());
+		setContentPane(new JLabel(new ImageIcon(this.getClass().getResource("/image/blue2.jpg"))));
+		setLayout(null);
+		
+		
+	
+		
+		/*JTextPane textPane = new JTextPane();
+		textPane.setBounds(210,15,100,30);
         textPane.setBackground(Color.DARK_GRAY);
         JScrollPane scrollPane = new JScrollPane(textPane);
         textPane.setEditable(false);
@@ -79,135 +72,60 @@ public class LoginGUI extends JFrame implements ActionListener{
         		+ "<center><h3>with Dyslexia. This is done by allowing repeated administrations of a set of decodable, real words that cover the </h3></center> </br>"
         		+ "<center><h3>range of basic phonics concepts covered in the first five books of the Take Flight curriculum</h3> </center></br>"
         		+ "</body></html>");
-					
         
-        jsp2.add(textPane);
-        
-        
-        GridBagConstraints c = new GridBagConstraints();
-        
-        
-        JPanel jsp3 = new JPanel(new GridBagLayout());
-        jsp3.setBackground(new Color(135,206,250));  
-        //jsp3.setBorder(BorderFactory.createLineBorder(Color.black));
-        
-        image = new ImageIcon(this.getClass().getResource("/image/login.jpg"));
-        JLabel lblLogin=new JLabel("", image, JLabel.RIGHT);
-        c.gridx = 0;
-        c.gridy = 0;
-        c.insets = new Insets(1,1,1,1);
-        lblLogin.setSize(150,150);
-        jsp3.add(lblLogin, c);
-        
-        JPanel finalPanel = new JPanel();
-        finalPanel.setBackground(new Color(135,206,250)); 
-        
-        
-        JPanel jsp4 = new JPanel(new GridBagLayout());	
-        jsp4.setBackground(new Color(135,206,250));  
-      //  jsp4.setBorder(BorderFactory.createLineBorder(Color.black));
-        Font f1=new Font("Serif",Font.BOLD,20);
-		Font f2=new Font("Serif",Font.BOLD,20);
-        
-        lblUserId = new JLabel("Username");
-        c.gridx = 0;
-        c.gridy = 1;
-        c.insets = new Insets(1,1,1,1);
-        lblUserId.setFont(f1);
-        jsp4.add(lblUserId, c);
-
-        txtUserId = new JTextField("",15);
-        c.gridx = 1;
-        c.gridy = 1;
-        c.insets = new Insets(20,20,20,20);
-        jsp4.add(txtUserId,c);
+        add(textPane);*/
+		Font f=new Font("Museo Sans", Font.PLAIN | Font.BOLD, 20); 
+		
+        JLabel heading_lbl=new JLabel();
+		heading_lbl.setBounds(30,170,900,230);
+		heading_lbl.setFont(f);
+		heading_lbl.setText("<html><body style=\"font: Arial; color: white; padding: 2px; padding-top: 2; padding-left: 12;padding-right: 12; background-color: #1D3E8A; border-top: 10px solid rgb(139,39,35); \">"
+        		+ "<center><h3>Take Flight Progress Monitoring Charts instrument was designed to provide diagnostic information about how </h3> </center></br>"
+        		+ "<center><h3>student are progressing in learning the decoding concepts of Take Flight: A Comprehensive intervention for Student </h3> </center></br>"
+        		+ "<center><h3>with Dyslexia. This is done by allowing repeated administrations of a set of decodable, real words that cover the </h3></center> </br>"
+        		+ "<center><h3>range of basic phonics concepts covered in the first five books of the Take Flight curriculum</h3> </center></br>"
+        		+ "</body></html>");	
+		add(heading_lbl);
+		
+		
+		
+		lblUserId = new JLabel("Username");
+		lblUserId.setBounds(280,450,100,30);
+		lblUserId.setFont(f);
+		add(lblUserId);
+		
+		txtUserId = new JTextField("",15);
+		txtUserId.setBounds(400,450,200,30);
+		txtUserId.setFont(f);
         txtUserId.requestFocusInWindow();
-
+        add(txtUserId);
+		
+		
         lblPsw = new JLabel("Password");
-        c.gridx = 0;
-        c.gridy = 2;
-        c.insets = new Insets(0,0,0,0);
-        lblPsw.setFont(f1);
-        jsp4.add(lblPsw,c);
-
-        txtPsw = new JPasswordField("",15);
-        c.gridx = 1;
-        c.gridy = 2;
-        c.insets = new Insets(5,5,5,5);
-        jsp4.add(txtPsw,c);
+        lblPsw.setBounds(280,500,100,30);
+        lblPsw.setFont(f);
+		add(lblPsw);
         
-        /*txtPsw.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent e) {
-                if(e.getKeyCode() == KeyEvent.VK_ENTER){
-                    // something like...
-                   //mTextField.getText();
-                   // or...
-                   //mButton.doClick();
-                	System.out.println("hiii");
-                }
-            }
-
-        });*/
+		txtPsw = new JPasswordField("",15);
+		txtPsw.setBounds(400,500,200,30);
+		txtPsw.setFont(f);
+		txtPsw.requestFocusInWindow();
+        add(txtPsw);
         
         
         btnSubmit = new JButton("       Login        ");
-        c.gridx = 1;
-        c.gridy = 5;
-        c.insets = new Insets(35,35,35,35);
-        /*Image img;
-		try {
-			img = ImageIO.read(this.getClass().getResource("/image/legalNotice.png"));
-			btnSubmit.setIcon(new ImageIcon(img));
-			btnSubmit.setBorder(null);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
-        
-        btnSubmit.setBackground(Color.white);
-		btnSubmit.setOpaque(true);
-		btnSubmit.setBorderPainted(false);
-		btnSubmit.setFont(new Font("Britannic Bold", Font.PLAIN, 20));
-        jsp4.add(btnSubmit,c);
+        btnSubmit.setBounds(400,570,200,30);
+        btnSubmit.setFont(f);
+        btnSubmit.setBackground(new Color(188,221,238));
         btnSubmit.addActionListener(this);
+       // btnSubmit.setBorder(new RoundedBorder(10));
+        btnSubmit.requestFocusInWindow();
         getRootPane().setDefaultButton(btnSubmit);
+        add(btnSubmit);
         
         
         
-        
-        c.gridx = 0;
-        c.gridy = 0;
-        c.gridwidth = 5;
-        c.gridheight = 5;
-        c.insets = new Insets(5,5,5,5);
-        finalPanel.add(jsp4,c);
-        
-        
-        
-        
-        JSplitPane splitPaneLoginSub = new JSplitPane(JSplitPane.VERTICAL_SPLIT, 
-                false, jsp3, finalPanel);
-        splitPaneLoginSub.setDividerLocation(100 + splitPaneLoginSub.getInsets().top);
-        splitPaneLoginSub.setDividerSize(0);
-        
-        
-        
-		JSplitPane splitPaneLogin = new JSplitPane(JSplitPane.VERTICAL_SPLIT, 
-                false, jsp2, splitPaneLoginSub);
-		splitPaneLogin.setDividerLocation(200 + splitPaneLogin.getInsets().top);
-		splitPaneLogin.setDividerSize(0);
 		
-		
-		
-        JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, 
-                false, jsp1, splitPaneLogin);
-        splitPane.setDividerLocation(200 + splitPane.getInsets().top);
-        splitPane.setDividerSize(0);
-        splitPane.setOneTouchExpandable(false);	        
-        getContentPane().add(splitPane);
-        
-        
     	setSize(900,800);  
 		centerFrame();
 	    setTitle("Progress Monitor Data Manager");
@@ -278,9 +196,9 @@ public class LoginGUI extends JFrame implements ActionListener{
 	}
 	
 	
-	/*public static void main(String args[]){  
+	public static void main(String args[]){  
 		new LoginGUI();  
 		
-	}*/
+	}
 
 }

@@ -50,6 +50,7 @@ import org.jfree.chart.axis.SubCategoryAxis;
 import org.jfree.chart.labels.StandardCategoryItemLabelGenerator;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 
@@ -301,7 +302,7 @@ public class PlotRateGraphGUI extends JFrame implements ActionListener, Printabl
 		
 		
 		
-        final JFreeChart chart = ChartFactory.createStackedBarChart(
+        final JFreeChart chart = ChartFactory.createBarChart(
             "Student Progress: Reading Rate",  // chart title
             "Text",                  // domain axis label
             "Correct Words Per Minute",                     // range axis label
@@ -314,6 +315,11 @@ public class PlotRateGraphGUI extends JFrame implements ActionListener, Printabl
   
         
         CategoryPlot plot = chart.getCategoryPlot();
+        BarRenderer renderer = (BarRenderer) plot.getRenderer();
+        
+    	//Spaces between bars
+        renderer.setItemMargin(0.03);
+        
 		  plot.getRenderer().setSeriesPaint(0, new Color(129, 218, 245));
 		  plot.getRenderer().setSeriesPaint(1, new Color(250,88,88));
 		  plot.getRenderer().setSeriesPaint(2, new Color(153, 255, 153));
@@ -332,6 +338,12 @@ public class PlotRateGraphGUI extends JFrame implements ActionListener, Printabl
 	       // domainAxis.addSubCategory("1 - Text");
 	        plot.setDomainAxis(domainAxis);
 	        plot.setFixedLegendItems(createLegendItems());
+	        
+	        
+	        	
+	     
+	       
+	        
 
         return chart;
         
@@ -353,34 +365,6 @@ public class PlotRateGraphGUI extends JFrame implements ActionListener, Printabl
 		
 		
 	
-		/* double[][] data = new double[bean.getListRate().size()][bean.getListRate().size()];
-				 
-				 {
-				  {210, 300, 320, 265, 299, 200},
-				  {200, 304, 201, 201, 340, 300},
-				  };
-		 
-		 //int i = 0 ;
-		 
-		 for(int i =0 ; i<2 ; i++){
-			 for(int j = 0 ; j<bean.getListRate().size() ; j++){
-				 
-			 }
-			 
-		 }
-		 
-		 for(StudentRate rate : bean.getListRate()){
-		      // data[i][i] = rate.getCwpm(), rate.getText();
-					
-					 //result.addValue(rate.getCwpm(), rate.getText()+"", rate.getText()+"");
-				 
-				 
-			 }
-		 
-				  return DatasetUtilities.createCategoryDataset(
-				  "Team ", "Match", data);*/
-		 
-	
 		 DefaultCategoryDataset result = new DefaultCategoryDataset();
 		// int i = 1;
 		 int tempCwpm = 0;
@@ -391,13 +375,13 @@ public class PlotRateGraphGUI extends JFrame implements ActionListener, Printabl
 		 tblListPostErrors.add("Post Errors");
 		 tblListPriDate.add("Pre Date");
 		 tblListPriErrors.add("Pre Errors");
-
+		
 		 for(StudentRate rate : bean.getListRate()){
 	        
-			 
+			 result.addValue(rate.getCwpm(),rate.getTime()+"" ,rate.getText()+"");
 			 if(rate.getTime() == 2){
 				 int finalcwpm = rate.getCwpm() - tempCwpm;
-				 result.addValue(finalcwpm,rate.getTime()+"" ,rate.getText()+"");
+				// result.addValue(finalcwpm,rate.getTime()+"" ,rate.getText()+"");
 				
 				 tblListCWPM.add(finalcwpm);
 				 tblListPostDate.add(rate.getDate());
@@ -406,7 +390,7 @@ public class PlotRateGraphGUI extends JFrame implements ActionListener, Printabl
 			 }else{
 				
 				 tempCwpm= rate.getCwpm();
-				 result.addValue(rate.getCwpm(),rate.getTime()+"" ,rate.getText()+"");
+				// result.addValue(rate.getCwpm(),rate.getTime()+"" ,rate.getText()+"");
 				 tblListPriDate.add(rate.getDate());
 				 tblListPriErrors.add(rate.getErrors());
 			 }
