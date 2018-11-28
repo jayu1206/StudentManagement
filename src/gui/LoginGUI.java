@@ -52,7 +52,7 @@ public class LoginGUI extends JFrame implements ActionListener{
 	public LoginGUI(){
 		
 		setLayout(new BorderLayout());
-		setContentPane(new JLabel(new ImageIcon(this.getClass().getResource("/image/blue2.jpg"))));
+		setContentPane(new JLabel(new ImageIcon(this.getClass().getResource("/image/login background.png"))));
 		setLayout(null);
 		
 		
@@ -74,10 +74,10 @@ public class LoginGUI extends JFrame implements ActionListener{
         		+ "</body></html>");
         
         add(textPane);*/
-		Font f=new Font("Museo Sans", Font.PLAIN | Font.BOLD, 20); 
+		Font f=FontClass.MuseoSans300(18); 
 		
         JLabel heading_lbl=new JLabel();
-		heading_lbl.setBounds(30,170,900,230);
+		heading_lbl.setBounds(30,180,900,230);
 		heading_lbl.setFont(f);
 		heading_lbl.setText("<html><body style=\"font: Arial; color: white; padding: 2px; padding-top: 2; padding-left: 12;padding-right: 12; background-color: #1D3E8A; border-top: 10px solid rgb(139,39,35); \">"
         		+ "<center><h3>Take Flight Progress Monitoring Charts instrument was designed to provide diagnostic information about how </h3> </center></br>"
@@ -113,10 +113,12 @@ public class LoginGUI extends JFrame implements ActionListener{
         add(txtPsw);
         
         
-        btnSubmit = new JButton("       Login        ");
-        btnSubmit.setBounds(400,570,200,30);
-        btnSubmit.setFont(f);
-        btnSubmit.setBackground(new Color(188,221,238));
+        ImageIcon image = new ImageIcon(this.getClass().getResource("/image/login button.png"));
+        btnSubmit = new JButton(image);
+        btnSubmit.setBounds(400,570,150,40);
+        btnSubmit.setBorder(null);
+        //btnSubmit.setFont(f);
+        //btnSubmit.setBackground(new Color(188,221,238));
         btnSubmit.addActionListener(this);
        // btnSubmit.setBorder(new RoundedBorder(10));
         btnSubmit.requestFocusInWindow();

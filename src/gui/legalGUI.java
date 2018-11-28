@@ -61,7 +61,7 @@ public class legalGUI  extends JFrame implements ActionListener {
 	public legalGUI(){
 		
 		setLayout(new BorderLayout());
-		setContentPane(new JLabel(new ImageIcon(this.getClass().getResource("/image/blue2.jpg"))));
+		setContentPane(new JLabel(new ImageIcon(this.getClass().getResource("/image/background 1.png"))));
 		setLayout(null);
 		
 		Font f=new Font("Museo Sans", Font.ITALIC | Font.BOLD, 20);   // Creating font style and size for heading
@@ -69,7 +69,7 @@ public class legalGUI  extends JFrame implements ActionListener {
 		
 		
 		JLabel heading=new JLabel();//0, 170,1080,480
-		heading.setBounds(25, 130,3080,60);
+		heading.setBounds(25, 220,3080,60);
 		heading.setFont(f);
 		heading.setText("<html><body style=\"font: Arial; color: white; padding: 2px; padding-top: 2; padding-left: 356;padding-right: 356; background-color: rgb(193,39,35); \">"
         		+ "<center><h3>PROGRESS MONITOR DATA MANAGER SYSTEM </h3> </center></br>"
@@ -178,31 +178,33 @@ public class legalGUI  extends JFrame implements ActionListener {
 						
 						JScrollPane scroller = new JScrollPane(textPanel, 
 				                 JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER); 
-						 scroller.setBounds(25, 190,1040,450);
+						 scroller.setBounds(25, 280,1040,370);
 				  
 						add(scroller); 
 						
 						
 						JPanel footerPanel=new JPanel();
-						footerPanel.setBounds(25,640,1040,60);
+						footerPanel.setBounds(25,650,1040,60);
 						footerPanel.setBackground(new Color(204,204,204));
 						
-						 btnAccept = new JButton("I Accept");
-					     btnAccept.setBounds(920,650,150,40);
+						ImageIcon image = new ImageIcon(this.getClass().getResource("/image/I_accept_button.png"));
+						 btnAccept = new JButton(image);
+					     btnAccept.setBounds(920,660,150,40);
 					     btnAccept.setSize(150, 100);
-						 btnAccept.setFont(new Font("Museo Sans", Font.BOLD, 15));
-					     btnAccept.setBackground(new Color(188,221,238));
+						// btnAccept.setFont(new Font("Museo Sans", Font.BOLD, 15));
+					     btnAccept.setBackground(new Color(204,204,204));
 					     btnAccept.setBorderPainted(false);
 					     btnAccept.setFocusable(false);
 					     btnAccept.addActionListener(this);
 					     footerPanel.add(btnAccept);
 					     
 					     
-					     btnNotAccept = new JButton("I Do Not Accept");
+					     image = new ImageIcon(this.getClass().getResource("/image/do_not_accept_button.png"));
+					     btnNotAccept = new JButton(image);
 					     btnNotAccept.setSize(150, 100);
-					     btnNotAccept.setBounds(920,650,150,40);
-					     btnNotAccept.setFont(new Font("Museo Sans", Font.BOLD, 15));
-					     btnNotAccept.setBackground(new Color(188,221,238));
+					     btnNotAccept.setBounds(920,660,150,40);
+					     //btnNotAccept.setFont(new Font("Museo Sans", Font.BOLD, 15));
+					     btnNotAccept.setBackground(new Color(204,204,204));
 					     btnNotAccept.setBorderPainted(false);
 					     btnNotAccept.setFocusable(false);
 					     btnNotAccept.addActionListener(this);

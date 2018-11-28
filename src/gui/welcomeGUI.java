@@ -17,6 +17,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -164,7 +165,7 @@ public class welcomeGUI extends JFrame implements ActionListener {
 	        setJMenuBar(mb);
 			
 		}else{
-			Font f2=new Font("Serif",Font.BOLD,20);
+			/*Font f2=new Font("Serif",Font.BOLD,20);
 			
 			btnMmyProfile = new JButton("My Profile");
 			btnMmyProfile.addActionListener(this);
@@ -222,7 +223,7 @@ public class welcomeGUI extends JFrame implements ActionListener {
 			mb.add(btnMLogout);  
 			
 			
-	        setJMenuBar(mb);
+	        setJMenuBar(mb);*/
 	       
 		}
 		
@@ -231,7 +232,7 @@ public class welcomeGUI extends JFrame implements ActionListener {
         
         
 		
-		JPanel jsp1 = new JPanel(new BorderLayout());
+		/*JPanel jsp1 = new JPanel(new BorderLayout());
 	 	jsp1.setBackground(new Color(141, 31, 6));
 	 	
 	    ImageIcon image = new ImageIcon(this.getClass().getResource("/image/Image12_1.jpg"));
@@ -255,8 +256,76 @@ public class welcomeGUI extends JFrame implements ActionListener {
         splitPane.setDividerLocation(200 + splitPane.getInsets().top);
         splitPane.setDividerSize(0);
         splitPane.setOneTouchExpandable(false);	        
-        getContentPane().add(splitPane);
+        getContentPane().add(splitPane);*/
+		
+		
+		setLayout(new BorderLayout());
+		setContentPane(new JLabel(new ImageIcon(this.getClass().getResource("/image/background2.png"))));
+		setLayout(null);
         
+		Font f=FontClass.MuseoSans300(35); 
+		Font f2=FontClass.MuseoSans700(35);
+		
+		
+		JLabel label= new JLabel("W E L C O M E");
+		label.setBounds(370,100,900,230);
+		label.setFont(f);
+		add(label);
+		
+		label= new JLabel("PROGRESS MONITOR DATA MANAGER SYSTEM");
+		label.setBounds(100,150,900,230);
+		label.setFont(f2);
+		add(label);
+		
+		
+		btnMmyProfile = new JButton(new ImageIcon(this.getClass().getResource("/image/my profile OFF.png")));
+		btnMmyProfile.setRolloverIcon(new ImageIcon(this.getClass().getResource("/image/my profile ON.png")));
+		btnMmyProfile.setBounds(190, 300, 100, 100);
+		btnMmyProfile.addActionListener(this);
+		btnMmyProfile.setBorder(null);
+		btnMmyProfile.setBorderPainted(false);
+		btnMmyProfile.setOpaque(true);
+		add(btnMmyProfile);
+		
+		
+		btnMgroup = new JButton(new ImageIcon(this.getClass().getResource("/image/groups OFF.png")));
+		btnMgroup.setRolloverIcon(new ImageIcon(this.getClass().getResource("/image/groups ON.png")));
+		btnMgroup.setBounds(310, 300, 100, 100);
+		btnMgroup.addActionListener(this);
+		btnMgroup.setBorder(null);
+		btnMgroup.setBorderPainted(false);
+		btnMgroup.setOpaque(true);
+		add(btnMgroup);
+		
+		btnMstudents = new JButton(new ImageIcon(this.getClass().getResource("/image/student OFF.png")));
+		btnMstudents.setRolloverIcon(new ImageIcon(this.getClass().getResource("/image/student ON.png")));
+		btnMstudents.setBounds(430, 300, 100, 100);
+		btnMstudents.addActionListener(this);
+		btnMstudents.setBorder(null);
+		btnMstudents.setBorderPainted(false);
+		btnMstudents.setOpaque(true);
+		add(btnMstudents);
+		
+		
+		btnMImportExport = new JButton(new ImageIcon(this.getClass().getResource("/image/import export OFF.png")));
+		btnMImportExport.setRolloverIcon(new ImageIcon(this.getClass().getResource("/image/import export ON.png")));
+		btnMImportExport.setBounds(550, 300, 100, 100);
+		btnMImportExport.addActionListener(this);
+		btnMImportExport.setBorder(null);
+		btnMImportExport.setBorderPainted(false);
+		btnMImportExport.setOpaque(true);
+		add(btnMImportExport);
+		
+		
+		btnMLogout = new JButton(new ImageIcon(this.getClass().getResource("/image/logout OFF.png")));
+		btnMLogout.setRolloverIcon(new ImageIcon(this.getClass().getResource("/image/logout ON.png")));
+		btnMLogout.setBounds(670, 300, 100, 100);
+		btnMLogout.addActionListener(this);
+		btnMLogout.setBorder(null);
+		btnMLogout.setBorderPainted(false);
+		btnMLogout.setOpaque(true);
+		add(btnMLogout);
+		
         
     	setSize(1000,800);  
 		centerFrame();
