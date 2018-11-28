@@ -70,11 +70,11 @@ public class StudentGUI extends JFrame implements ActionListener {
 		}
 		
 		setLayout(new BorderLayout());
-		setContentPane(new JLabel(new ImageIcon(this.getClass().getResource("/image/blue.jpg"))));
-		setLayout(new FlowLayout());
+		setContentPane(new JLabel(new ImageIcon(this.getClass().getResource("/image/sky.png"))));
+		setLayout(null);
 		
 		JMenuBar mb=new JMenuBar();
-		mb.setBackground(new Color(225,39,38));
+		mb.setBackground(new Color(193,39, 35));
 		mb.add(Box.createRigidArea(new Dimension(10,40)));
 
 		String osname = System.getProperty("os.name");
@@ -129,13 +129,9 @@ public class StudentGUI extends JFrame implements ActionListener {
 	        setJMenuBar(mb);
 			
 		}else{
-			Font f2=new Font("Serif",Font.BOLD,20);
-			
-			btnMmyProfile = new JButton("My Profile");
+			btnMmyProfile = new JButton(new ImageIcon(this.getClass().getResource("/image/my profile.png")));
 			btnMmyProfile.addActionListener(this);
-			btnMmyProfile.setBackground(new Color(225,39,38));
-			btnMmyProfile.setForeground(Color.white);
-			btnMmyProfile.setFont(f2);
+			btnMmyProfile.setBackground(new Color(193,39,35));
 			btnMmyProfile.setBorder(null);
 			btnMmyProfile.setBorderPainted(false);
 			btnMmyProfile.setOpaque(true);
@@ -143,46 +139,37 @@ public class StudentGUI extends JFrame implements ActionListener {
 			setJMenuBar(mb);
 			
 			
-			btnMgroup = new JButton("Groups");
+			btnMgroup = new JButton(new ImageIcon(this.getClass().getResource("/image/groups.png")));
 			btnMgroup.addActionListener(this);
-			btnMgroup.setBackground(new Color(225,39,38));
-			btnMgroup.setForeground(Color.white);
-			btnMgroup.setFont(f2);
+			btnMgroup.setBackground(new Color(193,39,35));
 			btnMgroup.setBorderPainted(false);
-			btnMgroup.setOpaque(true);
 			mb.add(btnMgroup); 
 			
 	        setJMenuBar(mb);
 	       
-			
-			btnMstudents = new JButton("Student");
+	        
+			btnMstudents = new JButton(new ImageIcon(this.getClass().getResource("/image/student.png")));
 			btnMstudents.addActionListener(this);
-			btnMstudents.setBackground(new Color(225,39,38));
-			btnMstudents.setForeground(Color.white);
-			btnMstudents.setFont(f2);
+			btnMstudents.setBackground(new Color(193,39,35));
 			btnMstudents.setBorderPainted(false);
-			btnMstudents.setOpaque(true);
+			//btnMstudents.setOpaque(true);
 			mb.add(btnMstudents);  
 	        setJMenuBar(mb);
 			
 
-			
-			btnMImportExport = new JButton("Import / Export");
+	        
+			btnMImportExport = new JButton(new ImageIcon(this.getClass().getResource("/image/import export.png")));
 			btnMImportExport.addActionListener(this);
-			btnMImportExport.setBackground(new Color(225,39,38));
-			btnMImportExport.setForeground(Color.white);
-			btnMImportExport.setFont(f2);
+			btnMImportExport.setBackground(new Color(193,39,35));
 			btnMImportExport.setBorderPainted(false);
-			btnMImportExport.setOpaque(true);
 			mb.add(btnMImportExport);  
 	        setJMenuBar(mb);
 	        
-	        btnMLogout = new JButton("Logout");
+	        
+	        mb.add(Box.createHorizontalGlue());
+	        btnMLogout = new JButton(new ImageIcon(this.getClass().getResource("/image/logout.png")));
 	        btnMLogout.addActionListener(this);
-	        btnMLogout.setBackground(new Color(225,39,38));
-	        btnMLogout.setForeground(Color.white);
-	        btnMLogout.setFont(f2);
-	        btnMLogout.setOpaque(true);
+	        btnMLogout.setBackground(new Color(193,39,35));
 	        btnMLogout.setBorderPainted(false);
 			mb.add(btnMLogout);  
 			
@@ -191,33 +178,25 @@ public class StudentGUI extends JFrame implements ActionListener {
 		}
 		
         
-		setPreferredSize(new Dimension(1000, 800));
-		setLocationRelativeTo(null);
 		
-		
-		Container c=getContentPane();  
 		
 		 /*---------------------------------- Creating JLabel for Heading Text ------------------------------------------- */
 		 
-		Font f=new Font("Serif", Font.ITALIC | Font.BOLD, 20);   // Creating font style and size for heading
+		Font f=FontClass.MuseoSans700Italic(20);   // Creating font style and size for heading
 
 		// step 3 : creating JLabel for Heading
-				JLabel heading_lbl=new JLabel();
-				heading_lbl.setBounds(210,15,50,30);
-				heading_lbl.setText("<html><font color=white size=6><u><b>Take Flight Decoding and Reading Rate Process Data Manager</b></u></html>");	
-
-				// applying font on  heading Label
+				JLabel heading_lbl=new JLabel("Take Flight Decoding and Reading Rate Process Data Manager");
+				heading_lbl.setBounds(210,15,600,30);
 				heading_lbl.setFont(f);
 				add(heading_lbl);
 				
-				JLabel heading_lbl2=new JLabel();
-				heading_lbl2.setBounds(210,140,1000,30);
-				heading_lbl2.setText("<html><font  size=6 color=rgb(0,57,166)><b>Take Flight Decoding and Reading <font color=white size=10>"+this.className+" </font> Rate Process Data Manager </b></html>");	
-
-				// applying font on  heading Label
+				JLabel heading_lbl2=new JLabel(this.className);
+				heading_lbl2.setBounds(390,55,400,30);
 				heading_lbl2.setFont(f);
 				add(heading_lbl2);
 				
+				Font f3 = FontClass.MuseoSans500(15);
+				f3.deriveFont(Font.PLAIN, 15);
 				
 				model = new DefaultTableModel();
 				 
@@ -225,7 +204,7 @@ public class StudentGUI extends JFrame implements ActionListener {
 				 jt.setRowHeight(30);
 				 
 				 
-				 jt.setFont(new Font("Times New Roman", Font.PLAIN, 13));
+				 jt.setFont(f3);
 			     
 				 //jt.setBounds(500,250,500,100); 
 				 jt.setModel(model);
@@ -234,16 +213,7 @@ public class StudentGUI extends JFrame implements ActionListener {
 		         model.addColumn("Grade");
 		         model.addColumn("DOB");
 		         model.addColumn("Start Date");
-		        /* JPanel panel = new JPanel ();
-			     panel.setBorder (BorderFactory.createTitledBorder (BorderFactory.createEtchedBorder (),
-			                                                            "Table Title",
-			                                                            TitledBorder.CENTER,
-			                                                            TitledBorder.TOP));
-			      JLabel lbl=new JLabel("Class 2");
-			      panel.setLocation(100, 10);
-			      panel.add(lbl);
-			      
-		         add(panel);*/
+		        
 		         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
 		         centerRenderer.setHorizontalAlignment( JLabel.CENTER );
 		         
@@ -297,8 +267,10 @@ public class StudentGUI extends JFrame implements ActionListener {
 			        	 model.addRow(new Object[]{bean.getId(),bean.getStudFirstName()+" "+bean.getStudLastName(),bean.getGrade(),bean.getDob(),bean.getStDate()});
 			        	 
 			         }
+			        
 			       JTableHeader header= jt.getTableHeader();
-			       header.setBackground(Color.yellow);
+			       header.setBackground(new Color(44,85,106));
+				   header.setForeground(Color.white);
 			       
 			       final TableRowSorter<TableModel> sorter;
 			       sorter = new TableRowSorter<TableModel>(model);
@@ -308,12 +280,19 @@ public class StudentGUI extends JFrame implements ActionListener {
 			                 JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED); 
 			  
 			         
-			         add( scroller); 
-			         pack();
+			         JPanel panelGeneral = new JPanel();
+			         panelGeneral.setLayout(new FlowLayout());
+			         panelGeneral.add(scroller);
+			         panelGeneral.setBounds(100, 100, 820, 312);
+			         
+			         add(panelGeneral); 
+			         
 			         
 			         JPanel pnl = new JPanel();
 					 pnl.setBackground(Color.WHITE);
-					 pnl.setFont(new Font("Britannic Bold", Font.PLAIN, 15));
+					 Font f4 = FontClass.MuseoSans500(20);
+					 f4.deriveFont(Font.BOLD, 15);
+					 pnl.setFont(f4);
 					    pnl.add(new JLabel("Search : "));
 					    final JTextField txtFE = new JTextField(20);
 					    pnl.add(txtFE);
@@ -332,54 +311,46 @@ public class StudentGUI extends JFrame implements ActionListener {
 					   // btnSetFE.setBackground(Color.WHITE);
 					    btnSetFE.setOpaque(true);
 					    btnSetFE.setBorderPainted(false);
-					    btnSetFE.setFont(new Font("Britannic Bold", Font.PLAIN, 15));
+					    btnSetFE.setFont(f4);
 					    pnl.add(btnSetFE);
-					    pnl.setBounds(240,400,502,45);
+					    pnl.setBounds(270,420,502,45);
 					    add(pnl);
 					    
-					    
-			         
-			         	heading_lbl=new JLabel();
-						heading_lbl.setBounds(270,400,500,120);
-						heading_lbl.setText("<html><font color=white size=5><b>Double click on student to enter decoding or reading data</b></html>");	
-						Font hf=new Font("Serif", Font.PLAIN | Font.BOLD, 20);
-						// applying font on  heading Label
-						heading_lbl.setFont(hf);
+					    heading_lbl=new JLabel("Double click on student to enter decoding or reading data");
+						heading_lbl.setBounds(250,420,600,120);
+						heading_lbl.setFont(f4);
 						add(heading_lbl);
-		         
-						
-						
-						 btnSubmit = new JButton("Add New Student");
+				
+						btnSubmit = new JButton("Add New Student");
 						 if (osname.contains("Mac")){
-							 btnSubmit.setBounds(300,500,170,40);
+							 btnSubmit.setBounds(330,500,180,40);
 							}else{
-								btnSubmit.setBounds(300,500,150,40);
+								btnSubmit.setBounds(330,500,160,40);
 							}
 						 
 				         btnSubmit.setBackground(Color.WHITE);
 				         btnSubmit.setOpaque(true);
 				         btnSubmit.setBorderPainted(false);
-				         btnSubmit.setFont(new Font("Britannic Bold", Font.PLAIN, 15));
+				         btnSubmit.setFont(FontClass.MuseoSans900(15));
 				         add(btnSubmit);
 				         btnSubmit.addActionListener(this);
 				         
 				         btnDelete = new JButton("Remove Student");
 				         if (osname.contains("Mac")){
-				        	 btnDelete.setBounds(500,500,170,40);
+				        	 btnDelete.setBounds(530,500,180,40);
 							}else{
-								btnDelete.setBounds(500,500,150,40);
+								btnDelete.setBounds(530,500,160,40);
 							}
 				         
 				         btnDelete.setBackground(Color.WHITE);
 				         btnDelete.setOpaque(true);
 				         btnDelete.setBorderPainted(false);
-				         btnDelete.setFont(new Font("Britannic Bold", Font.PLAIN, 15));
+				         btnDelete.setFont(FontClass.MuseoSans900(15));
 				         add(btnDelete);
 				         btnDelete.addActionListener(this);
 				         
-				         
-				         btnBack = new JButton("Back");
-				         btnBack.setBounds(0,600,150,40);
+				         btnBack = new JButton(new ImageIcon(this.getClass().getResource("/image/back.png")));
+				         btnBack.setBounds(0,600,120,40);
 				         btnBack.setBackground(Color.WHITE);
 				         btnBack.setOpaque(true);
 				         btnBack.setBorderPainted(false);
@@ -389,8 +360,8 @@ public class StudentGUI extends JFrame implements ActionListener {
 				         btnBack.addActionListener(this);
 				         
 				         
-				         btnExit = new JButton("Exit");
-				         btnExit.setBounds(840,600,150,40);
+				         btnExit = new JButton(new ImageIcon(this.getClass().getResource("/image/Exit2.png")));
+				         btnExit.setBounds(880,600,120,40);
 				         btnExit.setBackground(Color.WHITE);
 				         btnExit.setOpaque(true);
 				         btnExit.setBorderPainted(false);
@@ -398,6 +369,7 @@ public class StudentGUI extends JFrame implements ActionListener {
 				         add(btnExit);
 				         getContentPane().add(btnExit);
 				         btnExit.addActionListener(this);
+				
 				         
 				
 					

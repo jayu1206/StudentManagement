@@ -8,8 +8,10 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GraphicsEnvironment;
+import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -23,6 +25,7 @@ import java.util.regex.Pattern;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -40,6 +43,7 @@ import javax.swing.JTextField;
 import javax.swing.JToolBar;
 import javax.swing.ListSelectionModel;
 import javax.swing.RowFilter;
+import javax.swing.SpringLayout;
 import javax.swing.UIManager;
 import javax.swing.border.Border;
 import javax.swing.border.MatteBorder;
@@ -74,12 +78,11 @@ public class GroupGUI extends JFrame implements ActionListener{
 	GroupGUI(){
 		
 		setLayout(new BorderLayout());
-		//setContentPane(new JLabel(new ImageIcon(this.getClass().getResource("/image/black-back-ground.jpg"))));
-		setContentPane(new JLabel(new ImageIcon(this.getClass().getResource("/image/blue.jpg"))));
-		setLayout(new FlowLayout());
+		setContentPane(new JLabel(new ImageIcon(this.getClass().getResource("/image/sky.png"))));
+		setLayout(null);
 		
 		JMenuBar mb=new JMenuBar();
-		mb.setBackground(new Color(225,39,38));
+		mb.setBackground(new Color(193,39, 35));
 		mb.add(Box.createRigidArea(new Dimension(10,40)));
 		
 		String osname = System.getProperty("os.name");
@@ -134,13 +137,10 @@ public class GroupGUI extends JFrame implements ActionListener{
 	        setJMenuBar(mb);
 			
 		}else{
-			Font f2=new Font("Serif",Font.BOLD,20);
 			
-			btnMmyProfile = new JButton("My Profile");
+			btnMmyProfile = new JButton(new ImageIcon(this.getClass().getResource("/image/my profile.png")));
 			btnMmyProfile.addActionListener(this);
-			btnMmyProfile.setBackground(new Color(225,39,38));
-			btnMmyProfile.setForeground(Color.white);
-			btnMmyProfile.setFont(f2);
+			btnMmyProfile.setBackground(new Color(193,39,35));
 			btnMmyProfile.setBorder(null);
 			btnMmyProfile.setBorderPainted(false);
 			btnMmyProfile.setOpaque(true);
@@ -148,46 +148,37 @@ public class GroupGUI extends JFrame implements ActionListener{
 			setJMenuBar(mb);
 			
 			
-			btnMgroup = new JButton("Groups");
+			btnMgroup = new JButton(new ImageIcon(this.getClass().getResource("/image/groups.png")));
 			btnMgroup.addActionListener(this);
-			btnMgroup.setBackground(new Color(225,39,38));
-			btnMgroup.setForeground(Color.white);
-			btnMgroup.setFont(f2);
+			btnMgroup.setBackground(new Color(193,39,35));
 			btnMgroup.setBorderPainted(false);
-			btnMgroup.setOpaque(true);
 			mb.add(btnMgroup); 
 			
 	        setJMenuBar(mb);
 	       
-			
-			btnMstudents = new JButton("Student");
+	        
+			btnMstudents = new JButton(new ImageIcon(this.getClass().getResource("/image/student.png")));
 			btnMstudents.addActionListener(this);
-			btnMstudents.setBackground(new Color(225,39,38));
-			btnMstudents.setForeground(Color.white);
-			btnMstudents.setFont(f2);
+			btnMstudents.setBackground(new Color(193,39,35));
 			btnMstudents.setBorderPainted(false);
-			btnMstudents.setOpaque(true);
+			//btnMstudents.setOpaque(true);
 			mb.add(btnMstudents);  
 	        setJMenuBar(mb);
 			
 
-			
-			btnMImportExport = new JButton("Import / Export");
+	        
+			btnMImportExport = new JButton(new ImageIcon(this.getClass().getResource("/image/import export.png")));
 			btnMImportExport.addActionListener(this);
-			btnMImportExport.setBackground(new Color(225,39,38));
-			btnMImportExport.setForeground(Color.white);
-			btnMImportExport.setFont(f2);
+			btnMImportExport.setBackground(new Color(193,39,35));
 			btnMImportExport.setBorderPainted(false);
-			btnMImportExport.setOpaque(true);
 			mb.add(btnMImportExport);  
 	        setJMenuBar(mb);
 	        
-	        btnMLogout = new JButton("Logout");
+	        
+	        mb.add(Box.createHorizontalGlue());
+	        btnMLogout = new JButton(new ImageIcon(this.getClass().getResource("/image/logout.png")));
 	        btnMLogout.addActionListener(this);
-	        btnMLogout.setBackground(new Color(225,39,38));
-	        btnMLogout.setForeground(Color.white);
-	        btnMLogout.setFont(f2);
-	        btnMLogout.setOpaque(true);
+	        btnMLogout.setBackground(new Color(193,39,35));
 	        btnMLogout.setBorderPainted(false);
 			mb.add(btnMLogout);  
 			
@@ -195,256 +186,227 @@ public class GroupGUI extends JFrame implements ActionListener{
 	        setJMenuBar(mb);
 		}
 		
-        
-		setPreferredSize(new Dimension(1000, 800));
-		setLocationRelativeTo(null);
-
+       
+		Font f=FontClass.MuseoSans700Italic(25);   // Creating font style and size for heading
 		
-
-	
+		JLabel heading_lbl=new JLabel("Take Flight Decoding and Reading Rate ");
+		heading_lbl.setBounds(290,15,600,30);
+		heading_lbl.setFont(f);
+		add(heading_lbl);
 		
-		Container c=getContentPane();  
+		heading_lbl=new JLabel("Process Data Manager");
+		heading_lbl.setBounds(350,40,600,30);
+		heading_lbl.setFont(f);
+		add(heading_lbl);
 		
-		 /*---------------------------------- Creating JLabel for Heading Text ------------------------------------------- */
+		
+		//setLayout(new FlowLayout());
+		
+		
+		Font f3 = FontClass.MuseoSans500(15);
+		f3.deriveFont(Font.PLAIN, 15);
+		
+		model = new DefaultTableModel();
 		 
-		Font f=new Font("Serif", Font.ITALIC | Font.BOLD, 20);   // Creating font style and size for heading
-
-		// step 3 : creating JLabel for Heading
-				JLabel heading_lbl=new JLabel();
-				heading_lbl.setBounds(210,15,100,30);
-				heading_lbl.setText("<html><font color=white size=6><u><b>Take Flight Decoding and Reading Rate \n Process Data Manager</b></u></html>");	
-
-				// applying font on  heading Label
-				heading_lbl.setFont(f);
-				add(heading_lbl);
-				
-				heading_lbl=new JLabel();
-				heading_lbl.setBounds(210,140,1000,30);
-				heading_lbl.setText("<html><font size=6 color=rgb(0,57,166)><u><b>Take Flight Decoding and Reading Rate \n Process Data Manager</b></u></html>");	
-				// applying font on  heading Label
-				heading_lbl.setFont(f);
-				add(heading_lbl);
-				
-				
-				 model = new DefaultTableModel();
-				 
-				 jt=new JTable(); 
-				 jt.setRowHeight(30);
-				 
-				 jt.setFont(new Font("Times New Roman", Font.PLAIN, 13));
-			     
-				 jt.setBounds(500,250,500,100); 
-				// jt.setPreferredSize(new Dimension(500, 300));
-				 jt.setModel(model);
-				 //model.addRow(new Object[]{"class details"});
-				
-				 model.addColumn("ID");
-		         model.addColumn("Class");
-		         model.addColumn("Start Date");
-		         
-		         //model.addRow(new Object[]{"Id1","Class","Start Date"});
-		         
-		         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-		         centerRenderer.setHorizontalAlignment( JLabel.CENTER );
-		         //centerRenderer.setBorder(BorderFactory.createCompoundBorder(UIManager.getBorder("TableHeader.cellBorder"),BorderFactory.createEmptyBorder(0, 10, 0, 10)));
-		         
-		         jt.getColumnModel().getColumn(0).setCellRenderer( centerRenderer );
-		         jt.getColumnModel().getColumn(1).setCellRenderer( centerRenderer );
-		         jt.getColumnModel().getColumn(2).setCellRenderer( centerRenderer );
-		         
-		       //  jt.setPreferredScrollableViewportSize(new Dimension(300, 100));
-		        // jt.setBackground(Color.yellow);
-		       //  jt.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-		        //jt.setPreferredSize( new Dimension(500,300));
-		       jt.setPreferredScrollableViewportSize(
-		        		    new Dimension(500,300)); 
-		         
-		      
-		       
-		       
-		        // jt.setPreferredScrollableViewportSize(jt.getPreferredSize());
-		       
-		       jt.setDefaultEditor(Object.class, null);
-		       jt.setUI(new BasicTableUI() {
-			    	// Create the mouse listener for the JTable.
-			    	protected MouseInputListener createMouseInputListener() {
-				    	return new MouseInputHandler() {
-					    	// Display frame on double-click
-					    	public void mouseClicked(MouseEvent e) {
-						    	if (e.getClickCount()==2) {
-						    		//DefaultTableModel dtm = (DefaultTableModel) jt.getModel();  
-						            int selRow = jt.getSelectedRow();
-						            String id = jt.getModel().getValueAt(selRow, 0).toString();
-						            String name = jt.getModel().getValueAt(selRow, 1).toString();
-						    		new StudentGUI(id,name);
-						    		dispose();
-						    	}
-					    	}
-				    	};
+		 jt=new JTable(); 
+		 jt.setRowHeight(30);
+		 
+		 jt.setFont(f3);
+	     
+		 jt.setBounds(250,350,500,100); 
+		// jt.setPreferredSize(new Dimension(500, 300));
+		 jt.setModel(model);
+		 //model.addRow(new Object[]{"class details"});
+		
+		model.addColumn("ID");
+        model.addColumn("Class");
+        model.addColumn("Start Date");
+        
+        //model.addRow(new Object[]{"Id1","Class","Start Date"});
+        
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment( JLabel.CENTER );
+        
+        jt.getColumnModel().getColumn(0).setCellRenderer( centerRenderer );
+        jt.getColumnModel().getColumn(1).setCellRenderer( centerRenderer );
+        jt.getColumnModel().getColumn(2).setCellRenderer( centerRenderer );
+        
+        jt.setPreferredScrollableViewportSize(new Dimension(500,300)); 
+        
+     
+      
+      
+       // jt.setPreferredScrollableViewportSize(jt.getPreferredSize());
+      
+      jt.setDefaultEditor(Object.class, null);
+      jt.setUI(new BasicTableUI() {
+	    	// Create the mouse listener for the JTable.
+	    	protected MouseInputListener createMouseInputListener() {
+		    	return new MouseInputHandler() {
+			    	// Display frame on double-click
+			    	public void mouseClicked(MouseEvent e) {
+				    	if (e.getClickCount()==2) {
+				    		//DefaultTableModel dtm = (DefaultTableModel) jt.getModel();  
+				            int selRow = jt.getSelectedRow();
+				            String id = jt.getModel().getValueAt(selRow, 0).toString();
+				            String name = jt.getModel().getValueAt(selRow, 1).toString();
+				    		new StudentGUI(id,name);
+				    		dispose();
+				    	}
 			    	}
-		    	});
-		       
-		        edit = new JMenuItem("Edit");
-				JPopupMenu popup = new JPopupMenu("Edit");
-				popup.add(edit);
+		    	};
+	    	}
+   	});
+      
+       edit = new JMenuItem("Edit");
+		JPopupMenu popup = new JPopupMenu("Edit");
+		popup.add(edit);
 
-				jt.addMouseListener(new MouseAdapter() {
-					@Override
-					public void mouseReleased(MouseEvent e) {
-						int r = jt.rowAtPoint(e.getPoint());
-						if (r >= 0 && r < jt.getRowCount()) {
-							jt.setRowSelectionInterval(r, r);
-						} else {
-							jt.clearSelection();
-						}
+		jt.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				int r = jt.rowAtPoint(e.getPoint());
+				if (r >= 0 && r < jt.getRowCount()) {
+					jt.setRowSelectionInterval(r, r);
+				} else {
+					jt.clearSelection();
+				}
 
-						int rowindex = jt.getSelectedRow();
-						if (rowindex < 0)
-							return;
-						if (e.isPopupTrigger() && e.getComponent() instanceof JTable) {
+				int rowindex = jt.getSelectedRow();
+				if (rowindex < 0)
+					return;
+				if (e.isPopupTrigger() && e.getComponent() instanceof JTable) {
 
-							popup.show(e.getComponent(), e.getX(), e.getY());
-						}
-					}
-				});
+					popup.show(e.getComponent(), e.getX(), e.getY());
+				}
+			}
+		});
 
-				edit.addActionListener(this);
-				
-		       GroupDAO dao=new GroupOpr();
-		        ArrayList<GroupBean> list = dao.getAllGroups();
+		edit.addActionListener(this);
+		
+      GroupDAO dao=new GroupOpr();
+       ArrayList<GroupBean> list = dao.getAllGroups();
+       
+       for(GroupBean bean : list ){
+       	 model.addRow(new Object[]{bean.getGroupID(),bean.getGroupName(),bean.getStartDate()});
+       	 
+        }
+       
+       JTableHeader header= jt.getTableHeader();
+       header.setBackground(new Color(44,85,106));
+	   header.setForeground(Color.white);
+	       
+	       
+	       final TableRowSorter<TableModel> sorter;
+	       sorter = new TableRowSorter<TableModel>(model);
+	       jt.setRowSorter(sorter);
+	      
+	       
+        JScrollPane scroller = new JScrollPane(jt, 
+                JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED); 
+        
+       
+        JPanel panelGeneral = new JPanel();
+        panelGeneral.setLayout(new FlowLayout());
+        panelGeneral.add(scroller);
+        panelGeneral.setBounds(240, 100, 520, 330);
+        
+        add(panelGeneral); 
+        
+        
+        JPanel pnl = new JPanel();
+		 pnl.setBackground(Color.WHITE);
+		 Font f4 = FontClass.MuseoSans500(20);
+		 f4.deriveFont(Font.BOLD, 15);
+		 pnl.setFont(f4);
+		    pnl.add(new JLabel("Search : "));
+		    final JTextField txtFE = new JTextField(20);
+		    pnl.add(txtFE);
+		    JButton btnSetFE = new JButton("Submit");
+		    ActionListener al;
+		    al = new ActionListener() {
+		      public void actionPerformed(ActionEvent e) {
+		        String expr = txtFE.getText();
+		        sorter.setRowFilter(RowFilter.regexFilter(expr));
+		        sorter.setSortKeys(null);
 		        
-		        for(GroupBean bean : list ){
-		        	 model.addRow(new Object[]{bean.getGroupID(),bean.getGroupName(),bean.getStartDate()});
-		        	 
-		         }
 		        
-		        /*JPanel panel = new JPanel ();
-		        model.setBorder (BorderFactory.createTitledBorder (BorderFactory.createEtchedBorder (),
-		                                                            "Table Title",
-		                                                            TitledBorder.CENTER,
-		                                                            TitledBorder.TOP));
-		        */
-		       // Color color = UIManager.getColor("Table.gridColor");
-//		        MatteBorder border = new MatteBorder(1, 1, 1, 1, Color.blue);
-//		        jt.setBorder(border);
-		        
-//		        for (int i = 0; i < jt.getColumnCount(); i++) {
-//		        	for (int j = 0; j < jt.getRowCount(); j++) {
-//		        		
-//		        	}
-//		            jt.getTableHeader().getColumnModel().getColumn(i).setHeaderRenderer(new HeaderRenderer(jt));
-//		            jt.get
-//		        }
-//		        
-		        
-		        JTableHeader header= jt.getTableHeader();
-			       header.setBackground(Color.yellow);
-			       
-			       
-			       final TableRowSorter<TableModel> sorter;
-			       sorter = new TableRowSorter<TableModel>(model);
-			       jt.setRowSorter(sorter);
-			       
-		         JScrollPane scroller = new JScrollPane(jt, 
-		                 JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED); 
-		  
-		         add(scroller, BorderLayout.CENTER); 
-		         pack();
-
-				
-				 JPanel pnl = new JPanel();
-				 pnl.setBackground(Color.WHITE);
-				 pnl.setFont(new Font("Britannic Bold", Font.PLAIN, 15));
-				    pnl.add(new JLabel("Search : "));
-				    final JTextField txtFE = new JTextField(20);
-				    pnl.add(txtFE);
-				    JButton btnSetFE = new JButton("Submit");
-				    ActionListener al;
-				    al = new ActionListener() {
-				      public void actionPerformed(ActionEvent e) {
-				        String expr = txtFE.getText();
-				        sorter.setRowFilter(RowFilter.regexFilter(expr));
-				        sorter.setSortKeys(null);
-				        
-				        
-				      }
-				    };
-				    btnSetFE.addActionListener(al);
-				   // btnSetFE.setBackground(Color.WHITE);
-				    btnSetFE.setOpaque(true);
-				    btnSetFE.setBorderPainted(false);
-				    btnSetFE.setFont(new Font("Britannic Bold", Font.PLAIN, 15));
-				    pnl.add(btnSetFE);
-				    pnl.setBounds(240,400,502,45);
-				    add(pnl);
-				
-				
-				    
-				       heading_lbl=new JLabel();
-						heading_lbl.setBounds(300,400,500,120);
-						heading_lbl.setText("<html><font color=white size=5><b>Double click on group to list or edit student data</b></html>");	
-						Font hf=new Font("Serif", Font.PLAIN | Font.BOLD, 20);
-						// applying font on  heading Label
-						heading_lbl.setFont(hf);
-						add(heading_lbl);
-				       
-				
-		        
-		        Image img;
-		         btnSubmit = new JButton("Add New Group");
-		         if (osname.contains("Mac")){
-		        	 btnSubmit.setBounds(210,500,170,40);
-					}else{
-						btnSubmit.setBounds(210,500,150,40);
-					}
-		         
-		         btnSubmit.setBackground(Color.WHITE);
-		         btnSubmit.setOpaque(true);
-		         btnSubmit.setBorderPainted(false);
-		         btnSubmit.setFont(new Font("Britannic Bold", Font.PLAIN, 15));
-		         add(btnSubmit);
-		         btnSubmit.addActionListener(this);
-		         
-		         btnDelete = new JButton("Remove Group");
-		         btnDelete.setBounds(410,500,150,40);
-		         btnDelete.setBackground(Color.WHITE);
-		         btnDelete.setOpaque(true);
-		         btnDelete.setBorderPainted(false);
-		         btnDelete.setFont(new Font("Britannic Bold", Font.PLAIN, 15));
-		         add(btnDelete);
-		         btnDelete.addActionListener(this);
-		         
-		         btnImportExport = new JButton("Import/Export");
-		         btnImportExport.setBounds(610,500,150,40);
-		         btnImportExport.setBackground(Color.WHITE);
-		         btnImportExport.setOpaque(true);
-		         btnImportExport.setBorderPainted(false);
-		         btnImportExport.setFont(new Font("Britannic Bold", Font.PLAIN, 15));
-		         add(btnImportExport);
-		         getContentPane().add(btnImportExport);
-		         btnImportExport.addActionListener(this);
-		         
-		         
-		         btnBack = new JButton("Back");
-		         btnBack.setBounds(0,600,150,40);
-		         btnBack.setBackground(Color.WHITE);
-		         btnBack.setOpaque(true);
-		         btnBack.setBorderPainted(false);
-		         btnBack.setFont(new Font("Britannic Bold", Font.PLAIN, 15));
-		         add(btnBack);
-		         getContentPane().add(btnBack);
-		         btnBack.addActionListener(this);
-		         
-		         
-		         btnExit = new JButton("Exit");
-		         btnExit.setBounds(840,600,150,40);
-		         btnExit.setBackground(Color.WHITE);
-		         btnExit.setOpaque(true);
-		         btnExit.setBorderPainted(false);
-		         btnExit.setFont(new Font("Britannic Bold", Font.PLAIN, 15));
-		         add(btnExit);
-		         getContentPane().add(btnExit);
-		         btnExit.addActionListener(this);
+		      }
+		    };
+		    btnSetFE.addActionListener(al);
+		   // btnSetFE.setBackground(Color.WHITE);
+		    btnSetFE.setOpaque(true);
+		    btnSetFE.setBorderPainted(false);
+		    btnSetFE.setFont(f4);
+		    pnl.add(btnSetFE);
+		    pnl.setBounds(240,435,520,45);
+		    add(pnl);
+       
+		
+		    heading_lbl=new JLabel("Double click on group to list or edit student data");
+			heading_lbl.setBounds(280,430,500,130);
+			heading_lbl.setFont(f4);
+			add(heading_lbl);
+		
+		
+			Image img;
+			 btnSubmit = new JButton("Add New Group");
+	         if (osname.contains("Mac")){
+	        	 btnSubmit.setBounds(230,520,170,40);
+				}else{
+					btnSubmit.setBounds(230,520,150,40);
+				}
+	         
+	         btnSubmit.setBackground(Color.WHITE);
+	         btnSubmit.setOpaque(true);
+	         btnSubmit.setBorderPainted(false);
+	         btnSubmit.setFont(FontClass.MuseoSans900(15));
+	         add(btnSubmit);
+	         btnSubmit.addActionListener(this);
+	         
+	         btnDelete = new JButton("Remove Group");
+	         btnDelete.setBounds(430,520,150,40);
+	         btnDelete.setBackground(Color.WHITE);
+	         btnDelete.setOpaque(true);
+	         btnDelete.setBorderPainted(false);
+	         btnDelete.setFont(FontClass.MuseoSans900(15));
+	         add(btnDelete);
+	         btnDelete.addActionListener(this);
+	         
+	         btnImportExport = new JButton("Import/Export");
+	         btnImportExport.setBounds(630,520,150,40);
+	         btnImportExport.setBackground(Color.WHITE);
+	         btnImportExport.setOpaque(true);
+	         btnImportExport.setBorderPainted(false);
+	         btnImportExport.setFont(FontClass.MuseoSans900(15));
+	         add(btnImportExport);
+	         getContentPane().add(btnImportExport);
+	         btnImportExport.addActionListener(this);
+	         
+	         
+	         btnBack = new JButton(new ImageIcon(this.getClass().getResource("/image/back.png")));
+	         btnBack.setBounds(0,600,120,40);
+	         btnBack.setBackground(Color.WHITE);
+	         btnBack.setOpaque(true);
+	         btnBack.setBorderPainted(false);
+	         btnBack.setFont(new Font("Britannic Bold", Font.PLAIN, 15));
+	         add(btnBack);
+	         getContentPane().add(btnBack);
+	         btnBack.addActionListener(this);
+	         
+	         
+	         btnExit = new JButton(new ImageIcon(this.getClass().getResource("/image/Exit2.png")));
+	         btnExit.setBounds(880,600,120,40);
+	         btnExit.setBackground(Color.WHITE);
+	         btnExit.setOpaque(true);
+	         btnExit.setBorderPainted(false);
+	         btnExit.setFont(new Font("Britannic Bold", Font.PLAIN, 15));
+	         add(btnExit);
+	         getContentPane().add(btnExit);
+	         btnExit.addActionListener(this);
+		
+		
+		
 		         
 		
 		setSize(1000,800);
@@ -461,7 +423,7 @@ public class GroupGUI extends JFrame implements ActionListener{
 		    }
 		};
 		 addWindowListener(exitListener);
-	    c.setLayout(null); 
+	   // c.setLayout(null); 
 	    setResizable(false);
 		setVisible(true); 
 		

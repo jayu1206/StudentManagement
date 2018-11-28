@@ -50,19 +50,19 @@ public class MyProfileGUI extends JFrame implements ActionListener{
 		bean= dao.getUserName();		
 		
 		setLayout(new BorderLayout());
-		setContentPane(new JLabel(new ImageIcon(this.getClass().getResource("/image/blue.jpg"))));
+		setContentPane(new JLabel(new ImageIcon(this.getClass().getResource("/image/sky.png"))));
 		setLayout(null);
 		
 		Container c=getContentPane();  
 		
 				 /*---------------------------------- Creating JLabel for Heading Text ------------------------------------------- */
 				 
-				Font f=new Font("Serif", Font.ITALIC | Font.BOLD, 35);   // Creating font style and size for heading
+				Font f=FontClass.MuseoSans700Italic(25);   // Creating font style and size for heading
 	
 				// step 3 : creating JLabel for Heading
 						JLabel heading_lbl=new JLabel();
 						heading_lbl.setBounds(400,15,300,60);
-						heading_lbl.setText("<html><font color=white ><u><b>My Profile</b></u></html>");	
+						heading_lbl.setText("<html><font ><u><b>My Profile</b></u></html>");	
 	
 						// applying font on  heading Label
 						heading_lbl.setFont(f);
@@ -70,8 +70,8 @@ public class MyProfileGUI extends JFrame implements ActionListener{
 	
 	/* ----------------------------------- Creating Global Font style for all components ------------------------------ */
 
-						Font f1=new Font("Serif",Font.BOLD,25);
-						Font f2=new Font("Serif",Font.BOLD,20);
+						Font f1=FontClass.MuseoSans500(25);
+						Font f2=FontClass.MuseoSans500(20);
 						
 						
 						/* ----------------------------------- Creating components for Registration details ---------------------------------- */
@@ -80,7 +80,7 @@ public class MyProfileGUI extends JFrame implements ActionListener{
 						
 						lblFirstName=new JLabel("First Name : ");
 						lblFirstName.setBounds(250,180,250,40);
-						lblFirstName.setForeground(Color.white);
+						//lblFirstName.setForeground(Color.white);
 						lblFirstName.setFont(f1);
 						add(lblFirstName);
 				
@@ -94,7 +94,7 @@ public class MyProfileGUI extends JFrame implements ActionListener{
 						
 						lblLastName=new JLabel("Last Name : ");
 						lblLastName.setBounds(250,225,250,40);
-						lblLastName.setForeground(Color.white);
+						//lblLastName.setForeground(Color.white);
 						lblLastName.setFont(f1);
 						add(lblLastName);
 						
@@ -106,7 +106,7 @@ public class MyProfileGUI extends JFrame implements ActionListener{
 						
 						lblemail=new JLabel("Email : ");
 						lblemail.setBounds(250,280,180,30);
-						lblemail.setForeground(Color.white);
+						//lblemail.setForeground(Color.white);
 						lblemail.setFont(f1);
 						add(lblemail);
 						
@@ -119,7 +119,7 @@ public class MyProfileGUI extends JFrame implements ActionListener{
 						
 						lblUserId = new JLabel("Username : ");
 						lblUserId.setBounds(250,330,150,30); 
-						lblUserId.setForeground(Color.white);
+						//lblUserId.setForeground(Color.white);
 						lblUserId.setFont(f1);
 						add(lblUserId);
 						
@@ -134,18 +134,18 @@ public class MyProfileGUI extends JFrame implements ActionListener{
 						if (osname.contains("Mac")){
 							changePsw.setBounds(300, 400, 400, 40);
 						}else{
-							changePsw.setBounds(300, 400, 350, 40);
+							changePsw.setBounds(300, 400, 380, 40);
 						}
 						
-						changePsw.setBackground(new Color(0,57,166));
-						changePsw.setForeground(Color.white);
+						changePsw.setBackground(new Color(242,242,242));
+						//changePsw.setForeground(Color.white);
 						changePsw.setFont(f1);
 						changePsw.addActionListener(this);
 						add(changePsw);
 						
 						lblPsw=new JLabel("New Password : ");
 						lblPsw.setBounds(250,460,200,30);
-						lblPsw.setForeground(Color.white);
+						//lblPsw.setForeground(Color.white);
 						lblPsw.setFont(f1);
 						add(lblPsw);
 				
@@ -165,16 +165,16 @@ public class MyProfileGUI extends JFrame implements ActionListener{
 						add(txtPhno);*/
 						
 						
-						btnSubmit =  new JButton("Submit");
+						btnSubmit =  new JButton(new ImageIcon(this.getClass().getResource("/image/save record button.png")));
 						if (osname.contains("Mac")){
-							btnSubmit.setBounds(510,550,120,30);
+							btnSubmit.setBounds(510,550,100,50);
 						}else{
-							btnSubmit.setBounds(510,550,100,30);
+							btnSubmit.setBounds(510,550,80,50);
 						}
 						//btnSubmit.setBounds(510,550,100,30);
 						btnSubmit.setOpaque(true);
 						btnSubmit.setBorderPainted(false);
-						btnSubmit.setFont(new Font("Britannic Bold", Font.PLAIN, 20));
+						
 						 /*Image img;
 							try {
 								img = ImageIO.read(getClass().getResource("/image/submit_icon.png"));
@@ -187,11 +187,10 @@ public class MyProfileGUI extends JFrame implements ActionListener{
 						add(btnSubmit);
 						btnSubmit.addActionListener(this);
 						
-						btnBack =  new JButton("Back");
-						btnBack.setBounds(350,550,100,30);
+						btnBack =  new JButton(new ImageIcon(this.getClass().getResource("/image/back2.png")));
+						btnBack.setBounds(350,550,100,50);
 						btnBack.setOpaque(true);
 						btnBack.setBorderPainted(false);
-						btnBack.setFont(new Font("Britannic Bold", Font.PLAIN, 20));
 						/*try {
 							img = ImageIO.read(getClass().getResource("/image/back.png"));
 							btnBack.setIcon(new ImageIcon(img));

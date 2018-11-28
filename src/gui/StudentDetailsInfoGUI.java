@@ -215,7 +215,7 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 
 		/*---------------------------------- Creating JLabel for Heading Text ------------------------------------------- */
 
-		Font f = new Font("Serif", Font.ITALIC | Font.BOLD, 25); // Creating
+		//Font f = new Font("Serif", Font.ITALIC | Font.BOLD, 25); // Creating
 																	// font
 																	// style and
 																	// size for
@@ -247,7 +247,8 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 		
 		JTabbedPane tp = new JTabbedPane();
 		tp.setBounds(100, 20, 800, 500);
-		
+		tp.setFont(FontClass.MuseoSans300(20));
+		tp.setForeground(Color.WHITE);
 		tp.add("Student Info", p1);
 		tp.add("Decoding", p2);
 		tp.add("Reading Rate", p3);
@@ -261,8 +262,8 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 		 * heading_lbl.setForeground(Color.red); heading_lbl.setFont(f);
 		 * heading_lbl.setFont(f); add(heading_lbl);
 		 */
-		btnBack = new JButton("Back");
-		btnBack.setBounds(0, 600, 150, 40);
+		btnBack = new JButton(new ImageIcon(this.getClass().getResource("/image/back.png")));
+		btnBack.setBounds(120, 530, 90, 40);
 		btnBack.setBackground(Color.WHITE);
 		btnBack.setOpaque(true);
 		btnBack.setBorderPainted(false);
@@ -271,8 +272,8 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 		getContentPane().add(btnBack);
 		btnBack.addActionListener(this);
 
-		btnExit = new JButton("Exit");
-		btnExit.setBounds(840, 600, 150, 40);
+		btnExit = new JButton(new ImageIcon(this.getClass().getResource("/image/Exit.png")));
+		btnExit.setBounds(800, 530, 80, 40);
 		btnExit.setBackground(Color.WHITE);
 		btnExit.setOpaque(true);
 		btnExit.setBorderPainted(false);
@@ -299,92 +300,97 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 
 	public JPanel createContactPanel1(StudentBean studBean) {
 
-		Font f1 = new Font("Serif", Font.BOLD, 20);
-		Font f3 = new Font("Serif", Font.BOLD, 15);
+		Font f1 = FontClass.MuseoSans500(15);
+		//f1.deriveFont(Font.PLAIN, 15);
+		
+		Font f3 = FontClass.MuseoSans500(15);
+		f3.deriveFont(Font.PLAIN, 15);
 
 		JPanel panelGeneral = new JPanel();
 		panelGeneral.setLayout(null); // new Color(107,5,37)
-		panelGeneral.setBackground(new Color(162,49,4));
+		panelGeneral.setBackground(new Color(242,242,242));
+		
+		
 
 		lblstudNo = new JLabel("Student Record Number");
-		lblstudNo.setBounds(20, 20, 250, 25);
-		lblstudNo.setForeground(Color.white);
+		lblstudNo.setBounds(180, 40, 250, 25);
+		//lblstudNo.setForeground(Color.white);
 		lblstudNo.setFont(f1);
 		panelGeneral.add(lblstudNo);
 
 		txtstudNo = new JTextField();
-		txtstudNo.setBounds(280, 20, 60, 25);
+		txtstudNo.setBounds(380, 40, 60, 25);
 		txtstudNo.setFont(f3);
 		txtstudNo.setEditable(false);
 		txtstudNo.setText(studBean.getId() + "");
 		panelGeneral.add(txtstudNo);
 
 		lblFirstName = new JLabel("First Name");
-		lblFirstName.setBounds(20, 60, 250, 25);
-		lblFirstName.setForeground(Color.white);
+		lblFirstName.setBounds(270, 80, 250, 25);
+		//lblFirstName.setForeground(Color.white);
 		lblFirstName.setFont(f1);
 		panelGeneral.add(lblFirstName);
 
 		txtFirstName = new JTextField();
-		txtFirstName.setBounds(150, 60, 200, 25);
+		txtFirstName.setBounds(380, 80, 200, 25);
 		txtFirstName.setText(studBean.getStudFirstName());
 		txtFirstName.setFont(f3);
 		panelGeneral.add(txtFirstName);
 
 		lblLastName = new JLabel("Last Name");
-		lblLastName.setBounds(20, 90, 250, 25);
-		lblLastName.setForeground(Color.white);
+		lblLastName.setBounds(270, 110, 250, 25);
+		//lblLastName.setForeground(Color.white);
 		lblLastName.setFont(f1);
 		panelGeneral.add(lblLastName);
 
 		txtLastName = new JTextField();
-		txtLastName.setBounds(150, 90, 200, 25);
+		txtLastName.setBounds(380, 110, 200, 25);
 		txtLastName.setText(studBean.getStudLastName());
 		txtLastName.setFont(f3);
 		panelGeneral.add(txtLastName);
 
 		lblGrade = new JLabel("Grade");
-		lblGrade.setBounds(20, 120, 250, 25);
-		lblGrade.setForeground(Color.white);
+		lblGrade.setBounds(300, 140, 250, 25);
+		//lblGrade.setForeground(Color.white);
 		lblGrade.setFont(f1);
 		panelGeneral.add(lblGrade);
 
 		txtGrade = new JTextField();
-		txtGrade.setBounds(100, 120, 60, 25);
+		txtGrade.setBounds(380, 140, 200, 25);
 		txtGrade.setText(studBean.getGrade() + "");
 		txtGrade.setFont(f3);
 		panelGeneral.add(txtGrade);
 
 		lblAge = new JLabel("Age");
-		lblAge.setBounds(20, 150, 250, 25);
-		lblAge.setForeground(Color.white);
+		lblAge.setBounds(315, 170, 250, 25);
+		//lblAge.setForeground(Color.white);
 		lblAge.setFont(f1);
 		panelGeneral.add(lblAge);
 
 		txtAge = new JTextField();
-		txtAge.setBounds(100, 150, 60, 25);
+		txtAge.setBounds(380, 170, 200, 25);
 		txtAge.setText(studBean.getAge());
 		txtAge.setFont(f3);
 		panelGeneral.add(txtAge);
 
 		lblteacher = new JLabel("Classroom Teacher");
-		lblteacher.setBounds(20, 180, 250, 25);
-		lblteacher.setForeground(Color.white);
+		lblteacher.setBounds(210, 200, 250, 25);
+		//lblteacher.setForeground(Color.white);
 		lblteacher.setFont(f1);
 		panelGeneral.add(lblteacher);
 
 		txtTeacher = new JTextField();
-		txtTeacher.setBounds(200, 180, 200, 25);
+		txtTeacher.setBounds(380, 200, 200, 25);
 		txtTeacher.setText(studBean.getTeacher());
 		txtTeacher.setFont(f3);
 		panelGeneral.add(txtTeacher);
 
-		btnUpdateStudInfo = new JButton("Update");
-		btnUpdateStudInfo.setBounds(200, 230, 200, 25);
+		btnUpdateStudInfo = new JButton(new ImageIcon(this.getClass().getResource("/image/update button.png")));
+		btnUpdateStudInfo.setBounds(300, 260, 130, 40);
 		btnUpdateStudInfo.setBackground(Color.white);
 		btnUpdateStudInfo.setOpaque(true);
 		btnUpdateStudInfo.setBorderPainted(false);
-		btnUpdateStudInfo.setFont(new Font("Britannic Bold", Font.PLAIN, 20));
+		//btnUpdateStudInfo.setFont(new Font("Britannic Bold", Font.PLAIN, 20));
 		btnUpdateStudInfo.addActionListener(this);
 		panelGeneral.add(btnUpdateStudInfo);
 
@@ -400,16 +406,18 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 
 	public JPanel createContactPanel2(StudentBean studBean) {
 
-		Font f1 = new Font("Serif", Font.BOLD, 20);
-		Font f3 = new Font("Serif", Font.BOLD, 15);
+		Font f1 = FontClass.MuseoSans500(20);
+		//f1.deriveFont(Font.PLAIN, 15);
+		
+		Font f3 = FontClass.MuseoSans500(15);
+		f3.deriveFont(Font.PLAIN, 15);
 
 		JPanel panelGeneral = new JPanel();
 		panelGeneral.setLayout(new GridLayout(3, 1)); // new Color(107,5,37)
-		panelGeneral.setBackground(new Color(162,49,4));
+		//panelGeneral.setBackground(new Color(162,49,4));
 
-		lblstudNo = new JLabel(studBean.getStudFirstName() + " " + studBean.getStudLastName());
+		lblstudNo = new JLabel("   "+studBean.getStudFirstName() + " " + studBean.getStudLastName());
 		lblstudNo.setBounds(20, 20, 250, 25);
-		lblstudNo.setForeground(Color.white);
 		lblstudNo.setFont(f1);
 
 		panelGeneral.add(lblstudNo);
@@ -419,7 +427,7 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 		jt = new JTable();
 		jt.setRowHeight(30);
 
-		jt.setFont(new Font("Times New Roman", Font.PLAIN, 13));
+		jt.setFont(f3);
 
 		// jt.setBounds(500,250,500,100);
 		jt.setModel(model);
@@ -527,7 +535,8 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 		}
 
 		JTableHeader header = jt.getTableHeader();
-		header.setBackground(Color.yellow);
+		header.setBackground(new Color(44,85,106));
+		header.setForeground(Color.white);
 
 		JScrollPane scroller = new JScrollPane(jt, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -536,7 +545,7 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 
 		JPanel panelCreditCard = new JPanel(new FlowLayout());
 		// panelCreditCard.setLayout(null);
-		panelCreditCard.setBackground(new Color(162,49,4));
+		//panelCreditCard.setBackground(new Color(162,49,4));
 		// panelCreditCard.setBorder(new TitledBorder("Payment method"));
 
 		/*
@@ -546,27 +555,27 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 		 * panelCreditCard.add(heading_lbl);
 		 */
 
-		btnAddDecoding = new JButton("Add Record");
+		btnAddDecoding = new JButton(new ImageIcon(this.getClass().getResource("/image/add record button.png")));
 		btnAddDecoding.setBounds(10, 10, 200, 25);
-		btnAddDecoding.setBackground(Color.white);
+		btnAddDecoding.setBackground(new Color(242,242,242));
 		btnAddDecoding.setOpaque(true);
 		btnAddDecoding.setBorderPainted(false);
-		btnAddDecoding.setFont(new Font("Britannic Bold", Font.PLAIN, 20));
+		//btnAddDecoding.setFont(new Font("Britannic Bold", Font.PLAIN, 20));
 		btnAddDecoding.addActionListener(this);
 		panelCreditCard.add(btnAddDecoding);
 
-		btnSaveDecoding = new JButton("Save Record");
+		btnSaveDecoding = new JButton(new ImageIcon(this.getClass().getResource("/image/save record button.png")));
 		btnSaveDecoding.setBounds(250, 10, 200, 25);
-		btnSaveDecoding.setBackground(Color.white);
+		btnSaveDecoding.setBackground(new Color(242,242,242));
 		btnSaveDecoding.setOpaque(true);
 		btnSaveDecoding.setBorderPainted(false);
 		btnSaveDecoding.setFont(new Font("Britannic Bold", Font.PLAIN, 20));
 		btnSaveDecoding.addActionListener(this);
 		panelCreditCard.add(btnSaveDecoding);
 
-		btnPloatDecoding = new JButton("Plot Data");
+		btnPloatDecoding = new JButton(new ImageIcon(this.getClass().getResource("/image/plot data button.png")));
 		btnPloatDecoding.setBounds(250, 10, 200, 25);
-		btnPloatDecoding.setBackground(Color.white);
+		btnPloatDecoding.setBackground(new Color(242,242,242));
 		btnPloatDecoding.setOpaque(true);
 		btnPloatDecoding.setBorderPainted(false);
 		btnPloatDecoding.setFont(new Font("Britannic Bold", Font.PLAIN, 20));
@@ -592,16 +601,18 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 
 	public JPanel createContactPanel3(StudentBean studBean) {
 
-		Font f1 = new Font("Serif", Font.BOLD, 20);
-		Font f3 = new Font("Serif", Font.BOLD, 15);
+		Font f1 = FontClass.MuseoSans500(20);
+		//f1.deriveFont(Font.PLAIN, 15);
+		
+		Font f3 = FontClass.MuseoSans500(15);
+		f3.deriveFont(Font.PLAIN, 15);
 
 		JPanel panelGeneral = new JPanel();
 		panelGeneral.setLayout(new GridLayout(3, 1)); // new Color(107,5,37)
-		panelGeneral.setBackground(new Color(162,49,4));
+		panelGeneral.setBackground(new Color(242,242,242));
 
-		lblstudNo = new JLabel(studBean.getStudFirstName() + " " + studBean.getStudLastName());
+		lblstudNo = new JLabel("   "+studBean.getStudFirstName() + " " + studBean.getStudLastName());
 		lblstudNo.setBounds(20, 20, 250, 25);
-		lblstudNo.setForeground(Color.white);
 		lblstudNo.setFont(f1);
 
 		panelGeneral.add(lblstudNo);
@@ -611,7 +622,7 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 		jtRate = new JTable();
 		jtRate.setRowHeight(30);
 
-		jtRate.setFont(new Font("Times New Roman", Font.PLAIN, 13));
+		jtRate.setFont(f3);
 
 		jtRate.setModel(modelRate);
 		modelRate.addColumn("Record");
@@ -697,42 +708,39 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 		}
 
 		JTableHeader header = jtRate.getTableHeader();
-		header.setBackground(Color.yellow);
+		header.setBackground(new Color(44,85,106));
+		header.setForeground(Color.white);
 
 		JScrollPane scroller = new JScrollPane(jtRate, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		//tRate.add(scroller);
 		panelGeneral.add(scroller);
 
 		JPanel panelCreditCard = new JPanel(new FlowLayout());
 		// panelCreditCard.setLayout(null);
-		panelCreditCard.setBackground(new Color(162,49,4));
+		panelCreditCard.setBackground(new Color(242,242,242));
 		// panelCreditCard.setBorder(new TitledBorder("Payment method"));
 
-		btnAddRate = new JButton("Add Record");
+		btnAddRate = new JButton(new ImageIcon(this.getClass().getResource("/image/add record button.png")));
 		btnAddRate.setBounds(10, 10, 200, 25);
-		btnAddRate.setBackground(Color.white);
+		btnAddRate.setBackground(new Color(242,242,242));
 		btnAddRate.setOpaque(true);
 		btnAddRate.setBorderPainted(false);
-		btnAddRate.setFont(new Font("Britannic Bold", Font.PLAIN, 20));
 		btnAddRate.addActionListener(this);
 		panelCreditCard.add(btnAddRate);
 
-		btnSaveRate = new JButton("Save Record");
+		btnSaveRate = new JButton(new ImageIcon(this.getClass().getResource("/image/save record button.png")));
 		btnSaveRate.setBounds(250, 10, 200, 25);
-		btnSaveRate.setBackground(Color.white);
+		btnSaveRate.setBackground(new Color(242,242,242));
 		btnSaveRate.setOpaque(true);
 		btnSaveRate.setBorderPainted(false);
-		btnSaveRate.setFont(new Font("Britannic Bold", Font.PLAIN, 20));
 		btnSaveRate.addActionListener(this);
 		panelCreditCard.add(btnSaveRate);
 
-		btnPloatRate = new JButton("Plot Data");
+		btnPloatRate = new JButton(new ImageIcon(this.getClass().getResource("/image/plot data button.png")));
 		btnPloatRate.setBounds(250, 10, 200, 25);
-		btnPloatRate.setBackground(Color.white);
+		btnPloatRate.setBackground(new Color(242,242,242));
 		btnPloatRate.setOpaque(true);
 		btnPloatRate.setBorderPainted(false);
-		btnPloatRate.setFont(new Font("Britannic Bold", Font.PLAIN, 20));
 		btnPloatRate.addActionListener(this);
 		panelCreditCard.add(btnPloatRate);
 
