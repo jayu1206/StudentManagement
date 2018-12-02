@@ -57,11 +57,11 @@ public class DecodePlotGUI extends JFrame implements ActionListener{
         this.bean = studdata;
 		
 		setLayout(new BorderLayout());
-		setContentPane(new JLabel(new ImageIcon(this.getClass().getResource("/image/blue.jpg"))));
+		setContentPane(new JLabel(new ImageIcon(this.getClass().getResource("/image/sky.png"))));
 		setLayout(null);
 		
 		JMenuBar mb=new JMenuBar();
-		mb.setBackground(new Color(225,39,38));
+		mb.setBackground(new Color(193,39, 35));
 		mb.add(Box.createRigidArea(new Dimension(10,40)));
 
 		String osname = System.getProperty("os.name");
@@ -116,13 +116,9 @@ public class DecodePlotGUI extends JFrame implements ActionListener{
 	        setJMenuBar(mb);
 			
 		}else{
-			Font f2=new Font("Serif",Font.BOLD,20);
-			
-			btnMmyProfile = new JButton("My Profile");
+			btnMmyProfile = new JButton(new ImageIcon(this.getClass().getResource("/image/my profile.png")));
 			btnMmyProfile.addActionListener(this);
-			btnMmyProfile.setBackground(new Color(225,39,38));
-			btnMmyProfile.setForeground(Color.white);
-			btnMmyProfile.setFont(f2);
+			btnMmyProfile.setBackground(new Color(193,39,35));
 			btnMmyProfile.setBorder(null);
 			btnMmyProfile.setBorderPainted(false);
 			btnMmyProfile.setOpaque(true);
@@ -130,46 +126,37 @@ public class DecodePlotGUI extends JFrame implements ActionListener{
 			setJMenuBar(mb);
 			
 			
-			btnMgroup = new JButton("Groups");
+			btnMgroup = new JButton(new ImageIcon(this.getClass().getResource("/image/groups.png")));
 			btnMgroup.addActionListener(this);
-			btnMgroup.setBackground(new Color(225,39,38));
-			btnMgroup.setForeground(Color.white);
-			btnMgroup.setFont(f2);
+			btnMgroup.setBackground(new Color(193,39,35));
 			btnMgroup.setBorderPainted(false);
-			btnMgroup.setOpaque(true);
 			mb.add(btnMgroup); 
 			
 	        setJMenuBar(mb);
 	       
-			
-			btnMstudents = new JButton("Student");
+	        
+			btnMstudents = new JButton(new ImageIcon(this.getClass().getResource("/image/student.png")));
 			btnMstudents.addActionListener(this);
-			btnMstudents.setBackground(new Color(225,39,38));
-			btnMstudents.setForeground(Color.white);
-			btnMstudents.setFont(f2);
+			btnMstudents.setBackground(new Color(193,39,35));
 			btnMstudents.setBorderPainted(false);
-			btnMstudents.setOpaque(true);
+			//btnMstudents.setOpaque(true);
 			mb.add(btnMstudents);  
 	        setJMenuBar(mb);
 			
 
-			
-			btnMImportExport = new JButton("Import / Export");
+	        
+			btnMImportExport = new JButton(new ImageIcon(this.getClass().getResource("/image/import export.png")));
 			btnMImportExport.addActionListener(this);
-			btnMImportExport.setBackground(new Color(225,39,38));
-			btnMImportExport.setForeground(Color.white);
-			btnMImportExport.setFont(f2);
+			btnMImportExport.setBackground(new Color(193,39,35));
 			btnMImportExport.setBorderPainted(false);
-			btnMImportExport.setOpaque(true);
 			mb.add(btnMImportExport);  
 	        setJMenuBar(mb);
 	        
-	        btnMLogout = new JButton("Logout");
+	        
+	        mb.add(Box.createHorizontalGlue());
+	        btnMLogout = new JButton(new ImageIcon(this.getClass().getResource("/image/logout.png")));
 	        btnMLogout.addActionListener(this);
-	        btnMLogout.setBackground(new Color(225,39,38));
-	        btnMLogout.setForeground(Color.white);
-	        btnMLogout.setFont(f2);
-	        btnMLogout.setOpaque(true);
+	        btnMLogout.setBackground(new Color(193,39,35));
 	        btnMLogout.setBorderPainted(false);
 			mb.add(btnMLogout);  
 			
@@ -183,25 +170,23 @@ public class DecodePlotGUI extends JFrame implements ActionListener{
 		
 		 /*---------------------------------- Creating JLabel for Heading Text ------------------------------------------- */
 		 
-		Font f=new Font("Serif", Font.ITALIC | Font.BOLD, 25);   // Creating font style and size for heading
+		Font f=FontClass.MuseoSans700Italic(30);   // Creating font style and size for heading
 
 		// step 3 : creating JLabel for Heading
 				JLabel heading_lbl=new JLabel("Decoding Data Plot Option");
 				heading_lbl.setBounds(350,15,1000,50);
-				heading_lbl.setForeground(Color.white);
 				heading_lbl.setFont(f);
 				add(heading_lbl);
 				
 				
-				Font f1=new Font("Serif",Font.BOLD,30);
-				Font f2=new Font("Serif",Font.BOLD,20);
+				Font f1=FontClass.MuseoSans500(25);
+				Font f2=FontClass.MuseoSans500(20);
 				
 				
 			
 				
 					lblstudent = new JLabel("Class");
 					lblstudent.setBounds(200,120,80,30); 
-					lblstudent.setForeground(Color.white);
 					lblstudent.setFont(f1);
 					add(lblstudent);
 					
@@ -214,7 +199,6 @@ public class DecodePlotGUI extends JFrame implements ActionListener{
 					
 					lblDataRange = new JLabel("Data Range");
 					lblDataRange.setBounds(200,180,300,40); 
-					lblDataRange.setForeground(Color.white);
 					lblDataRange.setFont(f1);
 					add(lblDataRange);
 					
@@ -225,15 +209,13 @@ public class DecodePlotGUI extends JFrame implements ActionListener{
 			      //  weekRadio.setSelected(true);
 			        
 			        allRadio.setBounds(250,250,150,40); 
-			        allRadio.setBackground(new Color(0,57,166));
-			        allRadio.setForeground(Color.white);
+			        allRadio.setBackground(new Color(242,242,242));
 			        allRadio.setFont(f2);
 					add(allRadio);
 					allRadio.addActionListener(this);
 					
 					weekRadio.setBounds(250,310,150,40); 
-					weekRadio.setBackground(new Color(0,57,166));
-					weekRadio.setForeground(Color.white);
+					weekRadio.setBackground(new Color(242,242,242));
 					weekRadio.setFont(f2);
 					add(weekRadio);
 					weekRadio.addActionListener(this);
@@ -252,7 +234,6 @@ public class DecodePlotGUI extends JFrame implements ActionListener{
 							lblthrough.setBounds(600,305,100,40); 
 						}
 					
-					lblthrough.setForeground(Color.white);
 					lblthrough.setFont(f1);
 					add(lblthrough);
 					
@@ -265,7 +246,6 @@ public class DecodePlotGUI extends JFrame implements ActionListener{
 					
 					lblPlot = new JLabel("Plot");
 					lblPlot.setBounds(200,390,300,40); 
-					lblPlot.setForeground(Color.white);
 					lblPlot.setFont(f1);
 					//add(lblPlot);
 					
@@ -274,8 +254,7 @@ public class DecodePlotGUI extends JFrame implements ActionListener{
 					bG2.add(studDataClsAvgRadio);
 					
 					indiStudDataRadio.setBounds(250,450,250,40); 
-					indiStudDataRadio.setBackground(new Color(0,57,166));
-					indiStudDataRadio.setForeground(Color.white);
+					indiStudDataRadio.setBackground(new Color(242,242,242));
 					indiStudDataRadio.setFont(f2);
 					indiStudDataRadio.setSelected(true);
 					//add(indiStudDataRadio);
@@ -288,8 +267,8 @@ public class DecodePlotGUI extends JFrame implements ActionListener{
 					
 					
 					
-					btnBack = new JButton("Back");
-			         btnBack.setBounds(0,600,150,40);
+					 btnBack = new JButton(new ImageIcon(this.getClass().getResource("/image/back.png")));
+			         btnBack.setBounds(0,600,120,40);
 			         btnBack.setBackground(Color.WHITE);
 			         btnBack.setOpaque(true);
 			         btnBack.setBorderPainted(false);
@@ -298,12 +277,11 @@ public class DecodePlotGUI extends JFrame implements ActionListener{
 			         btnBack.addActionListener(this);
 			         
 			         
-			         btnContinue = new JButton("Continue");
-			         btnContinue.setBounds(840,600,150,40);
+			         btnContinue = new JButton(new ImageIcon(this.getClass().getResource("/image/arrow right.png")));
+			         btnContinue.setBounds(880,600,120,40);
 			         btnContinue.setBackground(Color.WHITE);
 			         btnContinue.setOpaque(true);
 			         btnContinue.setBorderPainted(false);
-			         btnContinue.setFont(new Font("Britannic Bold", Font.PLAIN, 15));
 			         add(btnContinue);
 			         btnContinue.addActionListener(this);
 					

@@ -139,11 +139,11 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 		this.className = className;
 
 		setLayout(new java.awt.BorderLayout());
-		setContentPane(new JLabel(new ImageIcon(getClass().getResource("/image/blue.jpg"))));
+		setContentPane(new JLabel(new ImageIcon(getClass().getResource("/image/sky.png"))));
 		setLayout(null);
 
 		JMenuBar mb = new JMenuBar();
-		mb.setBackground(new Color(225,39,38));
+		mb.setBackground(new Color(193,39, 35));
 		mb.add(Box.createRigidArea(new Dimension(10, 40)));
 
 		
@@ -198,13 +198,9 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 	        setJMenuBar(mb);
 			
 		}else{
-			Font f2=new Font("Serif",Font.BOLD,20);
-			
-			btnMmyProfile = new JButton("My Profile");
+			btnMmyProfile = new JButton(new ImageIcon(this.getClass().getResource("/image/my profile.png")));
 			btnMmyProfile.addActionListener(this);
-			btnMmyProfile.setBackground(new Color(225,39,38));
-			btnMmyProfile.setForeground(Color.white);
-			btnMmyProfile.setFont(f2);
+			btnMmyProfile.setBackground(new Color(193,39,35));
 			btnMmyProfile.setBorder(null);
 			btnMmyProfile.setBorderPainted(false);
 			btnMmyProfile.setOpaque(true);
@@ -212,46 +208,37 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 			setJMenuBar(mb);
 			
 			
-			btnMgroup = new JButton("Groups");
+			btnMgroup = new JButton(new ImageIcon(this.getClass().getResource("/image/groups.png")));
 			btnMgroup.addActionListener(this);
-			btnMgroup.setBackground(new Color(225,39,38));
-			btnMgroup.setForeground(Color.white);
-			btnMgroup.setFont(f2);
+			btnMgroup.setBackground(new Color(193,39,35));
 			btnMgroup.setBorderPainted(false);
-			btnMgroup.setOpaque(true);
 			mb.add(btnMgroup); 
 			
 	        setJMenuBar(mb);
 	       
-			
-			btnMstudents = new JButton("Student");
+	        
+			btnMstudents = new JButton(new ImageIcon(this.getClass().getResource("/image/student.png")));
 			btnMstudents.addActionListener(this);
-			btnMstudents.setBackground(new Color(225,39,38));
-			btnMstudents.setForeground(Color.white);
-			btnMstudents.setFont(f2);
+			btnMstudents.setBackground(new Color(193,39,35));
 			btnMstudents.setBorderPainted(false);
-			btnMstudents.setOpaque(true);
+			//btnMstudents.setOpaque(true);
 			mb.add(btnMstudents);  
 	        setJMenuBar(mb);
 			
 
-			
-			btnMImportExport = new JButton("Import / Export");
+	        
+			btnMImportExport = new JButton(new ImageIcon(this.getClass().getResource("/image/import export.png")));
 			btnMImportExport.addActionListener(this);
-			btnMImportExport.setBackground(new Color(225,39,38));
-			btnMImportExport.setForeground(Color.white);
-			btnMImportExport.setFont(f2);
+			btnMImportExport.setBackground(new Color(193,39,35));
 			btnMImportExport.setBorderPainted(false);
-			btnMImportExport.setOpaque(true);
 			mb.add(btnMImportExport);  
 	        setJMenuBar(mb);
 	        
-	        btnMLogout = new JButton("Logout");
+	        
+	        mb.add(Box.createHorizontalGlue());
+	        btnMLogout = new JButton(new ImageIcon(this.getClass().getResource("/image/logout.png")));
 	        btnMLogout.addActionListener(this);
-	        btnMLogout.setBackground(new Color(225,39,38));
-	        btnMLogout.setForeground(Color.white);
-	        btnMLogout.setFont(f2);
-	        btnMLogout.setOpaque(true);
+	        btnMLogout.setBackground(new Color(193,39,35));
 	        btnMLogout.setBorderPainted(false);
 			mb.add(btnMLogout);  
 			
@@ -263,19 +250,24 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 		setPreferredSize(new java.awt.Dimension(1000, 800));
 		setLocationRelativeTo(null);
 
-		Font f = new java.awt.Font("Serif", 3, 25);
+		Font f=FontClass.MuseoSans700Italic(25);
+		Font f1=FontClass.MuseoSans500(25);
+		Font f2=FontClass.MuseoSans500(20);
 
-		JLabel heading_lbl = new JLabel("Take Flight Decoding and Reading Rate Process Data Manager");
-		heading_lbl.setBounds(180, 15, 1000, 50);
-		heading_lbl.setForeground(Color.white);
+		JLabel heading_lbl=new JLabel("Take Flight Decoding and Reading Rate ");
+		heading_lbl.setBounds(290,15,600,30);
+		heading_lbl.setFont(f);
+		add(heading_lbl);
+		
+		heading_lbl=new JLabel("Process Data Manager");
+		heading_lbl.setBounds(350,40,600,30);
 		heading_lbl.setFont(f);
 		add(heading_lbl);
 
 		lblImport = new JLabel("Import");
 		lblImport.setBounds(200, 120, 110, 40);
-		lblImport.setFont(f);
+		lblImport.setFont(f1);
 		getForeground();
-		lblImport.setForeground(Color.white);
 		add(lblImport);
 
 		r1 = new javax.swing.JRadioButton("Group");
@@ -285,12 +277,10 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 		r1.addActionListener(this);
 		r2.addActionListener(this);
 		bg = new javax.swing.ButtonGroup();
-		r1.setFont(f);
-		r2.setFont(f);
-		r1.setForeground(Color.white);
-		r2.setForeground(Color.white);
-		r1.setBackground(new Color(0,57,166));
-		r2.setBackground(new Color(0,57,166));
+		r1.setFont(f2);
+		r2.setFont(f2);
+		r1.setBackground(new Color(242,242,242));
+		r2.setBackground(new Color(242,242,242));
 		bg.add(r1);
 		bg.add(r2);
 		add(r1);
@@ -316,16 +306,14 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 		
 		lblImportGFile = new JLabel("Import File :");
 		lblImportGFile.setBounds(400, 150, 150, 60);
-		lblImportGFile.setFont(f);
+		lblImportGFile.setFont(f1);
 		getForeground();
-		lblImportGFile.setForeground(Color.white);
 		add(lblImportGFile);
 
 		lblNewStudGroup = new JLabel("New Student Group :");
 		lblNewStudGroup.setBounds(400, 240, 250, 60);
-		lblNewStudGroup.setFont(f);
+		lblNewStudGroup.setFont(f1);
 		getForeground();
-		lblNewStudGroup.setForeground(Color.white);
 		add(lblNewStudGroup);
 
 		txtImportFilePath = new JTextField();
@@ -338,7 +326,6 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 
 		btn3 = new JButton("File");
 		btn3.setBounds(700, 170, 50, 30);
-		btn3.setBackground(Color.WHITE);
 		btn3.setOpaque(true);
 		btn3.setBorderPainted(false);
 		btn3.setFont(new java.awt.Font("Britannic Bold", 0, 15));
@@ -435,7 +422,7 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 		btnImport.setBackground(Color.WHITE);
 		btnImport.setOpaque(true);
 		btnImport.setBorderPainted(false);
-		btnImport.setFont(new Font("Britannic Bold", 0, 15));
+		btnImport.setFont(FontClass.MuseoSans900(15));
 		add(btnImport);
 		getContentPane().add(btnImport);
 		btnImport.addActionListener(this);
@@ -445,7 +432,7 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 		btnSample.setBackground(Color.WHITE);
 		btnSample.setOpaque(true);
 		btnSample.setBorderPainted(false);
-		btnSample.setFont(new Font("Britannic Bold", 0, 15));
+		btnSample.setFont(FontClass.MuseoSans900(15));
 		add(btnSample);
 		getContentPane().add(btnSample);
 		btnSample.addActionListener(this);
@@ -455,37 +442,33 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 		btnExport.setBackground(Color.WHITE);
 		btnExport.setOpaque(true);
 		btnExport.setBorderPainted(false);
-		btnExport.setFont(new Font("Britannic Bold", 0, 15));
+		btnExport.setFont(FontClass.MuseoSans900(15));
 		add(btnExport);
 		getContentPane().add(btnExport);
 		btnExport.addActionListener(this);
 
 		lblExport = new JLabel("Export");
 		lblExport.setBounds(200, 370, 110, 40);
-		lblExport.setFont(f);
+		lblExport.setFont(f1);
 		getForeground();
-		lblExport.setForeground(Color.white);
 		add(lblExport);
 
 		lblGroup = new JLabel("Group");
 		lblGroup.setBounds(250, 410, 110, 40);
-		lblGroup.setFont(f);
+		lblGroup.setFont(f2);
 		getForeground();
-		lblGroup.setForeground(Color.white);
 		add(lblGroup);
 
 		lblStudent = new JLabel("Student");
 		lblStudent.setBounds(250, 450, 110, 40);
-		lblStudent.setFont(f);
+		lblStudent.setFont(f2);
 		getForeground();
-		lblStudent.setForeground(Color.white);
 		add(lblStudent);
 
 		lblExportGFile = new JLabel("Export File :");
 		lblExportGFile.setBounds(550, 400, 150, 60);
-		lblExportGFile.setFont(f);
+		lblExportGFile.setFont(f2);
 		getForeground();
-		lblExportGFile.setForeground(Color.white);
 		add(lblExportGFile);
 
 		btn1 = new JButton("File");
@@ -493,27 +476,35 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 		btn1.setBackground(Color.WHITE);
 		btn1.setOpaque(true);
 		btn1.setBorderPainted(false);
-		btn1.setFont(new Font("Britannic Bold", 0, 15));
+		btn1.setFont(FontClass.MuseoSans900(15));
 		add(btn1);
 		getContentPane().add(btn1);
 		btn1.addActionListener(this);
 
-		btnBack = new JButton("Back");
+      /*   btnExit = new JButton(new ImageIcon(this.getClass().getResource("/image/Exit2.png")));
+         btnExit.setBounds(880,600,120,40);
+         btnExit.setBackground(Color.WHITE);
+         btnExit.setOpaque(true);
+         btnExit.setBorderPainted(false);
+         add(btnExit);
+         getContentPane().add(btnExit);
+         btnExit.addActionListener(this);*/
+         
+         
+		btnBack = new JButton(new ImageIcon(this.getClass().getResource("/image/back.png")));
 		btnBack.setBounds(0, 600, 150, 40);
 		btnBack.setBackground(Color.WHITE);
 		btnBack.setOpaque(true);
 		btnBack.setBorderPainted(false);
-		btnBack.setFont(new Font("Britannic Bold", 0, 15));
 		add(btnBack);
 		getContentPane().add(btnBack);
 		btnBack.addActionListener(this);
 
-		btnExit = new JButton("Exit");
-		btnExit.setBounds(840, 600, 150, 40);
+		btnExit = new JButton(new ImageIcon(this.getClass().getResource("/image/Exit2.png")));
+		btnExit.setBounds(880,600,120,40);
 		btnExit.setBackground(Color.WHITE);
 		btnExit.setOpaque(true);
 		btnExit.setBorderPainted(false);
-		btnExit.setFont(new java.awt.Font("Britannic Bold", 0, 15));
 		add(btnExit);
 		getContentPane().add(btnExit);
 		btnExit.addActionListener(this);

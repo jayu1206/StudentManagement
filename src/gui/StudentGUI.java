@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -38,6 +39,7 @@ import javax.swing.plaf.basic.BasicTableUI.MouseInputHandler;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
@@ -48,7 +50,7 @@ import abstrac.StudentDAO;
 import bean.GroupBean;
 import bean.StudentBean;
 
-public class StudentGUI extends JFrame implements ActionListener {
+public class StudentGUI extends JFrame implements ActionListener{
 	
 	DefaultTableModel model ;
 	JTable jt;
@@ -354,7 +356,6 @@ public class StudentGUI extends JFrame implements ActionListener {
 				         btnBack.setBackground(Color.WHITE);
 				         btnBack.setOpaque(true);
 				         btnBack.setBorderPainted(false);
-				         btnBack.setFont(new Font("Britannic Bold", Font.PLAIN, 15));
 				         add(btnBack);
 				         getContentPane().add(btnBack);
 				         btnBack.addActionListener(this);
@@ -365,7 +366,6 @@ public class StudentGUI extends JFrame implements ActionListener {
 				         btnExit.setBackground(Color.WHITE);
 				         btnExit.setOpaque(true);
 				         btnExit.setBorderPainted(false);
-				         btnExit.setFont(new Font("Britannic Bold", Font.PLAIN, 15));
 				         add(btnExit);
 				         getContentPane().add(btnExit);
 				         btnExit.addActionListener(this);
@@ -503,4 +503,5 @@ public class StudentGUI extends JFrame implements ActionListener {
 		new StudentGUI("","");
 		
 	}
+	
 }

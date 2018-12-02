@@ -25,6 +25,9 @@ import java.util.regex.Pattern;
 
 
 
+
+
+
 import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -83,11 +86,11 @@ public class StudentAddGui extends JFrame implements ActionListener {
 		
 		
 		setLayout(new BorderLayout());
-		setContentPane(new JLabel(new ImageIcon(this.getClass().getResource("/image/blue.jpg"))));
+		setContentPane(new JLabel(new ImageIcon(this.getClass().getResource("/image/sky.png"))));
 		setLayout(null);
 		
 		JMenuBar mb=new JMenuBar();
-		mb.setBackground(new Color(225,39,38));
+		mb.setBackground(new Color(193,39, 35));
 		mb.add(Box.createRigidArea(new Dimension(10,40)));
 
 		
@@ -143,13 +146,9 @@ public class StudentAddGui extends JFrame implements ActionListener {
 	        setJMenuBar(mb);
 			
 		}else{
-			Font f2=new Font("Serif",Font.BOLD,20);
-			
-			btnMmyProfile = new JButton("My Profile");
+			btnMmyProfile = new JButton(new ImageIcon(this.getClass().getResource("/image/my profile.png")));
 			btnMmyProfile.addActionListener(this);
-			btnMmyProfile.setBackground(new Color(225,39,38));
-			btnMmyProfile.setForeground(Color.white);
-			btnMmyProfile.setFont(f2);
+			btnMmyProfile.setBackground(new Color(193,39,35));
 			btnMmyProfile.setBorder(null);
 			btnMmyProfile.setBorderPainted(false);
 			btnMmyProfile.setOpaque(true);
@@ -157,46 +156,37 @@ public class StudentAddGui extends JFrame implements ActionListener {
 			setJMenuBar(mb);
 			
 			
-			btnMgroup = new JButton("Groups");
+			btnMgroup = new JButton(new ImageIcon(this.getClass().getResource("/image/groups.png")));
 			btnMgroup.addActionListener(this);
-			btnMgroup.setBackground(new Color(225,39,38));
-			btnMgroup.setForeground(Color.white);
-			btnMgroup.setFont(f2);
+			btnMgroup.setBackground(new Color(193,39,35));
 			btnMgroup.setBorderPainted(false);
-			btnMgroup.setOpaque(true);
 			mb.add(btnMgroup); 
 			
 	        setJMenuBar(mb);
 	       
-			
-			btnMstudents = new JButton("Student");
+	        
+			btnMstudents = new JButton(new ImageIcon(this.getClass().getResource("/image/student.png")));
 			btnMstudents.addActionListener(this);
-			btnMstudents.setBackground(new Color(225,39,38));
-			btnMstudents.setForeground(Color.white);
-			btnMstudents.setFont(f2);
+			btnMstudents.setBackground(new Color(193,39,35));
 			btnMstudents.setBorderPainted(false);
-			btnMstudents.setOpaque(true);
+			//btnMstudents.setOpaque(true);
 			mb.add(btnMstudents);  
 	        setJMenuBar(mb);
 			
 
-			
-			btnMImportExport = new JButton("Import / Export");
+	        
+			btnMImportExport = new JButton(new ImageIcon(this.getClass().getResource("/image/import export.png")));
 			btnMImportExport.addActionListener(this);
-			btnMImportExport.setBackground(new Color(225,39,38));
-			btnMImportExport.setForeground(Color.white);
-			btnMImportExport.setFont(f2);
+			btnMImportExport.setBackground(new Color(193,39,35));
 			btnMImportExport.setBorderPainted(false);
-			btnMImportExport.setOpaque(true);
 			mb.add(btnMImportExport);  
 	        setJMenuBar(mb);
 	        
-	        btnMLogout = new JButton("Logout");
+	        
+	        mb.add(Box.createHorizontalGlue());
+	        btnMLogout = new JButton(new ImageIcon(this.getClass().getResource("/image/logout.png")));
 	        btnMLogout.addActionListener(this);
-	        btnMLogout.setBackground(new Color(225,39,38));
-	        btnMLogout.setForeground(Color.white);
-	        btnMLogout.setFont(f2);
-	        btnMLogout.setOpaque(true);
+	        btnMLogout.setBackground(new Color(193,39,35));
 	        btnMLogout.setBorderPainted(false);
 			mb.add(btnMLogout);  
 			
@@ -205,31 +195,30 @@ public class StudentAddGui extends JFrame implements ActionListener {
 		}
 		
         
-		setPreferredSize(new Dimension(1000, 800));
+		/*setPreferredSize(new Dimension(1000, 800));
 		setLocationRelativeTo(null);
 		
 		
-		Container c=getContentPane();  
-		Font f=new Font("Serif", Font.ITALIC | Font.BOLD, 20);   // Creating font style and size for heading
+		Container c=getContentPane();  */
+		
+		Font f=FontClass.MuseoSans700Italic(30);   // Creating font style and size for heading
 		
 		// step 3 : creating JLabel for Heading
-		JLabel heading_lbl=new JLabel();
-		heading_lbl.setBounds(300,15,500,40);
-		heading_lbl.setText("<html><font color=white size=8><u><b>Provide Student details</b></u></html>");
+		JLabel heading_lbl=new JLabel("Provide Student details");
+		heading_lbl.setBounds(320,15,500,40);
 		heading_lbl.setFont(f);
 		
 		add(heading_lbl);
 		
 		
-		Font f1=new Font("Serif",Font.BOLD,30);
-		Font f2=new Font("Serif",Font.BOLD,20);
+		Font f1=FontClass.MuseoSans500(25);
+		Font f2=FontClass.MuseoSans500(20);
 		
 		
 	
 		
 			lblGroup = new JLabel("Class");
 			lblGroup.setBounds(280,90,80,30); 
-			lblGroup.setForeground(Color.white);
 			lblGroup.setFont(f1);
 			add(lblGroup);
 			
@@ -260,7 +249,6 @@ public class StudentAddGui extends JFrame implements ActionListener {
 			
 		 	lblFirstname = new JLabel("Name");
 		 	lblFirstname.setBounds(280,170,80,30); 
-		 	lblFirstname.setForeground(Color.white);
 		 	lblFirstname.setFont(f1);
 			add(lblFirstname);
 			
@@ -277,14 +265,12 @@ public class StudentAddGui extends JFrame implements ActionListener {
 			
 			JLabel labelFs=new JLabel("First Name");
 			labelFs.setBounds(505,200,200,30); 
-			labelFs.setFont(new Font("Serif",Font.PLAIN,15));
-			labelFs.setForeground(Color.white);
+			labelFs.setFont(FontClass.MuseoSans500(15));
 			add(labelFs);
 			
 			labelFs=new JLabel("Last Name");
 			labelFs.setBounds(705,200,200,30); 
-			labelFs.setFont(new Font("Serif",Font.PLAIN,15));
-			labelFs.setForeground(Color.white);
+			labelFs.setFont(FontClass.MuseoSans500(15));
 			add(labelFs);
 			
 			lblgrade = new JLabel("Grade");
@@ -294,7 +280,6 @@ public class StudentAddGui extends JFrame implements ActionListener {
 					lblgrade.setBounds(280,250,80,30); 
 				}
 			
-			lblgrade.setForeground(Color.white);
 			lblgrade.setFont(f1);
 			add(lblgrade);
 			
@@ -305,7 +290,6 @@ public class StudentAddGui extends JFrame implements ActionListener {
 			
 			lbldob = new JLabel("Date of birth");
 			lbldob.setBounds(280,330,200,30); 
-			lbldob.setForeground(Color.white);
 			lbldob.setFont(f1);
 			add(lbldob);
 			
@@ -337,7 +321,6 @@ public class StudentAddGui extends JFrame implements ActionListener {
 			
 			lblstdate = new JLabel("Start Date");
 			lblstdate.setBounds(280,410,200,30); 
-			lblstdate.setForeground(Color.white);
 			lblstdate.setFont(f1);
 			add(lblstdate);
 			
@@ -366,7 +349,6 @@ public class StudentAddGui extends JFrame implements ActionListener {
 			
 			lblteacher = new JLabel("Teacher");
 			lblteacher.setBounds(280,490,200,30); 
-			lblteacher.setForeground(Color.white);
 			lblteacher.setFont(f1);
 			add(lblteacher);
 			
@@ -380,7 +362,6 @@ public class StudentAddGui extends JFrame implements ActionListener {
 			
 			lblage = new JLabel("Age");
 			lblage.setBounds(280,570,200,30); 
-			lblage.setForeground(Color.white);
 			lblage.setFont(f1);
 			add(lblage);
 			
@@ -391,16 +372,14 @@ public class StudentAddGui extends JFrame implements ActionListener {
 			
 			lblAegEg=new JLabel("(eg : 7-9)");
 			lblAegEg.setBounds(660,570,200,30); 
-			lblAegEg.setForeground(Color.white);
 			lblAegEg.setFont(f2);
 			add(lblAegEg);
 			
-			btnSubmit = new JButton("Add");
-			btnSubmit.setBounds(450,640,200,40); 
-			btnSubmit.setBackground(Color.white);
+			btnSubmit = new JButton(new ImageIcon(this.getClass().getResource("/image/add record button.png")));
+			btnSubmit.setBounds(470,615,80,60); 
 			btnSubmit.setOpaque(true);
 			btnSubmit.setBorderPainted(false);
-			btnSubmit.setFont(new Font("Britannic Bold", Font.PLAIN, 20));
+			btnSubmit.setFont(FontClass.MuseoSans900(15));
 			//btnSubmit.setFont(f1);
 			btnSubmit.addActionListener(this);
 			add(btnSubmit);
@@ -431,7 +410,7 @@ public class StudentAddGui extends JFrame implements ActionListener {
 		
 		 setLayout(null);
 		 //c.setBackground(Color.black);  
-			c.setBackground(new Color(135,206,250));  
+			/*c.setBackground(new Color(135,206,250))*/;  
 			setResizable(false);
 			setVisible(true); 
 		

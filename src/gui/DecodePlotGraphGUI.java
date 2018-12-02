@@ -115,29 +115,26 @@ public class DecodePlotGraphGUI extends JFrame implements ActionListener,Printab
 		
 		
 		setLayout(new BorderLayout());
-		setContentPane(new JLabel(new ImageIcon(this.getClass().getResource("/image/blue.jpg"))));
+		setContentPane(new JLabel(new ImageIcon(this.getClass().getResource("/image/sky.png"))));
 		setLayout(null);
 		
-		Font f1=new Font("Serif",Font.BOLD,20);
-		Font f2=new Font("Serif",Font.BOLD,20);
+		Font f1=FontClass.MuseoSans500(20);
+		Font f2=FontClass.MuseoSans500(20);
 		
 		
 			lblStudent = new JLabel("Student  :  "+bean.getStudFirstName()+ " "+bean.getStudLastName() +"");
 			lblStudent.setBounds(150,15,300,30); 
-			lblStudent.setForeground(Color.white);
 			lblStudent.setFont(f1);
 			add(lblStudent);
 			
 			lblTeacher = new JLabel("Teacher  :  "+bean.getTeacher()+"");
 			lblTeacher.setBounds(150,50,300,30); 
-			lblTeacher.setForeground(Color.white);
 			lblTeacher.setFont(f1);
 			add(lblTeacher);
 			
 			
 			lblCurrentDate = new JLabel("Current Date  :  "+new SimpleDateFormat("MM/dd/yyyy").format(new Date())+"");
 			lblCurrentDate.setBounds(650,45,300,40); 
-			lblCurrentDate.setForeground(Color.white);
 			lblCurrentDate.setFont(f1);
 			add(lblCurrentDate);
 			
@@ -145,8 +142,8 @@ public class DecodePlotGraphGUI extends JFrame implements ActionListener,Printab
 			
 			/* P1 for first tab data  */
 			 JPanel p1=new JPanel();//createContactPanel1();   // Call method for set the 1st tab frame contenct
-			 p1.setBounds(60,100,850,600);    
-			 p1.setBackground(Color.black);  
+			 p1.setBounds(60,100,830,570);    
+			 p1.setBackground(new Color(255,255,255));  
 			 //setContentPane(p1); //add(p1);
 			 final XYDataset dataset = createDataset(this.bean);
 		     final JFreeChart chart = createChart(dataset);
@@ -180,25 +177,26 @@ public class DecodePlotGraphGUI extends JFrame implements ActionListener,Printab
 			
 			
 			
-			 btnBack = new JButton("Back");
-	         btnBack.setBounds(0,700,150,40);
+			 btnBack = new JButton(new ImageIcon(this.getClass().getResource("/image/back.png")));
+	         btnBack.setBounds(55,700,120,40);
 	         btnBack.setBackground(Color.WHITE);
 	         btnBack.setOpaque(true);
 	         btnBack.setBorderPainted(false);
+	         btnBack.setFocusable(false);
 	         btnBack.setFont(new Font("Britannic Bold", Font.PLAIN, 15));
 	         add(btnBack);
-	         getContentPane().add(btnBack);
 	         btnBack.addActionListener(this);
 	         
 	         
-	         btnPrint = new JButton("Print");
-	         btnPrint.setBounds(840,700,150,40);
+	         btnPrint = new JButton(new ImageIcon(this.getClass().getResource("/image/print combo.png")));
+	         btnPrint.setBounds(770,700,120,40);
 	         btnPrint.setBackground(Color.WHITE);
 	         btnPrint.setOpaque(true);
 	         btnPrint.setBorderPainted(false);
+	         btnPrint.setFocusable(false);
 	         btnPrint.setFont(new Font("Britannic Bold", Font.PLAIN, 15));
 	         add(btnPrint);
-	         getContentPane().add(btnPrint);
+	         //getContentPane().add(btnPrint);
 	         btnPrint.addActionListener(this);
 		
 		
