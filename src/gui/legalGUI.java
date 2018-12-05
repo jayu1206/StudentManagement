@@ -64,8 +64,9 @@ public class legalGUI  extends JFrame implements ActionListener {
 		setContentPane(new JLabel(new ImageIcon(this.getClass().getResource("/image/background 1.png"))));
 		setLayout(null);
 		
-		Font f=new Font("Museo Sans", Font.ITALIC | Font.BOLD, 20);   // Creating font style and size for heading
-		Font f2=new Font("Museo Sans", Font.PLAIN, 18);
+		Font f=FontClass.MuseoSans500Italic(20); //new Font("Museo Sans", Font.ITALIC | Font.BOLD, 20);   // Creating font style and size for heading
+		Font f2=FontClass.MuseoSans500(18);
+		f2.deriveFont(Font.PLAIN);
 		
 		
 		JLabel heading=new JLabel();//0, 170,1080,480

@@ -188,9 +188,10 @@ public class MyProfileGUI extends JFrame implements ActionListener{
 						btnSubmit.addActionListener(this);
 						
 						btnBack =  new JButton(new ImageIcon(this.getClass().getResource("/image/back2.png")));
-						btnBack.setBounds(350,550,100,50);
+						btnBack.setBounds(350,550,120,50);
 						btnBack.setOpaque(true);
 						btnBack.setBorderPainted(false);
+						btnBack.setBackground(new Color(255,255,255));
 						/*try {
 							img = ImageIO.read(getClass().getResource("/image/back.png"));
 							btnBack.setIcon(new ImageIcon(img));

@@ -6,12 +6,14 @@ import java.awt.ComponentOrientation;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.GraphicsEnvironment;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -84,13 +86,30 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 		setContentPane(new JLabel(new ImageIcon(this.getClass().getResource("/image/sky.png"))));
 		setLayout(null);
 
-		JMenuBar mb = new JMenuBar();
-		mb.setBackground(new Color(193,39,35));
-		mb.add(Box.createRigidArea(new Dimension(10, 40)));
+		JMenuBar mb = null;
+		String osname = System.getProperty("os.name");
+		
+		if (osname.contains("Mac")){
+			mb=new JMenuBar(){
+				 
+	            @Override
+	            public void paintComponent(Graphics g) {
+	                Dimension size = this.getSize();
+	                g.drawImage(Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/image/menu_background.png")), 0, 0, size.width, size.height, this);
+	            }
+	        };
+		}else{
+			mb=new JMenuBar();
+			mb.setBackground(new Color(193,39,35));
+		}
+		
+		
+		//mb.setBackground(new Color(193,39,35));
+		mb.add(Box.createRigidArea(new Dimension(10,40)));
 
 		
 		if (osname.contains("Mac")){
-			btnMmyProfile = new JButton("My Profile");
+			btnMmyProfile = new JButton(new ImageIcon(this.getClass().getResource("/image/my profile.png")));
 			btnMmyProfile.addActionListener(this);
 			
 			//btnMmyProfile.setBackground(new Color(135,206,250));
@@ -98,48 +117,44 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 			//btnMmyProfile.setBorderPainted(false);
 			//btnMmyProfile.setOpaque(true);
 			mb.add(btnMmyProfile); 
-			//setJMenuBar(mb);
+			setJMenuBar(mb);
 			
 			
-			btnMgroup = new JButton("Groups");
+			btnMgroup = new JButton(new ImageIcon(this.getClass().getResource("/image/groups.png")));
 			btnMgroup.addActionListener(this);
 			btnMgroup.setBackground(new Color(225,39,38));
 //			btnMgroup.setBorderPainted(false);
 //			btnMgroup.setOpaque(true);
 			mb.add(btnMgroup); 
 			
-	        //setJMenuBar(mb);
+	        setJMenuBar(mb);
 	       
 			
-			btnMstudents = new JButton("Student");
+	        btnMstudents = new JButton(new ImageIcon(this.getClass().getResource("/image/student.png")));
 			btnMstudents.addActionListener(this);
 			btnMstudents.setBackground(new Color(225,39,38));
 //			btnMstudents.setBorderPainted(false);
 //			btnMstudents.setOpaque(true);
 			mb.add(btnMstudents);  
-	        //setJMenuBar(mb);
+	        setJMenuBar(mb);
 			
 			
-			btnMImportExport = new JButton("Import / Export");
+	        btnMImportExport = new JButton(new ImageIcon(this.getClass().getResource("/image/import export.png")));
 			btnMImportExport.addActionListener(this);
 			btnMImportExport.setBackground(new Color(225,39,38));
 //			btnMImportExport.setBorderPainted(false);
 //			btnMImportExport.setOpaque(true);
 			mb.add(btnMImportExport);  
-	       // setJMenuBar(mb);
-	        
+	        setJMenuBar(mb);
 	        
 	        mb.add(Box.createHorizontalGlue());
-	        btnMLogout = new JButton("Logout");
+	        btnMLogout = new JButton(new ImageIcon(this.getClass().getResource("/image/logout.png")));
 	        btnMLogout.addActionListener(this);
 	        btnMLogout.setBackground(new Color(225,39,38));
-	        btnMLogout.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 //	        btnMLogout.setForeground(Color.white);
 //	        btnMLogout.setOpaque(true);
 //	        btnMLogout.setBorderPainted(false);
 			mb.add(btnMLogout);  
-			
-			
 			
 			
 	        setJMenuBar(mb);
@@ -263,7 +278,7 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 		 * heading_lbl.setFont(f); add(heading_lbl);
 		 */
 		btnBack = new JButton(new ImageIcon(this.getClass().getResource("/image/back.png")));
-		btnBack.setBounds(120, 530, 90, 40);
+		btnBack.setBounds(100, 530, 120, 40);
 		btnBack.setBackground(Color.WHITE);
 		btnBack.setOpaque(true);
 		btnBack.setBorderPainted(false);
@@ -273,7 +288,7 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 		btnBack.addActionListener(this);
 
 		btnExit = new JButton(new ImageIcon(this.getClass().getResource("/image/Exit.png")));
-		btnExit.setBounds(800, 530, 80, 40);
+		btnExit.setBounds(820, 530, 80, 40);
 		btnExit.setBackground(Color.WHITE);
 		btnExit.setOpaque(true);
 		btnExit.setBorderPainted(false);

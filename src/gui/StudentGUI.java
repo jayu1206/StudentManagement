@@ -7,8 +7,10 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.GraphicsEnvironment;
 import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -75,13 +77,29 @@ public class StudentGUI extends JFrame implements ActionListener{
 		setContentPane(new JLabel(new ImageIcon(this.getClass().getResource("/image/sky.png"))));
 		setLayout(null);
 		
-		JMenuBar mb=new JMenuBar();
-		mb.setBackground(new Color(193,39, 35));
-		mb.add(Box.createRigidArea(new Dimension(10,40)));
-
+		JMenuBar mb = null;
 		String osname = System.getProperty("os.name");
+		
 		if (osname.contains("Mac")){
-			btnMmyProfile = new JButton("My Profile");
+			mb=new JMenuBar(){
+				 
+	            @Override
+	            public void paintComponent(Graphics g) {
+	                Dimension size = this.getSize();
+	                g.drawImage(Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/image/menu_background.png")), 0, 0, size.width, size.height, this);
+	            }
+	        };
+		}else{
+			mb=new JMenuBar();
+			mb.setBackground(new Color(193,39,35));
+		}
+		
+		
+		//mb.setBackground(new Color(193,39,35));
+		mb.add(Box.createRigidArea(new Dimension(10,40)));
+		
+		if (osname.contains("Mac")){
+			btnMmyProfile = new JButton(new ImageIcon(this.getClass().getResource("/image/my profile.png")));
 			btnMmyProfile.addActionListener(this);
 			
 			//btnMmyProfile.setBackground(new Color(135,206,250));
@@ -92,7 +110,7 @@ public class StudentGUI extends JFrame implements ActionListener{
 			setJMenuBar(mb);
 			
 			
-			btnMgroup = new JButton("Groups");
+			btnMgroup = new JButton(new ImageIcon(this.getClass().getResource("/image/groups.png")));
 			btnMgroup.addActionListener(this);
 			btnMgroup.setBackground(new Color(225,39,38));
 //			btnMgroup.setBorderPainted(false);
@@ -102,7 +120,7 @@ public class StudentGUI extends JFrame implements ActionListener{
 	        setJMenuBar(mb);
 	       
 			
-			btnMstudents = new JButton("Student");
+	        btnMstudents = new JButton(new ImageIcon(this.getClass().getResource("/image/student.png")));
 			btnMstudents.addActionListener(this);
 			btnMstudents.setBackground(new Color(225,39,38));
 //			btnMstudents.setBorderPainted(false);
@@ -111,7 +129,7 @@ public class StudentGUI extends JFrame implements ActionListener{
 	        setJMenuBar(mb);
 			
 			
-			btnMImportExport = new JButton("Import / Export");
+	        btnMImportExport = new JButton(new ImageIcon(this.getClass().getResource("/image/import export.png")));
 			btnMImportExport.addActionListener(this);
 			btnMImportExport.setBackground(new Color(225,39,38));
 //			btnMImportExport.setBorderPainted(false);
@@ -119,7 +137,8 @@ public class StudentGUI extends JFrame implements ActionListener{
 			mb.add(btnMImportExport);  
 	        setJMenuBar(mb);
 	        
-	        btnMLogout = new JButton("Logout");
+	        mb.add(Box.createHorizontalGlue());
+	        btnMLogout = new JButton(new ImageIcon(this.getClass().getResource("/image/logout.png")));
 	        btnMLogout.addActionListener(this);
 	        btnMLogout.setBackground(new Color(225,39,38));
 //	        btnMLogout.setForeground(Color.white);
@@ -352,7 +371,7 @@ public class StudentGUI extends JFrame implements ActionListener{
 				         btnDelete.addActionListener(this);
 				         
 				         btnBack = new JButton(new ImageIcon(this.getClass().getResource("/image/back.png")));
-				         btnBack.setBounds(0,600,120,40);
+				         btnBack.setBounds(100,600,120,40);
 				         btnBack.setBackground(Color.WHITE);
 				         btnBack.setOpaque(true);
 				         btnBack.setBorderPainted(false);
@@ -362,7 +381,7 @@ public class StudentGUI extends JFrame implements ActionListener{
 				         
 				         
 				         btnExit = new JButton(new ImageIcon(this.getClass().getResource("/image/Exit2.png")));
-				         btnExit.setBounds(880,600,120,40);
+				         btnExit.setBounds(800,600,120,40);
 				         btnExit.setBackground(Color.WHITE);
 				         btnExit.setOpaque(true);
 				         btnExit.setBorderPainted(false);

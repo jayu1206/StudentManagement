@@ -5,8 +5,10 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.GraphicsEnvironment;
 import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -62,13 +64,28 @@ public class UpdateGroupGUI extends JFrame implements ActionListener{
 		setContentPane(new JLabel(new ImageIcon(this.getClass().getResource("/image/blue.jpg"))));
 		setLayout(null);
 		
-		JMenuBar mb=new JMenuBar();
-		mb.setBackground(new Color(225,39,38));
-		mb.add(Box.createRigidArea(new Dimension(10,40)));
-
+		JMenuBar mb = null;
 		String osname = System.getProperty("os.name");
+		
 		if (osname.contains("Mac")){
-			btnMmyProfile = new JButton("My Profile");
+			mb=new JMenuBar(){
+				 
+	            @Override
+	            public void paintComponent(Graphics g) {
+	                Dimension size = this.getSize();
+	                g.drawImage(Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/image/menu_background.png")), 0, 0, size.width, size.height, this);
+	            }
+	        };
+		}else{
+			mb=new JMenuBar();
+			mb.setBackground(new Color(193,39,35));
+		}
+		
+		
+		//mb.setBackground(new Color(193,39,35));
+		mb.add(Box.createRigidArea(new Dimension(10,40)));
+		if (osname.contains("Mac")){
+			btnMmyProfile = new JButton(new ImageIcon(this.getClass().getResource("/image/my profile.png")));
 			btnMmyProfile.addActionListener(this);
 			
 			//btnMmyProfile.setBackground(new Color(135,206,250));
@@ -79,7 +96,7 @@ public class UpdateGroupGUI extends JFrame implements ActionListener{
 			setJMenuBar(mb);
 			
 			
-			btnMgroup = new JButton("Groups");
+			btnMgroup = new JButton(new ImageIcon(this.getClass().getResource("/image/groups.png")));
 			btnMgroup.addActionListener(this);
 			btnMgroup.setBackground(new Color(225,39,38));
 //			btnMgroup.setBorderPainted(false);
@@ -89,7 +106,7 @@ public class UpdateGroupGUI extends JFrame implements ActionListener{
 	        setJMenuBar(mb);
 	       
 			
-			btnMstudents = new JButton("Student");
+	        btnMstudents = new JButton(new ImageIcon(this.getClass().getResource("/image/student.png")));
 			btnMstudents.addActionListener(this);
 			btnMstudents.setBackground(new Color(225,39,38));
 //			btnMstudents.setBorderPainted(false);
@@ -98,7 +115,7 @@ public class UpdateGroupGUI extends JFrame implements ActionListener{
 	        setJMenuBar(mb);
 			
 			
-			btnMImportExport = new JButton("Import / Export");
+	        btnMImportExport = new JButton(new ImageIcon(this.getClass().getResource("/image/import export.png")));
 			btnMImportExport.addActionListener(this);
 			btnMImportExport.setBackground(new Color(225,39,38));
 //			btnMImportExport.setBorderPainted(false);
@@ -106,7 +123,8 @@ public class UpdateGroupGUI extends JFrame implements ActionListener{
 			mb.add(btnMImportExport);  
 	        setJMenuBar(mb);
 	        
-	        btnMLogout = new JButton("Logout");
+	        mb.add(Box.createHorizontalGlue());
+	        btnMLogout = new JButton(new ImageIcon(this.getClass().getResource("/image/logout.png")));
 	        btnMLogout.addActionListener(this);
 	        btnMLogout.setBackground(new Color(225,39,38));
 //	        btnMLogout.setForeground(Color.white);
@@ -118,13 +136,11 @@ public class UpdateGroupGUI extends JFrame implements ActionListener{
 	        setJMenuBar(mb);
 			
 		}else{
-			Font f2=new Font("Serif",Font.BOLD,20);
-			
-			btnMmyProfile = new JButton("My Profile");
+			btnMmyProfile = new JButton(new ImageIcon(this.getClass().getResource("/image/my profile.png")));
 			btnMmyProfile.addActionListener(this);
-			btnMmyProfile.setBackground(new Color(225,39,38));
-			btnMmyProfile.setForeground(Color.white);
-			btnMmyProfile.setFont(f2);
+			btnMmyProfile.setBackground(new Color(193,39,35));
+			//btnMmyProfile.setForeground(Color.white);
+			//btnMmyProfile.setFont(f2);
 			btnMmyProfile.setBorder(null);
 			btnMmyProfile.setBorderPainted(false);
 			btnMmyProfile.setOpaque(true);
@@ -132,46 +148,49 @@ public class UpdateGroupGUI extends JFrame implements ActionListener{
 			setJMenuBar(mb);
 			
 			
-			btnMgroup = new JButton("Groups");
+			btnMgroup = new JButton(new ImageIcon(this.getClass().getResource("/image/groups.png")));
 			btnMgroup.addActionListener(this);
-			btnMgroup.setBackground(new Color(225,39,38));
-			btnMgroup.setForeground(Color.white);
-			btnMgroup.setFont(f2);
+			btnMgroup.setBackground(new Color(193,39,35));
+			//btnMgroup.setForeground(Color.white);
+			//btnMgroup.setFont(f2);
 			btnMgroup.setBorderPainted(false);
-			btnMgroup.setOpaque(true);
+			//btnMgroup.setOpaque(true);
 			mb.add(btnMgroup); 
 			
 	        setJMenuBar(mb);
 	       
-			
-			btnMstudents = new JButton("Student");
+	        
+			btnMstudents = new JButton(new ImageIcon(this.getClass().getResource("/image/student.png")));
 			btnMstudents.addActionListener(this);
-			btnMstudents.setBackground(new Color(225,39,38));
-			btnMstudents.setForeground(Color.white);
-			btnMstudents.setFont(f2);
+			btnMstudents.setBackground(new Color(193,39,35));
+			//btnMstudents.setForeground(Color.white);
+			//btnMstudents.setFont(f2);
 			btnMstudents.setBorderPainted(false);
-			btnMstudents.setOpaque(true);
+			//btnMstudents.setOpaque(true);
 			mb.add(btnMstudents);  
 	        setJMenuBar(mb);
 			
 
-			
-			btnMImportExport = new JButton("Import / Export");
+	        
+			btnMImportExport = new JButton(new ImageIcon(this.getClass().getResource("/image/import export.png")));
 			btnMImportExport.addActionListener(this);
-			btnMImportExport.setBackground(new Color(225,39,38));
-			btnMImportExport.setForeground(Color.white);
-			btnMImportExport.setFont(f2);
+			btnMImportExport.setBackground(new Color(193,39,35));
+			//btnMImportExport.setForeground(Color.white);
+			//btnMImportExport.setFont(f2);
 			btnMImportExport.setBorderPainted(false);
-			btnMImportExport.setOpaque(true);
+			//btnMImportExport.setOpaque(true);
 			mb.add(btnMImportExport);  
 	        setJMenuBar(mb);
 	        
-	        btnMLogout = new JButton("Logout");
+	        
+	        mb.add(Box.createHorizontalGlue());
+	        btnMLogout = new JButton(new ImageIcon(this.getClass().getResource("/image/logout.png")));
+	       // btnMLogout.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 	        btnMLogout.addActionListener(this);
-	        btnMLogout.setBackground(new Color(225,39,38));
-	        btnMLogout.setForeground(Color.white);
-	        btnMLogout.setFont(f2);
-	        btnMLogout.setOpaque(true);
+	        btnMLogout.setBackground(new Color(193,39,35));
+	        //btnMLogout.setForeground(Color.white);
+	        //btnMLogout.setFont(f2);
+	        //btnMLogout.setOpaque(true);
 	        btnMLogout.setBorderPainted(false);
 			mb.add(btnMLogout);  
 			
@@ -185,24 +204,23 @@ public class UpdateGroupGUI extends JFrame implements ActionListener{
 		
 		
 		Container c=getContentPane();  
-		Font f=new Font("Serif", Font.ITALIC | Font.BOLD, 20);   
+		Font f=FontClass.MuseoSans700Italic(30);   
 		
 		
 		// step 3 : creating JLabel for Heading
-				JLabel heading_lbl=new JLabel();
-				heading_lbl.setBounds(320,15,500,40);
-				heading_lbl.setText("<html><font color=white size=8 ><u><b>Provide Groups details</b></u></html>");	
+				JLabel heading_lbl=new JLabel("Provide Group Detail");
+				heading_lbl.setBounds(350,30,500,40);
+				//heading_lbl.setText("<html><font color=white size=8 ><u><b>Provide Group Detail</b></u></html>");	
 				heading_lbl.setFont(f);
 				
 				add(heading_lbl);
 				
-				Font f1=new Font("Serif",Font.BOLD,30);
-				Font f2=new Font("Serif",Font.BOLD,20);
+				Font f1=FontClass.MuseoSans500(25);
+				Font f2=FontClass.MuseoSans500(20);
 				
 				
 				lblClass = new JLabel("Class Name ");
 				lblClass.setBounds(300,150,160,30); 
-				lblClass.setForeground(Color.white);
 				lblClass.setFont(f1);
 				add(lblClass);
 				
@@ -215,7 +233,6 @@ public class UpdateGroupGUI extends JFrame implements ActionListener{
 				
 				lblStartDate = new JLabel("Start Date");
 				lblStartDate.setBounds(300,230,160,30); 
-				lblStartDate.setForeground(Color.white);
 				lblStartDate.setFont(f1);
 				add(lblStartDate);
 				
@@ -248,8 +265,8 @@ public class UpdateGroupGUI extends JFrame implements ActionListener{
 				add(btnDT);
 				btnDT.addActionListener(this);
 				*/
-				btnSubmit = new JButton("Update");
-				btnSubmit.setBounds(380,310,250,40);
+				btnSubmit = new JButton(new ImageIcon(this.getClass().getResource("/image/add record button.png")));
+				btnSubmit.setBounds(450,310,80,60);
 				btnSubmit.setOpaque(true);
 				btnSubmit.setBorderPainted(false);
 				btnSubmit.setFont(new Font("Britannic Bold", Font.PLAIN, 20));

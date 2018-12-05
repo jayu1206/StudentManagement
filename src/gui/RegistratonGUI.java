@@ -33,19 +33,18 @@ public class RegistratonGUI extends JFrame implements ActionListener{
 	public RegistratonGUI(){
 		
 		setLayout(new BorderLayout());
-		setContentPane(new JLabel(new ImageIcon(this.getClass().getResource("/image/blue.jpg"))));
+		setContentPane(new JLabel(new ImageIcon(this.getClass().getResource("/image/sky.png"))));
 		setLayout(null);
 		
 		Container c=getContentPane();  
 		
 				 /*---------------------------------- Creating JLabel for Heading Text ------------------------------------------- */
 				 
-				Font f=new Font("Serif", Font.ITALIC | Font.BOLD, 35);   // Creating font style and size for heading
+		Font f=FontClass.MuseoSans700Italic(30);    // Creating font style and size for heading
 	
 				// step 3 : creating JLabel for Heading
-						JLabel heading_lbl=new JLabel();
+						JLabel heading_lbl=new JLabel("Provide your details");
 						heading_lbl.setBounds(350,15,300,60);
-						heading_lbl.setText("<html><font color=white ><u><b>Provide your details</b></u></html>");	
 	
 						// applying font on  heading Label
 						heading_lbl.setFont(f);
@@ -53,8 +52,8 @@ public class RegistratonGUI extends JFrame implements ActionListener{
 	
 	/* ----------------------------------- Creating Global Font style for all components ------------------------------ */
 
-						Font f1=new Font("Serif",Font.BOLD,25);
-						Font f2=new Font("Serif",Font.BOLD,20);
+						Font f1=FontClass.MuseoSans500(25);
+						Font f2=FontClass.MuseoSans500(20);
 						
 						
 						/* ----------------------------------- Creating components for Registration details ---------------------------------- */
@@ -63,7 +62,6 @@ public class RegistratonGUI extends JFrame implements ActionListener{
 						
 						lblFirstName=new JLabel("First Name : ");
 						lblFirstName.setBounds(250,180,250,40);
-						lblFirstName.setForeground(Color.white);
 						lblFirstName.setFont(f1);
 						add(lblFirstName);
 				
@@ -75,7 +73,6 @@ public class RegistratonGUI extends JFrame implements ActionListener{
 						
 						lblLastName=new JLabel("Last Name : ");
 						lblLastName.setBounds(250,225,250,40);
-						lblLastName.setForeground(Color.white);
 						lblLastName.setFont(f1);
 						add(lblLastName);
 						
@@ -85,7 +82,6 @@ public class RegistratonGUI extends JFrame implements ActionListener{
 						
 						lblemail=new JLabel("Email : ");
 						lblemail.setBounds(250,280,180,30);
-						lblemail.setForeground(Color.white);
 						lblemail.setFont(f1);
 						add(lblemail);
 						
@@ -96,7 +92,6 @@ public class RegistratonGUI extends JFrame implements ActionListener{
 						
 						lblUserId = new JLabel("Username : ");
 						lblUserId.setBounds(250,330,150,30); 
-						lblUserId.setForeground(Color.white);
 						lblUserId.setFont(f1);
 						add(lblUserId);
 						
@@ -106,7 +101,6 @@ public class RegistratonGUI extends JFrame implements ActionListener{
 						
 						lblPsw=new JLabel("Password : ");
 						lblPsw.setBounds(250,380,150,30);
-						lblPsw.setForeground(Color.white);
 						lblPsw.setFont(f1);
 						add(lblPsw);
 				
@@ -127,8 +121,8 @@ public class RegistratonGUI extends JFrame implements ActionListener{
 						add(txtPhno);*/
 						
 						
-						btnSubmit =  new JButton("Submit");
-						btnSubmit.setBounds(510,460,100,30);
+						btnSubmit =  new JButton(new ImageIcon(this.getClass().getResource("/image/save record button.png")));
+						btnSubmit.setBounds(510,460,80,50);
 						btnSubmit.setOpaque(true);
 						btnSubmit.setBorderPainted(false);
 						btnSubmit.setFont(new Font("Britannic Bold", Font.PLAIN, 20));
@@ -144,11 +138,12 @@ public class RegistratonGUI extends JFrame implements ActionListener{
 						add(btnSubmit);
 						btnSubmit.addActionListener(this);
 						
-						btnBack =  new JButton("Back");
-						btnBack.setBounds(350,460,100,30);
+						btnBack =  new JButton(new ImageIcon(this.getClass().getResource("/image/back2.png")));
+						btnBack.setBounds(350,460,120,50);
 						btnBack.setOpaque(true);
 						btnBack.setBorderPainted(false);
-						btnBack.setFont(new Font("Britannic Bold", Font.PLAIN, 20));
+						btnBack.setBackground(new Color(255,255,255));
+						//btnBack.setFont(new Font("Britannic Bold", Font.PLAIN, 20));
 						/*try {
 							img = ImageIO.read(getClass().getResource("/image/back.png"));
 							btnBack.setIcon(new ImageIcon(img));
