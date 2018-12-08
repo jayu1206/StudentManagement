@@ -187,8 +187,10 @@ public class PlotRateGraphGUI extends JFrame  implements ActionListener, Printab
 				     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column)
 				     {
 				         final Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+				         Font f3 = FontClass.MuseoSans700(15);
 				         if(row==0 || column==0){
 				        	 c.setBackground(new Color(188,221,238));
+				        	 c.setFont(f3);
 				        	 
 				         }else{
 				        	 c.setBackground(Color.WHITE);
