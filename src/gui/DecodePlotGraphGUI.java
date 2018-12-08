@@ -588,7 +588,8 @@ private XYDataset createDataset(StudentBean bean) {
         );
 
         chart.setBackgroundPaint(Color.white);
-
+        chart.getTitle().setPaint(new Color(65,127,159));
+        
         final XYPlot plot = chart.getXYPlot();
         plot.setBackgroundPaint(Color.lightGray);
         plot.setDomainGridlinePaint(Color.white);
@@ -622,7 +623,7 @@ private XYDataset createDataset(StudentBean bean) {
         renderer.setSeriesShapesVisible(1, true);
         renderer.setBaseLinesVisible(true);
         renderer.setBaseItemLabelsVisible(Boolean.TRUE);
-        renderer.setBaseItemLabelFont( new Font("Calibri", Font.BOLD, 15));
+        renderer.setBaseItemLabelFont( FontClass.MuseoSans900(15));
         renderer.setBaseItemLabelGenerator((XYItemLabelGenerator) new StandardXYItemLabelGenerator());
         plot.setRenderer(renderer);
        

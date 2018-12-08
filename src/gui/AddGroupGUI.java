@@ -162,39 +162,37 @@ public class AddGroupGUI extends JFrame implements ActionListener{
 			JLabel lb=new JLabel("                                ");
 			mb.add(lb);
 			
-			
 			btnMmyProfile = new JButton(new ImageIcon(this.getClass().getResource("/image/my profile.png")));
 			btnMmyProfile.addActionListener(this);
 			btnMmyProfile.setBackground(new Color(193,39,35));
-			//btnMmyProfile.setForeground(Color.white);
-			//btnMmyProfile.setFont(f2);
 			btnMmyProfile.setBorder(null);
 			btnMmyProfile.setBorderPainted(false);
-			btnMmyProfile.setOpaque(true);
-			mb.add(btnMmyProfile); 
+			btnMmyProfile.setOpaque(false);
+			mb.add(btnMmyProfile);
 			setJMenuBar(mb);
+			
 			
 			lb=new JLabel("     ");
 			mb.add(lb);
+			
 			btnMgroup = new JButton(new ImageIcon(this.getClass().getResource("/image/groups.png")));
 			btnMgroup.addActionListener(this);
 			btnMgroup.setBackground(new Color(193,39,35));
-			//btnMgroup.setForeground(Color.white);
-			//btnMgroup.setFont(f2);
 			btnMgroup.setBorderPainted(false);
-			//btnMgroup.setOpaque(true);
+			btnMgroup.setOpaque(false);
+			btnMgroup.setContentAreaFilled(false); 
+			btnMgroup.setFocusPainted(false); 
 			mb.add(btnMgroup); 
-			
 	        setJMenuBar(mb);
 	       
 	        
 			btnMstudents = new JButton(new ImageIcon(this.getClass().getResource("/image/student.png")));
 			btnMstudents.addActionListener(this);
 			btnMstudents.setBackground(new Color(193,39,35));
-			//btnMstudents.setForeground(Color.white);
-			//btnMstudents.setFont(f2);
 			btnMstudents.setBorderPainted(false);
-			//btnMstudents.setOpaque(true);
+			btnMstudents.setOpaque(false);
+			btnMstudents.setContentAreaFilled(false); 
+			btnMstudents.setFocusPainted(false); 
 			mb.add(btnMstudents);  
 	        setJMenuBar(mb);
 			
@@ -203,10 +201,10 @@ public class AddGroupGUI extends JFrame implements ActionListener{
 			btnMImportExport = new JButton(new ImageIcon(this.getClass().getResource("/image/import export.png")));
 			btnMImportExport.addActionListener(this);
 			btnMImportExport.setBackground(new Color(193,39,35));
-			//btnMImportExport.setForeground(Color.white);
-			//btnMImportExport.setFont(f2);
 			btnMImportExport.setBorderPainted(false);
-			//btnMImportExport.setOpaque(true);
+			btnMImportExport.setOpaque(false);
+			btnMImportExport.setContentAreaFilled(false); 
+			btnMImportExport.setFocusPainted(false);
 			mb.add(btnMImportExport);  
 	        setJMenuBar(mb);
 	        
@@ -216,13 +214,12 @@ public class AddGroupGUI extends JFrame implements ActionListener{
 	       // btnMLogout.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 	        btnMLogout.addActionListener(this);
 	        btnMLogout.setBackground(new Color(193,39,35));
-	        //btnMLogout.setForeground(Color.white);
-	        //btnMLogout.setFont(f2);
-	        //btnMLogout.setOpaque(true);
+	        btnMLogout.setOpaque(false);
 	        btnMLogout.setBorderPainted(false);
+	        btnMLogout.setContentAreaFilled(false); 
+	        btnMLogout.setFocusPainted(false);
+	        
 			mb.add(btnMLogout);  
-			
-			
 	        setJMenuBar(mb);
 	    }
 		

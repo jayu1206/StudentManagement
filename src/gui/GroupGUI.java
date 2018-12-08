@@ -160,24 +160,28 @@ public class GroupGUI extends JFrame implements ActionListener{
 			
 			JLabel lb=new JLabel("                                ");
 			mb.add(lb);
+			
 			btnMmyProfile = new JButton(new ImageIcon(this.getClass().getResource("/image/my profile.png")));
 			btnMmyProfile.addActionListener(this);
 			btnMmyProfile.setBackground(new Color(193,39,35));
 			btnMmyProfile.setBorder(null);
 			btnMmyProfile.setBorderPainted(false);
-			btnMmyProfile.setOpaque(true);
-			mb.add(btnMmyProfile); 
+			btnMmyProfile.setOpaque(false);
+			mb.add(btnMmyProfile);
 			setJMenuBar(mb);
 			
 			
 			lb=new JLabel("     ");
 			mb.add(lb);
+			
 			btnMgroup = new JButton(new ImageIcon(this.getClass().getResource("/image/groups.png")));
 			btnMgroup.addActionListener(this);
 			btnMgroup.setBackground(new Color(193,39,35));
 			btnMgroup.setBorderPainted(false);
+			btnMgroup.setOpaque(false);
+			btnMgroup.setContentAreaFilled(false); 
+			btnMgroup.setFocusPainted(false); 
 			mb.add(btnMgroup); 
-			
 	        setJMenuBar(mb);
 	       
 	        
@@ -185,7 +189,9 @@ public class GroupGUI extends JFrame implements ActionListener{
 			btnMstudents.addActionListener(this);
 			btnMstudents.setBackground(new Color(193,39,35));
 			btnMstudents.setBorderPainted(false);
-			//btnMstudents.setOpaque(true);
+			btnMstudents.setOpaque(false);
+			btnMstudents.setContentAreaFilled(false); 
+			btnMstudents.setFocusPainted(false); 
 			mb.add(btnMstudents);  
 	        setJMenuBar(mb);
 			
@@ -195,19 +201,26 @@ public class GroupGUI extends JFrame implements ActionListener{
 			btnMImportExport.addActionListener(this);
 			btnMImportExport.setBackground(new Color(193,39,35));
 			btnMImportExport.setBorderPainted(false);
+			btnMImportExport.setOpaque(false);
+			btnMImportExport.setContentAreaFilled(false); 
+			btnMImportExport.setFocusPainted(false);
 			mb.add(btnMImportExport);  
 	        setJMenuBar(mb);
 	        
 	        
 	        mb.add(Box.createHorizontalGlue());
 	        btnMLogout = new JButton(new ImageIcon(this.getClass().getResource("/image/logout.png")));
+	       // btnMLogout.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 	        btnMLogout.addActionListener(this);
 	        btnMLogout.setBackground(new Color(193,39,35));
+	        btnMLogout.setOpaque(false);
 	        btnMLogout.setBorderPainted(false);
+	        btnMLogout.setContentAreaFilled(false); 
+	        btnMLogout.setFocusPainted(false);
+	        
 			mb.add(btnMLogout);  
-			
-			
 	        setJMenuBar(mb);
+	        
 		}
 		
        

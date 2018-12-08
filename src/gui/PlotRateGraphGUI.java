@@ -301,6 +301,7 @@ public class PlotRateGraphGUI extends JFrame  implements ActionListener, Printab
             false                        // urls
         );
   
+        chart.getTitle().setPaint(new Color(65,127,159));
         
         CategoryPlot plot = chart.getCategoryPlot();
         BarRenderer renderer = (BarRenderer) plot.getRenderer();
@@ -312,11 +313,15 @@ public class PlotRateGraphGUI extends JFrame  implements ActionListener, Printab
 		  plot.getRenderer().setSeriesPaint(1, new Color(205, 82, 87));
 		  plot.getRenderer().setSeriesPaint(2, new Color(153, 255, 153));
 		 // plot.getRenderer().setSeriesOutlinePaint(0, new Color(153, 255, 153));
-		  plot.getRenderer().setBaseItemLabelFont( new Font("Calibri", Font.BOLD, 15));
+		  plot.getRenderer().setBaseItemLabelFont( FontClass.MuseoSans900(15));
+		 
+		  
 		  plot.getRenderer().setBaseItemLabelGenerator(
 				    new StandardCategoryItemLabelGenerator(
 				        "{2}", NumberFormat.getInstance()));
 		  plot.getRenderer().setItemLabelsVisible(true);
+		 
+		  
 		  
 		  
 		  plot.getRangeAxis().setUpperBound(200.00);
@@ -324,13 +329,12 @@ public class PlotRateGraphGUI extends JFrame  implements ActionListener, Printab
 		 SubCategoryAxis domainAxis = new SubCategoryAxis("");
 	        domainAxis.setCategoryMargin(0.05);
 	       // domainAxis.addSubCategory("1 - Text");
+	        plot.getDomainAxis().setLabelFont(FontClass.MuseoSans900(15));
+	        plot.getDomainAxis().setAxisLinePaint(new Color(65,127,159));
 	        plot.setDomainAxis(domainAxis);
 	        plot.setFixedLegendItems(createLegendItems());
 	        
 	        
-	        	
-	     
-	       
 	        
 
         return chart;

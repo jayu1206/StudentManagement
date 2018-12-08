@@ -2,16 +2,12 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.ComponentOrientation;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GraphicsEnvironment;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.awt.Insets;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -19,30 +15,17 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.swing.*;
-import javax.swing.border.TitledBorder;
-import javax.swing.event.MouseInputListener;
-import javax.swing.plaf.basic.BasicTableUI;
-import javax.swing.plaf.basic.BasicTableUI.MouseInputHandler;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
-import manegement.GroupOpr;
 import manegement.StudentOpr;
 import abstrac.StudentDAO;
 import bean.StudentBean;
@@ -50,6 +33,11 @@ import bean.StudentDecoding;
 import bean.StudentRate;
 
 public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	StudentBean bean = new StudentBean();
 
@@ -161,20 +149,19 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 	        setJMenuBar(mb);
 			
 		}else{
-			//Font f2=new Font("Serif",Font.BOLD,20);
+			
 			JLabel lb=new JLabel("                                ");
 			mb.add(lb);
 			
 			btnMmyProfile = new JButton(new ImageIcon(this.getClass().getResource("/image/my profile.png")));
 			btnMmyProfile.addActionListener(this);
 			btnMmyProfile.setBackground(new Color(193,39,35));
-			//btnMmyProfile.setForeground(Color.white);
-			//btnMmyProfile.setFont(f2);
 			btnMmyProfile.setBorder(null);
 			btnMmyProfile.setBorderPainted(false);
-			btnMmyProfile.setOpaque(true);
-			mb.add(btnMmyProfile); 
+			btnMmyProfile.setOpaque(false);
+			mb.add(btnMmyProfile);
 			setJMenuBar(mb);
+			
 			
 			lb=new JLabel("     ");
 			mb.add(lb);
@@ -182,22 +169,21 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 			btnMgroup = new JButton(new ImageIcon(this.getClass().getResource("/image/groups.png")));
 			btnMgroup.addActionListener(this);
 			btnMgroup.setBackground(new Color(193,39,35));
-			//btnMgroup.setForeground(Color.white);
-			//btnMgroup.setFont(f2);
 			btnMgroup.setBorderPainted(false);
 			btnMgroup.setOpaque(false);
+			btnMgroup.setContentAreaFilled(false); 
+			btnMgroup.setFocusPainted(false); 
 			mb.add(btnMgroup); 
-			
 	        setJMenuBar(mb);
 	       
 	        
 			btnMstudents = new JButton(new ImageIcon(this.getClass().getResource("/image/student.png")));
 			btnMstudents.addActionListener(this);
 			btnMstudents.setBackground(new Color(193,39,35));
-			//btnMstudents.setForeground(Color.white);
-			//btnMstudents.setFont(f2);
 			btnMstudents.setBorderPainted(false);
-			//btnMstudents.setOpaque(true);
+			btnMstudents.setOpaque(false);
+			btnMstudents.setContentAreaFilled(false); 
+			btnMstudents.setFocusPainted(false); 
 			mb.add(btnMstudents);  
 	        setJMenuBar(mb);
 			
@@ -206,10 +192,10 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 			btnMImportExport = new JButton(new ImageIcon(this.getClass().getResource("/image/import export.png")));
 			btnMImportExport.addActionListener(this);
 			btnMImportExport.setBackground(new Color(193,39,35));
-			//btnMImportExport.setForeground(Color.white);
-			//btnMImportExport.setFont(f2);
 			btnMImportExport.setBorderPainted(false);
-			//btnMImportExport.setOpaque(true);
+			btnMImportExport.setOpaque(false);
+			btnMImportExport.setContentAreaFilled(false); 
+			btnMImportExport.setFocusPainted(false);
 			mb.add(btnMImportExport);  
 	        setJMenuBar(mb);
 	        
@@ -219,14 +205,14 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 	       // btnMLogout.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 	        btnMLogout.addActionListener(this);
 	        btnMLogout.setBackground(new Color(193,39,35));
-	        //btnMLogout.setForeground(Color.white);
-	        //btnMLogout.setFont(f2);
-	        //btnMLogout.setOpaque(true);
+	        btnMLogout.setOpaque(false);
 	        btnMLogout.setBorderPainted(false);
+	        btnMLogout.setContentAreaFilled(false); 
+	        btnMLogout.setFocusPainted(false);
+	        
 			mb.add(btnMLogout);  
-			
-			
 	        setJMenuBar(mb);
+	        
 		}
 		
 
@@ -320,8 +306,8 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 
 	public JPanel createContactPanel1(StudentBean studBean) {
 
-		Font f1 = FontClass.MuseoSans500(15);
-		//f1.deriveFont(Font.PLAIN, 15);
+		Font f1 = FontClass.MuseoSans700(15);
+		f1.deriveFont(Font.PLAIN, 15);
 		
 		Font f3 = FontClass.MuseoSans500(15);
 		f3.deriveFont(Font.PLAIN, 15);
