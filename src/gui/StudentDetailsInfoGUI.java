@@ -161,20 +161,51 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 	        setJMenuBar(mb);
 			
 		}else{
-			//Font f2=new Font("Serif",Font.BOLD,20);
+			
 			JLabel lb=new JLabel("                                ");
 			mb.add(lb);
 			
 			btnMmyProfile = new JButton(new ImageIcon(this.getClass().getResource("/image/my profile.png")));
 			btnMmyProfile.addActionListener(this);
 			btnMmyProfile.setBackground(new Color(193,39,35));
-			//btnMmyProfile.setForeground(Color.white);
-			//btnMmyProfile.setFont(f2);
 			btnMmyProfile.setBorder(null);
 			btnMmyProfile.setBorderPainted(false);
 			btnMmyProfile.setOpaque(true);
-			mb.add(btnMmyProfile); 
+			btnMmyProfile.addMouseListener(new MouseListener() {
+				
+				 @Override
+				    public void mousePressed(MouseEvent e) {
+				        // Not working :(
+					 btnMmyProfile.setBackground(new Color(193,39,35));
+				    }
+
+				@Override
+				public void mouseClicked(MouseEvent arg0) {
+					// TODO Auto-generated method stub
+					
+				}
+
+				@Override
+				public void mouseEntered(MouseEvent arg0) {
+					// TODO Auto-generated method stub
+					
+				}
+
+				@Override
+				public void mouseExited(MouseEvent arg0) {
+					// TODO Auto-generated method stub
+					
+				}
+
+				@Override
+				public void mouseReleased(MouseEvent arg0) {
+					// TODO Auto-generated method stub
+					
+				}
+			});
+			mb.add(btnMmyProfile);
 			setJMenuBar(mb);
+			
 			
 			lb=new JLabel("     ");
 			mb.add(lb);
@@ -182,22 +213,80 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 			btnMgroup = new JButton(new ImageIcon(this.getClass().getResource("/image/groups.png")));
 			btnMgroup.addActionListener(this);
 			btnMgroup.setBackground(new Color(193,39,35));
-			//btnMgroup.setForeground(Color.white);
-			//btnMgroup.setFont(f2);
 			btnMgroup.setBorderPainted(false);
-			btnMgroup.setOpaque(false);
+			btnMgroup.setOpaque(true);
+			btnMgroup.addMouseListener(new MouseListener() {
+				
+				 @Override
+				    public void mousePressed(MouseEvent e) {
+				        // Not working :(
+					 btnMgroup.setBackground(new Color(193,39,35));
+				    }
+
+				@Override
+				public void mouseClicked(MouseEvent arg0) {
+					// TODO Auto-generated method stub
+					
+				}
+
+				@Override
+				public void mouseEntered(MouseEvent arg0) {
+					// TODO Auto-generated method stub
+					
+				}
+
+				@Override
+				public void mouseExited(MouseEvent arg0) {
+					// TODO Auto-generated method stub
+					
+				}
+
+				@Override
+				public void mouseReleased(MouseEvent arg0) {
+					// TODO Auto-generated method stub
+					
+				}
+			});
 			mb.add(btnMgroup); 
-			
 	        setJMenuBar(mb);
 	       
 	        
 			btnMstudents = new JButton(new ImageIcon(this.getClass().getResource("/image/student.png")));
 			btnMstudents.addActionListener(this);
 			btnMstudents.setBackground(new Color(193,39,35));
-			//btnMstudents.setForeground(Color.white);
-			//btnMstudents.setFont(f2);
 			btnMstudents.setBorderPainted(false);
-			//btnMstudents.setOpaque(true);
+			btnMstudents.addMouseListener(new MouseListener() {
+				
+				 @Override
+				    public void mousePressed(MouseEvent e) {
+				        // Not working :(
+					 btnMstudents.setBackground(new Color(193,39,35));
+				    }
+
+				@Override
+				public void mouseClicked(MouseEvent arg0) {
+					// TODO Auto-generated method stub
+					
+				}
+
+				@Override
+				public void mouseEntered(MouseEvent arg0) {
+					// TODO Auto-generated method stub
+					
+				}
+
+				@Override
+				public void mouseExited(MouseEvent arg0) {
+					// TODO Auto-generated method stub
+					
+				}
+
+				@Override
+				public void mouseReleased(MouseEvent arg0) {
+					// TODO Auto-generated method stub
+					
+				}
+			});
 			mb.add(btnMstudents);  
 	        setJMenuBar(mb);
 			
@@ -206,10 +295,40 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 			btnMImportExport = new JButton(new ImageIcon(this.getClass().getResource("/image/import export.png")));
 			btnMImportExport.addActionListener(this);
 			btnMImportExport.setBackground(new Color(193,39,35));
-			//btnMImportExport.setForeground(Color.white);
-			//btnMImportExport.setFont(f2);
 			btnMImportExport.setBorderPainted(false);
 			//btnMImportExport.setOpaque(true);
+			btnMImportExport.addMouseListener(new MouseListener() {
+				
+				 @Override
+				    public void mousePressed(MouseEvent e) {
+				        // Not working :(
+					 btnMImportExport.setBackground(new Color(193,39,35));
+				    }
+
+				@Override
+				public void mouseClicked(MouseEvent arg0) {
+					// TODO Auto-generated method stub
+					
+				}
+
+				@Override
+				public void mouseEntered(MouseEvent arg0) {
+					// TODO Auto-generated method stub
+					
+				}
+
+				@Override
+				public void mouseExited(MouseEvent arg0) {
+					// TODO Auto-generated method stub
+					
+				}
+
+				@Override
+				public void mouseReleased(MouseEvent arg0) {
+					// TODO Auto-generated method stub
+					
+				}
+			});
 			mb.add(btnMImportExport);  
 	        setJMenuBar(mb);
 	        
@@ -219,14 +338,44 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 	       // btnMLogout.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 	        btnMLogout.addActionListener(this);
 	        btnMLogout.setBackground(new Color(193,39,35));
-	        //btnMLogout.setForeground(Color.white);
-	        //btnMLogout.setFont(f2);
 	        //btnMLogout.setOpaque(true);
 	        btnMLogout.setBorderPainted(false);
+	        btnMLogout.addMouseListener(new MouseListener() {
+				
+				 @Override
+				    public void mousePressed(MouseEvent e) {
+				        // Not working :(
+					 btnMLogout.setBackground(new Color(193,39,35));
+				    }
+
+				@Override
+				public void mouseClicked(MouseEvent arg0) {
+					// TODO Auto-generated method stub
+					
+				}
+
+				@Override
+				public void mouseEntered(MouseEvent arg0) {
+					// TODO Auto-generated method stub
+					
+				}
+
+				@Override
+				public void mouseExited(MouseEvent arg0) {
+					// TODO Auto-generated method stub
+					
+				}
+
+				@Override
+				public void mouseReleased(MouseEvent arg0) {
+					// TODO Auto-generated method stub
+					
+				}
+			});
+	        
 			mb.add(btnMLogout);  
-			
-			
 	        setJMenuBar(mb);
+	        
 		}
 		
 
