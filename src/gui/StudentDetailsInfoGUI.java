@@ -18,6 +18,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
@@ -161,6 +162,8 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 			
 		}else{
 			//Font f2=new Font("Serif",Font.BOLD,20);
+			JLabel lb=new JLabel("                                ");
+			mb.add(lb);
 			
 			btnMmyProfile = new JButton(new ImageIcon(this.getClass().getResource("/image/my profile.png")));
 			btnMmyProfile.addActionListener(this);
@@ -173,6 +176,8 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 			mb.add(btnMmyProfile); 
 			setJMenuBar(mb);
 			
+			lb=new JLabel("     ");
+			mb.add(lb);
 			
 			btnMgroup = new JButton(new ImageIcon(this.getClass().getResource("/image/groups.png")));
 			btnMgroup.addActionListener(this);
@@ -180,7 +185,7 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 			//btnMgroup.setForeground(Color.white);
 			//btnMgroup.setFont(f2);
 			btnMgroup.setBorderPainted(false);
-			//btnMgroup.setOpaque(true);
+			btnMgroup.setOpaque(false);
 			mb.add(btnMgroup); 
 			
 	        setJMenuBar(mb);

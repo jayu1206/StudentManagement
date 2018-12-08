@@ -158,6 +158,11 @@ public class AddGroupGUI extends JFrame implements ActionListener{
 			
 		}else{//Font f2=new Font("Serif",Font.BOLD,20);
 			
+			
+			JLabel lb=new JLabel("                                ");
+			mb.add(lb);
+			
+			
 			btnMmyProfile = new JButton(new ImageIcon(this.getClass().getResource("/image/my profile.png")));
 			btnMmyProfile.addActionListener(this);
 			btnMmyProfile.setBackground(new Color(193,39,35));
@@ -169,7 +174,8 @@ public class AddGroupGUI extends JFrame implements ActionListener{
 			mb.add(btnMmyProfile); 
 			setJMenuBar(mb);
 			
-			
+			lb=new JLabel("     ");
+			mb.add(lb);
 			btnMgroup = new JButton(new ImageIcon(this.getClass().getResource("/image/groups.png")));
 			btnMgroup.addActionListener(this);
 			btnMgroup.setBackground(new Color(193,39,35));

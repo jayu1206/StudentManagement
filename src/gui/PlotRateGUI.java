@@ -133,6 +133,9 @@ public class PlotRateGUI extends JFrame implements ActionListener{
 			
 	        setJMenuBar(mb);
 		}else{
+			
+			JLabel lb=new JLabel("                                ");
+			mb.add(lb);
 			btnMmyProfile = new JButton(new ImageIcon(this.getClass().getResource("/image/my profile.png")));
 			btnMmyProfile.addActionListener(this);
 			btnMmyProfile.setBackground(new Color(193,39,35));
@@ -143,6 +146,8 @@ public class PlotRateGUI extends JFrame implements ActionListener{
 			setJMenuBar(mb);
 			
 			
+			lb=new JLabel("     ");
+			mb.add(lb);
 			btnMgroup = new JButton(new ImageIcon(this.getClass().getResource("/image/groups.png")));
 			btnMgroup.addActionListener(this);
 			btnMgroup.setBackground(new Color(193,39,35));
