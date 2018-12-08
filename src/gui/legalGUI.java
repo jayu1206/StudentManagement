@@ -194,6 +194,7 @@ public class legalGUI  extends JFrame implements ActionListener {
 					     btnAccept.setSize(150, 100);
 						// btnAccept.setFont(new Font("Museo Sans", Font.BOLD, 15));
 					     btnAccept.setBackground(new Color(204,204,204));
+					     btnAccept.setContentAreaFilled(false);
 					     btnAccept.setBorderPainted(false);
 					     btnAccept.setFocusable(false);
 					     btnAccept.addActionListener(this);
@@ -206,6 +207,7 @@ public class legalGUI  extends JFrame implements ActionListener {
 					     btnNotAccept.setBounds(920,660,150,40);
 					     //btnNotAccept.setFont(new Font("Museo Sans", Font.BOLD, 15));
 					     btnNotAccept.setBackground(new Color(204,204,204));
+					     btnNotAccept.setContentAreaFilled(false);
 					     btnNotAccept.setBorderPainted(false);
 					     btnNotAccept.setFocusable(false);
 					     btnNotAccept.addActionListener(this);
