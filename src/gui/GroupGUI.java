@@ -167,6 +167,7 @@ public class GroupGUI extends JFrame implements ActionListener{
 			btnMmyProfile.setBorder(null);
 			btnMmyProfile.setBorderPainted(false);
 			btnMmyProfile.setOpaque(false);
+			btnMmyProfile.setContentAreaFilled(false); 
 			mb.add(btnMmyProfile);
 			setJMenuBar(mb);
 			
