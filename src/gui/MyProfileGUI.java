@@ -61,7 +61,7 @@ public class MyProfileGUI extends JFrame implements ActionListener{
 	
 				// step 3 : creating JLabel for Heading
 						JLabel heading_lbl=new JLabel();
-						heading_lbl.setBounds(400,15,300,60);
+						heading_lbl.setBounds(450,15,300,60);
 						heading_lbl.setText("<html><font ><u><b>My Profile</b></u></html>");	
 	
 						// applying font on  heading Label
@@ -78,8 +78,8 @@ public class MyProfileGUI extends JFrame implements ActionListener{
 						
 						// Step 4 : Creating JLabel for Name
 						
-						lblFirstName=new JLabel("First Name : ");
-						lblFirstName.setBounds(250,180,250,40);
+						lblFirstName=new JLabel("First Name  ");
+						lblFirstName.setBounds(310,180,250,40);
 						//lblFirstName.setForeground(Color.white);
 						lblFirstName.setFont(f1);
 						add(lblFirstName);
@@ -92,8 +92,8 @@ public class MyProfileGUI extends JFrame implements ActionListener{
 						add(txtFirstName);
 		
 						
-						lblLastName=new JLabel("Last Name : ");
-						lblLastName.setBounds(250,225,250,40);
+						lblLastName=new JLabel("Last Name  ");
+						lblLastName.setBounds(310,225,250,40);
 						//lblLastName.setForeground(Color.white);
 						lblLastName.setFont(f1);
 						add(lblLastName);
@@ -104,8 +104,8 @@ public class MyProfileGUI extends JFrame implements ActionListener{
 						//txtLastName.setEditable(false);
 						add(txtLastName);
 						
-						lblemail=new JLabel("Email : ");
-						lblemail.setBounds(250,280,180,30);
+						lblemail=new JLabel("Email  ");
+						lblemail.setBounds(370,280,180,30);
 						//lblemail.setForeground(Color.white);
 						lblemail.setFont(f1);
 						add(lblemail);
@@ -117,8 +117,8 @@ public class MyProfileGUI extends JFrame implements ActionListener{
 						add(txtemail);
 						
 						
-						lblUserId = new JLabel("Username : ");
-						lblUserId.setBounds(250,330,150,30); 
+						lblUserId = new JLabel("Username  ");
+						lblUserId.setBounds(310,330,150,30); 
 						//lblUserId.setForeground(Color.white);
 						lblUserId.setFont(f1);
 						add(lblUserId);
@@ -132,9 +132,9 @@ public class MyProfileGUI extends JFrame implements ActionListener{
 						
 						//bG.add(changePsw);
 						if (osname.contains("Mac")){
-							changePsw.setBounds(300, 400, 400, 40);
+							changePsw.setBounds(310, 400, 400, 40);
 						}else{
-							changePsw.setBounds(300, 400, 380, 40);
+							changePsw.setBounds(310, 400, 380, 40);
 						}
 						
 						changePsw.setBackground(new Color(242,242,242));
@@ -143,8 +143,8 @@ public class MyProfileGUI extends JFrame implements ActionListener{
 						changePsw.addActionListener(this);
 						add(changePsw);
 						
-						lblPsw=new JLabel("New Password : ");
-						lblPsw.setBounds(250,460,200,30);
+						lblPsw=new JLabel("New Password  ");
+						lblPsw.setBounds(270,460,200,30);
 						//lblPsw.setForeground(Color.white);
 						lblPsw.setFont(f1);
 						add(lblPsw);

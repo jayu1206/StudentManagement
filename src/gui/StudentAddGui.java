@@ -243,7 +243,7 @@ public class StudentAddGui extends JFrame implements ActionListener {
 		
 		// step 3 : creating JLabel for Heading
 		JLabel heading_lbl=new JLabel("Provide Student details");
-		heading_lbl.setBounds(320,15,500,40);
+		heading_lbl.setBounds(330,15,500,40);
 		heading_lbl.setFont(f);
 		
 		add(heading_lbl);
@@ -256,7 +256,7 @@ public class StudentAddGui extends JFrame implements ActionListener {
 	
 		
 			lblGroup = new JLabel("Class");
-			lblGroup.setBounds(280,90,80,30); 
+			lblGroup.setBounds(360,90,80,30); 
 			lblGroup.setFont(f1);
 			add(lblGroup);
 			
@@ -286,7 +286,7 @@ public class StudentAddGui extends JFrame implements ActionListener {
 		        add(comboBox);
 			
 		 	lblFirstname = new JLabel("Name");
-		 	lblFirstname.setBounds(280,170,80,30); 
+		 	lblFirstname.setBounds(350,170,80,30); 
 		 	lblFirstname.setFont(f1);
 			add(lblFirstname);
 			
@@ -313,9 +313,9 @@ public class StudentAddGui extends JFrame implements ActionListener {
 			
 			lblgrade = new JLabel("Grade");
 			if (osname.contains("Mac")){
-				lblgrade.setBounds(280,250,100,30); 
+				lblgrade.setBounds(350,250,100,30); 
 				}else{
-					lblgrade.setBounds(280,250,80,30); 
+					lblgrade.setBounds(350,250,80,30); 
 				}
 			
 			lblgrade.setFont(f1);
@@ -358,7 +358,7 @@ public class StudentAddGui extends JFrame implements ActionListener {
 			
 			
 			lblstdate = new JLabel("Start Date");
-			lblstdate.setBounds(280,410,200,30); 
+			lblstdate.setBounds(310,410,200,30); 
 			lblstdate.setFont(f1);
 			add(lblstdate);
 			
@@ -386,7 +386,7 @@ public class StudentAddGui extends JFrame implements ActionListener {
 			
 			
 			lblteacher = new JLabel("Teacher");
-			lblteacher.setBounds(280,490,200,30); 
+			lblteacher.setBounds(330,490,200,30); 
 			lblteacher.setFont(f1);
 			add(lblteacher);
 			
@@ -399,7 +399,7 @@ public class StudentAddGui extends JFrame implements ActionListener {
 			
 			
 			lblage = new JLabel("Age");
-			lblage.setBounds(280,570,200,30); 
+			lblage.setBounds(370,570,200,30); 
 			lblage.setFont(f1);
 			add(lblage);
 			

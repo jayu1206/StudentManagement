@@ -246,7 +246,7 @@ public class AddGroupGUI extends JFrame implements ActionListener{
 				
 				
 				lblClass = new JLabel("Class Name ");
-				lblClass.setBounds(300,150,160,30); 
+				lblClass.setBounds(310,150,160,30); 
 				//lblClass.setForeground(Color.white);
 				lblClass.setFont(f1);
 				add(lblClass);
@@ -258,7 +258,7 @@ public class AddGroupGUI extends JFrame implements ActionListener{
 				
 				
 				lblStartDate = new JLabel("Start Date");
-				lblStartDate.setBounds(300,230,160,30); 
+				lblStartDate.setBounds(330,230,160,30); 
 				//lblStartDate.setForeground(Color.white);
 				lblStartDate.setFont(f1);
 				add(lblStartDate);
@@ -272,9 +272,12 @@ public class AddGroupGUI extends JFrame implements ActionListener{
 				UtilDateModel model = new UtilDateModel();
 				//model.setDate(1990, 8, 24);
 				model.setSelected(true);
+				
 				JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
+				datePanel.setBackground(new Color(245,245,245));
 				datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
 				datePicker.setBounds(500,230,200,30);
+				datePicker.setBackground(new Color(245,245,245));
 				add(datePicker);
 				
 				
