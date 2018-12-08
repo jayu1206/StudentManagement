@@ -140,9 +140,17 @@ public class RegistratonGUI extends JFrame implements ActionListener{
 						
 						btnBack =  new JButton(new ImageIcon(this.getClass().getResource("/image/back2.png")));
 						btnBack.setBounds(350,460,120,50);
-						btnBack.setOpaque(true);
+						btnBack.setOpaque(false);
 						btnBack.setBorderPainted(false);
 						btnBack.setBackground(new Color(255,255,255));
+						btnBack.addMouseListener(new java.awt.event.MouseAdapter()
+					    {
+					        public void mousePressed(java.awt.event.MouseEvent evt)
+					        {
+					        	btnBack.setBackground(new Color(255,255,255));
+					        }
+					    });
+						//btnBack.setContentAreaFilled(new Color(255,255,255));
 						//btnBack.setFont(new Font("Britannic Bold", Font.PLAIN, 20));
 						/*try {
 							img = ImageIO.read(getClass().getResource("/image/back.png"));
