@@ -261,6 +261,8 @@ public class UpdateGroupGUI extends JFrame implements ActionListener{
 				add(lblStartDate);
 				
 				
+				
+				
 				Properties p = new Properties();
 				p.put("text.today", "Today");
 				p.put("text.month", "Month");
@@ -274,12 +276,13 @@ public class UpdateGroupGUI extends JFrame implements ActionListener{
 				datePicker.setBounds(470,230,200,30);
 				add(datePicker);
 				
-				
 				txtStartDate = new JTextField();
 				txtStartDate.setBounds(470,230,200,30); 
 				txtStartDate.setEditable(false);
 				txtStartDate.setText(gBean.getStartDate()+"");
+				txtStartDate.setFont(f2);
 				add(txtStartDate);
+				
 				
 				/*btnDT = new JButton("..hii");
 				btnDT.setBounds(720,230,20,20);
@@ -291,9 +294,10 @@ public class UpdateGroupGUI extends JFrame implements ActionListener{
 				*/
 				btnSubmit = new JButton(new ImageIcon(this.getClass().getResource("/image/add record button.png")));
 				btnSubmit.setBounds(450,310,80,60);
-				btnSubmit.setOpaque(true);
+				btnSubmit.setOpaque(false);
+				btnSubmit.setContentAreaFilled(false);
 				btnSubmit.setBorderPainted(false);
-				btnSubmit.setFont(new Font("Britannic Bold", Font.PLAIN, 20));
+				btnSubmit.setFocusable(false);
 				btnSubmit.addActionListener(this);
 				add(btnSubmit);
 				
