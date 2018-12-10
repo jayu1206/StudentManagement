@@ -50,12 +50,16 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.LegendItem;
 import org.jfree.chart.LegendItemCollection;
 import org.jfree.chart.axis.SubCategoryAxis;
+import org.jfree.chart.block.BlockBorder;
 import org.jfree.chart.labels.StandardCategoryItemLabelGenerator;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.BarRenderer;
+import org.jfree.chart.title.LegendTitle;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.ui.HorizontalAlignment;
+import org.jfree.ui.RectangleEdge;
 
 import com.sun.javafx.print.PrinterImpl;
 
@@ -304,6 +308,7 @@ public class PlotRateGraphGUI extends JFrame  implements ActionListener, Printab
         );
   
         chart.getTitle().setPaint(new Color(65,127,159));
+        chart.getTitle().setHorizontalAlignment(HorizontalAlignment.CENTER);
         
         CategoryPlot plot = chart.getCategoryPlot();
         BarRenderer renderer = (BarRenderer) plot.getRenderer();
@@ -322,19 +327,33 @@ public class PlotRateGraphGUI extends JFrame  implements ActionListener, Printab
 				    new StandardCategoryItemLabelGenerator(
 				        "{2}", NumberFormat.getInstance()));
 		  plot.getRenderer().setItemLabelsVisible(true);
+		  
 		 
 		  
-		  
-		  
 		  plot.getRangeAxis().setUpperBound(200.00);
+		  plot.getRangeAxis().setLabelPaint(new Color(65,127,159));
+		  plot.getRangeAxis().setTickLabelPaint(new Color(65,127,159));
+		  plot.getRangeAxis().setLabelFont(FontClass.MuseoSans700(15));
+		  plot.getRangeAxis().setTickLabelFont(FontClass.MuseoSans700(15));
 		 // plot.getRangeAxis().setLowerBound(-50.00);
 		 SubCategoryAxis domainAxis = new SubCategoryAxis("");
 	        domainAxis.setCategoryMargin(0.05);
+	        domainAxis.setTickLabelPaint(new Color(65,127,159));
+	        domainAxis.setLabelPaint(new Color(65,127,159));
+	        domainAxis.setLabelFont(FontClass.MuseoSans700(15));
+	        domainAxis.setTickLabelFont(FontClass.MuseoSans700(15));
+	        
 	       // domainAxis.addSubCategory("1 - Text");
-	        plot.getDomainAxis().setLabelFont(FontClass.MuseoSans900(15));
-	        plot.getDomainAxis().setAxisLinePaint(new Color(65,127,159));
+	        plot.getDomainAxis().setLabelFont(FontClass.MuseoSans700(20));
 	        plot.setDomainAxis(domainAxis);
 	        plot.setFixedLegendItems(createLegendItems());
+	       
+	        LegendTitle legend = chart.getLegend();
+	        if (legend != null) {
+	    		legend.setPosition(RectangleEdge.TOP);
+	    		legend.setHorizontalAlignment(HorizontalAlignment.RIGHT);
+	    		legend.setItemFont(FontClass.MuseoSans900(15));
+	    	}
 	        
 	        
 	        
@@ -345,11 +364,13 @@ public class PlotRateGraphGUI extends JFrame  implements ActionListener, Printab
 
 
 	private LegendItemCollection createLegendItems() {
+		  
 		  LegendItemCollection result = new LegendItemCollection();
 	        LegendItem item1 = new LegendItem("1 Base Line", new Color(188, 221, 238));
 	        LegendItem item2 = new LegendItem("2 Gain / Loss", new Color(205, 82, 87));
 	        result.add(item1);
 	        result.add(item2);
+	       
 	        return result;
 	}
 

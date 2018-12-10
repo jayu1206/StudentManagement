@@ -52,6 +52,7 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYItemRenderer;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
+import org.jfree.chart.title.LegendTitle;
 import org.jfree.data.Range;
 import org.jfree.data.function.LineFunction2D;
 import org.jfree.data.general.DatasetUtilities;
@@ -59,6 +60,8 @@ import org.jfree.data.statistics.Regression;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
+import org.jfree.ui.HorizontalAlignment;
+import org.jfree.ui.RectangleEdge;
 import org.jfree.ui.TextAnchor;
 
 import abstrac.StudentDAO;
@@ -589,11 +592,16 @@ private XYDataset createDataset(StudentBean bean) {
 
         chart.setBackgroundPaint(Color.white);
         chart.getTitle().setPaint(new Color(65,127,159));
+        chart.getTitle().setHorizontalAlignment(HorizontalAlignment.CENTER);
         
         final XYPlot plot = chart.getXYPlot();
         plot.setBackgroundPaint(Color.lightGray);
         plot.setDomainGridlinePaint(Color.white);
         plot.setRangeGridlinePaint(Color.white);
+        plot.getRangeAxis().setLabelPaint(new Color(65,127,159));
+		plot.getRangeAxis().setTickLabelPaint(new Color(65,127,159));
+		plot.getRangeAxis().setLabelFont(FontClass.MuseoSans700(15));
+		plot.getRangeAxis().setTickLabelFont(FontClass.MuseoSans700(15));
         
        
         
@@ -601,6 +609,8 @@ private XYDataset createDataset(StudentBean bean) {
         /* X axis range set 0 to 50 with number tick meand dispaly to next number in x axis  */
        
         xAxis.setTickUnit(new NumberTickUnit(1));
+        xAxis.setTickLabelFont(FontClass.MuseoSans700(15));
+        xAxis.setTickLabelPaint(new Color(65,127,159));
       //  xAxis.setRange(0.0, 52.0);
         
         /* Code end  */
@@ -624,10 +634,16 @@ private XYDataset createDataset(StudentBean bean) {
         renderer.setBaseLinesVisible(true);
         renderer.setBaseItemLabelsVisible(Boolean.TRUE);
         renderer.setBaseItemLabelFont( FontClass.MuseoSans900(15));
+        
         renderer.setBaseItemLabelGenerator((XYItemLabelGenerator) new StandardXYItemLabelGenerator());
         plot.setRenderer(renderer);
        
-       
+        LegendTitle legend = chart.getLegend();
+        if (legend != null) {
+    		legend.setPosition(RectangleEdge.TOP);
+    		legend.setHorizontalAlignment(HorizontalAlignment.RIGHT);
+    		legend.setItemFont(FontClass.MuseoSans900(15));
+    	}
                 
         return chart;
         
