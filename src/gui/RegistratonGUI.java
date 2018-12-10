@@ -55,6 +55,8 @@ public class RegistratonGUI extends JFrame implements ActionListener{
 						Font f1=FontClass.MuseoSans700(18); 
 						Font f2=FontClass.MuseoSans500(20);
 						
+						Font f3 = FontClass.MuseoSans500(15);
+						f3.deriveFont(Font.PLAIN, 15);
 						
 						/* ----------------------------------- Creating components for Registration details ---------------------------------- */
 						
@@ -68,7 +70,7 @@ public class RegistratonGUI extends JFrame implements ActionListener{
 						// Creating JTextField for Father's name
 						txtFirstName=new JTextField();
 						txtFirstName.setBounds(480,250,180,30);
-						txtFirstName.setFont(f2);
+						txtFirstName.setFont(f3);
 						add(txtFirstName);
 		
 						
@@ -79,7 +81,7 @@ public class RegistratonGUI extends JFrame implements ActionListener{
 						
 						txtLastName=new JTextField();
 						txtLastName.setBounds(480,295,180,30);
-						txtLastName.setFont(f2);
+						txtLastName.setFont(f3);
 						add(txtLastName);
 						
 						lblemail=new JLabel("Email");
@@ -89,7 +91,7 @@ public class RegistratonGUI extends JFrame implements ActionListener{
 						
 						txtemail=new JTextField();
 						txtemail.setBounds(480,340,180,30);
-						txtemail.setFont(f2);
+						txtemail.setFont(f3);
 						add(txtemail);
 						
 						
@@ -100,7 +102,7 @@ public class RegistratonGUI extends JFrame implements ActionListener{
 						
 						txtUserId=new JTextField();
 						txtUserId.setBounds(480,390,180,30);
-						txtUserId.setFont(f2);
+						txtUserId.setFont(f3);
 						add(txtUserId);
 						
 						lblPsw=new JLabel("Password");
@@ -111,7 +113,7 @@ public class RegistratonGUI extends JFrame implements ActionListener{
 						// Creating JTextField for Father's name
 						txtPsw=new JPasswordField();
 						txtPsw.setBounds(480,440,180,30);
-						txtPsw.setFont(f2);
+						txtPsw.setFont(f3);
 						add(txtPsw);
 						
 						

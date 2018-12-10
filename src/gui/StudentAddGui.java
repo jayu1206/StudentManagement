@@ -33,6 +33,7 @@ import java.util.regex.Pattern;
 
 
 
+
 import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -267,7 +268,8 @@ public class StudentAddGui extends JFrame implements ActionListener {
 		Font f1=FontClass.MuseoSans700(18); 
 		Font f2=FontClass.MuseoSans500(20);
 		
-		
+		Font f3 = FontClass.MuseoSans500(15);
+		f3.deriveFont(Font.PLAIN, 15);
 	
 		
 			lblGroup = new JLabel("Class");
@@ -295,7 +297,7 @@ public class StudentAddGui extends JFrame implements ActionListener {
 		       
 		        comboBox = new JComboBox( model );
 		        comboBox.setBounds(440,90,200,30);
-		        comboBox.setFont(f2);
+		        comboBox.setFont(f3);
 		        comboBox.setRenderer( new ItemRenderer() );
 		        comboBox.addActionListener( this );
 		        add(comboBox);
@@ -308,12 +310,12 @@ public class StudentAddGui extends JFrame implements ActionListener {
 			
 			txtFirstname = new JTextField();
 			txtFirstname.setBounds(440,160,200,30); 
-			txtFirstname.setFont(f2);
+			txtFirstname.setFont(f3);
 			add(txtFirstname);
 			
 			txtLastName = new JTextField();
 			txtLastName.setBounds(650,160,200,30); 
-			txtLastName.setFont(f2);
+			txtLastName.setFont(f3);
 			add(txtLastName);
 			
 			JLabel labelFs=new JLabel("First Name");
@@ -338,7 +340,7 @@ public class StudentAddGui extends JFrame implements ActionListener {
 			
 			txtgrade = new JTextField();
 			txtgrade.setBounds(440,230,200,30); 
-			txtgrade.setFont(f2);
+			txtgrade.setFont(f3);
 			add(txtgrade);
 			
 			lbldob = new JLabel("Date of birth");
@@ -357,6 +359,7 @@ public class StudentAddGui extends JFrame implements ActionListener {
 			JDatePanelImpl datePanel =new JDatePanelImpl(dtmodel, p);
 			DOBdatePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
 			DOBdatePicker.setBounds(440,300,200,30);
+			DOBdatePicker.setFont(f3);
 			add(DOBdatePicker);
 			
 			
@@ -383,6 +386,7 @@ public class StudentAddGui extends JFrame implements ActionListener {
 			JDatePanelImpl datePanel2 =new JDatePanelImpl(dtmodel2, p);
 			STdatePicker = new JDatePickerImpl(datePanel2, new DateLabelFormatter());
 			STdatePicker.setBounds(440,370,200,30);
+			STdatePicker.setFont(f3);
 			add(STdatePicker);
 			
 		/*	txtstdate = new JTextField();
@@ -409,7 +413,7 @@ public class StudentAddGui extends JFrame implements ActionListener {
 			txtteacher.setBounds(440,440,200,30); 
 			txtteacher.setText(bean.getFirstName()+ " "+bean.getLastName());
 			txtteacher.setEditable(false);
-			txtteacher.setFont(f2);
+			txtteacher.setFont(f3);
 			add(txtteacher);
 			
 			
@@ -420,7 +424,7 @@ public class StudentAddGui extends JFrame implements ActionListener {
 			
 			txtage = new JTextField();
 			txtage.setBounds(440,510,200,30); 
-			txtage.setFont(f2);
+			txtage.setFont(f3);
 			add(txtage);
 			
 			lblAegEg=new JLabel("(eg : 7-9)");

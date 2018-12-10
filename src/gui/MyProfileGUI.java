@@ -70,6 +70,9 @@ public class MyProfileGUI extends JFrame implements ActionListener{
 						Font f1=FontClass.MuseoSans700(18); 
 						Font f2=FontClass.MuseoSans500(20);
 						
+						Font f3 = FontClass.MuseoSans500(15);
+						f3.deriveFont(Font.PLAIN, 15);
+						
 						
 						/* ----------------------------------- Creating components for Registration details ---------------------------------- */
 						
@@ -86,6 +89,7 @@ public class MyProfileGUI extends JFrame implements ActionListener{
 						txtFirstName.setText(bean.getFirstName());
 						//txtFirstName.setEditable(false);
 						txtFirstName.setBounds(480,190,180,30);
+						txtFirstName.setFont(f3);
 						add(txtFirstName);
 		
 						
@@ -98,6 +102,7 @@ public class MyProfileGUI extends JFrame implements ActionListener{
 						txtLastName=new JTextField();
 						txtLastName.setBounds(480,235,180,30);
 						txtLastName.setText(bean.getLastName());
+						txtLastName.setFont(f3);
 						//txtLastName.setEditable(false);
 						add(txtLastName);
 						
@@ -110,6 +115,7 @@ public class MyProfileGUI extends JFrame implements ActionListener{
 						txtemail=new JTextField();
 						txtemail.setBounds(480,280,180,30);
 						txtemail.setText(bean.getEmail());
+						txtemail.setFont(f3);
 						//txtemail.setEditable(false);
 						add(txtemail);
 						
@@ -123,6 +129,7 @@ public class MyProfileGUI extends JFrame implements ActionListener{
 						txtUserId=new JTextField();
 						txtUserId.setBounds(480,330,180,30);
 						txtUserId.setText(bean.getUserID());
+						txtUserId.setFont(f3);
 						//txtUserId.setEditable(false);
 						add(txtUserId);
 						

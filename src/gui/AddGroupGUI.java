@@ -52,6 +52,7 @@ import javax.swing.border.EmptyBorder;
 
 
 
+
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
@@ -267,6 +268,8 @@ public class AddGroupGUI extends JFrame implements ActionListener{
 				Font f1=FontClass.MuseoSans700(18); 
 				Font f2=FontClass.MuseoSans500(20);
 				
+				Font f3 = FontClass.MuseoSans500(15);
+				f3.deriveFont(Font.PLAIN, 15);
 				
 				lblClass = new JLabel("Class Name ");
 				lblClass.setBounds(350,160,160,30); 
@@ -276,7 +279,7 @@ public class AddGroupGUI extends JFrame implements ActionListener{
 				
 				txtClass = new JTextField();
 				txtClass.setBounds(470,161,200,30); 
-				txtClass.setFont(f2);
+				txtClass.setFont(f3);
 				add(txtClass);
 				
 				
@@ -301,6 +304,7 @@ public class AddGroupGUI extends JFrame implements ActionListener{
 				datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
 				datePicker.setBounds(470,230,200,30);
 				datePicker.setBackground(new Color(245,245,245));
+				datePicker.setFont(f3);
 				add(datePicker);
 				
 				

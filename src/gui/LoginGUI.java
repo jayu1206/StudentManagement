@@ -105,7 +105,11 @@ public class LoginGUI extends JFrame implements ActionListener{
 		
 		
 		Font f3=FontClass.MuseoSans700(18); 
-		Font f4=FontClass.MuseoSans500(20);
+		Font f4=FontClass.MuseoSans500(15);
+		f4.deriveFont(Font.PLAIN, 15);
+		
+		
+		
 		
 		lblUserId = new JLabel("Username");
 		lblUserId.setBounds(295,430,100,30);
@@ -133,7 +137,7 @@ public class LoginGUI extends JFrame implements ActionListener{
         
         //ImageIcon image = ;
         btnSubmit = new JButton(new ImageIcon(this.getClass().getResource("/image/login button.png")));
-        btnSubmit.setBounds(400,550,150,39);
+        btnSubmit.setBounds(400,550,150,45);
         btnSubmit.setOpaque(false);
         btnSubmit.setContentAreaFilled(false);
         btnSubmit.setBorderPainted(false);
