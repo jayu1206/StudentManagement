@@ -60,17 +60,14 @@ public class MyProfileGUI extends JFrame implements ActionListener{
 				Font f=FontClass.MuseoSans700Italic(25);   // Creating font style and size for heading
 	
 				// step 3 : creating JLabel for Heading
-						JLabel heading_lbl=new JLabel();
-						heading_lbl.setBounds(450,15,300,60);
-						heading_lbl.setText("<html><font ><u><b>My Profile</b></u></html>");	
-	
-						// applying font on  heading Label
+						JLabel heading_lbl=new JLabel("My Profile");
+						heading_lbl.setBounds(450,75,300,60);
 						heading_lbl.setFont(f);
 						add(heading_lbl);
 	
 	/* ----------------------------------- Creating Global Font style for all components ------------------------------ */
 
-						Font f1=FontClass.MuseoSans500(25);
+						Font f1=FontClass.MuseoSans700(18); 
 						Font f2=FontClass.MuseoSans500(20);
 						
 						
@@ -78,8 +75,8 @@ public class MyProfileGUI extends JFrame implements ActionListener{
 						
 						// Step 4 : Creating JLabel for Name
 						
-						lblFirstName=new JLabel("First Name  ");
-						lblFirstName.setBounds(310,180,250,40);
+						lblFirstName=new JLabel("First Name");
+						lblFirstName.setBounds(360,180,250,40);
 						//lblFirstName.setForeground(Color.white);
 						lblFirstName.setFont(f1);
 						add(lblFirstName);
@@ -88,43 +85,43 @@ public class MyProfileGUI extends JFrame implements ActionListener{
 						txtFirstName=new JTextField();
 						txtFirstName.setText(bean.getFirstName());
 						//txtFirstName.setEditable(false);
-						txtFirstName.setBounds(500,190,180,30);
+						txtFirstName.setBounds(480,190,180,30);
 						add(txtFirstName);
 		
 						
-						lblLastName=new JLabel("Last Name  ");
-						lblLastName.setBounds(310,225,250,40);
+						lblLastName=new JLabel("Last Name");
+						lblLastName.setBounds(360,225,250,40);
 						//lblLastName.setForeground(Color.white);
 						lblLastName.setFont(f1);
 						add(lblLastName);
 						
 						txtLastName=new JTextField();
-						txtLastName.setBounds(500,235,180,30);
+						txtLastName.setBounds(480,235,180,30);
 						txtLastName.setText(bean.getLastName());
 						//txtLastName.setEditable(false);
 						add(txtLastName);
 						
-						lblemail=new JLabel("Email  ");
-						lblemail.setBounds(370,280,180,30);
+						lblemail=new JLabel("Email");
+						lblemail.setBounds(400,280,180,30);
 						//lblemail.setForeground(Color.white);
 						lblemail.setFont(f1);
 						add(lblemail);
 						
 						txtemail=new JTextField();
-						txtemail.setBounds(500,280,180,30);
+						txtemail.setBounds(480,280,180,30);
 						txtemail.setText(bean.getEmail());
 						//txtemail.setEditable(false);
 						add(txtemail);
 						
 						
 						lblUserId = new JLabel("Username  ");
-						lblUserId.setBounds(310,330,150,30); 
+						lblUserId.setBounds(360,330,150,30); 
 						//lblUserId.setForeground(Color.white);
 						lblUserId.setFont(f1);
 						add(lblUserId);
 						
 						txtUserId=new JTextField();
-						txtUserId.setBounds(500,330,180,30);
+						txtUserId.setBounds(480,330,180,30);
 						txtUserId.setText(bean.getUserID());
 						//txtUserId.setEditable(false);
 						add(txtUserId);
@@ -132,19 +129,22 @@ public class MyProfileGUI extends JFrame implements ActionListener{
 						
 						//bG.add(changePsw);
 						if (osname.contains("Mac")){
-							changePsw.setBounds(310, 400, 400, 40);
+							changePsw.setBounds(350, 400, 330, 40);
 						}else{
-							changePsw.setBounds(310, 400, 380, 40);
+							changePsw.setBounds(350, 400, 310, 40);
 						}
 						
-						changePsw.setBackground(new Color(242,242,242));
-						//changePsw.setForeground(Color.white);
+						//changePsw.setBackground(new Color(242,242,242));
+						//changePsw.setForeground(Color.white)
+						changePsw.setOpaque(false);
+						changePsw.setContentAreaFilled(false);
+						changePsw.setBorderPainted(false);
 						changePsw.setFont(f1);
 						changePsw.addActionListener(this);
 						add(changePsw);
 						
-						lblPsw=new JLabel("New Password  ");
-						lblPsw.setBounds(270,460,200,30);
+						lblPsw=new JLabel("New Password");
+						lblPsw.setBounds(320,460,200,30);
 						//lblPsw.setForeground(Color.white);
 						lblPsw.setFont(f1);
 						add(lblPsw);
@@ -152,7 +152,7 @@ public class MyProfileGUI extends JFrame implements ActionListener{
 						// Creating JTextField for Father's name
 						txtPsw=new JPasswordField();
 						txtPsw.setEditable(false);
-						txtPsw.setBounds(500,460,180,30);
+						txtPsw.setBounds(480,460,180,30);
 						add(txtPsw);
 						
 						
@@ -167,41 +167,25 @@ public class MyProfileGUI extends JFrame implements ActionListener{
 						
 						btnSubmit =  new JButton(new ImageIcon(this.getClass().getResource("/image/save record button.png")));
 						if (osname.contains("Mac")){
-							btnSubmit.setBounds(510,550,100,50);
+							btnSubmit.setBounds(530,550,100,50);
 						}else{
-							btnSubmit.setBounds(510,550,80,50);
+							btnSubmit.setBounds(530,550,80,50);
 						}
-						//btnSubmit.setBounds(510,550,100,30);
-						btnSubmit.setOpaque(true);
+						btnSubmit.setOpaque(false);
+						btnSubmit.setContentAreaFilled(false);
 						btnSubmit.setBorderPainted(false);
-						
-						 /*Image img;
-							try {
-								img = ImageIO.read(getClass().getResource("/image/submit_icon.png"));
-								btnSubmit.setIcon(new ImageIcon(img));
-								btnSubmit.setBorder(null);
-							} catch (IOException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}*/
-						add(btnSubmit);
 						btnSubmit.addActionListener(this);
+						add(btnSubmit);
+						
 						
 						btnBack =  new JButton(new ImageIcon(this.getClass().getResource("/image/back2.png")));
-						btnBack.setBounds(350,550,120,50);
-						btnBack.setOpaque(true);
+						btnBack.setBounds(370,550,120,50);
+						btnBack.setOpaque(false);
+						btnBack.setContentAreaFilled(false);
 						btnBack.setBorderPainted(false);
-						btnBack.setBackground(new Color(255,255,255));
-						/*try {
-							img = ImageIO.read(getClass().getResource("/image/back.png"));
-							btnBack.setIcon(new ImageIcon(img));
-							btnBack.setBorder(null);
-						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}*/
-						add(btnBack);
 						btnBack.addActionListener(this);
+						add(btnBack);
+						
 						
 						
 						

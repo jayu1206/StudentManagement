@@ -124,7 +124,7 @@ public class PlotRateGraphGUI extends JFrame  implements ActionListener, Printab
 		setContentPane(new JLabel(new ImageIcon(this.getClass().getResource("/image/sky.png"))));
 		setLayout(null);
 		
-		Font f1=FontClass.MuseoSans500(20);
+		Font f1=FontClass.MuseoSans700(18); 
 		Font f2=FontClass.MuseoSans500(20);
 		
 		
@@ -229,22 +229,20 @@ public class PlotRateGraphGUI extends JFrame  implements ActionListener, Printab
 			
 			     btnBack = new JButton(new ImageIcon(this.getClass().getResource("/image/back.png")));
 		         btnBack.setBounds(120,660,120,40);
-		         btnBack.setBackground(Color.WHITE);
-		         btnBack.setOpaque(true);
+		         btnBack.setOpaque(false);
+		         btnBack.setContentAreaFilled(false);
 		         btnBack.setBorderPainted(false);
 		         btnBack.setFocusable(false);
-		         btnBack.setFont(new Font("Britannic Bold", Font.PLAIN, 15));
 		         add(btnBack);
 		         btnBack.addActionListener(this);
 		         
 		         
 		         btnPrint = new JButton(new ImageIcon(this.getClass().getResource("/image/print combo.png")));
 		         btnPrint.setBounds(750,660,120,40);
-		         btnPrint.setBackground(Color.WHITE);
-		         btnPrint.setOpaque(true);
+		         btnPrint.setOpaque(false);
+		         btnPrint.setContentAreaFilled(false);
 		         btnPrint.setBorderPainted(false);
 		         btnPrint.setFocusable(false);
-		         btnPrint.setFont(new Font("Britannic Bold", Font.PLAIN, 15));
 		         add(btnPrint);
 		         //getContentPane().add(btnPrint);
 		         btnPrint.addActionListener(this);

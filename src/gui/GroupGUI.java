@@ -22,7 +22,10 @@ import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.regex.Pattern;
 
 import javax.swing.BorderFactory;
@@ -106,55 +109,71 @@ public class GroupGUI extends JFrame implements ActionListener{
 		
 		
 		if (osname.contains("Mac")){
+			JLabel lb=new JLabel("                                ");
+			mb.add(lb);
+			
 			btnMmyProfile = new JButton(new ImageIcon(this.getClass().getResource("/image/my profile.png")));
 			btnMmyProfile.addActionListener(this);
-			
-			//btnMmyProfile.setBackground(new Color(135,206,250));
-			//btnMmyProfile.setBorder(null);
-			//btnMmyProfile.setBorderPainted(false);
-			//btnMmyProfile.setOpaque(true);
-			mb.add(btnMmyProfile); 
+			btnMmyProfile.setBackground(new Color(193,39,35));
+			btnMmyProfile.setBorder(null);
+			btnMmyProfile.setBorderPainted(false);
+			btnMmyProfile.setOpaque(false);
+			btnMmyProfile.setContentAreaFilled(false);
+			mb.add(btnMmyProfile);
 			setJMenuBar(mb);
 			
+	        
+	        lb=new JLabel("     ");
+			mb.add(lb);
 			
 			btnMgroup = new JButton(new ImageIcon(this.getClass().getResource("/image/groups.png")));
 			btnMgroup.addActionListener(this);
-			btnMgroup.setBackground(new Color(225,39,38));
-//			btnMgroup.setBorderPainted(false);
-//			btnMgroup.setOpaque(true);
+			btnMgroup.setBackground(new Color(193,39,35));
+			btnMgroup.setBorderPainted(false);
+			btnMgroup.setOpaque(false);
+			btnMgroup.setContentAreaFilled(false); 
+			btnMgroup.setFocusPainted(false); 
 			mb.add(btnMgroup); 
-			
 	        setJMenuBar(mb);
 	       
 			
 	        btnMstudents = new JButton(new ImageIcon(this.getClass().getResource("/image/student.png")));
 			btnMstudents.addActionListener(this);
-			btnMstudents.setBackground(new Color(225,39,38));
-//			btnMstudents.setBorderPainted(false);
-//			btnMstudents.setOpaque(true);
+			btnMstudents.setBackground(new Color(193,39,35));
+			btnMstudents.setBorderPainted(false);
+			btnMstudents.setOpaque(false);
+			btnMstudents.setContentAreaFilled(false); 
+			btnMstudents.setFocusPainted(false); 
 			mb.add(btnMstudents);  
 	        setJMenuBar(mb);
 			
-			
-	        btnMImportExport = new JButton(new ImageIcon(this.getClass().getResource("/image/import export.png")));
+
+	        
+			btnMImportExport = new JButton(new ImageIcon(this.getClass().getResource("/image/import export.png")));
 			btnMImportExport.addActionListener(this);
-			btnMImportExport.setBackground(new Color(225,39,38));
-//			btnMImportExport.setBorderPainted(false);
-//			btnMImportExport.setOpaque(true);
+			btnMImportExport.setBackground(new Color(193,39,35));
+			btnMImportExport.setBorderPainted(false);
+			btnMImportExport.setOpaque(false);
+			btnMImportExport.setContentAreaFilled(false); 
+			btnMImportExport.setFocusPainted(false);
 			mb.add(btnMImportExport);  
 	        setJMenuBar(mb);
+	        
 	        
 	        mb.add(Box.createHorizontalGlue());
 	        btnMLogout = new JButton(new ImageIcon(this.getClass().getResource("/image/logout.png")));
 	        btnMLogout.addActionListener(this);
-	        btnMLogout.setBackground(new Color(225,39,38));
-//	        btnMLogout.setForeground(Color.white);
-//	        btnMLogout.setOpaque(true);
-//	        btnMLogout.setBorderPainted(false);
+	        btnMLogout.setBackground(new Color(193,39,35));
+	        btnMLogout.setOpaque(false);
+	        btnMLogout.setBorderPainted(false);
+	        btnMLogout.setContentAreaFilled(false); 
+	        btnMLogout.setFocusPainted(false);
+	        
 			mb.add(btnMLogout);  
-			
-			
 	        setJMenuBar(mb);
+	        
+	        lb=new JLabel("             ");
+			mb.add(lb);
 			
 		}else{
 			
@@ -167,7 +186,7 @@ public class GroupGUI extends JFrame implements ActionListener{
 			btnMmyProfile.setBorder(null);
 			btnMmyProfile.setBorderPainted(false);
 			btnMmyProfile.setOpaque(false);
-			btnMmyProfile.setContentAreaFilled(false); 
+			btnMmyProfile.setContentAreaFilled(false);
 			mb.add(btnMmyProfile);
 			setJMenuBar(mb);
 			
@@ -221,6 +240,9 @@ public class GroupGUI extends JFrame implements ActionListener{
 	        
 			mb.add(btnMLogout);  
 	        setJMenuBar(mb);
+	        
+	        lb=new JLabel("             ");
+			mb.add(lb);
 	        
 		}
 		
@@ -324,8 +346,18 @@ public class GroupGUI extends JFrame implements ActionListener{
 		
       GroupDAO dao=new GroupOpr();
        ArrayList<GroupBean> list = dao.getAllGroups();
-       
+       SimpleDateFormat ddmmyyyy = new SimpleDateFormat("dd-MM-yyyy");
+	   SimpleDateFormat mmddyyyy = new SimpleDateFormat("MM/dd/yyyy");
+	   
        for(GroupBean bean : list ){
+    	   try {
+				Date dt = ddmmyyyy.parse(bean.getStartDate());
+				bean.setStartDate(mmddyyyy.format(dt));
+				
+			} catch (ParseException e1) {
+				// TODO Auto-generated catch block
+				//e1.printStackTrace();
+			}
        	 model.addRow(new Object[]{bean.getGroupID(),bean.getGroupName(),bean.getStartDate()});
        	 
         }
@@ -390,9 +422,9 @@ public class GroupGUI extends JFrame implements ActionListener{
 			Image img;
 			 btnSubmit = new JButton("Add New Group");
 	         if (osname.contains("Mac")){
-	        	 btnSubmit.setBounds(230,520,170,40);
+	        	 btnSubmit.setBounds(240,520,170,40);
 				}else{
-					btnSubmit.setBounds(230,520,150,40);
+					btnSubmit.setBounds(240,520,150,40);
 				}
 	         
 	         btnSubmit.setBackground(Color.WHITE);
@@ -403,7 +435,7 @@ public class GroupGUI extends JFrame implements ActionListener{
 	         btnSubmit.addActionListener(this);
 	         
 	         btnDelete = new JButton("Remove Group");
-	         btnDelete.setBounds(430,520,150,40);
+	         btnDelete.setBounds(420,520,150,40);
 	         btnDelete.setBackground(Color.WHITE);
 	         btnDelete.setOpaque(true);
 	         btnDelete.setBorderPainted(false);
@@ -412,7 +444,7 @@ public class GroupGUI extends JFrame implements ActionListener{
 	         btnDelete.addActionListener(this);
 	         
 	         btnImportExport = new JButton("Import/Export");
-	         btnImportExport.setBounds(630,520,150,40);
+	         btnImportExport.setBounds(610,520,150,40);
 	         btnImportExport.setBackground(Color.WHITE);
 	         btnImportExport.setOpaque(true);
 	         btnImportExport.setBorderPainted(false);
@@ -423,22 +455,21 @@ public class GroupGUI extends JFrame implements ActionListener{
 	         
 	         
 	         btnBack = new JButton(new ImageIcon(this.getClass().getResource("/image/back.png")));
-	         btnBack.setBounds(230,600,120,40);
-	         btnBack.setBackground(Color.WHITE);
-	         btnBack.setOpaque(true);
+	         btnBack.setBounds(100,600,120,40);
+	         btnBack.setOpaque(false);
+	         btnBack.setContentAreaFilled(false);
 	         btnBack.setBorderPainted(false);
-	         btnBack.setFont(new Font("Britannic Bold", Font.PLAIN, 15));
+	         btnBack.setFocusable(false);
 	         add(btnBack);
 	         getContentPane().add(btnBack);
 	         btnBack.addActionListener(this);
 	         
 	         
 	         btnExit = new JButton(new ImageIcon(this.getClass().getResource("/image/Exit2.png")));
-	         btnExit.setBounds(660,600,120,40);
-	         btnExit.setBackground(Color.WHITE);
+	         btnExit.setBounds(800,600,120,40);
+	         btnExit.setFocusable(false);
 	         btnExit.setOpaque(true);
 	         btnExit.setBorderPainted(false);
-	         btnExit.setFont(new Font("Britannic Bold", Font.PLAIN, 15));
 	         add(btnExit);
 	         getContentPane().add(btnExit);
 	         btnExit.addActionListener(this);

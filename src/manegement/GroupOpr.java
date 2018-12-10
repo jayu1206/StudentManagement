@@ -117,10 +117,12 @@ public class GroupOpr extends GroupDAO {
 			
 			StudentOpr studOpr=new StudentOpr();
 			
-			if(studlist.get(0)!=null){
+			if(studlist.size()>0){
 				for(String val : studlist){
 					flag = studOpr.deleteStudent(val);
 				}
+			}else{
+				flag = true;
 			}
 			
 			if(flag){

@@ -50,6 +50,8 @@ import javax.swing.border.EmptyBorder;
 
 
 
+
+
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
@@ -106,55 +108,71 @@ public class AddGroupGUI extends JFrame implements ActionListener{
 
 		
 		if (osname.contains("Mac")){
+			JLabel lb=new JLabel("                                ");
+			mb.add(lb);
+			
 			btnMmyProfile = new JButton(new ImageIcon(this.getClass().getResource("/image/my profile.png")));
 			btnMmyProfile.addActionListener(this);
-			
-			//btnMmyProfile.setBackground(new Color(135,206,250));
-			//btnMmyProfile.setBorder(null);
-			//btnMmyProfile.setBorderPainted(false);
-			//btnMmyProfile.setOpaque(true);
-			mb.add(btnMmyProfile); 
+			btnMmyProfile.setBackground(new Color(193,39,35));
+			btnMmyProfile.setBorder(null);
+			btnMmyProfile.setBorderPainted(false);
+			btnMmyProfile.setOpaque(false);
+			btnMmyProfile.setContentAreaFilled(false);
+			mb.add(btnMmyProfile);
 			setJMenuBar(mb);
 			
+	        
+	        lb=new JLabel("     ");
+			mb.add(lb);
 			
 			btnMgroup = new JButton(new ImageIcon(this.getClass().getResource("/image/groups.png")));
 			btnMgroup.addActionListener(this);
-			btnMgroup.setBackground(new Color(225,39,38));
-//			btnMgroup.setBorderPainted(false);
-//			btnMgroup.setOpaque(true);
+			btnMgroup.setBackground(new Color(193,39,35));
+			btnMgroup.setBorderPainted(false);
+			btnMgroup.setOpaque(false);
+			btnMgroup.setContentAreaFilled(false); 
+			btnMgroup.setFocusPainted(false); 
 			mb.add(btnMgroup); 
-			
 	        setJMenuBar(mb);
 	       
 			
 	        btnMstudents = new JButton(new ImageIcon(this.getClass().getResource("/image/student.png")));
 			btnMstudents.addActionListener(this);
-			btnMstudents.setBackground(new Color(225,39,38));
-//			btnMstudents.setBorderPainted(false);
-//			btnMstudents.setOpaque(true);
+			btnMstudents.setBackground(new Color(193,39,35));
+			btnMstudents.setBorderPainted(false);
+			btnMstudents.setOpaque(false);
+			btnMstudents.setContentAreaFilled(false); 
+			btnMstudents.setFocusPainted(false); 
 			mb.add(btnMstudents);  
 	        setJMenuBar(mb);
 			
-			
-	        btnMImportExport = new JButton(new ImageIcon(this.getClass().getResource("/image/import export.png")));
+
+	        
+			btnMImportExport = new JButton(new ImageIcon(this.getClass().getResource("/image/import export.png")));
 			btnMImportExport.addActionListener(this);
-			btnMImportExport.setBackground(new Color(225,39,38));
-//			btnMImportExport.setBorderPainted(false);
-//			btnMImportExport.setOpaque(true);
+			btnMImportExport.setBackground(new Color(193,39,35));
+			btnMImportExport.setBorderPainted(false);
+			btnMImportExport.setOpaque(false);
+			btnMImportExport.setContentAreaFilled(false); 
+			btnMImportExport.setFocusPainted(false);
 			mb.add(btnMImportExport);  
 	        setJMenuBar(mb);
+	        
 	        
 	        mb.add(Box.createHorizontalGlue());
 	        btnMLogout = new JButton(new ImageIcon(this.getClass().getResource("/image/logout.png")));
 	        btnMLogout.addActionListener(this);
-	        btnMLogout.setBackground(new Color(225,39,38));
-//	        btnMLogout.setForeground(Color.white);
-//	        btnMLogout.setOpaque(true);
-//	        btnMLogout.setBorderPainted(false);
+	        btnMLogout.setBackground(new Color(193,39,35));
+	        btnMLogout.setOpaque(false);
+	        btnMLogout.setBorderPainted(false);
+	        btnMLogout.setContentAreaFilled(false); 
+	        btnMLogout.setFocusPainted(false);
+	        
 			mb.add(btnMLogout);  
-			
-			
 	        setJMenuBar(mb);
+	        
+	        lb=new JLabel("             ");
+			mb.add(lb);
 			
 		}else{//Font f2=new Font("Serif",Font.BOLD,20);
 			
@@ -222,6 +240,11 @@ public class AddGroupGUI extends JFrame implements ActionListener{
 	        
 			mb.add(btnMLogout);  
 	        setJMenuBar(mb);
+	        
+	        lb=new JLabel("             ");
+			mb.add(lb);
+			
+			
 	    }
 		
         
@@ -230,35 +253,35 @@ public class AddGroupGUI extends JFrame implements ActionListener{
 		
 		
 		Container c=getContentPane();  
-		Font f=FontClass.MuseoSans700Italic(30);   
+		Font f=FontClass.MuseoSans700Italic(25);
 		
 		
 		// step 3 : creating JLabel for Heading
 				JLabel heading_lbl=new JLabel("Provide Group Detail");
-				heading_lbl.setBounds(350,30,500,40);
+				heading_lbl.setBounds(390,60,500,40);
 				//heading_lbl.setText("<html><font color=white size=8 ><u><b>Provide Group Detail</b></u></html>");	
 				heading_lbl.setFont(f);
 				
 				add(heading_lbl);
 				
-				Font f1=FontClass.MuseoSans500(25);
+				Font f1=FontClass.MuseoSans700(18); 
 				Font f2=FontClass.MuseoSans500(20);
 				
 				
 				lblClass = new JLabel("Class Name ");
-				lblClass.setBounds(310,150,160,30); 
+				lblClass.setBounds(350,160,160,30); 
 				//lblClass.setForeground(Color.white);
 				lblClass.setFont(f1);
 				add(lblClass);
 				
 				txtClass = new JTextField();
-				txtClass.setBounds(500,151,200,30); 
+				txtClass.setBounds(470,161,200,30); 
 				txtClass.setFont(f2);
 				add(txtClass);
 				
 				
 				lblStartDate = new JLabel("Start Date");
-				lblStartDate.setBounds(330,230,160,30); 
+				lblStartDate.setBounds(360,230,160,30); 
 				//lblStartDate.setForeground(Color.white);
 				lblStartDate.setFont(f1);
 				add(lblStartDate);
@@ -276,7 +299,7 @@ public class AddGroupGUI extends JFrame implements ActionListener{
 				JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
 				datePanel.setBackground(new Color(245,245,245));
 				datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
-				datePicker.setBounds(500,230,200,30);
+				datePicker.setBounds(470,230,200,30);
 				datePicker.setBackground(new Color(245,245,245));
 				add(datePicker);
 				
@@ -297,10 +320,11 @@ public class AddGroupGUI extends JFrame implements ActionListener{
 				btnDT.addActionListener(this);
 				*/
 				btnSubmit = new JButton(new ImageIcon(this.getClass().getResource("/image/add record button.png")));
-				btnSubmit.setBounds(450,310,80,60);
-				btnSubmit.setOpaque(true);
+				btnSubmit.setBounds(470,310,80,60);
+				btnSubmit.setOpaque(false);
+				btnSubmit.setContentAreaFilled(false);
 				btnSubmit.setBorderPainted(false);
-				//btnSubmit.setFont(new Font("Britannic Bold", Font.PLAIN, 20));
+				btnSubmit.setFocusable(false);
 				btnSubmit.addActionListener(this);
 				add(btnSubmit);
 				
