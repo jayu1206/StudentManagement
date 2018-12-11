@@ -435,22 +435,35 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 
 	public JPanel createContactPanel2(StudentBean studBean) {
 
-		Font f1 = FontClass.MuseoSans500(20);
+		Font f=FontClass.MuseoSans700(20);
+		
+		Font f1 = FontClass.MuseoSans500Italic(20);
 		//f1.deriveFont(Font.PLAIN, 15);
 		
 		Font f3 = FontClass.MuseoSans500(15);
 		f3.deriveFont(Font.PLAIN, 15);
 
 		JPanel panelGeneral = new JPanel();
-		panelGeneral.setLayout(new GridLayout(3, 1)); // new Color(107,5,37)
+		panelGeneral.setLayout(null); // new Color(107,5,37)
 		panelGeneral.setBackground(new Color(242,242,242));
 
+		JLabel heading_lbl=new JLabel("Take Flight Decoding and Reading Rate Process Data Manager");
+		heading_lbl.setBounds(100,10,600,20);
+		heading_lbl.setFont(f);
+		heading_lbl.setForeground(new Color(65, 127, 159));
+		panelGeneral.add(heading_lbl);
+		
+		
 		lblstudNo = new JLabel("   "+studBean.getStudFirstName() + " " + studBean.getStudLastName());
-		lblstudNo.setBounds(20, 20, 250, 25);
+		lblstudNo.setBounds(20, 50, 250, 25);
+		lblstudNo.setForeground(new Color(65, 127, 159));
 		lblstudNo.setFont(f1);
-
 		panelGeneral.add(lblstudNo);
-
+		
+		
+		/* Table code start  */
+		
+		
 		model = new DefaultTableModel();
 
 		jt = new JTable();
@@ -475,8 +488,8 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 			jt.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
 
 		}
-
-		jt.setPreferredScrollableViewportSize(new Dimension(800, 400));
+		
+		jt.setPreferredScrollableViewportSize(new Dimension(750, 280));
 
 		// double click on table row and open other window code
 		// jt.setDefaultEditor(Object.class, null);
@@ -563,65 +576,64 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 
 		}
 
+		Font f2 = FontClass.MuseoSans700(15);
 		JTableHeader header = jt.getTableHeader();
-		header.setBackground(new Color(44,85,106));
-		header.setForeground(Color.white);
+		header.setBackground(new Color(188,221,238));
+		header.setFont(f2);
+		header.setForeground(Color.BLACK);
+		header.setPreferredSize(new Dimension(100, 30));
 
 		JScrollPane scroller = new JScrollPane(jt, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
+		
+        
+		scroller.setBounds(20, 80, 750, 180);
 		panelGeneral.add(scroller);
-
-		JPanel panelCreditCard = new JPanel(new FlowLayout());
-		// panelCreditCard.setLayout(null);
-		//panelCreditCard.setBackground(new Color(162,49,4));
-		// panelCreditCard.setBorder(new TitledBorder("Payment method"));
-
-		/*
-		 * JLabel heading_lbl=new JLabel("Select record to edit");
-		 * heading_lbl.setBounds(350,480,1000,50);
-		 * heading_lbl.setForeground(Color.red); heading_lbl.setFont(f1);
-		 * panelCreditCard.add(heading_lbl);
-		 */
-
-		btnAddDecoding = new JButton(new ImageIcon(this.getClass().getResource("/image/add record button.png")));
-		btnAddDecoding.setBounds(10, 10, 200, 25);
+		
+		
+		
+		/* Table code end   */
+		
+		
+		btnAddDecoding = new JButton(new ImageIcon(this.getClass().getResource("/image/add record button2.png")));
+		btnAddDecoding.setBounds(130, 270, 150, 130);
 		btnAddDecoding.setOpaque(false);
 		btnAddDecoding.setContentAreaFilled(false);
 		btnAddDecoding.setBorderPainted(false);
 		btnAddDecoding.setFocusable(false);
 		btnAddDecoding.addActionListener(this);
-		panelCreditCard.add(btnAddDecoding);
+		panelGeneral.add(btnAddDecoding);
 
-		btnSaveDecoding = new JButton(new ImageIcon(this.getClass().getResource("/image/save record button.png")));
-		btnSaveDecoding.setBounds(250, 10, 200, 25);
+		btnSaveDecoding = new JButton(new ImageIcon(this.getClass().getResource("/image/save record button2.png")));
+		btnSaveDecoding.setBounds(310, 270, 150, 130);
 		btnSaveDecoding.setOpaque(false);
 		btnSaveDecoding.setContentAreaFilled(false);
 		btnSaveDecoding.setBorderPainted(false);
 		btnSaveDecoding.setFocusable(false);
 		btnSaveDecoding.addActionListener(this);
-		panelCreditCard.add(btnSaveDecoding);
+		panelGeneral.add(btnSaveDecoding);
 
-		btnPloatDecoding = new JButton(new ImageIcon(this.getClass().getResource("/image/plot data button.png")));
-		btnPloatDecoding.setBounds(250, 10, 200, 25);
+		btnPloatDecoding = new JButton(new ImageIcon(this.getClass().getResource("/image/plot data button2.png")));
+		btnPloatDecoding.setBounds(490, 270, 150, 130);
 		btnPloatDecoding.setOpaque(false);
 		btnPloatDecoding.setContentAreaFilled(false);
 		btnPloatDecoding.setBorderPainted(false);
 		btnPloatDecoding.setFocusable(false);
 		btnPloatDecoding.addActionListener(this);
-		panelCreditCard.add(btnPloatDecoding);
+		panelGeneral.add(btnPloatDecoding);
 
-		panelGeneral.add(panelCreditCard);
+		//panelGeneral.add(panelCreditCard);
+		
+		
+		
+		
 
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
 		panel.add(panelGeneral);
 		panelGeneral.setBounds(16, 16, 780, 430);
 
-		/*
-		 * panel.add(panelCreditCard); panelCreditCard.setBounds(10, 490, 370,
-		 * 120);
-		 */
 
 		panel.setPreferredSize(new Dimension(380, 620));
 
@@ -630,22 +642,37 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 
 	public JPanel createContactPanel3(StudentBean studBean) {
 
-		Font f1 = FontClass.MuseoSans500(20);
+		
+		Font f=FontClass.MuseoSans700(20);
+		
+		Font f1 = FontClass.MuseoSans500Italic(20);
 		//f1.deriveFont(Font.PLAIN, 15);
 		
 		Font f3 = FontClass.MuseoSans500(15);
 		f3.deriveFont(Font.PLAIN, 15);
 
 		JPanel panelGeneral = new JPanel();
-		panelGeneral.setLayout(new GridLayout(3, 1)); // new Color(107,5,37)
+		panelGeneral.setLayout(null); // new Color(107,5,37)
 		panelGeneral.setBackground(new Color(242,242,242));
 
+		JLabel heading_lbl=new JLabel("Take Flight Decoding and Reading Rate Process Data Manager");
+		heading_lbl.setBounds(100,10,600,20);
+		heading_lbl.setFont(f);
+		heading_lbl.setForeground(new Color(65, 127, 159));
+		panelGeneral.add(heading_lbl);
+		
+		
 		lblstudNo = new JLabel("   "+studBean.getStudFirstName() + " " + studBean.getStudLastName());
-		lblstudNo.setBounds(20, 20, 250, 25);
+		lblstudNo.setBounds(20, 50, 250, 25);
+		lblstudNo.setForeground(new Color(65, 127, 159));
 		lblstudNo.setFont(f1);
-
 		panelGeneral.add(lblstudNo);
+		
+		
+		/* Table code start  */
 
+		
+		
 		modelRate = new DefaultTableModel();
 
 		jtRate = new JTable();
@@ -736,50 +763,51 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 
 		}
 
+		Font f2 = FontClass.MuseoSans700(15);
 		JTableHeader header = jtRate.getTableHeader();
-		header.setBackground(new Color(44,85,106));
-		header.setForeground(Color.white);
+		header.setBackground(new Color(188,221,238));
+		header.setFont(f2);
+		header.setForeground(Color.BLACK);
+		header.setPreferredSize(new Dimension(100, 30));
 
 		JScrollPane scroller = new JScrollPane(jtRate, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		scroller.setBounds(20, 80, 750, 180);
 		panelGeneral.add(scroller);
-
-		JPanel panelCreditCard = new JPanel(new FlowLayout());
-		// panelCreditCard.setLayout(null);
-		panelCreditCard.setBackground(new Color(242,242,242));
-		// panelCreditCard.setBorder(new TitledBorder("Payment method"));
-
-		btnAddRate = new JButton(new ImageIcon(this.getClass().getResource("/image/add record button.png")));
-		btnAddRate.setBounds(10, 10, 200, 25);
+		
+		/*  end table    */
+		
+		btnAddRate = new JButton(new ImageIcon(this.getClass().getResource("/image/add record button2.png")));
+		btnAddRate.setBounds(130, 270, 150, 130);
 		btnAddRate.setBackground(new Color(242,242,242));
 		btnAddRate.setOpaque(true);
 		btnAddRate.setBorderPainted(false);
 		btnAddRate.setContentAreaFilled(false);
 		btnAddRate.setFocusable(false);
 		btnAddRate.addActionListener(this);
-		panelCreditCard.add(btnAddRate);
+		panelGeneral.add(btnAddRate);
 
-		btnSaveRate = new JButton(new ImageIcon(this.getClass().getResource("/image/save record button.png")));
-		btnSaveRate.setBounds(250, 10, 200, 25);
+		btnSaveRate = new JButton(new ImageIcon(this.getClass().getResource("/image/save record button2.png")));
+		btnSaveRate.setBounds(310, 270, 150, 130);
 		btnSaveRate.setBackground(new Color(242,242,242));
 		btnSaveRate.setOpaque(true);
 		btnSaveRate.setBorderPainted(false);
 		btnSaveRate.setContentAreaFilled(false);
 		btnSaveRate.setFocusable(false);
 		btnSaveRate.addActionListener(this);
-		panelCreditCard.add(btnSaveRate);
+		panelGeneral.add(btnSaveRate);
 
-		btnPloatRate = new JButton(new ImageIcon(this.getClass().getResource("/image/plot data button.png")));
-		btnPloatRate.setBounds(250, 10, 200, 25);
+		btnPloatRate = new JButton(new ImageIcon(this.getClass().getResource("/image/plot data button2.png")));
+		btnPloatRate.setBounds(490, 270, 150, 130);
 		btnPloatRate.setBackground(new Color(242,242,242));
 		btnPloatRate.setOpaque(true);
 		btnPloatRate.setBorderPainted(false);
 		btnPloatRate.setContentAreaFilled(false);
 		btnPloatRate.setFocusable(false);
 		btnPloatRate.addActionListener(this);
-		panelCreditCard.add(btnPloatRate);
+		panelGeneral.add(btnPloatRate);
 
-		panelGeneral.add(panelCreditCard);
+		
 
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
@@ -795,6 +823,10 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 		setResizable(false);
 
 		return panel;
+		
+		
+		
+		
 	}
 
 	private void centerFrame() {

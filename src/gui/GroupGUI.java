@@ -362,9 +362,12 @@ public class GroupGUI extends JFrame implements ActionListener{
        	 
         }
        
+       Font f2 = FontClass.MuseoSans700(15);
        JTableHeader header= jt.getTableHeader();
-       header.setBackground(new Color(44,85,106));
-	   header.setForeground(Color.white);
+       header.setBackground(new Color(188,221,238));
+       header.setFont(f2);
+	   header.setForeground(Color.BLACK);
+	   header.setPreferredSize(new Dimension(100, 30));
 	       
 	       
 	       final TableRowSorter<TableModel> sorter;
@@ -375,12 +378,11 @@ public class GroupGUI extends JFrame implements ActionListener{
         JScrollPane scroller = new JScrollPane(jt, 
                 JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED); 
         
-       
+        
         JPanel panelGeneral = new JPanel();
         panelGeneral.setLayout(new FlowLayout());
         panelGeneral.add(scroller);
         panelGeneral.setBounds(240, 100, 520, 330);
-        
         add(panelGeneral); 
         
         
