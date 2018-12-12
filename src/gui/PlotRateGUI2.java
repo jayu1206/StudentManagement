@@ -4,18 +4,18 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GraphicsEnvironment;
-import java.awt.GridLayout;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -25,7 +25,23 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.swing.*;
+import javax.swing.Box;
+import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
+import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
@@ -36,16 +52,12 @@ import bean.StudentBean;
 import bean.StudentDecoding;
 import bean.StudentRate;
 
-public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-
+public class PlotRateGUI2 extends JFrame implements ActionListener{
+	
 	StudentBean bean = new StudentBean();
 
 	JButton btnSubmit, btnDelete, btnBack, btnExit;
+	JButton btnContinue;
 	JButton btnMgroup, btnMstudents, btnMreport, btnMImportExport, btnMLogout,btnMmyProfile;
 	JMenuItem group, students, report;
 	JMenu menu;
@@ -67,9 +79,18 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 	JTable jtRate;
 	JButton btnAddRate, btnSaveRate, btnPloatRate;
 	String osname = System.getProperty("os.name");
+	
 
-
-	StudentDetailsInfoGUI(StudentBean bean, String classId, String className) {
+    JLabel lblstudent,lblDataRange,lblAll,lblPlot,lblthrough;
+	JTextField txtStudent,txtbegin,txtend;
+	JRadioButton allRadio = new JRadioButton(" All");
+    JRadioButton weekRadio = new JRadioButton(" Text");
+    JRadioButton indiStudDataRadio = new JRadioButton("Individual student data");
+    JRadioButton studDataClsAvgRadio = new JRadioButton("Student data with class average");
+    ButtonGroup bG = new ButtonGroup();
+    ButtonGroup bG2 = new ButtonGroup();
+    
+	PlotRateGUI2(StudentBean bean, String classId, String className){
 
 		this.classId = classId;
 		this.className = className;
@@ -221,8 +242,8 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 		tp.setUI(new CustomTabbedPaneUI());
 		tp.setBorder(null);
 		
-		/*int selectedIndex = tp.getSelectedIndex();
-		tp.setSelectedIndex(tp.getTabCount()-1);*/
+		int selectedIndex = tp.getSelectedIndex();
+		tp.setSelectedIndex(tp.getTabCount()-1);
 
 
 		add(tp);
@@ -233,26 +254,24 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 		 * heading_lbl.setForeground(Color.red); heading_lbl.setFont(f);
 		 * heading_lbl.setFont(f); add(heading_lbl);
 		 */
-		 btnBack = new JButton(new ImageIcon(this.getClass().getResource("/image/back.png")));
-         btnBack.setBounds(100,600,120,40);
-         btnBack.setOpaque(false);
-         btnBack.setContentAreaFilled(false);
-         btnBack.setBorderPainted(false);
-         btnBack.setCursor(new Cursor(Cursor.HAND_CURSOR));
-         add(btnBack);
-         getContentPane().add(btnBack);
-         btnBack.addActionListener(this);
-         
-         
-         btnExit = new JButton(new ImageIcon(this.getClass().getResource("/image/Exit2.png")));
-         btnExit.setBounds(800,600,120,40);
-         btnExit.setBackground(Color.WHITE);
-         btnExit.setOpaque(true);
-         btnExit.setBorderPainted(false);
-         btnExit.setCursor(new Cursor(Cursor.HAND_CURSOR));
-         add(btnExit);
-         getContentPane().add(btnExit);
-         btnExit.addActionListener(this);
+		btnBack = new JButton(new ImageIcon(this.getClass().getResource("/image/back.png")));
+		 btnBack.setBounds(100,600,120,40);
+        btnBack.setOpaque(false);
+        btnBack.setContentAreaFilled(false);
+        btnBack.setBorderPainted(false);
+        btnBack.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        add(btnBack);
+        btnBack.addActionListener(this);
+        
+        
+        btnContinue = new JButton(new ImageIcon(this.getClass().getResource("/image/arrow right.png")));
+        btnContinue.setBounds(800,600,120,40);
+        btnContinue.setOpaque(false);
+        btnContinue.setContentAreaFilled(false);
+        btnContinue.setBorderPainted(false);
+        btnContinue.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        add(btnContinue);
+        btnContinue.addActionListener(this);
 
 		setSize(1000, 800);
 		centerFrame();
@@ -269,7 +288,8 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 		setVisible(true);
 
 	}
-
+	
+	
 	public JPanel createContactPanel1(StudentBean studBean) {
 
 		Font f1 = FontClass.MuseoSans700(15);
@@ -513,7 +533,6 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 		delete.addActionListener(this);
 		SimpleDateFormat ddmmyyyy = new SimpleDateFormat("dd-MM-yyyy");
 		SimpleDateFormat mmddyyyy = new SimpleDateFormat("MM/dd/yyyy");
-		
 		for (StudentDecoding decoBean : studBean.getListDecoding()) {
 			try {
 				Date dt = ddmmyyyy.parse(decoBean.getDate());
@@ -600,185 +619,88 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 	public JPanel createContactPanel3(StudentBean studBean) {
 
 		
-		Font f=FontClass.MuseoSans700(20);
-		
-		Font f1 = FontClass.MuseoSans500Italic(20);
-		//f1.deriveFont(Font.PLAIN, 15);
-		
-		Font f3 = FontClass.MuseoSans500(15);
-		f3.deriveFont(Font.PLAIN, 15);
-
 		JPanel panelGeneral = new JPanel();
 		panelGeneral.setLayout(null); // new Color(107,5,37)
 		panelGeneral.setBackground(new Color(242,242,242));
+		
+		Font f=FontClass.MuseoSans700(20);   // Creating font style and size for heading
 
-		JLabel heading_lbl=new JLabel("Take Flight Decoding and Reading Rate Process Data Manager");
-		heading_lbl.setBounds(100,10,600,20);
-		heading_lbl.setFont(f);
-		heading_lbl.setForeground(new Color(65, 127, 159));
-		panelGeneral.add(heading_lbl);
-		
-		
-		lblstudNo = new JLabel("   "+studBean.getStudFirstName() + " " + studBean.getStudLastName());
-		lblstudNo.setBounds(20, 50, 250, 25);
-		lblstudNo.setForeground(new Color(65, 127, 159));
-		lblstudNo.setFont(f1);
-		panelGeneral.add(lblstudNo);
-		
-		
-		/* Table code start  */
-
-		
-		
-		modelRate = new DefaultTableModel();
-
-		jtRate = new JTable();
-		jtRate.setRowHeight(30);
-
-		jtRate.setFont(f3);
-
-		jtRate.setModel(modelRate);
-		modelRate.addColumn("Record");
-		modelRate.addColumn("Week");
-		modelRate.addColumn("Date");
-		modelRate.addColumn("Text");
-		modelRate.addColumn("Time");
-		modelRate.addColumn("CWPM");
-		modelRate.addColumn("Errors");
-
-		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-		centerRenderer.setHorizontalAlignment(JLabel.CENTER);
-
-		for (int i = 0; i <= 6; i++) {
-			jtRate.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
-		}
-
-		jtRate.setPreferredScrollableViewportSize(new Dimension(800, 300));
-
-		deleteRate = new JMenuItem("Delete");
-		JPopupMenu popup = new JPopupMenu("Delete");
-		popup.add(deleteRate);
-
-		
-		if (osname.contains("Mac")){
-		
-			
-			jtRate.addMouseListener(new MouseAdapter() {
-				@Override
-				
-				public void mouseReleased(MouseEvent e) {
-					if (e.getButton() == java.awt.event.MouseEvent.BUTTON3) {
-						int r = jtRate.rowAtPoint(e.getPoint());
-						if (r >= 0 && r < jtRate.getRowCount()) {
-							jtRate.setRowSelectionInterval(r, r);
-						} else {
-							jtRate.clearSelection();
-						}
-		
-						int rowindex = jtRate.getSelectedRow();
-						if (rowindex < 0)
-							return;
-						
-						popup.show(e.getComponent(), e.getX(), e.getY());
-						if (e.isPopupTrigger() && e.getComponent() instanceof JTable) {
-		
-							popup.show(e.getComponent(), e.getX(), e.getY());
-						}
-					}
-				}
-			});
-		}else{
-		
-		
-		
-		
-			jtRate.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseReleased(MouseEvent e) {
-					int r = jtRate.rowAtPoint(e.getPoint());
-					if (r >= 0 && r < jtRate.getRowCount()) {
-						jtRate.setRowSelectionInterval(r, r);
-					} else {
-						jtRate.clearSelection();
-					}
-	
-					int rowindex = jtRate.getSelectedRow();
-					if (rowindex < 0)
-						return;
-					if (e.isPopupTrigger() && e.getComponent() instanceof JTable) {
-	
-						popup.show(e.getComponent(), e.getX(), e.getY());
-					}
-				}
-			});
-		}
-		deleteRate.addActionListener(this);
-		SimpleDateFormat ddmmyyyy = new SimpleDateFormat("dd-MM-yyyy");
-		SimpleDateFormat mmddyyyy = new SimpleDateFormat("MM/dd/yyyy");
-		for (StudentRate rateBean : studBean.getListRate()) {
-			
-			try {
-				Date dt = ddmmyyyy.parse(rateBean.getDate());
-				rateBean.setDate(mmddyyyy.format(dt));
+		// step 3 : creating JLabel for Heading
+				JLabel heading_lbl=new JLabel("Reading Rate Plot Option");
+				heading_lbl.setBounds(250,20,600,20);
+				heading_lbl.setFont(f);
+				panelGeneral.add(heading_lbl);
 				
 				
-			} catch (ParseException e1) {
-				// TODO Auto-generated catch block
-				//e1.printStackTrace();
-			}
-			
-			modelRate.addRow(new Object[] { rateBean.getRateId(), rateBean.getWeek(), rateBean.getDate(),
-					rateBean.getText(), rateBean.getTime(), rateBean.getCwpm(), rateBean.getErrors() });
-
-		}
-
-		Font f2 = FontClass.MuseoSans700(15);
-		JTableHeader header = jtRate.getTableHeader();
-		header.setBackground(new Color(188,221,238));
-		header.setFont(f2);
-		header.setForeground(Color.BLACK);
-		header.setPreferredSize(new Dimension(100, 30));
-
-		JScrollPane scroller = new JScrollPane(jtRate, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
-				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		scroller.setBounds(20, 80, 750, 180);
-		panelGeneral.add(scroller);
-		
-		/*  end table    */
-		
-		btnAddRate = new JButton(new ImageIcon(this.getClass().getResource("/image/add record button2.png")));
-		btnAddRate.setBounds(130, 270, 150, 130);
-		btnAddRate.setBackground(new Color(242,242,242));
-		btnAddRate.setOpaque(true);
-		btnAddRate.setBorderPainted(false);
-		btnAddRate.setContentAreaFilled(false);
-		btnAddRate.setFocusable(false);
-		btnAddRate.addActionListener(this);
-		btnAddRate.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		panelGeneral.add(btnAddRate);
-
-		btnSaveRate = new JButton(new ImageIcon(this.getClass().getResource("/image/save record button2.png")));
-		btnSaveRate.setBounds(310, 270, 150, 130);
-		btnSaveRate.setBackground(new Color(242,242,242));
-		btnSaveRate.setOpaque(true);
-		btnSaveRate.setBorderPainted(false);
-		btnSaveRate.setContentAreaFilled(false);
-		btnSaveRate.setFocusable(false);
-		btnSaveRate.addActionListener(this);
-		btnSaveRate.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		panelGeneral.add(btnSaveRate);
-
-		btnPloatRate = new JButton(new ImageIcon(this.getClass().getResource("/image/plot data button2.png")));
-		btnPloatRate.setBounds(490, 270, 150, 130);
-		btnPloatRate.setBackground(new Color(242,242,242));
-		btnPloatRate.setOpaque(true);
-		btnPloatRate.setBorderPainted(false);
-		btnPloatRate.setContentAreaFilled(false);
-		btnPloatRate.setFocusable(false);
-		btnPloatRate.addActionListener(this);
-		btnPloatRate.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		panelGeneral.add(btnPloatRate);
-
+				Font f1=FontClass.MuseoSans700(18); 
+				Font f2=FontClass.MuseoSans500(20);
+				
+				
+				lblstudent = new JLabel("Student");
+				if (osname.contains("Mac")){
+					lblstudent.setBounds(40,80,120,30);  
+					}else{
+						lblstudent.setBounds(40,80,100,30);  
+					}
+				
+				
+				lblstudent.setFont(f1);
+				panelGeneral.add(lblstudent);
+				
+				txtStudent = new JTextField(bean.getStudFirstName() + " "+bean.getStudLastName());
+				txtStudent.setBounds(120,800,200,30); 
+				txtStudent.setEditable(false);
+				txtStudent.setFont(f2);
+				panelGeneral.add(txtStudent);
+				
+				lblDataRange = new JLabel("Data Range");
+				lblDataRange.setBounds(40,130,300,40); 
+				lblDataRange.setFont(f1);
+				panelGeneral.add(lblDataRange);
+				
+				bG.add(allRadio);
+		        bG.add(weekRadio);
+		        allRadio.setSelected(true);
+		      //  weekRadio.setSelected(true);
+		        
+		        allRadio.setBounds(120,180,150,40); 
+		        allRadio.setOpaque(false);
+		        allRadio.setContentAreaFilled(false);
+		        allRadio.setBorderPainted(false);
+		        allRadio.setFont(f2);
+		        panelGeneral.add(allRadio);
+				allRadio.addActionListener(this);
+				
+				weekRadio.setBounds(120,210,150,40); 
+				weekRadio.setOpaque(false);
+				weekRadio.setContentAreaFilled(false);
+				weekRadio.setBorderPainted(false);
+				weekRadio.setFont(f2);
+				panelGeneral.add(weekRadio);
+				weekRadio.addActionListener(this);
+				
+				txtbegin = new JTextField("Begin");
+				txtbegin.setBounds(290,210,100,30); 
+				txtbegin.setEditable(false);
+				txtbegin.setFont(f2);
+				panelGeneral.add(txtbegin);
+				
+				
+				lblthrough = new JLabel("through");
+				if (osname.contains("Mac")){
+					lblthrough.setBounds(420,205,120,40); 
+					}else{
+						lblthrough.setBounds(420,205,100,40); 
+					}
+				
+				lblthrough.setFont(f1);
+				panelGeneral.add(lblthrough);
+				
+				txtend = new JTextField("End");
+				txtend.setBounds(520,210,100,30); 
+				txtend.setEditable(false);
+				txtend.setFont(f2);
+				panelGeneral.add(txtend);
 		
 
 		JPanel panel = new JPanel();
@@ -1084,13 +1006,50 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 
 		}
 
-		if (e.getSource() == btnBack) {
+		if(e.getSource()==btnBack){
 			synchronized (this) {
-				new StudentGUI(classId, className);
+				new StudentDetailsInfoGUI(bean, classId, className);
 				this.setVisible(false);
 			}
-
+			
+		}	
+		
+		if(e.getSource() == btnContinue){
+			if(allRadio.isSelected()){
+				synchronized (this) {
+					
+					//new DecodePlotGraphGUI(bean,classId,className);
+					new PlotRateGraphGUI2(bean,classId,className,"","");
+					setVisible(false);
+				}
+				
+			}
+			if (weekRadio.isSelected()){
+				
+				synchronized (this) {
+					String txtBegin = txtbegin.getText();
+					String txtEnd = txtend.getText();
+					new PlotRateGraphGUI2(bean,classId,className, txtBegin, txtEnd);
+					this.setVisible(false);
+				}
+			}
+			
+			
 		}
+		
+		if(weekRadio.isSelected()){
+			txtbegin.setText("Begin");
+			txtend.setText("End");			
+			txtbegin.setEditable(true);
+			txtend.setEditable(true);
+		}else{
+			txtbegin.setText("");
+			txtend.setText("");
+			txtbegin.setEditable(false);
+			txtend.setEditable(false);
+		}
+		
+		
 		if (e.getSource() == btnMImportExport) {
 			synchronized (this) {
 				new GroupStudImportExportGUI(classId, className);
@@ -1184,7 +1143,7 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 		
 		if (e.getSource() == btnPloatRate) {
 			synchronized (this) {
-				new PlotRateGUI2(bean, classId, className);
+				new PlotRateGUI(bean, classId, className);
 				this.dispose();
 			}
 

@@ -3,20 +3,25 @@ package gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.GraphicsEnvironment;
 import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.swing.Box;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
@@ -38,11 +43,14 @@ public class MyProfileGUI extends JFrame implements ActionListener{
 	
 	JLabel lblUserId,lblPsw,lblFirstName,lblLastName,lblPhno,lblemail;
 	JTextField txtUserId,txtFirstName,txtLastName,txtPhno,txtemail;
+	JButton btnMgroup, btnMstudents, btnMreport, btnMImportExport, btnMLogout,btnMmyProfile;
 	JButton btnSubmit,btnBack;
 	JPasswordField txtPsw;
 	JRadioButton changePsw = new JRadioButton("Click here to change password");
 	ButtonGroup bG = new ButtonGroup();
 	adminBean bean = null;
+	
+	
 	MyProfileGUI(){
 		String osname = System.getProperty("os.name");
 		
@@ -53,6 +61,103 @@ public class MyProfileGUI extends JFrame implements ActionListener{
 		setContentPane(new JLabel(new ImageIcon(this.getClass().getResource("/image/sky.png"))));
 		setLayout(null);
 		
+		
+		JMenuBar mb = null;
+		
+		if (osname.contains("Mac")){
+			mb=new JMenuBar(){
+				 
+	            @Override
+	            public void paintComponent(Graphics g) {
+	                Dimension size = this.getSize();
+	                g.drawImage(Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/image/menu_background.png")), 0, 0, size.width, size.height, this);
+	            }
+	        };
+		}else{
+			mb=new JMenuBar();
+			mb.setBackground(new Color(193,39,35));
+		}
+		
+		
+		//mb.setBackground(new Color(193,39,35));
+		mb.add(Box.createRigidArea(new Dimension(10,40)));
+
+		
+		JLabel lb=new JLabel("                                ");
+		mb.add(lb);
+		
+		btnMmyProfile = new JButton(new ImageIcon(this.getClass().getResource("/image/my profile.png")));
+		btnMmyProfile.addActionListener(this);
+		btnMmyProfile.setBackground(new Color(193,39,35));
+		btnMmyProfile.setBorder(null);
+		btnMmyProfile.setBorderPainted(false);
+		btnMmyProfile.setOpaque(false);
+		btnMmyProfile.setContentAreaFilled(false);
+		btnMmyProfile.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		mb.add(btnMmyProfile);
+		setJMenuBar(mb);
+		
+		
+		lb=new JLabel("     ");
+		mb.add(lb);
+		
+		btnMgroup = new JButton(new ImageIcon(this.getClass().getResource("/image/groups.png")));
+		btnMgroup.addActionListener(this);
+		btnMgroup.setBackground(new Color(193,39,35));
+		btnMgroup.setBorderPainted(false);
+		btnMgroup.setOpaque(false);
+		btnMgroup.setContentAreaFilled(false); 
+		btnMgroup.setFocusPainted(false); 
+		btnMgroup.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		mb.add(btnMgroup); 
+        setJMenuBar(mb);
+       
+        
+		btnMstudents = new JButton(new ImageIcon(this.getClass().getResource("/image/student.png")));
+		btnMstudents.addActionListener(this);
+		btnMstudents.setBackground(new Color(193,39,35));
+		btnMstudents.setBorderPainted(false);
+		btnMstudents.setOpaque(false);
+		btnMstudents.setContentAreaFilled(false); 
+		btnMstudents.setFocusPainted(false); 
+		btnMstudents.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		mb.add(btnMstudents);  
+        setJMenuBar(mb);
+		
+
+        
+		btnMImportExport = new JButton(new ImageIcon(this.getClass().getResource("/image/import export.png")));
+		btnMImportExport.addActionListener(this);
+		btnMImportExport.setBackground(new Color(193,39,35));
+		btnMImportExport.setBorderPainted(false);
+		btnMImportExport.setOpaque(false);
+		btnMImportExport.setContentAreaFilled(false); 
+		btnMImportExport.setFocusPainted(false);
+		btnMImportExport.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		mb.add(btnMImportExport);  
+        setJMenuBar(mb);
+        
+        
+        mb.add(Box.createHorizontalGlue());
+        btnMLogout = new JButton(new ImageIcon(this.getClass().getResource("/image/logout.png")));
+       // btnMLogout.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+        btnMLogout.addActionListener(this);
+        btnMLogout.setBackground(new Color(193,39,35));
+        btnMLogout.setOpaque(false);
+        btnMLogout.setBorderPainted(false);
+        btnMLogout.setContentAreaFilled(false); 
+        btnMLogout.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        btnMLogout.setFocusPainted(false);
+        
+		mb.add(btnMLogout);  
+        setJMenuBar(mb);
+        
+        lb=new JLabel("             ");
+		mb.add(lb);
+		
+		setPreferredSize(new Dimension(1000, 800));
+		setLocationRelativeTo(null);
+		
 		Container c=getContentPane();  
 		
 				 /*---------------------------------- Creating JLabel for Heading Text ------------------------------------------- */
@@ -60,26 +165,26 @@ public class MyProfileGUI extends JFrame implements ActionListener{
 				Font f=FontClass.MuseoSans700Italic(25);   // Creating font style and size for heading
 	
 				// step 3 : creating JLabel for Heading
-						JLabel heading_lbl=new JLabel();
-						heading_lbl.setBounds(400,15,300,60);
-						heading_lbl.setText("<html><font ><u><b>My Profile</b></u></html>");	
-	
-						// applying font on  heading Label
+						JLabel heading_lbl=new JLabel("My Profile");
+						heading_lbl.setBounds(450,55,300,60);
 						heading_lbl.setFont(f);
 						add(heading_lbl);
 	
 	/* ----------------------------------- Creating Global Font style for all components ------------------------------ */
 
-						Font f1=FontClass.MuseoSans500(25);
+						Font f1=FontClass.MuseoSans700(18); 
 						Font f2=FontClass.MuseoSans500(20);
+						
+						Font f3 = FontClass.MuseoSans500(15);
+						f3.deriveFont(Font.PLAIN, 15);
 						
 						
 						/* ----------------------------------- Creating components for Registration details ---------------------------------- */
 						
 						// Step 4 : Creating JLabel for Name
 						
-						lblFirstName=new JLabel("First Name : ");
-						lblFirstName.setBounds(250,180,250,40);
+						lblFirstName=new JLabel("First Name");
+						lblFirstName.setBounds(360,160,250,40);
 						//lblFirstName.setForeground(Color.white);
 						lblFirstName.setFont(f1);
 						add(lblFirstName);
@@ -88,63 +193,70 @@ public class MyProfileGUI extends JFrame implements ActionListener{
 						txtFirstName=new JTextField();
 						txtFirstName.setText(bean.getFirstName());
 						//txtFirstName.setEditable(false);
-						txtFirstName.setBounds(500,190,180,30);
+						txtFirstName.setBounds(480,170,180,30);
+						txtFirstName.setFont(f3);
 						add(txtFirstName);
 		
 						
-						lblLastName=new JLabel("Last Name : ");
-						lblLastName.setBounds(250,225,250,40);
+						lblLastName=new JLabel("Last Name");
+						lblLastName.setBounds(360,205,250,40);
 						//lblLastName.setForeground(Color.white);
 						lblLastName.setFont(f1);
 						add(lblLastName);
 						
 						txtLastName=new JTextField();
-						txtLastName.setBounds(500,235,180,30);
+						txtLastName.setBounds(480,215,180,30);
 						txtLastName.setText(bean.getLastName());
+						txtLastName.setFont(f3);
 						//txtLastName.setEditable(false);
 						add(txtLastName);
 						
-						lblemail=new JLabel("Email : ");
-						lblemail.setBounds(250,280,180,30);
+						lblemail=new JLabel("Email");
+						lblemail.setBounds(400,270,180,30);
 						//lblemail.setForeground(Color.white);
 						lblemail.setFont(f1);
 						add(lblemail);
 						
 						txtemail=new JTextField();
-						txtemail.setBounds(500,280,180,30);
+						txtemail.setBounds(480,270,180,30);
 						txtemail.setText(bean.getEmail());
+						txtemail.setFont(f3);
 						//txtemail.setEditable(false);
 						add(txtemail);
 						
 						
-						lblUserId = new JLabel("Username : ");
-						lblUserId.setBounds(250,330,150,30); 
+						lblUserId = new JLabel("Username  ");
+						lblUserId.setBounds(360,310,150,30); 
 						//lblUserId.setForeground(Color.white);
 						lblUserId.setFont(f1);
 						add(lblUserId);
 						
 						txtUserId=new JTextField();
-						txtUserId.setBounds(500,330,180,30);
+						txtUserId.setBounds(480,310,180,30);
 						txtUserId.setText(bean.getUserID());
+						txtUserId.setFont(f3);
 						//txtUserId.setEditable(false);
 						add(txtUserId);
 						
 						
 						//bG.add(changePsw);
 						if (osname.contains("Mac")){
-							changePsw.setBounds(300, 400, 400, 40);
+							changePsw.setBounds(350, 380, 330, 40);
 						}else{
-							changePsw.setBounds(300, 400, 380, 40);
+							changePsw.setBounds(350, 380, 310, 40);
 						}
 						
-						changePsw.setBackground(new Color(242,242,242));
-						//changePsw.setForeground(Color.white);
+						//changePsw.setBackground(new Color(242,242,242));
+						//changePsw.setForeground(Color.white)
+						changePsw.setOpaque(false);
+						changePsw.setContentAreaFilled(false);
+						changePsw.setBorderPainted(false);
 						changePsw.setFont(f1);
 						changePsw.addActionListener(this);
 						add(changePsw);
 						
-						lblPsw=new JLabel("New Password : ");
-						lblPsw.setBounds(250,460,200,30);
+						lblPsw=new JLabel("New Password");
+						lblPsw.setBounds(320,440,200,30);
 						//lblPsw.setForeground(Color.white);
 						lblPsw.setFont(f1);
 						add(lblPsw);
@@ -152,7 +264,7 @@ public class MyProfileGUI extends JFrame implements ActionListener{
 						// Creating JTextField for Father's name
 						txtPsw=new JPasswordField();
 						txtPsw.setEditable(false);
-						txtPsw.setBounds(500,460,180,30);
+						txtPsw.setBounds(480,440,180,30);
 						add(txtPsw);
 						
 						
@@ -167,41 +279,27 @@ public class MyProfileGUI extends JFrame implements ActionListener{
 						
 						btnSubmit =  new JButton(new ImageIcon(this.getClass().getResource("/image/save record button.png")));
 						if (osname.contains("Mac")){
-							btnSubmit.setBounds(510,550,100,50);
+							btnSubmit.setBounds(530,530,100,50);
 						}else{
-							btnSubmit.setBounds(510,550,80,50);
+							btnSubmit.setBounds(530,530,80,50);
 						}
-						//btnSubmit.setBounds(510,550,100,30);
-						btnSubmit.setOpaque(true);
+						btnSubmit.setOpaque(false);
+						btnSubmit.setContentAreaFilled(false);
 						btnSubmit.setBorderPainted(false);
-						
-						 /*Image img;
-							try {
-								img = ImageIO.read(getClass().getResource("/image/submit_icon.png"));
-								btnSubmit.setIcon(new ImageIcon(img));
-								btnSubmit.setBorder(null);
-							} catch (IOException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}*/
-						add(btnSubmit);
 						btnSubmit.addActionListener(this);
+						btnSubmit.setCursor(new Cursor(Cursor.HAND_CURSOR));
+						add(btnSubmit);
+						
 						
 						btnBack =  new JButton(new ImageIcon(this.getClass().getResource("/image/back2.png")));
-						btnBack.setBounds(350,550,120,50);
-						btnBack.setOpaque(true);
+						btnBack.setBounds(370,530,120,50);
+						btnBack.setOpaque(false);
+						btnBack.setContentAreaFilled(false);
 						btnBack.setBorderPainted(false);
-						btnBack.setBackground(new Color(255,255,255));
-						/*try {
-							img = ImageIO.read(getClass().getResource("/image/back.png"));
-							btnBack.setIcon(new ImageIcon(img));
-							btnBack.setBorder(null);
-						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}*/
-						add(btnBack);
 						btnBack.addActionListener(this);
+						btnBack.setCursor(new Cursor(Cursor.HAND_CURSOR));
+						add(btnBack);
+						
 						
 						
 						
@@ -233,6 +331,37 @@ public class MyProfileGUI extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 			
+		if(e.getSource()==btnMgroup){
+			synchronized (this) {
+				new GroupGUI();
+				dispose();
+			}
+		}
+		if(e.getSource() == btnMmyProfile){
+			synchronized (this) {
+				new MyProfileGUI();
+				this.setVisible(false);
+			}
+		}
+		if(e.getSource()==btnMstudents){
+			synchronized (this) {
+				new StudentGUI("", "");
+				dispose();
+			}
+			
+			
+		}
+		if(e.getSource()==btnMLogout){
+			System.exit(0);
+		}
+		if(e.getSource()==btnMImportExport){
+			synchronized (this) {
+				new GroupStudImportExportGUI("", "");
+				setVisible(false);
+			}
+		}
+		
+		
 			if(changePsw.isSelected()){
 				txtPsw.setEditable(true);
 				txtFirstName.setEditable(true);

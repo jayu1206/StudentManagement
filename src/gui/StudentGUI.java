@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -17,7 +18,10 @@ import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -98,123 +102,77 @@ public class StudentGUI extends JFrame implements ActionListener{
 		//mb.setBackground(new Color(193,39,35));
 		mb.add(Box.createRigidArea(new Dimension(10,40)));
 		
-		if (osname.contains("Mac")){
-			btnMmyProfile = new JButton(new ImageIcon(this.getClass().getResource("/image/my profile.png")));
-			btnMmyProfile.addActionListener(this);
-			
-			//btnMmyProfile.setBackground(new Color(135,206,250));
-			//btnMmyProfile.setBorder(null);
-			//btnMmyProfile.setBorderPainted(false);
-			//btnMmyProfile.setOpaque(true);
-			mb.add(btnMmyProfile); 
-			setJMenuBar(mb);
-			
-			
-			btnMgroup = new JButton(new ImageIcon(this.getClass().getResource("/image/groups.png")));
-			btnMgroup.addActionListener(this);
-			btnMgroup.setBackground(new Color(225,39,38));
-//			btnMgroup.setBorderPainted(false);
-//			btnMgroup.setOpaque(true);
-			mb.add(btnMgroup); 
-			
-	        setJMenuBar(mb);
-	       
-			
-	        btnMstudents = new JButton(new ImageIcon(this.getClass().getResource("/image/student.png")));
-			btnMstudents.addActionListener(this);
-			btnMstudents.setBackground(new Color(225,39,38));
-//			btnMstudents.setBorderPainted(false);
-//			btnMstudents.setOpaque(true);
-			mb.add(btnMstudents);  
-	        setJMenuBar(mb);
-			
-			
-	        btnMImportExport = new JButton(new ImageIcon(this.getClass().getResource("/image/import export.png")));
-			btnMImportExport.addActionListener(this);
-			btnMImportExport.setBackground(new Color(225,39,38));
-//			btnMImportExport.setBorderPainted(false);
-//			btnMImportExport.setOpaque(true);
-			mb.add(btnMImportExport);  
-	        setJMenuBar(mb);
-	        
-	        mb.add(Box.createHorizontalGlue());
-	        btnMLogout = new JButton(new ImageIcon(this.getClass().getResource("/image/logout.png")));
-	        btnMLogout.addActionListener(this);
-	        btnMLogout.setBackground(new Color(225,39,38));
-//	        btnMLogout.setForeground(Color.white);
-//	        btnMLogout.setOpaque(true);
-//	        btnMLogout.setBorderPainted(false);
-			mb.add(btnMLogout);  
-			
-			
-	        setJMenuBar(mb);
-			
-		}else{
-			
-			JLabel lb=new JLabel("                                ");
-			mb.add(lb);
-			
-			btnMmyProfile = new JButton(new ImageIcon(this.getClass().getResource("/image/my profile.png")));
-			btnMmyProfile.addActionListener(this);
-			btnMmyProfile.setBackground(new Color(193,39,35));
-			btnMmyProfile.setBorder(null);
-			btnMmyProfile.setBorderPainted(false);
-			btnMmyProfile.setOpaque(false);
-			mb.add(btnMmyProfile);
-			setJMenuBar(mb);
-			
-			
-			lb=new JLabel("     ");
-			mb.add(lb);
-			
-			btnMgroup = new JButton(new ImageIcon(this.getClass().getResource("/image/groups.png")));
-			btnMgroup.addActionListener(this);
-			btnMgroup.setBackground(new Color(193,39,35));
-			btnMgroup.setBorderPainted(false);
-			btnMgroup.setOpaque(false);
-			btnMgroup.setContentAreaFilled(false); 
-			btnMgroup.setFocusPainted(false); 
-			mb.add(btnMgroup); 
-	        setJMenuBar(mb);
-	       
-	        
-			btnMstudents = new JButton(new ImageIcon(this.getClass().getResource("/image/student.png")));
-			btnMstudents.addActionListener(this);
-			btnMstudents.setBackground(new Color(193,39,35));
-			btnMstudents.setBorderPainted(false);
-			btnMstudents.setOpaque(false);
-			btnMstudents.setContentAreaFilled(false); 
-			btnMstudents.setFocusPainted(false); 
-			mb.add(btnMstudents);  
-	        setJMenuBar(mb);
-			
-
-	        
-			btnMImportExport = new JButton(new ImageIcon(this.getClass().getResource("/image/import export.png")));
-			btnMImportExport.addActionListener(this);
-			btnMImportExport.setBackground(new Color(193,39,35));
-			btnMImportExport.setBorderPainted(false);
-			btnMImportExport.setOpaque(false);
-			btnMImportExport.setContentAreaFilled(false); 
-			btnMImportExport.setFocusPainted(false);
-			mb.add(btnMImportExport);  
-	        setJMenuBar(mb);
-	        
-	        
-	        mb.add(Box.createHorizontalGlue());
-	        btnMLogout = new JButton(new ImageIcon(this.getClass().getResource("/image/logout.png")));
-	       // btnMLogout.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-	        btnMLogout.addActionListener(this);
-	        btnMLogout.setBackground(new Color(193,39,35));
-	        btnMLogout.setOpaque(false);
-	        btnMLogout.setBorderPainted(false);
-	        btnMLogout.setContentAreaFilled(false); 
-	        btnMLogout.setFocusPainted(false);
-	        
-			mb.add(btnMLogout);  
-	        setJMenuBar(mb);
-		}
+		JLabel lb=new JLabel("                                ");
+		mb.add(lb);
 		
+		btnMmyProfile = new JButton(new ImageIcon(this.getClass().getResource("/image/my profile.png")));
+		btnMmyProfile.addActionListener(this);
+		btnMmyProfile.setBackground(new Color(193,39,35));
+		btnMmyProfile.setBorder(null);
+		btnMmyProfile.setBorderPainted(false);
+		btnMmyProfile.setOpaque(false);
+		btnMmyProfile.setContentAreaFilled(false);
+		btnMmyProfile.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		mb.add(btnMmyProfile);
+		setJMenuBar(mb);
+		
+		
+		lb=new JLabel("     ");
+		mb.add(lb);
+		
+		btnMgroup = new JButton(new ImageIcon(this.getClass().getResource("/image/groups.png")));
+		btnMgroup.addActionListener(this);
+		btnMgroup.setBackground(new Color(193,39,35));
+		btnMgroup.setBorderPainted(false);
+		btnMgroup.setOpaque(false);
+		btnMgroup.setContentAreaFilled(false); 
+		btnMgroup.setFocusPainted(false); 
+		btnMgroup.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		mb.add(btnMgroup); 
+        setJMenuBar(mb);
+       
+        
+		btnMstudents = new JButton(new ImageIcon(this.getClass().getResource("/image/student.png")));
+		btnMstudents.addActionListener(this);
+		btnMstudents.setBackground(new Color(193,39,35));
+		btnMstudents.setBorderPainted(false);
+		btnMstudents.setOpaque(false);
+		btnMstudents.setContentAreaFilled(false); 
+		btnMstudents.setFocusPainted(false); 
+		btnMstudents.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		mb.add(btnMstudents);  
+        setJMenuBar(mb);
+		
+
+        
+		btnMImportExport = new JButton(new ImageIcon(this.getClass().getResource("/image/import export.png")));
+		btnMImportExport.addActionListener(this);
+		btnMImportExport.setBackground(new Color(193,39,35));
+		btnMImportExport.setBorderPainted(false);
+		btnMImportExport.setOpaque(false);
+		btnMImportExport.setContentAreaFilled(false); 
+		btnMImportExport.setFocusPainted(false);
+		btnMImportExport.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		mb.add(btnMImportExport);  
+        setJMenuBar(mb);
+        
+        
+        mb.add(Box.createHorizontalGlue());
+        btnMLogout = new JButton(new ImageIcon(this.getClass().getResource("/image/logout.png")));
+       // btnMLogout.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+        btnMLogout.addActionListener(this);
+        btnMLogout.setBackground(new Color(193,39,35));
+        btnMLogout.setOpaque(false);
+        btnMLogout.setBorderPainted(false);
+        btnMLogout.setContentAreaFilled(false); 
+        btnMLogout.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        btnMLogout.setFocusPainted(false);
+        
+		mb.add(btnMLogout);  
+        setJMenuBar(mb);
+        
+        lb=new JLabel("             ");
+		mb.add(lb);
         
 		
 		
@@ -300,15 +258,31 @@ public class StudentGUI extends JFrame implements ActionListener{
 		         // finish the code of double click on row
 			       
 			        ArrayList<StudentBean> list=studDao.getAllStudents(classId);
-			        
+			        SimpleDateFormat ddmmyyyy = new SimpleDateFormat("dd-MM-yyyy");
+					SimpleDateFormat mmddyyyy = new SimpleDateFormat("MM/dd/yyyy");
+					
 			        for(StudentBean bean : list ){
+			        	try {
+							Date dt = ddmmyyyy.parse(bean.getDob());
+							bean.setDob(mmddyyyy.format(dt));
+							
+							dt = ddmmyyyy.parse(bean.getStDate());
+							bean.setStDate(mmddyyyy.format(dt));
+							
+						} catch (ParseException e1) {
+							// TODO Auto-generated catch block
+							//e1.printStackTrace();
+						}
 			        	 model.addRow(new Object[]{bean.getId(),bean.getStudFirstName()+" "+bean.getStudLastName(),bean.getGrade(),bean.getDob(),bean.getStDate()});
 			        	 
 			         }
 			        
+			       Font f2 = FontClass.MuseoSans700(15);
 			       JTableHeader header= jt.getTableHeader();
-			       header.setBackground(new Color(44,85,106));
-				   header.setForeground(Color.white);
+			       header.setBackground(new Color(188,221,238));
+			       header.setFont(f2);
+				   header.setForeground(Color.BLACK);
+				   header.setPreferredSize(new Dimension(100, 30));
 			       
 			       final TableRowSorter<TableModel> sorter;
 			       sorter = new TableRowSorter<TableModel>(model);
@@ -349,6 +323,7 @@ public class StudentGUI extends JFrame implements ActionListener{
 					   // btnSetFE.setBackground(Color.WHITE);
 					    btnSetFE.setOpaque(true);
 					    btnSetFE.setBorderPainted(false);
+					    btnSetFE.setCursor(new Cursor(Cursor.HAND_CURSOR));
 					    btnSetFE.setFont(f4);
 					    pnl.add(btnSetFE);
 					    pnl.setBounds(270,420,502,45);
@@ -370,6 +345,7 @@ public class StudentGUI extends JFrame implements ActionListener{
 				         btnSubmit.setOpaque(true);
 				         btnSubmit.setBorderPainted(false);
 				         btnSubmit.setFont(FontClass.MuseoSans900(15));
+				         btnSubmit.setCursor(new Cursor(Cursor.HAND_CURSOR));
 				         add(btnSubmit);
 				         btnSubmit.addActionListener(this);
 				         
@@ -384,14 +360,16 @@ public class StudentGUI extends JFrame implements ActionListener{
 				         btnDelete.setOpaque(true);
 				         btnDelete.setBorderPainted(false);
 				         btnDelete.setFont(FontClass.MuseoSans900(15));
+				         btnDelete.setCursor(new Cursor(Cursor.HAND_CURSOR));
 				         add(btnDelete);
 				         btnDelete.addActionListener(this);
 				         
 				         btnBack = new JButton(new ImageIcon(this.getClass().getResource("/image/back.png")));
 				         btnBack.setBounds(100,600,120,40);
-				         btnBack.setBackground(Color.WHITE);
-				         btnBack.setOpaque(true);
+				         btnBack.setOpaque(false);
+				         btnBack.setContentAreaFilled(false);
 				         btnBack.setBorderPainted(false);
+				         btnBack.setCursor(new Cursor(Cursor.HAND_CURSOR));
 				         add(btnBack);
 				         getContentPane().add(btnBack);
 				         btnBack.addActionListener(this);
@@ -402,6 +380,7 @@ public class StudentGUI extends JFrame implements ActionListener{
 				         btnExit.setBackground(Color.WHITE);
 				         btnExit.setOpaque(true);
 				         btnExit.setBorderPainted(false);
+				         btnExit.setCursor(new Cursor(Cursor.HAND_CURSOR));
 				         add(btnExit);
 				         getContentPane().add(btnExit);
 				         btnExit.addActionListener(this);

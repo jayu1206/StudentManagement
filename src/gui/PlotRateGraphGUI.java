@@ -3,6 +3,7 @@ package gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontMetrics;
@@ -50,12 +51,16 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.LegendItem;
 import org.jfree.chart.LegendItemCollection;
 import org.jfree.chart.axis.SubCategoryAxis;
+import org.jfree.chart.block.BlockBorder;
 import org.jfree.chart.labels.StandardCategoryItemLabelGenerator;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.BarRenderer;
+import org.jfree.chart.title.LegendTitle;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.ui.HorizontalAlignment;
+import org.jfree.ui.RectangleEdge;
 
 import com.sun.javafx.print.PrinterImpl;
 
@@ -120,7 +125,7 @@ public class PlotRateGraphGUI extends JFrame  implements ActionListener, Printab
 		setContentPane(new JLabel(new ImageIcon(this.getClass().getResource("/image/sky.png"))));
 		setLayout(null);
 		
-		Font f1=FontClass.MuseoSans500(20);
+		Font f1=FontClass.MuseoSans700(18); 
 		Font f2=FontClass.MuseoSans500(20);
 		
 		
@@ -187,8 +192,10 @@ public class PlotRateGraphGUI extends JFrame  implements ActionListener, Printab
 				     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column)
 				     {
 				         final Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+				         Font f3 = FontClass.MuseoSans700(15);
 				         if(row==0 || column==0){
 				        	 c.setBackground(new Color(188,221,238));
+				        	 c.setFont(f3);
 				        	 
 				         }else{
 				        	 c.setBackground(Color.WHITE);
@@ -223,22 +230,22 @@ public class PlotRateGraphGUI extends JFrame  implements ActionListener, Printab
 			
 			     btnBack = new JButton(new ImageIcon(this.getClass().getResource("/image/back.png")));
 		         btnBack.setBounds(120,660,120,40);
-		         btnBack.setBackground(Color.WHITE);
-		         btnBack.setOpaque(true);
+		         btnBack.setOpaque(false);
+		         btnBack.setContentAreaFilled(false);
 		         btnBack.setBorderPainted(false);
 		         btnBack.setFocusable(false);
-		         btnBack.setFont(new Font("Britannic Bold", Font.PLAIN, 15));
+		         btnBack.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		         add(btnBack);
 		         btnBack.addActionListener(this);
 		         
 		         
 		         btnPrint = new JButton(new ImageIcon(this.getClass().getResource("/image/print combo.png")));
 		         btnPrint.setBounds(750,660,120,40);
-		         btnPrint.setBackground(Color.WHITE);
-		         btnPrint.setOpaque(true);
+		         btnPrint.setOpaque(false);
+		         btnPrint.setContentAreaFilled(false);
 		         btnPrint.setBorderPainted(false);
 		         btnPrint.setFocusable(false);
-		         btnPrint.setFont(new Font("Britannic Bold", Font.PLAIN, 15));
+		         btnPrint.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		         add(btnPrint);
 		         //getContentPane().add(btnPrint);
 		         btnPrint.addActionListener(this);
@@ -302,6 +309,7 @@ public class PlotRateGraphGUI extends JFrame  implements ActionListener, Printab
         );
   
         chart.getTitle().setPaint(new Color(65,127,159));
+        chart.getTitle().setHorizontalAlignment(HorizontalAlignment.CENTER);
         
         CategoryPlot plot = chart.getCategoryPlot();
         BarRenderer renderer = (BarRenderer) plot.getRenderer();
@@ -320,19 +328,33 @@ public class PlotRateGraphGUI extends JFrame  implements ActionListener, Printab
 				    new StandardCategoryItemLabelGenerator(
 				        "{2}", NumberFormat.getInstance()));
 		  plot.getRenderer().setItemLabelsVisible(true);
+		  
 		 
 		  
-		  
-		  
 		  plot.getRangeAxis().setUpperBound(200.00);
+		  plot.getRangeAxis().setLabelPaint(new Color(65,127,159));
+		  plot.getRangeAxis().setTickLabelPaint(new Color(65,127,159));
+		  plot.getRangeAxis().setLabelFont(FontClass.MuseoSans700(15));
+		  plot.getRangeAxis().setTickLabelFont(FontClass.MuseoSans700(15));
 		 // plot.getRangeAxis().setLowerBound(-50.00);
 		 SubCategoryAxis domainAxis = new SubCategoryAxis("");
 	        domainAxis.setCategoryMargin(0.05);
+	        domainAxis.setTickLabelPaint(new Color(65,127,159));
+	        domainAxis.setLabelPaint(new Color(65,127,159));
+	        domainAxis.setLabelFont(FontClass.MuseoSans700(15));
+	        domainAxis.setTickLabelFont(FontClass.MuseoSans700(15));
+	        
 	       // domainAxis.addSubCategory("1 - Text");
-	        plot.getDomainAxis().setLabelFont(FontClass.MuseoSans900(15));
-	        plot.getDomainAxis().setAxisLinePaint(new Color(65,127,159));
+	        plot.getDomainAxis().setLabelFont(FontClass.MuseoSans700(20));
 	        plot.setDomainAxis(domainAxis);
 	        plot.setFixedLegendItems(createLegendItems());
+	       
+	        LegendTitle legend = chart.getLegend();
+	        if (legend != null) {
+	    		legend.setPosition(RectangleEdge.TOP);
+	    		legend.setHorizontalAlignment(HorizontalAlignment.RIGHT);
+	    		legend.setItemFont(FontClass.MuseoSans900(15));
+	    	}
 	        
 	        
 	        
@@ -343,11 +365,13 @@ public class PlotRateGraphGUI extends JFrame  implements ActionListener, Printab
 
 
 	private LegendItemCollection createLegendItems() {
+		  
 		  LegendItemCollection result = new LegendItemCollection();
 	        LegendItem item1 = new LegendItem("1 Base Line", new Color(188, 221, 238));
 	        LegendItem item2 = new LegendItem("2 Gain / Loss", new Color(205, 82, 87));
 	        result.add(item1);
 	        result.add(item2);
+	       
 	        return result;
 	}
 

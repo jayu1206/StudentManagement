@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -166,130 +167,85 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 		mb.add(Box.createRigidArea(new Dimension(10,40)));
 
 		
-		if (osname.contains("Mac")){
-			btnMmyProfile = new JButton(new ImageIcon(this.getClass().getResource("/image/my profile.png")));
-			btnMmyProfile.addActionListener(this);
-			
-			//btnMmyProfile.setBackground(new Color(135,206,250));
-			//btnMmyProfile.setBorder(null);
-			//btnMmyProfile.setBorderPainted(false);
-			//btnMmyProfile.setOpaque(true);
-			mb.add(btnMmyProfile); 
-			setJMenuBar(mb);
-			
-			
-			btnMgroup = new JButton(new ImageIcon(this.getClass().getResource("/image/groups.png")));
-			btnMgroup.addActionListener(this);
-			btnMgroup.setBackground(new Color(225,39,38));
-//			btnMgroup.setBorderPainted(false);
-//			btnMgroup.setOpaque(true);
-			mb.add(btnMgroup); 
-			
-	        setJMenuBar(mb);
-	       
-			
-	        btnMstudents = new JButton(new ImageIcon(this.getClass().getResource("/image/student.png")));
-			btnMstudents.addActionListener(this);
-			btnMstudents.setBackground(new Color(225,39,38));
-//			btnMstudents.setBorderPainted(false);
-//			btnMstudents.setOpaque(true);
-			mb.add(btnMstudents);  
-	        setJMenuBar(mb);
-			
-			
-	        btnMImportExport = new JButton(new ImageIcon(this.getClass().getResource("/image/import export.png")));
-			btnMImportExport.addActionListener(this);
-			btnMImportExport.setBackground(new Color(225,39,38));
-//			btnMImportExport.setBorderPainted(false);
-//			btnMImportExport.setOpaque(true);
-			mb.add(btnMImportExport);  
-	        setJMenuBar(mb);
-	        
-	        mb.add(Box.createHorizontalGlue());
-	        btnMLogout = new JButton(new ImageIcon(this.getClass().getResource("/image/logout.png")));
-	        btnMLogout.addActionListener(this);
-	        btnMLogout.setBackground(new Color(225,39,38));
-//	        btnMLogout.setForeground(Color.white);
-//	        btnMLogout.setOpaque(true);
-//	        btnMLogout.setBorderPainted(false);
-			mb.add(btnMLogout);  
-			
-			
-	        setJMenuBar(mb);
-			
-		}else{
-			
-			JLabel lb=new JLabel("                                ");
-			mb.add(lb);
-			
-			btnMmyProfile = new JButton(new ImageIcon(this.getClass().getResource("/image/my profile.png")));
-			btnMmyProfile.addActionListener(this);
-			btnMmyProfile.setBackground(new Color(193,39,35));
-			btnMmyProfile.setBorder(null);
-			btnMmyProfile.setBorderPainted(false);
-			btnMmyProfile.setOpaque(false);
-			mb.add(btnMmyProfile);
-			setJMenuBar(mb);
-			
-			
-			lb=new JLabel("     ");
-			mb.add(lb);
-			
-			btnMgroup = new JButton(new ImageIcon(this.getClass().getResource("/image/groups.png")));
-			btnMgroup.addActionListener(this);
-			btnMgroup.setBackground(new Color(193,39,35));
-			btnMgroup.setBorderPainted(false);
-			btnMgroup.setOpaque(false);
-			btnMgroup.setContentAreaFilled(false); 
-			btnMgroup.setFocusPainted(false); 
-			mb.add(btnMgroup); 
-	        setJMenuBar(mb);
-	       
-	        
-			btnMstudents = new JButton(new ImageIcon(this.getClass().getResource("/image/student.png")));
-			btnMstudents.addActionListener(this);
-			btnMstudents.setBackground(new Color(193,39,35));
-			btnMstudents.setBorderPainted(false);
-			btnMstudents.setOpaque(false);
-			btnMstudents.setContentAreaFilled(false); 
-			btnMstudents.setFocusPainted(false); 
-			mb.add(btnMstudents);  
-	        setJMenuBar(mb);
-			
+		JLabel lb=new JLabel("                                ");
+		mb.add(lb);
+		
+		btnMmyProfile = new JButton(new ImageIcon(this.getClass().getResource("/image/my profile.png")));
+		btnMmyProfile.addActionListener(this);
+		btnMmyProfile.setBackground(new Color(193,39,35));
+		btnMmyProfile.setBorder(null);
+		btnMmyProfile.setBorderPainted(false);
+		btnMmyProfile.setOpaque(false);
+		btnMmyProfile.setContentAreaFilled(false);
+		btnMmyProfile.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		mb.add(btnMmyProfile);
+		setJMenuBar(mb);
+		
+		
+		lb=new JLabel("     ");
+		mb.add(lb);
+		
+		btnMgroup = new JButton(new ImageIcon(this.getClass().getResource("/image/groups.png")));
+		btnMgroup.addActionListener(this);
+		btnMgroup.setBackground(new Color(193,39,35));
+		btnMgroup.setBorderPainted(false);
+		btnMgroup.setOpaque(false);
+		btnMgroup.setContentAreaFilled(false); 
+		btnMgroup.setFocusPainted(false); 
+		btnMgroup.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		mb.add(btnMgroup); 
+        setJMenuBar(mb);
+       
+        
+		btnMstudents = new JButton(new ImageIcon(this.getClass().getResource("/image/student.png")));
+		btnMstudents.addActionListener(this);
+		btnMstudents.setBackground(new Color(193,39,35));
+		btnMstudents.setBorderPainted(false);
+		btnMstudents.setOpaque(false);
+		btnMstudents.setContentAreaFilled(false); 
+		btnMstudents.setFocusPainted(false); 
+		btnMstudents.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		mb.add(btnMstudents);  
+        setJMenuBar(mb);
+		
 
-	        
-			btnMImportExport = new JButton(new ImageIcon(this.getClass().getResource("/image/import export.png")));
-			btnMImportExport.addActionListener(this);
-			btnMImportExport.setBackground(new Color(193,39,35));
-			btnMImportExport.setBorderPainted(false);
-			btnMImportExport.setOpaque(false);
-			btnMImportExport.setContentAreaFilled(false); 
-			btnMImportExport.setFocusPainted(false);
-			mb.add(btnMImportExport);  
-	        setJMenuBar(mb);
-	        
-	        
-	        mb.add(Box.createHorizontalGlue());
-	        btnMLogout = new JButton(new ImageIcon(this.getClass().getResource("/image/logout.png")));
-	       // btnMLogout.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-	        btnMLogout.addActionListener(this);
-	        btnMLogout.setBackground(new Color(193,39,35));
-	        btnMLogout.setOpaque(false);
-	        btnMLogout.setBorderPainted(false);
-	        btnMLogout.setContentAreaFilled(false); 
-	        btnMLogout.setFocusPainted(false);
-	        
-			mb.add(btnMLogout);  
-	        setJMenuBar(mb);
-	        
-		}
+        
+		btnMImportExport = new JButton(new ImageIcon(this.getClass().getResource("/image/import export.png")));
+		btnMImportExport.addActionListener(this);
+		btnMImportExport.setBackground(new Color(193,39,35));
+		btnMImportExport.setBorderPainted(false);
+		btnMImportExport.setOpaque(false);
+		btnMImportExport.setContentAreaFilled(false); 
+		btnMImportExport.setFocusPainted(false);
+		btnMImportExport.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		mb.add(btnMImportExport);  
+        setJMenuBar(mb);
+        
+        
+        mb.add(Box.createHorizontalGlue());
+        btnMLogout = new JButton(new ImageIcon(this.getClass().getResource("/image/logout.png")));
+       // btnMLogout.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+        btnMLogout.addActionListener(this);
+        btnMLogout.setBackground(new Color(193,39,35));
+        btnMLogout.setOpaque(false);
+        btnMLogout.setBorderPainted(false);
+        btnMLogout.setContentAreaFilled(false); 
+        btnMLogout.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        btnMLogout.setFocusPainted(false);
+        
+		mb.add(btnMLogout);  
+        setJMenuBar(mb);
+        
+        lb=new JLabel("             ");
+		mb.add(lb);
 		
 
 		setPreferredSize(new java.awt.Dimension(1000, 800));
 		setLocationRelativeTo(null);
 
 		Font f=FontClass.MuseoSans700Italic(25);
-		Font f1=FontClass.MuseoSans500(25);
+		
+		Font f1=FontClass.MuseoSans700(18); 
 		Font f2=FontClass.MuseoSans500(20);
 
 		JLabel heading_lbl=new JLabel("Take Flight Decoding and Reading Rate ");
@@ -317,8 +273,14 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 		bg = new javax.swing.ButtonGroup();
 		r1.setFont(f2);
 		r2.setFont(f2);
-		r1.setBackground(new Color(242,242,242));
-		r2.setBackground(new Color(242,242,242));
+		
+		r1.setOpaque(false);
+		r1.setContentAreaFilled(false);
+		r1.setBorderPainted(false);
+		r2.setOpaque(false);
+		r2.setContentAreaFilled(false);
+		r2.setBorderPainted(false);
+		
 		bg.add(r1);
 		bg.add(r2);
 		add(r1);
@@ -355,17 +317,15 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 		add(lblNewStudGroup);
 
 		txtImportFilePath = new JTextField();
-		txtImportFilePath.setBounds(550, 170, 130, 30);
+		txtImportFilePath.setBounds(530, 170, 130, 30);
 		add(txtImportFilePath);
 
-		txtExportFilePath = new JTextField();
-		txtExportFilePath.setBounds(700, 420, 130, 30);
-		add(txtExportFilePath);
 
 		btn3 = new JButton("File");
-		btn3.setBounds(700, 170, 50, 30);
+		btn3.setBounds(680, 170, 50, 30);
 		btn3.setOpaque(true);
 		btn3.setBorderPainted(false);
+		btn3.setBackground(Color.WHITE);
 		btn3.setFont(new java.awt.Font("Britannic Bold", 0, 15));
 		add(btn3);
 		getContentPane().add(btn3);
@@ -389,7 +349,7 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 		// }
 
 		cbGrpList = new JComboBox(model);
-		cbGrpList.setBounds(650, 260, 130, 30);
+		cbGrpList.setBounds(600, 260, 130, 30);
 		cbGrpList.setRenderer(new ItemRenderer());
 		cbGrpList.addActionListener(this);
 		add(cbGrpList);
@@ -461,6 +421,7 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 		btnImport.setOpaque(true);
 		btnImport.setBorderPainted(false);
 		btnImport.setFont(FontClass.MuseoSans900(15));
+		btnImport.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		add(btnImport);
 		getContentPane().add(btnImport);
 		btnImport.addActionListener(this);
@@ -471,6 +432,7 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 		btnSample.setOpaque(true);
 		btnSample.setBorderPainted(false);
 		btnSample.setFont(FontClass.MuseoSans900(15));
+		btnSample.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		add(btnSample);
 		getContentPane().add(btnSample);
 		btnSample.addActionListener(this);
@@ -481,6 +443,7 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 		btnExport.setOpaque(true);
 		btnExport.setBorderPainted(false);
 		btnExport.setFont(FontClass.MuseoSans900(15));
+		btnExport.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		add(btnExport);
 		getContentPane().add(btnExport);
 		btnExport.addActionListener(this);
@@ -504,13 +467,17 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 		add(lblStudent);
 
 		lblExportGFile = new JLabel("Export File :");
-		lblExportGFile.setBounds(550, 400, 150, 60);
+		lblExportGFile.setBounds(520, 400, 150, 60);
 		lblExportGFile.setFont(f2);
 		getForeground();
 		add(lblExportGFile);
 
+		txtExportFilePath = new JTextField();
+		txtExportFilePath.setBounds(650, 420, 130, 30);
+		add(txtExportFilePath);
+		
 		btn1 = new JButton("File");
-		btn1.setBounds(850, 420, 50, 30);
+		btn1.setBounds(800, 420, 50, 30);
 		btn1.setBackground(Color.WHITE);
 		btn1.setOpaque(true);
 		btn1.setBorderPainted(false);
@@ -530,22 +497,25 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
          
          
 		btnBack = new JButton(new ImageIcon(this.getClass().getResource("/image/back.png")));
-		btnBack.setBounds(200, 600, 150, 40);
-		btnBack.setBackground(Color.WHITE);
-		btnBack.setOpaque(true);
-		btnBack.setBorderPainted(false);
-		add(btnBack);
-		getContentPane().add(btnBack);
-		btnBack.addActionListener(this);
-
-		btnExit = new JButton(new ImageIcon(this.getClass().getResource("/image/Exit2.png")));
-		btnExit.setBounds(725,600,120,40);
-		btnExit.setBackground(Color.WHITE);
-		btnExit.setOpaque(true);
-		btnExit.setBorderPainted(false);
-		add(btnExit);
-		getContentPane().add(btnExit);
-		btnExit.addActionListener(this);
+        btnBack.setBounds(100,600,120,40);
+        btnBack.setOpaque(false);
+        btnBack.setContentAreaFilled(false);
+        btnBack.setBorderPainted(false);
+        btnBack.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        add(btnBack);
+        getContentPane().add(btnBack);
+        btnBack.addActionListener(this);
+        
+        
+        btnExit = new JButton(new ImageIcon(this.getClass().getResource("/image/Exit2.png")));
+        btnExit.setBounds(800,600,120,40);
+        btnExit.setBackground(Color.WHITE);
+        btnExit.setOpaque(true);
+        btnExit.setBorderPainted(false);
+        btnExit.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        add(btnExit);
+        getContentPane().add(btnExit);
+        btnExit.addActionListener(this);
 
 		setSize(1000, 800);
 		centerFrame();

@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -83,122 +84,77 @@ public class DecodePlotGUI extends JFrame implements ActionListener{
 		//mb.setBackground(new Color(193,39,35));
 		mb.add(Box.createRigidArea(new Dimension(10,40)));
 		
-		if (osname.contains("Mac")){
-			btnMmyProfile = new JButton(new ImageIcon(this.getClass().getResource("/image/my profile.png")));
-			btnMmyProfile.addActionListener(this);
-			
-			//btnMmyProfile.setBackground(new Color(135,206,250));
-			//btnMmyProfile.setBorder(null);
-			//btnMmyProfile.setBorderPainted(false);
-			//btnMmyProfile.setOpaque(true);
-			mb.add(btnMmyProfile); 
-			setJMenuBar(mb);
-			
-			
-			btnMgroup = new JButton(new ImageIcon(this.getClass().getResource("/image/groups.png")));
-			btnMgroup.addActionListener(this);
-			btnMgroup.setBackground(new Color(225,39,38));
-//			btnMgroup.setBorderPainted(false);
-//			btnMgroup.setOpaque(true);
-			mb.add(btnMgroup); 
-			
-	        setJMenuBar(mb);
-	       
-			
-	        btnMstudents = new JButton(new ImageIcon(this.getClass().getResource("/image/student.png")));
-			btnMstudents.addActionListener(this);
-			btnMstudents.setBackground(new Color(225,39,38));
-//			btnMstudents.setBorderPainted(false);
-//			btnMstudents.setOpaque(true);
-			mb.add(btnMstudents);  
-	        setJMenuBar(mb);
-			
-			
-	        btnMImportExport = new JButton(new ImageIcon(this.getClass().getResource("/image/import export.png")));
-			btnMImportExport.addActionListener(this);
-			btnMImportExport.setBackground(new Color(225,39,38));
-//			btnMImportExport.setBorderPainted(false);
-//			btnMImportExport.setOpaque(true);
-			mb.add(btnMImportExport);  
-	        setJMenuBar(mb);
-	        
-	        mb.add(Box.createHorizontalGlue());
-	        btnMLogout = new JButton(new ImageIcon(this.getClass().getResource("/image/logout.png")));
-	        btnMLogout.addActionListener(this);
-	        btnMLogout.setBackground(new Color(225,39,38));
-//	        btnMLogout.setForeground(Color.white);
-//	        btnMLogout.setOpaque(true);
-//	        btnMLogout.setBorderPainted(false);
-			mb.add(btnMLogout);  
-			
-			
-	        setJMenuBar(mb);
-			
-		}else{
-			
-			JLabel lb=new JLabel("                                ");
-			mb.add(lb);
-			
-			btnMmyProfile = new JButton(new ImageIcon(this.getClass().getResource("/image/my profile.png")));
-			btnMmyProfile.addActionListener(this);
-			btnMmyProfile.setBackground(new Color(193,39,35));
-			btnMmyProfile.setBorder(null);
-			btnMmyProfile.setBorderPainted(false);
-			btnMmyProfile.setOpaque(false);
-			mb.add(btnMmyProfile);
-			setJMenuBar(mb);
-			
-			
-			lb=new JLabel("     ");
-			mb.add(lb);
-			
-			btnMgroup = new JButton(new ImageIcon(this.getClass().getResource("/image/groups.png")));
-			btnMgroup.addActionListener(this);
-			btnMgroup.setBackground(new Color(193,39,35));
-			btnMgroup.setBorderPainted(false);
-			btnMgroup.setOpaque(false);
-			btnMgroup.setContentAreaFilled(false); 
-			btnMgroup.setFocusPainted(false); 
-			mb.add(btnMgroup); 
-	        setJMenuBar(mb);
-	       
-	        
-			btnMstudents = new JButton(new ImageIcon(this.getClass().getResource("/image/student.png")));
-			btnMstudents.addActionListener(this);
-			btnMstudents.setBackground(new Color(193,39,35));
-			btnMstudents.setBorderPainted(false);
-			btnMstudents.setOpaque(false);
-			btnMstudents.setContentAreaFilled(false); 
-			btnMstudents.setFocusPainted(false); 
-			mb.add(btnMstudents);  
-	        setJMenuBar(mb);
-			
+		JLabel lb=new JLabel("                                ");
+		mb.add(lb);
+		
+		btnMmyProfile = new JButton(new ImageIcon(this.getClass().getResource("/image/my profile.png")));
+		btnMmyProfile.addActionListener(this);
+		btnMmyProfile.setBackground(new Color(193,39,35));
+		btnMmyProfile.setBorder(null);
+		btnMmyProfile.setBorderPainted(false);
+		btnMmyProfile.setOpaque(false);
+		btnMmyProfile.setContentAreaFilled(false);
+		btnMmyProfile.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		mb.add(btnMmyProfile);
+		setJMenuBar(mb);
+		
+		
+		lb=new JLabel("     ");
+		mb.add(lb);
+		
+		btnMgroup = new JButton(new ImageIcon(this.getClass().getResource("/image/groups.png")));
+		btnMgroup.addActionListener(this);
+		btnMgroup.setBackground(new Color(193,39,35));
+		btnMgroup.setBorderPainted(false);
+		btnMgroup.setOpaque(false);
+		btnMgroup.setContentAreaFilled(false); 
+		btnMgroup.setFocusPainted(false); 
+		btnMgroup.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		mb.add(btnMgroup); 
+        setJMenuBar(mb);
+       
+        
+		btnMstudents = new JButton(new ImageIcon(this.getClass().getResource("/image/student.png")));
+		btnMstudents.addActionListener(this);
+		btnMstudents.setBackground(new Color(193,39,35));
+		btnMstudents.setBorderPainted(false);
+		btnMstudents.setOpaque(false);
+		btnMstudents.setContentAreaFilled(false); 
+		btnMstudents.setFocusPainted(false); 
+		btnMstudents.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		mb.add(btnMstudents);  
+        setJMenuBar(mb);
+		
 
-	        
-			btnMImportExport = new JButton(new ImageIcon(this.getClass().getResource("/image/import export.png")));
-			btnMImportExport.addActionListener(this);
-			btnMImportExport.setBackground(new Color(193,39,35));
-			btnMImportExport.setBorderPainted(false);
-			btnMImportExport.setOpaque(false);
-			btnMImportExport.setContentAreaFilled(false); 
-			btnMImportExport.setFocusPainted(false);
-			mb.add(btnMImportExport);  
-	        setJMenuBar(mb);
-	        
-	        
-	        mb.add(Box.createHorizontalGlue());
-	        btnMLogout = new JButton(new ImageIcon(this.getClass().getResource("/image/logout.png")));
-	       // btnMLogout.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-	        btnMLogout.addActionListener(this);
-	        btnMLogout.setBackground(new Color(193,39,35));
-	        btnMLogout.setOpaque(false);
-	        btnMLogout.setBorderPainted(false);
-	        btnMLogout.setContentAreaFilled(false); 
-	        btnMLogout.setFocusPainted(false);
-	        
-			mb.add(btnMLogout);  
-	        setJMenuBar(mb);
-		}
+        
+		btnMImportExport = new JButton(new ImageIcon(this.getClass().getResource("/image/import export.png")));
+		btnMImportExport.addActionListener(this);
+		btnMImportExport.setBackground(new Color(193,39,35));
+		btnMImportExport.setBorderPainted(false);
+		btnMImportExport.setOpaque(false);
+		btnMImportExport.setContentAreaFilled(false); 
+		btnMImportExport.setFocusPainted(false);
+		btnMImportExport.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		mb.add(btnMImportExport);  
+        setJMenuBar(mb);
+        
+        
+        mb.add(Box.createHorizontalGlue());
+        btnMLogout = new JButton(new ImageIcon(this.getClass().getResource("/image/logout.png")));
+       // btnMLogout.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+        btnMLogout.addActionListener(this);
+        btnMLogout.setBackground(new Color(193,39,35));
+        btnMLogout.setOpaque(false);
+        btnMLogout.setBorderPainted(false);
+        btnMLogout.setContentAreaFilled(false); 
+        btnMLogout.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        btnMLogout.setFocusPainted(false);
+        
+		mb.add(btnMLogout);  
+        setJMenuBar(mb);
+        
+        lb=new JLabel("             ");
+		mb.add(lb);
 		
 		setPreferredSize(new Dimension(1000, 800));
 		setLocationRelativeTo(null);
@@ -206,35 +162,35 @@ public class DecodePlotGUI extends JFrame implements ActionListener{
 		
 		 /*---------------------------------- Creating JLabel for Heading Text ------------------------------------------- */
 		 
-		Font f=FontClass.MuseoSans700Italic(30);   // Creating font style and size for heading
+		Font f=FontClass.MuseoSans700Italic(25);   // Creating font style and size for heading
 
 		// step 3 : creating JLabel for Heading
 				JLabel heading_lbl=new JLabel("Decoding Data Plot Option");
-				heading_lbl.setBounds(350,15,1000,50);
+				heading_lbl.setBounds(350,55,1000,50);
 				heading_lbl.setFont(f);
 				add(heading_lbl);
 				
 				
-				Font f1=FontClass.MuseoSans500(25);
+				Font f1=FontClass.MuseoSans700(18); 
 				Font f2=FontClass.MuseoSans500(20);
 				
 				
 			
 				
 					lblstudent = new JLabel("Class");
-					lblstudent.setBounds(200,120,80,30); 
+					lblstudent.setBounds(200,170,80,30); 
 					lblstudent.setFont(f1);
 					add(lblstudent);
 					
 					txtStudent = new JTextField(bean.getStudFirstName() + " "+bean.getStudLastName());
-					txtStudent.setBounds(330,120,200,30); 
+					txtStudent.setBounds(300,170,200,30); 
 					txtStudent.setEditable(false);
 					txtStudent.setFont(f2);
 					add(txtStudent);
 					
 					
 					lblDataRange = new JLabel("Data Range");
-					lblDataRange.setBounds(200,180,300,40); 
+					lblDataRange.setBounds(200,230,300,40); 
 					lblDataRange.setFont(f1);
 					add(lblDataRange);
 					
@@ -244,20 +200,24 @@ public class DecodePlotGUI extends JFrame implements ActionListener{
 			        allRadio.setSelected(true);
 			      //  weekRadio.setSelected(true);
 			        
-			        allRadio.setBounds(250,250,150,40); 
-			        allRadio.setBackground(new Color(242,242,242));
+			        allRadio.setBounds(250,300,150,40); 
+			        allRadio.setOpaque(false);
+			        allRadio.setContentAreaFilled(false);
+			        allRadio.setBorderPainted(false);
 			        allRadio.setFont(f2);
 					add(allRadio);
 					allRadio.addActionListener(this);
 					
-					weekRadio.setBounds(250,310,150,40); 
-					weekRadio.setBackground(new Color(242,242,242));
+					weekRadio.setBounds(250,360,150,40); 
+					weekRadio.setOpaque(false);
+					weekRadio.setContentAreaFilled(false);
+					weekRadio.setBorderPainted(false);
 					weekRadio.setFont(f2);
 					add(weekRadio);
 					weekRadio.addActionListener(this);
 					
 					txtbegin = new JTextField("Begin");
-					txtbegin.setBounds(450,310,100,30); 
+					txtbegin.setBounds(420,360,100,30); 
 					txtbegin.setEditable(false);
 					txtbegin.setFont(f2);
 					add(txtbegin);
@@ -265,23 +225,23 @@ public class DecodePlotGUI extends JFrame implements ActionListener{
 					
 					lblthrough = new JLabel("through");
 					if (osname.contains("Mac")){
-						lblthrough.setBounds(600,305,120,40); 
+						lblthrough.setBounds(550,355,120,40); 
 						}else{
-							lblthrough.setBounds(600,305,100,40); 
+							lblthrough.setBounds(550,355,100,40); 
 						}
 					
 					lblthrough.setFont(f1);
 					add(lblthrough);
 					
 					txtend = new JTextField("End");
-					txtend.setBounds(750,310,100,30); 
+					txtend.setBounds(650,360,100,30); 
 					txtend.setEditable(false);
 					txtend.setFont(f2);
 					add(txtend);
 					
 					
 					lblPlot = new JLabel("Plot");
-					lblPlot.setBounds(200,390,300,40); 
+					lblPlot.setBounds(200,440,300,40); 
 					lblPlot.setFont(f1);
 					//add(lblPlot);
 					
@@ -289,7 +249,7 @@ public class DecodePlotGUI extends JFrame implements ActionListener{
 					bG2.add(indiStudDataRadio);
 					bG2.add(studDataClsAvgRadio);
 					
-					indiStudDataRadio.setBounds(250,450,250,40); 
+					indiStudDataRadio.setBounds(250,500,250,40); 
 					indiStudDataRadio.setBackground(new Color(242,242,242));
 					indiStudDataRadio.setFont(f2);
 					indiStudDataRadio.setSelected(true);
@@ -304,20 +264,23 @@ public class DecodePlotGUI extends JFrame implements ActionListener{
 					
 					
 					 btnBack = new JButton(new ImageIcon(this.getClass().getResource("/image/back.png")));
-			         btnBack.setBounds(200,530,120,40);
-			         btnBack.setBackground(Color.WHITE);
-			         btnBack.setOpaque(true);
+					 btnBack.setBounds(100,600,120,40);
+			         btnBack.setOpaque(false);
+			         btnBack.setContentAreaFilled(false);
 			         btnBack.setBorderPainted(false);
-			         btnBack.setFont(new Font("Britannic Bold", Font.PLAIN, 15));
+			         btnBack.setFocusable(false);
+			         btnBack.setCursor(new Cursor(Cursor.HAND_CURSOR));
 			         add(btnBack);
 			         btnBack.addActionListener(this);
 			         
 			         
 			         btnContinue = new JButton(new ImageIcon(this.getClass().getResource("/image/arrow right.png")));
-			         btnContinue.setBounds(725,530,120,40);
-			         btnContinue.setBackground(Color.WHITE);
-			         btnContinue.setOpaque(true);
+			         btnContinue.setBounds(800,600,120,40);
+			         btnContinue.setOpaque(false);
+			         btnContinue.setContentAreaFilled(false);
 			         btnContinue.setBorderPainted(false);
+			         btnContinue.setFocusable(false);
+			         btnContinue.setCursor(new Cursor(Cursor.HAND_CURSOR));
 			         add(btnContinue);
 			         btnContinue.addActionListener(this);
 					

@@ -1,51 +1,109 @@
 package gui;
 
+import java.awt.BasicStroke;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GraphicsEnvironment;
-import java.awt.GridLayout;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.awt.print.PageFormat;
+import java.awt.print.Printable;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.swing.*;
+import javax.management.MBeanAttributeInfo;
+import javax.swing.Box;
+import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
+import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
-import manegement.StudentOpr;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.NumberAxis;
+import org.jfree.chart.axis.NumberTickUnit;
+import org.jfree.chart.labels.CategoryItemLabelGenerator;
+import org.jfree.chart.labels.ItemLabelAnchor;
+import org.jfree.chart.labels.ItemLabelPosition;
+import org.jfree.chart.labels.StandardCategoryItemLabelGenerator;
+import org.jfree.chart.labels.StandardXYItemLabelGenerator;
+import org.jfree.chart.labels.StandardXYToolTipGenerator;
+import org.jfree.chart.labels.XYItemLabelGenerator;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.plot.XYPlot;
+import org.jfree.chart.renderer.xy.XYItemRenderer;
+import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
+import org.jfree.chart.title.LegendTitle;
+import org.jfree.data.Range;
+import org.jfree.data.function.LineFunction2D;
+import org.jfree.data.general.DatasetUtilities;
+import org.jfree.data.statistics.Regression;
+import org.jfree.data.xy.XYDataset;
+import org.jfree.data.xy.XYSeries;
+import org.jfree.data.xy.XYSeriesCollection;
+import org.jfree.ui.HorizontalAlignment;
+import org.jfree.ui.RectangleEdge;
+import org.jfree.ui.TextAnchor;
+
 import abstrac.StudentDAO;
 import bean.StudentBean;
 import bean.StudentDecoding;
 import bean.StudentRate;
+import manegement.StudentOpr;
 
-public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
+public class DecodePlotGraphGUI2 extends JFrame implements ActionListener,Printable{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+	
 	StudentBean bean = new StudentBean();
 
 	JButton btnSubmit, btnDelete, btnBack, btnExit;
+	JButton btnContinue;
 	JButton btnMgroup, btnMstudents, btnMreport, btnMImportExport, btnMLogout,btnMmyProfile;
 	JMenuItem group, students, report;
 	JMenu menu;
@@ -67,14 +125,55 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 	JTable jtRate;
 	JButton btnAddRate, btnSaveRate, btnPloatRate;
 	String osname = System.getProperty("os.name");
-
-
-	StudentDetailsInfoGUI(StudentBean bean, String classId, String className) {
-
+	
+	JLabel lblstudent,lblDataRange,lblAll,lblPlot,lblthrough;
+	JTextField txtStudent;
+	JRadioButton allRadio = new JRadioButton("   All");
+    JRadioButton weekRadio = new JRadioButton("Weeks");
+    JRadioButton indiStudDataRadio = new JRadioButton("Individual student data");
+    JRadioButton studDataClsAvgRadio = new JRadioButton("Student data with class average");
+    ButtonGroup bG = new ButtonGroup();
+    ButtonGroup bG2 = new ButtonGroup();
+	
+	JLabel lblStudent,lblTeacher,lblCurrentDate;
+	JButton btnPrint;
+	String graphType = "";
+	StudentDAO studDao = new StudentOpr();
+	StudentBean studdata = null;
+	
+	DecodePlotGraphGUI2(StudentBean bean, String classId, String className, String str, String txtBegin, String txtend){
+		
+	
+		
+		
 		this.classId = classId;
 		this.className = className;
 		this.bean = bean;
+		graphType = str;
 
+		try {
+			
+			if(!txtBegin.isEmpty() && !txtend.isEmpty()){
+				int beginTxt = Integer.parseInt(txtBegin);
+				int endTxt = Integer.parseInt(txtend);
+				if (endTxt >= beginTxt){
+					System.out.println(beginTxt + " "+endTxt);
+					StudentBean studBean = studDao.getStudentbyDecodingAndRatingByweek(bean.getId(), beginTxt, endTxt);
+					this.bean = studBean;
+				}else{
+					JOptionPane.showMessageDialog(this,beginTxt+" is NOT less then "+endTxt );
+				}				
+			}					
+          
+        } catch (NumberFormatException e) {
+            System.out.println("You've entered non-integer number");
+            System.out.println("This caused " + e);
+			JOptionPane.showMessageDialog(this,"Enter Number only (e.g 1 and 3)");
+
+        }
+		
+		
+		
 		setLayout(new BorderLayout());
 		setContentPane(new JLabel(new ImageIcon(this.getClass().getResource("/image/sky.png"))));
 		setLayout(null);
@@ -172,7 +271,6 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
         
         lb=new JLabel("             ");
 		mb.add(lb);
-		
 
 		setPreferredSize(new Dimension(1000, 800));
 		setLocationRelativeTo(null);
@@ -212,7 +310,7 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 		JTabbedPane tp = new JTabbedPane();
 		
 		
-		tp.setBounds(100, 50, 820, 500);
+		tp.setBounds(100, 50, 820, 547);
 		tp.setFont(FontClass.MuseoSans300(20));
 		tp.setForeground(Color.WHITE);
 		tp.add("Student Info", p1);
@@ -221,8 +319,8 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 		tp.setUI(new CustomTabbedPaneUI());
 		tp.setBorder(null);
 		
-		/*int selectedIndex = tp.getSelectedIndex();
-		tp.setSelectedIndex(tp.getTabCount()-1);*/
+		int selectedIndex = tp.getSelectedIndex();
+		tp.setSelectedIndex(tp.getTabCount()-2);
 
 
 		add(tp);
@@ -234,25 +332,36 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 		 * heading_lbl.setFont(f); add(heading_lbl);
 		 */
 		 btnBack = new JButton(new ImageIcon(this.getClass().getResource("/image/back.png")));
-         btnBack.setBounds(100,600,120,40);
+		 btnBack.setBounds(100,600,120,40);
          btnBack.setOpaque(false);
          btnBack.setContentAreaFilled(false);
          btnBack.setBorderPainted(false);
+         btnBack.setFocusable(false);
          btnBack.setCursor(new Cursor(Cursor.HAND_CURSOR));
          add(btnBack);
-         getContentPane().add(btnBack);
          btnBack.addActionListener(this);
          
          
-         btnExit = new JButton(new ImageIcon(this.getClass().getResource("/image/Exit2.png")));
-         btnExit.setBounds(800,600,120,40);
-         btnExit.setBackground(Color.WHITE);
-         btnExit.setOpaque(true);
-         btnExit.setBorderPainted(false);
-         btnExit.setCursor(new Cursor(Cursor.HAND_CURSOR));
-         add(btnExit);
-         getContentPane().add(btnExit);
-         btnExit.addActionListener(this);
+       /*  btnContinue = new JButton(new ImageIcon(this.getClass().getResource("/image/arrow right.png")));
+         btnContinue.setBounds(800,600,120,40);
+         btnContinue.setOpaque(false);
+         btnContinue.setContentAreaFilled(false);
+         btnContinue.setBorderPainted(false);
+         btnContinue.setFocusable(false);
+         btnContinue.setCursor(new Cursor(Cursor.HAND_CURSOR));
+         add(btnContinue);
+         btnContinue.addActionListener(this);*/
+         
+         btnPrint = new JButton(new ImageIcon(this.getClass().getResource("/image/print combo.png")));
+         btnPrint.setBounds(800,600,120,40);
+         btnPrint.setOpaque(false);
+         btnPrint.setContentAreaFilled(false);
+         btnPrint.setBorderPainted(false);
+         btnPrint.setCursor(new Cursor(Cursor.HAND_CURSOR));
+         btnPrint.setFocusable(false);
+         add(btnPrint);
+         //getContentPane().add(btnPrint);
+         btnPrint.addActionListener(this);
 
 		setSize(1000, 800);
 		centerFrame();
@@ -269,6 +378,8 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 		setVisible(true);
 
 	}
+	
+	
 
 	public JPanel createContactPanel1(StudentBean studBean) {
 
@@ -363,13 +474,12 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 		btnUpdateStudInfo.setContentAreaFilled(false);
 		btnUpdateStudInfo.setBorderPainted(false);
 		btnUpdateStudInfo.addActionListener(this);
-		btnUpdateStudInfo.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		panelGeneral.add(btnUpdateStudInfo);
 
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
 		panel.add(panelGeneral);
-		panelGeneral.setBounds(16, 16, 780, 430);
+		panelGeneral.setBounds(16, 16, 780, 477);
 
 		panel.setPreferredSize(new Dimension(380, 620));
 
@@ -378,218 +488,93 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 
 	public JPanel createContactPanel2(StudentBean studBean) {
 
-		Font f=FontClass.MuseoSans700(20);
-		
-		Font f1 = FontClass.MuseoSans500Italic(20);
-		//f1.deriveFont(Font.PLAIN, 15);
-		
-		Font f3 = FontClass.MuseoSans500(15);
-		f3.deriveFont(Font.PLAIN, 15);
-
 		JPanel panelGeneral = new JPanel();
 		panelGeneral.setLayout(null); // new Color(107,5,37)
 		panelGeneral.setBackground(new Color(242,242,242));
-
-		JLabel heading_lbl=new JLabel("Take Flight Decoding and Reading Rate Process Data Manager");
-		heading_lbl.setBounds(100,10,600,20);
-		heading_lbl.setFont(f);
-		heading_lbl.setForeground(new Color(65, 127, 159));
-		panelGeneral.add(heading_lbl);
 		
-		
-		lblstudNo = new JLabel("   "+studBean.getStudFirstName() + " " + studBean.getStudLastName());
-		lblstudNo.setBounds(20, 50, 250, 25);
-		lblstudNo.setForeground(new Color(65, 127, 159));
-		lblstudNo.setFont(f1);
-		panelGeneral.add(lblstudNo);
-		
-		
-		/* Table code start  */
-		
-		
-		model = new DefaultTableModel();
+		Font f=FontClass.MuseoSans700(20);   // Creating font style and size for heading
 
-		jt = new JTable();
-		jt.setRowHeight(30);
-
-		jt.setFont(f3);
-
-		// jt.setBounds(500,250,500,100);
-		jt.setModel(model);
-		model.addColumn("Record");
-		model.addColumn("Week");
-		model.addColumn("Date");
-		model.addColumn("Book");
-		model.addColumn("Lesson");
-		model.addColumn("Form");
-		model.addColumn("Score");
-		// model.isCellEditable(row, column)
-		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-		centerRenderer.setHorizontalAlignment(JLabel.CENTER);
-
-		for (int i = 0; i <= 6; i++) {
-			jt.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
-
-		}
-		
-		jt.setPreferredScrollableViewportSize(new Dimension(750, 280));
-
-		// double click on table row and open other window code
-		// jt.setDefaultEditor(Object.class, null);
-		/*
-		 * jt.setUI(new BasicTableUI() { // Create the mouse listener for the
-		 * JTable. protected MouseInputListener createMouseInputListener() {
-		 * return new MouseInputHandler() { // Display frame on double-click
-		 * public void mouseClicked(MouseEvent e) { if (e.getClickCount()==2) {
-		 * //new AddGroupGUI(); } }
-		 * 
-		 * public void mouseReleased(MouseEvent e) { int r =
-		 * jt.rowAtPoint(e.getPoint()); if (r >= 0 && r < jt.getRowCount()) {
-		 * jt.setRowSelectionInterval(r, r); } else { jt.clearSelection(); }
-		 * 
-		 * int rowindex = jt.getSelectedRow(); if (rowindex < 0) return; if
-		 * (e.isPopupTrigger() && e.getComponent() instanceof JTable ) {
-		 * JPopupMenu popup = new JPopupMenu("Delete");
-		 * popup.show(e.getComponent(), e.getX(), e.getY()); } } }; } });
-		 */
-
-		delete = new JMenuItem("Delete");
-		JPopupMenu popup = new JPopupMenu("Delete");
-		popup.add(delete);
-		
-
-		if (osname.contains("Mac")){
-			jt.addMouseListener(new MouseAdapter() {
+		// step 3 : creating JLabel for Heading
+				/*JLabel heading_lbl=new JLabel("Decoding Data Plot Option");
+				heading_lbl.setBounds(250,20,600,20);
+				heading_lbl.setFont(f);
+				panelGeneral.add(heading_lbl);*/
 				
-				@Override
-				public void mouseReleased(MouseEvent e) {
-					if (e.getButton() == java.awt.event.MouseEvent.BUTTON3) {
-						//System.out.println("In side after ckucj");
-						int r = jt.rowAtPoint(e.getPoint());
-						if (r >= 0 && r < jt.getRowCount()) {
-							jt.setRowSelectionInterval(r, r);
-						} else {
-							jt.clearSelection();
+				
+				Font f1=FontClass.MuseoSans700(18); 
+				Font f2=FontClass.MuseoSans500(20);
+				Font f3=FontClass.MuseoSans300(15);
+				
+				
+				/*	lblstudent = new JLabel("Class");
+					lblstudent.setBounds(40,80,80,30); 
+					lblstudent.setFont(f1);
+					panelGeneral.add(lblstudent);
+					
+					txtStudent = new JTextField(bean.getStudFirstName() + " "+bean.getStudLastName());
+					txtStudent.setBounds(120,80,200,30); 
+					txtStudent.setEditable(false);
+					txtStudent.setFont(f2);
+					panelGeneral.add(txtStudent);*/
+					
+					
+					lblStudent = new JLabel("Student  :  "+bean.getStudFirstName()+ " "+bean.getStudLastName() +"");
+					lblStudent.setBounds(80,15,300,30); 
+					lblStudent.setFont(f3);
+					lblStudent.setForeground(new Color(65, 127, 159));
+					panelGeneral.add(lblStudent);
+					
+					lblTeacher = new JLabel("Teacher  :  "+bean.getTeacher()+"");
+					lblTeacher.setBounds(280,15,300,30); 
+					lblTeacher.setForeground(new Color(65, 127, 159));
+					lblTeacher.setFont(f3);
+					panelGeneral.add(lblTeacher);
+					
+					
+					lblCurrentDate = new JLabel("Current Date  :  "+new SimpleDateFormat("MM/dd/yyyy").format(new Date())+"");
+					lblCurrentDate.setBounds(480,14,300,40); 
+					lblCurrentDate.setFont(f3);
+					lblCurrentDate.setForeground(new Color(65, 127, 159));
+					panelGeneral.add(lblCurrentDate);
+					
+					/* P1 for first tab data  */
+					 JPanel p1=new JPanel();//createContactPanel1();   // Call method for set the 1st tab frame contenct
+					 p1.setBounds(0,48,800,400);    
+					// p1.setBackground(new Color(242,242,242));  
+					 //setContentPane(p1); //add(p1);
+					 final XYDataset dataset = createDataset(this.bean);
+				     final JFreeChart chart = createChart(dataset);
+				    // drawRegressionLine(chart,dataset);
+				     
+				        
+				     // If we have an input parameter, predict the price and draw the new point
+						/*if (args.length >= 1 && args[0] != null) {
+							// Estimate the linear function given the input data
+							double regressionParameters[] = Regression.getOLSRegression(
+									dataset, 0);
+							double x = Double.parseDouble(args[0]);
+
+							// Prepare a line function using the found parameters
+							LineFunction2D linefunction2d = new LineFunction2D(
+									regressionParameters[0], regressionParameters[1]);
+							// This is the estimated price
+							double y = linefunction2d.getValue(x);
+
+							drawInputPoint(x, y);
 						}
-	
-						int rowindex = jt.getSelectedRow();
-						//System.out.println("rowindex" +rowindex);
-						if (rowindex < 0){
-							return;
-						}
-						popup.show(e.getComponent(), e.getX(), e.getY());
-						if (e.isPopupTrigger() && e.getComponent() instanceof JTable) {
-							//System.out.println("In popup show");
-							popup.show(e.getComponent(), e.getX(), e.getY());
-						}
-					}
-				}
-			});
-		}else{
-			
-			jt.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseReleased(MouseEvent e) {
-					int r = jt.rowAtPoint(e.getPoint());
-					if (r >= 0 && r < jt.getRowCount()) {
-						jt.setRowSelectionInterval(r, r);
-					} else {
-						jt.clearSelection();
-					}
-
-					int rowindex = jt.getSelectedRow();
-					if (rowindex < 0)
-						return;
-					if (e.isPopupTrigger() && e.getComponent() instanceof JTable) {
-
-						popup.show(e.getComponent(), e.getX(), e.getY());
-					}
-				}
-			});
-		}
-		
-		
-
-		delete.addActionListener(this);
-		SimpleDateFormat ddmmyyyy = new SimpleDateFormat("dd-MM-yyyy");
-		SimpleDateFormat mmddyyyy = new SimpleDateFormat("MM/dd/yyyy");
-		
-		for (StudentDecoding decoBean : studBean.getListDecoding()) {
-			try {
-				Date dt = ddmmyyyy.parse(decoBean.getDate());
-				decoBean.setDate(mmddyyyy.format(dt));
+				     
+				     */
+				     final ChartPanel chartPanel = new ChartPanel(chart);
+				     chartPanel.setPreferredSize(new java.awt.Dimension(750, 400));
+				     p1.add(chartPanel);
+				        
+				     panelGeneral.add(p1);
+					
 				
-				
-				
-			} catch (ParseException e1) {
-				// TODO Auto-generated catch block
-				//e1.printStackTrace();
-			}
-			model.addRow(new Object[] { decoBean.getDecoId(), decoBean.getWeek(), decoBean.getDate(),
-					decoBean.getBook(), decoBean.getLesson(), decoBean.getForm(), decoBean.getScore() });
-
-		}
-
-		Font f2 = FontClass.MuseoSans700(15);
-		JTableHeader header = jt.getTableHeader();
-		header.setBackground(new Color(188,221,238));
-		header.setFont(f2);
-		header.setForeground(Color.BLACK);
-		header.setPreferredSize(new Dimension(100, 30));
-
-		JScrollPane scroller = new JScrollPane(jt, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
-				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-
-		
-        
-		scroller.setBounds(20, 80, 750, 180);
-		panelGeneral.add(scroller);
-		
-		
-		
-		/* Table code end   */
-		
-		
-		btnAddDecoding = new JButton(new ImageIcon(this.getClass().getResource("/image/add record button2.png")));
-		btnAddDecoding.setBounds(130, 270, 150, 130);
-		btnAddDecoding.setOpaque(false);
-		btnAddDecoding.setContentAreaFilled(false);
-		btnAddDecoding.setBorderPainted(false);
-		btnAddDecoding.setFocusable(false);
-		btnAddDecoding.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		btnAddDecoding.addActionListener(this);
-		panelGeneral.add(btnAddDecoding);
-
-		btnSaveDecoding = new JButton(new ImageIcon(this.getClass().getResource("/image/save record button2.png")));
-		btnSaveDecoding.setBounds(310, 270, 150, 130);
-		btnSaveDecoding.setOpaque(false);
-		btnSaveDecoding.setContentAreaFilled(false);
-		btnSaveDecoding.setBorderPainted(false);
-		btnSaveDecoding.setFocusable(false);
-		btnSaveDecoding.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		btnSaveDecoding.addActionListener(this);
-		panelGeneral.add(btnSaveDecoding);
-
-		btnPloatDecoding = new JButton(new ImageIcon(this.getClass().getResource("/image/plot data button2.png")));
-		btnPloatDecoding.setBounds(490, 270, 150, 130);
-		btnPloatDecoding.setOpaque(false);
-		btnPloatDecoding.setContentAreaFilled(false);
-		btnPloatDecoding.setBorderPainted(false);
-		btnPloatDecoding.setFocusable(false);
-		btnPloatDecoding.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		btnPloatDecoding.addActionListener(this);
-		panelGeneral.add(btnPloatDecoding);
-
-		//panelGeneral.add(panelCreditCard);
-		
-		
-		
-		
-
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
 		panel.add(panelGeneral);
-		panelGeneral.setBounds(16, 16, 780, 430);
+		panelGeneral.setBounds(16, 16, 780, 477);
 
 
 		panel.setPreferredSize(new Dimension(380, 620));
@@ -713,10 +698,11 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 			});
 		}
 		deleteRate.addActionListener(this);
+		
 		SimpleDateFormat ddmmyyyy = new SimpleDateFormat("dd-MM-yyyy");
 		SimpleDateFormat mmddyyyy = new SimpleDateFormat("MM/dd/yyyy");
+		
 		for (StudentRate rateBean : studBean.getListRate()) {
-			
 			try {
 				Date dt = ddmmyyyy.parse(rateBean.getDate());
 				rateBean.setDate(mmddyyyy.format(dt));
@@ -726,7 +712,6 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 				// TODO Auto-generated catch block
 				//e1.printStackTrace();
 			}
-			
 			modelRate.addRow(new Object[] { rateBean.getRateId(), rateBean.getWeek(), rateBean.getDate(),
 					rateBean.getText(), rateBean.getTime(), rateBean.getCwpm(), rateBean.getErrors() });
 
@@ -784,7 +769,7 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
 		panel.add(panelGeneral);
-		panelGeneral.setBounds(16, 16, 780, 430);
+		panelGeneral.setBounds(16, 16, 780, 477);
 
 		/*
 		 * panel.add(panelCreditCard); panelCreditCard.setBounds(10, 490, 370,
@@ -1084,12 +1069,35 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 
 		}
 
-		if (e.getSource() == btnBack) {
+		if(e.getSource()== btnBack){
 			synchronized (this) {
-				new StudentGUI(classId, className);
-				this.setVisible(false);
+				new DecodePlotGUI2(bean, classId, className);
+				setVisible(false);
 			}
-
+		}
+		
+		if(e.getSource()==btnPrint){
+			
+			 PrinterJob printJob = PrinterJob.getPrinterJob();
+			 printJob.setPrintable(this);
+			 
+			 PageFormat preformat = printJob.defaultPage();
+				preformat.setOrientation(PageFormat.LANDSCAPE);
+				PageFormat postformat = printJob.pageDialog(preformat);
+				printJob.setPrintable(this, postformat);
+				
+			 if(printJob.printDialog()){
+				    try { 
+				    	btnBack.setVisible(false);
+				    	btnPrint.setVisible(false);
+				    	printJob.print(); 
+				    	btnBack.setVisible(true);
+				    	btnPrint.setVisible(true);
+				    } 
+				    catch (Exception PrinterExeption
+				    ) { }
+				  }
+			
 		}
 		if (e.getSource() == btnMImportExport) {
 			synchronized (this) {
@@ -1101,6 +1109,39 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 			System.exit(0);
 
 		}
+		
+		if(e.getSource() == btnContinue){
+			if(allRadio.isSelected() && indiStudDataRadio.isSelected()){
+				
+				int size = bean.getListDecoding().size();
+				if (size >= 3){
+					synchronized (this) {
+						new DecodePlotGraphGUI(bean,classId,className,"All", "","");
+						setVisible(false);
+					}
+					
+					
+				}else{
+					JOptionPane.showMessageDialog(this,"Please provide more data");
+				}
+	        
+				
+			}
+			
+			if(allRadio.isSelected() && studDataClsAvgRadio.isSelected()){
+				synchronized (this) {
+					new DecodePlotGraphGUI(bean,classId,className,"Avg","","");
+					setVisible(false);
+					
+				}
+			}
+			
+			
+			
+			
+		}
+		
+		
 		if (e.getSource() == btnUpdateStudInfo) {
 
 			if (txtstudNo.getText().length() == 0) {
@@ -1149,7 +1190,7 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 			
 			if (size >= 3){
 				synchronized (this) {
-					new DecodePlotGUI2(bean, classId, className);
+					new DecodePlotGUI(bean, classId, className);
 					this.setVisible(false);
 				}
 				
@@ -1246,11 +1287,382 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 
 	}
 
-	/*
-	 * public static void main(String args[]){ new
-	 * StudentDetailsInfoGUI(null,null,null);
-	 * 
-	 * }
-	 */
+
+
+	@Override
+	public int print(Graphics gx, PageFormat pf, int page)
+			throws PrinterException {
+		// TODO Auto-generated method stub
+		if (page>0){return NO_SUCH_PAGE;} //Only one page
+		
+		
+		Graphics2D g = (Graphics2D)gx; //Cast to Graphics2D object
+        pf.setOrientation(PageFormat.LANDSCAPE);
+        g.translate((pf.getImageableX()), (pf.getImageableY())); //Match origins to imageable area
+        
+        Dimension size = this.getSize(); // component size
+        double pageWidth = pf.getImageableWidth(); // Page width
+        double pageHeight = pf.getImageableHeight(); // Page height
+        
+     
+        // If the component is too wide or tall for the page, scale it down
+        if (size.width > pageWidth) {
+          double factor = pageWidth / size.width; // How much to scale
+          factor = factor *1;
+          g.scale(factor, factor); // Adjust coordinate system
+          pageWidth /= factor; // Adjust page size up
+          pageHeight /= factor;
+        }
+        if (size.height > pageHeight) { // Do the same thing for height
+          double factor = pageHeight / size.height;
+          factor = factor *1;
+          g.scale(factor, factor);
+          pageWidth /= factor;
+          pageHeight /= factor;
+        }
+        
+        g.translate((int) pf.getImageableX(), (int) pf.getImageableY());
+        
+        this.print(g);
+ 
+
+        return PAGE_EXISTS; //Page exists (offsets start at zero!)
+
+	}
+	
+	
+	private void drawRegressionLine(JFreeChart chart, XYDataset inputData) {
+		// Get the parameters 'a' and 'b' for an equation y = a + b * x,
+		// fitted to the inputData using ordinary least squares regression.
+		// a - regressionParameters[0], b - regressionParameters[1]
+		double regressionParameters[] = Regression.getOLSRegression(inputData,
+				0);
+
+		// Prepare a line function using the found parameters
+		LineFunction2D linefunction2d = new LineFunction2D(
+				regressionParameters[0], regressionParameters[1]);
+
+		// Creates a dataset by taking sample values from the line function
+		XYDataset dataset = DatasetUtilities.sampleFunction2D(linefunction2d,
+				0D, 30, 2, "Estimated Progress");
+
+		// Draw the line dataset
+		XYPlot xyplot = chart.getXYPlot();
+		xyplot.setDataset(1, dataset);
+		XYLineAndShapeRenderer xylineandshaperenderer = new XYLineAndShapeRenderer(
+				true, false);
+        
+		 StandardXYToolTipGenerator ttG =
+				    new StandardXYToolTipGenerator("{1},{2}",  NumberFormat.getInstance(),  NumberFormat.getInstance());
+		 
+		xylineandshaperenderer.setSeriesPaint(3, Color.YELLOW);
+		xylineandshaperenderer.setBaseToolTipGenerator(new StandardXYToolTipGenerator());
+		xylineandshaperenderer.setBaseToolTipGenerator(ttG);
+	
+		xyplot.setRenderer(1, xylineandshaperenderer);
+		
+		  XYItemRenderer renderer1 = chart.getXYPlot().getRenderer();
+		  renderer1.setBaseItemLabelsVisible(true);
+		  renderer1.setBaseToolTipGenerator(new StandardXYToolTipGenerator());
+		 
+		  renderer1.setBaseToolTipGenerator(ttG);
+		  
+		  
+		  xyplot.setRenderer(0,renderer1);
+	
+		
+		
+	}
+	
+	
+private XYDataset createDataset(StudentBean bean) {
+        
+        final XYSeries series1 = new XYSeries("Student Score");
+         
+            for(StudentDecoding deco : bean.getListDecoding()){
+            	
+            	series1.add(deco.getWeek(), deco.getScore());
+            }
+            
+            ArrayList regLineAB= getLinearRegressionLine(bean.getListDecoding());
+            double beta1 = (double) regLineAB.get(0);
+            double beta0 = (double) regLineAB.get(1);
+            System.out.println("beta1 "+beta1);
+            final XYSeries series2 = new XYSeries("Estimated Progress");
+          
+            for(StudentDecoding deco : bean.getListDecoding()){
+                     //  System.out.println(" Count : "+ bean.getListDecoding().size());
+            		double tempFinal = (  (beta1*deco.getWeek())+beta0  );
+                    series2.add(deco.getWeek(),tempFinal);
+            }
+          
+          
+            
+        XYSeries series3 = null;
+		if(graphType.contains("Avg")){
+			
+			series3 = new XYSeries("Class Average");
+			
+			ArrayList<StudentBean> list = studDao.getAllStudents(classId);
+			List ids = new ArrayList<>();
+			for (StudentBean studbean : list) {
+
+				ids.add(studbean.getId());
+			}
+			List avgList = studDao.getAvgofStud(ids);
+
+			ArrayList regLineABAvg = getLinearRegressionLineforAvg(avgList);
+			double betaA = (double) regLineABAvg.get(0);
+			double betaB = (double) regLineABAvg.get(1);
+			//System.out.println("beta1 " + beta1);
+			
+			for (StudentDecoding deco : bean.getListDecoding()) {
+				// System.out.println(" Reg : "+ ( (beta1*deco.getWeek())+beta0));
+				double regABAvg = ((betaA * deco.getWeek()) + betaB);
+				series3.add(deco.getWeek(), regABAvg);
+			}
+        	
+        }
+        
+        
+      
+        /* final XYSeries series3 = new XYSeries("Third");
+        series3.add(3.0, 4.0);
+        series3.add(4.0, 3.0);
+        series3.add(5.0, 2.0);
+        series3.add(6.0, 3.0);
+        series3.add(7.0, 6.0);
+        series3.add(8.0, 3.0);
+        series3.add(9.0, 4.0);
+        series3.add(10.0, 3.0);*/
+		
+		
+
+        final XYSeriesCollection dataset = new XYSeriesCollection();
+        dataset.addSeries(series1);
+        dataset.addSeries(series2);
+        
+        if (graphType.contains("Avg")){
+        	dataset.addSeries(series3);
+        }
+        
+        
+                
+        return dataset;
+        
+    }
+    
+
+
+	private ArrayList getLinearRegressionLineforAvg(List avgList) {
+	
+
+			ArrayList listOfAB=new ArrayList<>();
+			int MAXN = 1000;
+	        int n = 0;
+	        double[] xTemp =new double[avgList.size()]; //{1,2,3,4};
+	        double[] yTemp = new double[avgList.size()]; //{5,7,7,8};
+	        
+	        int i=0;
+	        Double firstValue;
+	        for (int l = 0; l < avgList.size(); l++) {
+				  Double[] d = (Double[]) avgList.get(l);
+				//  lst.add(new Double[]{Double.parseDouble(d[0].toString()), Double.parseDouble(d[1].toString())});
+				  xTemp[i] =  Double.parseDouble(d[0].toString());
+				  yTemp[i] =  Double.parseDouble(d[1].toString());
+				  i++;
+		      }
+	   
+//	        for (int j=0; j<avgList.size(); j++){
+//	        	xTemp[i] =  
+//	        	yTemp[i] =  
+//	        	i++;
+//	        }
+	        
+//	        for(StudentDecoding deco : avgList){
+//	        	xTemp[i]=deco.getWeek();
+//	        	yTemp[i] = deco.getScore();
+//	        	i++;
+//	        }
+	        
+	        
+	        double[] x = new double[MAXN];
+	        double[] y = new double[MAXN];
+
+	        // first pass: read in data, compute xbar and ybar
+	        double sumx = 0.0, sumy = 0.0, sumx2 = 0.0;
+	       for(int j = 0 ; j<xTemp.length ; j++){
+	            x[n] = xTemp[n];
+	            y[n] = yTemp[n];
+	            sumx  += x[n];
+	            sumx2 += x[n] * x[n];
+	            sumy  += y[n];
+	            n++;
+	        }
+	        double xbar = sumx / n;
+	        double ybar = sumy / n;
+
+	        // second pass: compute summary statistics
+	        double xxbar = 0.0, yybar = 0.0, xybar = 0.0;
+	        for (int i1 = 0; i1 < n; i1++) {
+	            xxbar += (x[i1] - xbar) * (x[i1] - xbar);
+	            yybar += (y[i1] - ybar) * (y[i1] - ybar);
+	            xybar += (x[i1] - xbar) * (y[i1] - ybar);
+	        }
+	        double beta1 = xybar / xxbar;
+	        double beta0 = ybar - beta1 * xbar;
+
+	        // print results
+	        System.out.println("y   = " + beta1 + " * x + " + beta0);
+	        
+	        listOfAB.add(beta1);
+	        listOfAB.add(beta0);
+	        
+			
+			
+			
+		return listOfAB;
+		
+	}
+
+
+	private ArrayList getLinearRegressionLine(
+		ArrayList<StudentDecoding> listDecoding) {
+	// TODO Auto-generated method stub
+		ArrayList listOfAB=new ArrayList<>();
+		int MAXN = 1000;
+        int n = 0;
+        double[] xTemp =new double[listDecoding.size()]; //{1,2,3,4};
+        double[] yTemp = new double[listDecoding.size()]; //{5,7,7,8};
+        
+        int i=0;
+        for(StudentDecoding deco : listDecoding){
+        	xTemp[i]=deco.getWeek();
+        	yTemp[i] = deco.getScore();
+        	i++;
+        }
+        
+        
+        double[] x = new double[MAXN];
+        double[] y = new double[MAXN];
+
+        // first pass: read in data, compute xbar and ybar
+        double sumx = 0.0, sumy = 0.0, sumx2 = 0.0;
+       for(int j = 0 ; j<xTemp.length ; j++){
+            x[n] = xTemp[n];
+            y[n] = yTemp[n];
+            sumx  += x[n];
+            sumx2 += x[n] * x[n];
+            sumy  += y[n];
+            n++;
+        }
+        double xbar = sumx / n;
+        double ybar = sumy / n;
+
+        // second pass: compute summary statistics
+        double xxbar = 0.0, yybar = 0.0, xybar = 0.0;
+        for (int i1 = 0; i1 < n; i1++) {
+            xxbar += (x[i1] - xbar) * (x[i1] - xbar);
+            yybar += (y[i1] - ybar) * (y[i1] - ybar);
+            xybar += (x[i1] - xbar) * (y[i1] - ybar);
+        }
+        double beta1 = xybar / xxbar;
+        double beta0 = ybar - beta1 * xbar;
+
+        // print results
+        System.out.println("y   = " + beta1 + " * x + " + beta0);
+        
+        listOfAB.add(beta1);
+        listOfAB.add(beta0);
+        
+		
+		
+		
+	return listOfAB;
+}
+
+
+	/**
+     * Creates a chart.
+     * 
+     * @param dataset  the data for the chart.
+     * 
+     * @return a chart.
+     */
+    private JFreeChart createChart(final XYDataset dataset) {
+        
+        // create the chart...
+        final JFreeChart chart = ChartFactory.createXYLineChart(
+            "Student Progress :  Decoding",      // chart title
+            "Week",                      // x axis label
+            "Number Correct",                      // y axis label
+            dataset,                  // data
+            PlotOrientation.VERTICAL,
+            true,                     // include legend
+            true,                     // tooltips
+            false                     // urls
+        );
+
+        chart.setBackgroundPaint(new Color(242,242,242));
+        chart.getTitle().setPaint(new Color(65,127,159));
+        chart.getTitle().setHorizontalAlignment(HorizontalAlignment.CENTER);
+        
+        final XYPlot plot = chart.getXYPlot();
+        plot.setBackgroundPaint(Color.white);
+        plot.setDomainGridlinePaint(Color.black);
+        plot.setRangeGridlinePaint(Color.black);
+        plot.getRangeAxis().setLabelPaint(new Color(65,127,159));
+		plot.getRangeAxis().setTickLabelPaint(new Color(65,127,159));
+		plot.getRangeAxis().setLabelFont(FontClass.MuseoSans700(15));
+		plot.getRangeAxis().setTickLabelFont(FontClass.MuseoSans700(15));
+        
+       
+        
+        NumberAxis xAxis = new NumberAxis("Week");
+        /* X axis range set 0 to 50 with number tick meand dispaly to next number in x axis  */
+       
+        xAxis.setTickUnit(new NumberTickUnit(1));
+        xAxis.setTickLabelFont(FontClass.MuseoSans700(15));
+        xAxis.setLabelPaint(new Color(65,127,159));
+        xAxis.setTickLabelPaint(new Color(65,127,159));
+      //  xAxis.setRange(0.0, 52.0);
+        
+        /* Code end  */
+        plot.setDomainAxis(xAxis);
+       
+        
+        
+        
+        //Range auto = plot.getRangeAxis().getRange();
+        
+     //   plot.getRangeAxis().setUpperBound(50.00);
+        
+       /* NumberAxis yAxis = new NumberAxis("Number Correct");
+        yAxis.setTickUnit(new NumberTickUnit(10));
+        plot.setDomainAxis(yAxis);*/
+        
+        
+        final XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer();
+        renderer.setSeriesLinesVisible(0, false);
+        renderer.setSeriesShapesVisible(1, true);
+        renderer.setBaseLinesVisible(true);
+        renderer.setBaseItemLabelsVisible(Boolean.TRUE);
+        renderer.setBaseItemLabelFont( FontClass.MuseoSans900(15));
+        
+        renderer.setBaseItemLabelGenerator((XYItemLabelGenerator) new StandardXYItemLabelGenerator());
+        plot.setRenderer(renderer);
+       
+        LegendTitle legend = chart.getLegend();
+        if (legend != null) {
+    		legend.setPosition(RectangleEdge.TOP);
+    		legend.setHorizontalAlignment(HorizontalAlignment.RIGHT);
+    		legend.setItemFont(FontClass.MuseoSans900(15));
+    	}
+                
+        return chart;
+        
+    }
+	
+	
 
 }

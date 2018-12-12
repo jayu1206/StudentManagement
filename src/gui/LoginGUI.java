@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -74,53 +75,75 @@ public class LoginGUI extends JFrame implements ActionListener{
         		+ "</body></html>");
         
         add(textPane);*/
-		Font f=FontClass.MuseoSans300(18); 
+		Font f=FontClass.MuseoSans700(18); 
+		
+		Font f2=FontClass.MuseoSans900(15);
+		f2.deriveFont(Font.PLAIN);
 		
         JLabel heading_lbl=new JLabel();
-		heading_lbl.setBounds(30,180,900,230);
-		heading_lbl.setFont(f);
-		heading_lbl.setText("<html><body style=\"font: Arial; color: white; padding: 2px; padding-top: 2; padding-left: 12;padding-right: 12; background-color: #1D3E8A; border-top: 10px solid rgb(139,39,35); \">"
-        		+ "<center><h3>Take Flight Progress Monitoring Charts instrument was designed to provide diagnostic information about how </h3> </center></br>"
-        		+ "<center><h3>student are progressing in learning the decoding concepts of Take Flight: A Comprehensive intervention for Student </h3> </center></br>"
-        		+ "<center><h3>with Dyslexia. This is done by allowing repeated administrations of a set of decodable, real words that cover the </h3></center> </br>"
-        		+ "<center><h3>range of basic phonics concepts covered in the first five books of the Take Flight curriculum</h3> </center></br>"
-        		+ "</body></html>");	
+		heading_lbl.setBounds(50,150,800,230);
+		heading_lbl.setFont(f2); //font: Arial; this tag was in side below html style tag
+		/*heading_lbl.setText("<html><body style=\" color: white;  padding-top: 20;padding-bottom: 20; padding-left: 12;padding-right: 12; background-color: #1D3E8A; border-top: 10px solid rgb(139,39,35); \">"
+        		+ "<center><p>Take Flight Progress Monitoring Charts instrument was designed to provide diagnostic information about how </p> </center></br>"
+        		+ "<center><p>student are progressing in learning the decoding concepts of Take Flight: A Comprehensive intervention for Student </p> </center></br>"
+        		+ "<center><p>with Dyslexia. This is done by allowing repeated administrations of a set of decodable, real words that cover the </p></center> </br>"
+        		+ "<center><p>range of basic phonics concepts covered in the first five books of the Take Flight curriculum</p> </center></br>"
+        		+ "</body></html>");*/
+		
+		/*heading_lbl.setText("<html><body style=\" color: white;  padding-top: 20;padding-bottom: 20; padding-left: 12;padding-right: 12; background-color: #1D3E8A; border-top: 10px solid rgb(139,39,35); \">"
+        		+ "<center><p style=\" width=500px; \" >Take Flight Progress Monitoring Charts instrument was designed to provide diagnostic information about how  </center>"
+        		+ "<center>student are progressing in learning the decoding concepts of Take Flight: A Comprehensive intervention for Student  </center>"
+        		+ "<center>with Dyslexia. This is done by allowing repeated administrations of a set of decodable, real words that cover the </center> "
+        		+ "<center>range of basic phonics concepts covered in the first five books of the Take Flight curriculum</p> </center>"
+        		+ "</body></html>");*/
+		
+		heading_lbl.setText("<html><body style=\" color: white;  padding-top: 20;padding-bottom: 20; padding-left: 12;padding-right: 12; background-color: #1D3E8A; border-top: 10px solid rgb(139,39,35); \">"
+		          + "<center><p style=\" width=500px; \" >Take Flight Progress Monitoring Charts instrument was designed to provide diagnostic information about how student are progressing in learning the decoding concepts of Take Flight: A Comprehensive intervention for Student with Dyslexia. This is done by allowing repeated administrations of a set of decodable, real words that cover the range of basic phonics concepts covered in the first five books of the Take Flight curriculum</p> </center>"
+		          + "</body></html>");
+		
+		
 		add(heading_lbl);
+		
+		
+		Font f3=FontClass.MuseoSans700(18); 
+		Font f4=FontClass.MuseoSans500(15);
+		f4.deriveFont(Font.PLAIN, 15);
+		
 		
 		
 		
 		lblUserId = new JLabel("Username");
-		lblUserId.setBounds(280,450,100,30);
-		lblUserId.setFont(f);
+		lblUserId.setBounds(295,430,100,30);
+		lblUserId.setFont(f3);
 		add(lblUserId);
 		
 		txtUserId = new JTextField("",15);
-		txtUserId.setBounds(400,450,200,30);
-		txtUserId.setFont(f);
+		txtUserId.setBounds(400,430,200,30);
+		txtUserId.setFont(f4);
         txtUserId.requestFocusInWindow();
         add(txtUserId);
 		
 		
         lblPsw = new JLabel("Password");
-        lblPsw.setBounds(280,500,100,30);
-        lblPsw.setFont(f);
+        lblPsw.setBounds(300,480,100,30);
+        lblPsw.setFont(f3);
 		add(lblPsw);
         
 		txtPsw = new JPasswordField("",15);
-		txtPsw.setBounds(400,500,200,30);
-		txtPsw.setFont(f);
+		txtPsw.setBounds(400,480,200,30);
+		txtPsw.setFont(f4);
 		txtPsw.requestFocusInWindow();
         add(txtPsw);
         
         
-        ImageIcon image = new ImageIcon(this.getClass().getResource("/image/login button.png"));
-        btnSubmit = new JButton(image);
-        btnSubmit.setBounds(400,570,150,40);
-        btnSubmit.setBorder(null);
-        //btnSubmit.setFont(f);
-        //btnSubmit.setBackground(new Color(188,221,238));
+        //ImageIcon image = ;
+        btnSubmit = new JButton(new ImageIcon(this.getClass().getResource("/image/login button.png")));
+        btnSubmit.setBounds(400,550,150,45);
+        btnSubmit.setOpaque(false);
+        btnSubmit.setContentAreaFilled(false);
+        btnSubmit.setBorderPainted(false);
         btnSubmit.addActionListener(this);
-       // btnSubmit.setBorder(new RoundedBorder(10));
+        btnSubmit.setCursor(new Cursor(Cursor.HAND_CURSOR));
         btnSubmit.requestFocusInWindow();
         getRootPane().setDefaultButton(btnSubmit);
         add(btnSubmit);

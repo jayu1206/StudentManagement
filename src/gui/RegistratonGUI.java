@@ -33,7 +33,7 @@ public class RegistratonGUI extends JFrame implements ActionListener{
 	public RegistratonGUI(){
 		
 		setLayout(new BorderLayout());
-		setContentPane(new JLabel(new ImageIcon(this.getClass().getResource("/image/sky.png"))));
+		setContentPane(new JLabel(new ImageIcon(this.getClass().getResource("/image/login background2.png"))));
 		setLayout(null);
 		
 		Container c=getContentPane();  
@@ -44,7 +44,7 @@ public class RegistratonGUI extends JFrame implements ActionListener{
 	
 				// step 3 : creating JLabel for Heading
 						JLabel heading_lbl=new JLabel("Provide your details");
-						heading_lbl.setBounds(350,15,300,60);
+						heading_lbl.setBounds(360,160,300,60);
 	
 						// applying font on  heading Label
 						heading_lbl.setFont(f);
@@ -52,61 +52,68 @@ public class RegistratonGUI extends JFrame implements ActionListener{
 	
 	/* ----------------------------------- Creating Global Font style for all components ------------------------------ */
 
-						Font f1=FontClass.MuseoSans500(25);
+						Font f1=FontClass.MuseoSans700(18); 
 						Font f2=FontClass.MuseoSans500(20);
 						
+						Font f3 = FontClass.MuseoSans500(15);
+						f3.deriveFont(Font.PLAIN, 15);
 						
 						/* ----------------------------------- Creating components for Registration details ---------------------------------- */
 						
 						// Step 4 : Creating JLabel for Name
 						
-						lblFirstName=new JLabel("First Name : ");
-						lblFirstName.setBounds(250,180,250,40);
+						lblFirstName=new JLabel("First Name");
+						lblFirstName.setBounds(350,240,250,40);
 						lblFirstName.setFont(f1);
 						add(lblFirstName);
 				
 						// Creating JTextField for Father's name
 						txtFirstName=new JTextField();
-						txtFirstName.setBounds(500,190,180,30);
+						txtFirstName.setBounds(480,250,180,30);
+						txtFirstName.setFont(f3);
 						add(txtFirstName);
 		
 						
-						lblLastName=new JLabel("Last Name : ");
-						lblLastName.setBounds(250,225,250,40);
+						lblLastName=new JLabel("Last Name");
+						lblLastName.setBounds(350,285,250,40);
 						lblLastName.setFont(f1);
 						add(lblLastName);
 						
 						txtLastName=new JTextField();
-						txtLastName.setBounds(500,235,180,30);
+						txtLastName.setBounds(480,295,180,30);
+						txtLastName.setFont(f3);
 						add(txtLastName);
 						
-						lblemail=new JLabel("Email : ");
-						lblemail.setBounds(250,280,180,30);
+						lblemail=new JLabel("Email");
+						lblemail.setBounds(390,340,180,30);
 						lblemail.setFont(f1);
 						add(lblemail);
 						
 						txtemail=new JTextField();
-						txtemail.setBounds(500,280,180,30);
+						txtemail.setBounds(480,340,180,30);
+						txtemail.setFont(f3);
 						add(txtemail);
 						
 						
-						lblUserId = new JLabel("Username : ");
-						lblUserId.setBounds(250,330,150,30); 
+						lblUserId = new JLabel("Username");
+						lblUserId.setBounds(350,390,150,30); 
 						lblUserId.setFont(f1);
 						add(lblUserId);
 						
 						txtUserId=new JTextField();
-						txtUserId.setBounds(500,330,180,30);
+						txtUserId.setBounds(480,390,180,30);
+						txtUserId.setFont(f3);
 						add(txtUserId);
 						
-						lblPsw=new JLabel("Password : ");
-						lblPsw.setBounds(250,380,150,30);
+						lblPsw=new JLabel("Password");
+						lblPsw.setBounds(355,440,150,30);
 						lblPsw.setFont(f1);
 						add(lblPsw);
 				
 						// Creating JTextField for Father's name
 						txtPsw=new JPasswordField();
-						txtPsw.setBounds(500,380,180,30);
+						txtPsw.setBounds(480,440,180,30);
+						txtPsw.setFont(f3);
 						add(txtPsw);
 						
 						
@@ -122,36 +129,27 @@ public class RegistratonGUI extends JFrame implements ActionListener{
 						
 						
 						btnSubmit =  new JButton(new ImageIcon(this.getClass().getResource("/image/save record button.png")));
-						btnSubmit.setBounds(510,460,80,50);
-						btnSubmit.setOpaque(true);
+						btnSubmit.setBounds(550,520,80,50);
+						btnSubmit.setOpaque(false);
+						btnSubmit.setContentAreaFilled(false);
 						btnSubmit.setBorderPainted(false);
-						btnSubmit.setFont(new Font("Britannic Bold", Font.PLAIN, 20));
-						 /*Image img;
-							try {
-								img = ImageIO.read(getClass().getResource("/image/submit_icon.png"));
-								btnSubmit.setIcon(new ImageIcon(img));
-								btnSubmit.setBorder(null);
-							} catch (IOException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}*/
+						btnSubmit.setCursor(new Cursor(Cursor.HAND_CURSOR));
 						add(btnSubmit);
 						btnSubmit.addActionListener(this);
 						
-						btnBack =  new JButton(new ImageIcon(this.getClass().getResource("/image/back2.png")));
-						btnBack.setBounds(350,460,120,50);
-						btnBack.setOpaque(true);
+						btnBack =  new JButton(new ImageIcon(this.getClass().getResource("/image/back.png")));
+						btnBack.setBounds(390,520,120,50);
+						btnBack.setOpaque(false);
+						btnBack.setContentAreaFilled(false);
 						btnBack.setBorderPainted(false);
-						btnBack.setBackground(new Color(255,255,255));
-						//btnBack.setFont(new Font("Britannic Bold", Font.PLAIN, 20));
-						/*try {
-							img = ImageIO.read(getClass().getResource("/image/back.png"));
-							btnBack.setIcon(new ImageIcon(img));
-							btnBack.setBorder(null);
-						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}*/
+						btnBack.setCursor(new Cursor(Cursor.HAND_CURSOR));
+						btnBack.addMouseListener(new java.awt.event.MouseAdapter()
+					    {
+					        public void mousePressed(java.awt.event.MouseEvent evt)
+					        {
+					        	btnBack.setBackground(new Color(255,255,255));
+					        }
+					    });
 						add(btnBack);
 						btnBack.addActionListener(this);
 						
@@ -433,11 +431,11 @@ public void actionPerformed(ActionEvent e) {
 	}
 	
 }
-	/*public static void main(String args[])
+	public static void main(String args[])
 	{ 
 		new RegistratonGUI();
 	
-	}*/
+	}
 	
 	
 

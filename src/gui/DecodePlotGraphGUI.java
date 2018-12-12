@@ -3,6 +3,7 @@ package gui;
 import java.awt.BasicStroke;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -52,6 +53,7 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYItemRenderer;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
+import org.jfree.chart.title.LegendTitle;
 import org.jfree.data.Range;
 import org.jfree.data.function.LineFunction2D;
 import org.jfree.data.general.DatasetUtilities;
@@ -59,6 +61,8 @@ import org.jfree.data.statistics.Regression;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
+import org.jfree.ui.HorizontalAlignment;
+import org.jfree.ui.RectangleEdge;
 import org.jfree.ui.TextAnchor;
 
 import abstrac.StudentDAO;
@@ -118,23 +122,23 @@ public class DecodePlotGraphGUI extends JFrame implements ActionListener,Printab
 		setContentPane(new JLabel(new ImageIcon(this.getClass().getResource("/image/sky.png"))));
 		setLayout(null);
 		
-		Font f1=FontClass.MuseoSans500(20);
+		Font f1=FontClass.MuseoSans700(18); 
 		Font f2=FontClass.MuseoSans500(20);
 		
 		
 			lblStudent = new JLabel("Student  :  "+bean.getStudFirstName()+ " "+bean.getStudLastName() +"");
-			lblStudent.setBounds(150,15,300,30); 
+			lblStudent.setBounds(80,15,300,30); 
 			lblStudent.setFont(f1);
 			add(lblStudent);
 			
 			lblTeacher = new JLabel("Teacher  :  "+bean.getTeacher()+"");
-			lblTeacher.setBounds(150,50,300,30); 
+			lblTeacher.setBounds(80,50,300,30); 
 			lblTeacher.setFont(f1);
 			add(lblTeacher);
 			
 			
 			lblCurrentDate = new JLabel("Current Date  :  "+new SimpleDateFormat("MM/dd/yyyy").format(new Date())+"");
-			lblCurrentDate.setBounds(650,45,300,40); 
+			lblCurrentDate.setBounds(660,45,300,40); 
 			lblCurrentDate.setFont(f1);
 			add(lblCurrentDate);
 			
@@ -142,7 +146,7 @@ public class DecodePlotGraphGUI extends JFrame implements ActionListener,Printab
 			
 			/* P1 for first tab data  */
 			 JPanel p1=new JPanel();//createContactPanel1();   // Call method for set the 1st tab frame contenct
-			 p1.setBounds(60,100,830,570);    
+			 p1.setBounds(80,100,830,570);    
 			 p1.setBackground(new Color(255,255,255));  
 			 //setContentPane(p1); //add(p1);
 			 final XYDataset dataset = createDataset(this.bean);
@@ -178,23 +182,23 @@ public class DecodePlotGraphGUI extends JFrame implements ActionListener,Printab
 			
 			
 			 btnBack = new JButton(new ImageIcon(this.getClass().getResource("/image/back.png")));
-	         btnBack.setBounds(55,700,120,40);
-	         btnBack.setBackground(Color.WHITE);
-	         btnBack.setOpaque(true);
+	         btnBack.setBounds(75,700,120,40);
+	         btnBack.setOpaque(false);
+	         btnBack.setContentAreaFilled(false);
 	         btnBack.setBorderPainted(false);
+	         btnBack.setCursor(new Cursor(Cursor.HAND_CURSOR));
 	         btnBack.setFocusable(false);
-	         btnBack.setFont(new Font("Britannic Bold", Font.PLAIN, 15));
 	         add(btnBack);
 	         btnBack.addActionListener(this);
 	         
 	         
 	         btnPrint = new JButton(new ImageIcon(this.getClass().getResource("/image/print combo.png")));
-	         btnPrint.setBounds(770,700,120,40);
-	         btnPrint.setBackground(Color.WHITE);
-	         btnPrint.setOpaque(true);
+	         btnPrint.setBounds(790,700,120,40);
+	         btnPrint.setOpaque(false);
+	         btnPrint.setContentAreaFilled(false);
 	         btnPrint.setBorderPainted(false);
+	         btnPrint.setCursor(new Cursor(Cursor.HAND_CURSOR));
 	         btnPrint.setFocusable(false);
-	         btnPrint.setFont(new Font("Britannic Bold", Font.PLAIN, 15));
 	         add(btnPrint);
 	         //getContentPane().add(btnPrint);
 	         btnPrint.addActionListener(this);
@@ -589,11 +593,16 @@ private XYDataset createDataset(StudentBean bean) {
 
         chart.setBackgroundPaint(Color.white);
         chart.getTitle().setPaint(new Color(65,127,159));
+        chart.getTitle().setHorizontalAlignment(HorizontalAlignment.CENTER);
         
         final XYPlot plot = chart.getXYPlot();
         plot.setBackgroundPaint(Color.lightGray);
         plot.setDomainGridlinePaint(Color.white);
         plot.setRangeGridlinePaint(Color.white);
+        plot.getRangeAxis().setLabelPaint(new Color(65,127,159));
+		plot.getRangeAxis().setTickLabelPaint(new Color(65,127,159));
+		plot.getRangeAxis().setLabelFont(FontClass.MuseoSans700(15));
+		plot.getRangeAxis().setTickLabelFont(FontClass.MuseoSans700(15));
         
        
         
@@ -601,6 +610,8 @@ private XYDataset createDataset(StudentBean bean) {
         /* X axis range set 0 to 50 with number tick meand dispaly to next number in x axis  */
        
         xAxis.setTickUnit(new NumberTickUnit(1));
+        xAxis.setTickLabelFont(FontClass.MuseoSans700(15));
+        xAxis.setTickLabelPaint(new Color(65,127,159));
       //  xAxis.setRange(0.0, 52.0);
         
         /* Code end  */
@@ -624,10 +635,16 @@ private XYDataset createDataset(StudentBean bean) {
         renderer.setBaseLinesVisible(true);
         renderer.setBaseItemLabelsVisible(Boolean.TRUE);
         renderer.setBaseItemLabelFont( FontClass.MuseoSans900(15));
+        
         renderer.setBaseItemLabelGenerator((XYItemLabelGenerator) new StandardXYItemLabelGenerator());
         plot.setRenderer(renderer);
        
-       
+        LegendTitle legend = chart.getLegend();
+        if (legend != null) {
+    		legend.setPosition(RectangleEdge.TOP);
+    		legend.setHorizontalAlignment(HorizontalAlignment.RIGHT);
+    		legend.setItemFont(FontClass.MuseoSans900(15));
+    	}
                 
         return chart;
         

@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -78,9 +79,10 @@ public class welcomeGUI extends JFrame implements ActionListener {
 		btnMmyProfile.setRolloverIcon(new ImageIcon(this.getClass().getResource("/image/my profile ON.png")));
 		btnMmyProfile.setBounds(190, 300, 100, 100);
 		btnMmyProfile.addActionListener(this);
-		btnMmyProfile.setBorder(null);
+		btnMmyProfile.setOpaque(false);
+		btnMmyProfile.setContentAreaFilled(false);
 		btnMmyProfile.setBorderPainted(false);
-		btnMmyProfile.setOpaque(true);
+		btnMmyProfile.setCursor( Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		add(btnMmyProfile);
 		
 		
@@ -88,18 +90,20 @@ public class welcomeGUI extends JFrame implements ActionListener {
 		btnMgroup.setRolloverIcon(new ImageIcon(this.getClass().getResource("/image/groups ON.png")));
 		btnMgroup.setBounds(310, 300, 100, 100);
 		btnMgroup.addActionListener(this);
-		btnMgroup.setBorder(null);
+		btnMgroup.setOpaque(false);
+		btnMgroup.setContentAreaFilled(false);
 		btnMgroup.setBorderPainted(false);
-		btnMgroup.setOpaque(true);
+		btnMgroup.setCursor( Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		add(btnMgroup);
 		
 		btnMstudents = new JButton(new ImageIcon(this.getClass().getResource("/image/student OFF.png")));
 		btnMstudents.setRolloverIcon(new ImageIcon(this.getClass().getResource("/image/student ON.png")));
 		btnMstudents.setBounds(430, 300, 100, 100);
 		btnMstudents.addActionListener(this);
-		btnMstudents.setBorder(null);
+		btnMstudents.setOpaque(false);
+		btnMstudents.setContentAreaFilled(false);
 		btnMstudents.setBorderPainted(false);
-		btnMstudents.setOpaque(true);
+		btnMstudents.setCursor( Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		add(btnMstudents);
 		
 		
@@ -107,9 +111,10 @@ public class welcomeGUI extends JFrame implements ActionListener {
 		btnMImportExport.setRolloverIcon(new ImageIcon(this.getClass().getResource("/image/import export ON.png")));
 		btnMImportExport.setBounds(550, 300, 100, 100);
 		btnMImportExport.addActionListener(this);
-		btnMImportExport.setBorder(null);
+		btnMImportExport.setOpaque(false);
+		btnMImportExport.setContentAreaFilled(false);
 		btnMImportExport.setBorderPainted(false);
-		btnMImportExport.setOpaque(true);
+		btnMImportExport.setCursor( Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		add(btnMImportExport);
 		
 		
@@ -117,9 +122,10 @@ public class welcomeGUI extends JFrame implements ActionListener {
 		btnMLogout.setRolloverIcon(new ImageIcon(this.getClass().getResource("/image/logout ON.png")));
 		btnMLogout.setBounds(670, 300, 100, 100);
 		btnMLogout.addActionListener(this);
-		btnMLogout.setBorder(null);
+		btnMLogout.setOpaque(false);
+		btnMLogout.setContentAreaFilled(false);
 		btnMLogout.setBorderPainted(false);
-		btnMLogout.setOpaque(true);
+		btnMLogout.setCursor( Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		add(btnMLogout);
 		
         

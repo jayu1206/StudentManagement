@@ -2,50 +2,90 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GraphicsEnvironment;
-import java.awt.GridLayout;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.awt.print.PageFormat;
+import java.awt.print.Printable;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.swing.*;
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
+import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.UIManager;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
 import manegement.StudentOpr;
+
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.LegendItem;
+import org.jfree.chart.LegendItemCollection;
+import org.jfree.chart.axis.SubCategoryAxis;
+import org.jfree.chart.labels.StandardCategoryItemLabelGenerator;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.renderer.category.BarRenderer;
+import org.jfree.chart.renderer.category.StandardBarPainter;
+import org.jfree.chart.title.LegendTitle;
+import org.jfree.data.category.CategoryDataset;
+import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.ui.HorizontalAlignment;
+import org.jfree.ui.RectangleEdge;
+
 import abstrac.StudentDAO;
 import bean.StudentBean;
 import bean.StudentDecoding;
 import bean.StudentRate;
 
-public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+public class PlotRateGraphGUI2 extends JFrame implements ActionListener,Printable{
 
 	StudentBean bean = new StudentBean();
 
 	JButton btnSubmit, btnDelete, btnBack, btnExit;
+	JButton btnContinue;
 	JButton btnMgroup, btnMstudents, btnMreport, btnMImportExport, btnMLogout,btnMmyProfile;
 	JMenuItem group, students, report;
 	JMenu menu;
@@ -67,18 +107,65 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 	JTable jtRate;
 	JButton btnAddRate, btnSaveRate, btnPloatRate;
 	String osname = System.getProperty("os.name");
+	
 
+    JLabel lblstudent,lblDataRange,lblAll,lblPlot,lblthrough;
+	JTextField txtStudent;
+	JRadioButton allRadio = new JRadioButton(" All");
+    JRadioButton weekRadio = new JRadioButton(" Text");
+    JRadioButton indiStudDataRadio = new JRadioButton("Individual student data");
+    JRadioButton studDataClsAvgRadio = new JRadioButton("Student data with class average");
+    ButtonGroup bG = new ButtonGroup();
+    ButtonGroup bG2 = new ButtonGroup();
+    
+	JLabel lblStudent,lblTeacher,lblCurrentDate;
+	JButton btnPrint;
+	StudentDAO studDao = new StudentOpr();
+	 List tblListText = new ArrayList<>();
+	 List tblListCWPM = new ArrayList<>();
+	 List tblListPostDate = new ArrayList<>();
+	 List tblListPostErrors = new ArrayList<>();
+	 List tblListPriDate = new ArrayList<>();
+	 List tblListPriErrors = new ArrayList<>();
+	 
+	 DefaultTableModel model2;
+	 JTable jt2;
+	 HashSet<Object> setText=new HashSet<Object>();
+	
+	PlotRateGraphGUI2(StudentBean bean, String classId, String className, String txtBegin, String txtEnd){
 
-	StudentDetailsInfoGUI(StudentBean bean, String classId, String className) {
 
 		this.classId = classId;
 		this.className = className;
 		this.bean = bean;
 
+		if(!txtBegin.isEmpty() && !txtEnd.isEmpty()){
+			
+			try {
+				
+				int beginTxt = Integer.parseInt(txtBegin);
+				int endTxt = Integer.parseInt(txtEnd);
+				if (endTxt >= beginTxt){
+					StudentBean studBean = studDao.getStudentbyDecodingAndRatingByText(bean.getId(), txtBegin, txtEnd);
+					this.bean = studBean;
+				}else{
+					JOptionPane.showMessageDialog(this,beginTxt+" is not less then "+endTxt );
+				}
+              
+            } catch (NumberFormatException e) {
+                System.out.println("You've entered non-integer number");
+                System.out.println("This caused " + e);
+				JOptionPane.showMessageDialog(this,"Enter Number only (e.g 1 and 3)");
+
+            }
+			
+		}
+
 		setLayout(new BorderLayout());
 		setContentPane(new JLabel(new ImageIcon(this.getClass().getResource("/image/sky.png"))));
 		setLayout(null);
 
+		
 		JMenuBar mb = null;
 		String osname = System.getProperty("os.name");
 		
@@ -212,7 +299,7 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 		JTabbedPane tp = new JTabbedPane();
 		
 		
-		tp.setBounds(100, 50, 820, 500);
+		tp.setBounds(100, 50, 820, 547);
 		tp.setFont(FontClass.MuseoSans300(20));
 		tp.setForeground(Color.WHITE);
 		tp.add("Student Info", p1);
@@ -221,8 +308,8 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 		tp.setUI(new CustomTabbedPaneUI());
 		tp.setBorder(null);
 		
-		/*int selectedIndex = tp.getSelectedIndex();
-		tp.setSelectedIndex(tp.getTabCount()-1);*/
+		int selectedIndex = tp.getSelectedIndex();
+		tp.setSelectedIndex(tp.getTabCount()-1);
 
 
 		add(tp);
@@ -233,26 +320,45 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 		 * heading_lbl.setForeground(Color.red); heading_lbl.setFont(f);
 		 * heading_lbl.setFont(f); add(heading_lbl);
 		 */
-		 btnBack = new JButton(new ImageIcon(this.getClass().getResource("/image/back.png")));
-         btnBack.setBounds(100,600,120,40);
-         btnBack.setOpaque(false);
-         btnBack.setContentAreaFilled(false);
-         btnBack.setBorderPainted(false);
-         btnBack.setCursor(new Cursor(Cursor.HAND_CURSOR));
-         add(btnBack);
-         getContentPane().add(btnBack);
-         btnBack.addActionListener(this);
+		/*btnBack = new JButton(new ImageIcon(this.getClass().getResource("/image/back.png")));
+		 btnBack.setBounds(100,600,120,40);
+        btnBack.setOpaque(false);
+        btnBack.setContentAreaFilled(false);
+        btnBack.setBorderPainted(false);
+        btnBack.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        add(btnBack);
+        btnBack.addActionListener(this);*/
+		
+		btnBack = new JButton(new ImageIcon(this.getClass().getResource("/image/back.png")));
+		 btnBack.setBounds(100,600,120,40);
+        btnBack.setOpaque(false);
+        btnBack.setContentAreaFilled(false);
+        btnBack.setBorderPainted(false);
+        btnBack.setFocusable(false);
+        btnBack.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        add(btnBack);
+        btnBack.addActionListener(this);
          
-         
-         btnExit = new JButton(new ImageIcon(this.getClass().getResource("/image/Exit2.png")));
-         btnExit.setBounds(800,600,120,40);
-         btnExit.setBackground(Color.WHITE);
-         btnExit.setOpaque(true);
-         btnExit.setBorderPainted(false);
-         btnExit.setCursor(new Cursor(Cursor.HAND_CURSOR));
-         add(btnExit);
-         getContentPane().add(btnExit);
-         btnExit.addActionListener(this);
+        btnPrint = new JButton(new ImageIcon(this.getClass().getResource("/image/print combo.png")));
+        btnPrint.setBounds(800,600,120,40);
+        btnPrint.setOpaque(false);
+        btnPrint.setContentAreaFilled(false);
+        btnPrint.setBorderPainted(false);
+        btnPrint.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        btnPrint.setFocusable(false);
+        add(btnPrint);
+        //getContentPane().add(btnPrint);
+        btnPrint.addActionListener(this);
+        
+        
+       /* btnContinue = new JButton(new ImageIcon(this.getClass().getResource("/image/arrow right.png")));
+        btnContinue.setBounds(800,600,120,40);
+        btnContinue.setOpaque(false);
+        btnContinue.setContentAreaFilled(false);
+        btnContinue.setBorderPainted(false);
+        btnContinue.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        add(btnContinue);
+        btnContinue.addActionListener(this);*/
 
 		setSize(1000, 800);
 		centerFrame();
@@ -268,6 +374,9 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 		// setLayout(new FlowLayout());
 		setVisible(true);
 
+	
+		
+		
 	}
 
 	public JPanel createContactPanel1(StudentBean studBean) {
@@ -369,7 +478,7 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
 		panel.add(panelGeneral);
-		panelGeneral.setBounds(16, 16, 780, 430);
+		panelGeneral.setBounds(16, 16, 780, 477);
 
 		panel.setPreferredSize(new Dimension(380, 620));
 
@@ -511,6 +620,7 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 		
 
 		delete.addActionListener(this);
+
 		SimpleDateFormat ddmmyyyy = new SimpleDateFormat("dd-MM-yyyy");
 		SimpleDateFormat mmddyyyy = new SimpleDateFormat("MM/dd/yyyy");
 		
@@ -525,6 +635,7 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 				// TODO Auto-generated catch block
 				//e1.printStackTrace();
 			}
+			
 			model.addRow(new Object[] { decoBean.getDecoId(), decoBean.getWeek(), decoBean.getDate(),
 					decoBean.getBook(), decoBean.getLesson(), decoBean.getForm(), decoBean.getScore() });
 
@@ -589,7 +700,7 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
 		panel.add(panelGeneral);
-		panelGeneral.setBounds(16, 16, 780, 430);
+		panelGeneral.setBounds(16, 16, 780, 477);
 
 
 		panel.setPreferredSize(new Dimension(380, 620));
@@ -600,201 +711,136 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 	public JPanel createContactPanel3(StudentBean studBean) {
 
 		
-		Font f=FontClass.MuseoSans700(20);
-		
-		Font f1 = FontClass.MuseoSans500Italic(20);
-		//f1.deriveFont(Font.PLAIN, 15);
-		
-		Font f3 = FontClass.MuseoSans500(15);
-		f3.deriveFont(Font.PLAIN, 15);
-
 		JPanel panelGeneral = new JPanel();
 		panelGeneral.setLayout(null); // new Color(107,5,37)
 		panelGeneral.setBackground(new Color(242,242,242));
-
-		JLabel heading_lbl=new JLabel("Take Flight Decoding and Reading Rate Process Data Manager");
-		heading_lbl.setBounds(100,10,600,20);
-		heading_lbl.setFont(f);
-		heading_lbl.setForeground(new Color(65, 127, 159));
-		panelGeneral.add(heading_lbl);
 		
-		
-		lblstudNo = new JLabel("   "+studBean.getStudFirstName() + " " + studBean.getStudLastName());
-		lblstudNo.setBounds(20, 50, 250, 25);
-		lblstudNo.setForeground(new Color(65, 127, 159));
-		lblstudNo.setFont(f1);
-		panelGeneral.add(lblstudNo);
-		
-		
-		/* Table code start  */
+		Font f=FontClass.MuseoSans700(20);   // Creating font style and size for heading
 
-		
-		
-		modelRate = new DefaultTableModel();
-
-		jtRate = new JTable();
-		jtRate.setRowHeight(30);
-
-		jtRate.setFont(f3);
-
-		jtRate.setModel(modelRate);
-		modelRate.addColumn("Record");
-		modelRate.addColumn("Week");
-		modelRate.addColumn("Date");
-		modelRate.addColumn("Text");
-		modelRate.addColumn("Time");
-		modelRate.addColumn("CWPM");
-		modelRate.addColumn("Errors");
-
-		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-		centerRenderer.setHorizontalAlignment(JLabel.CENTER);
-
-		for (int i = 0; i <= 6; i++) {
-			jtRate.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
-		}
-
-		jtRate.setPreferredScrollableViewportSize(new Dimension(800, 300));
-
-		deleteRate = new JMenuItem("Delete");
-		JPopupMenu popup = new JPopupMenu("Delete");
-		popup.add(deleteRate);
-
-		
-		if (osname.contains("Mac")){
-		
-			
-			jtRate.addMouseListener(new MouseAdapter() {
-				@Override
+		// step 3 : creating JLabel for Heading
+				/*JLabel heading_lbl=new JLabel("Decoding Data Plot Option");
+				heading_lbl.setBounds(250,20,600,20);
+				heading_lbl.setFont(f);
+				panelGeneral.add(heading_lbl);*/
 				
-				public void mouseReleased(MouseEvent e) {
-					if (e.getButton() == java.awt.event.MouseEvent.BUTTON3) {
-						int r = jtRate.rowAtPoint(e.getPoint());
-						if (r >= 0 && r < jtRate.getRowCount()) {
-							jtRate.setRowSelectionInterval(r, r);
-						} else {
-							jtRate.clearSelection();
-						}
-		
-						int rowindex = jtRate.getSelectedRow();
-						if (rowindex < 0)
-							return;
+				
+				Font f1=FontClass.MuseoSans700(18); 
+				Font f2=FontClass.MuseoSans500(20);
+				Font f3=FontClass.MuseoSans300(15);
+				
+				lblStudent = new JLabel("Student  :  "+bean.getStudFirstName()+ " "+bean.getStudLastName() +"");
+				lblStudent.setBounds(80,15,300,30); 
+				lblStudent.setFont(f3);
+				lblStudent.setForeground(new Color(65, 127, 159));
+				panelGeneral.add(lblStudent);
+				
+				lblTeacher = new JLabel("Teacher  :  "+bean.getTeacher()+"");
+				lblTeacher.setBounds(280,15,300,30); 
+				lblTeacher.setForeground(new Color(65, 127, 159));
+				lblTeacher.setFont(f3);
+				panelGeneral.add(lblTeacher);
+				
+				
+				lblCurrentDate = new JLabel("Current Date  :  "+new SimpleDateFormat("MM/dd/yyyy").format(new Date())+"");
+				lblCurrentDate.setBounds(480,13,300,40); 
+				lblCurrentDate.setFont(f3);
+				lblCurrentDate.setForeground(new Color(65, 127, 159));
+				panelGeneral.add(lblCurrentDate);
+				
+				
+				 JPanel p1=new JPanel();//createContactPanel1();   // Call method for set the 1st tab frame contenct
+				 p1.setBounds(0,48,800,270) ;  
+				 p1.setBackground(new Color(242,242,242));  
+
+				 
+				  	final CategoryDataset dataset = createDataset();
+			        final JFreeChart chart = createChart(dataset);
+			        final ChartPanel chartPanel = new ChartPanel(chart);
+			        chartPanel.setPreferredSize(new java.awt.Dimension(750, 270));
+			        p1.add(chartPanel);
+			        panelGeneral.add(p1);
+			        
+			        
+			        model2 = new DefaultTableModel();
+					 
+					 jt2=new JTable(); 
+					 jt2.setRowHeight(22);
+					 
+					 Font f4 = FontClass.MuseoSans500(15);
+					 f4.deriveFont(Font.PLAIN, 15);
 						
-						popup.show(e.getComponent(), e.getX(), e.getY());
-						if (e.isPopupTrigger() && e.getComponent() instanceof JTable) {
-		
-							popup.show(e.getComponent(), e.getX(), e.getY());
-						}
-					}
-				}
-			});
-		}else{
-		
-		
-		
-		
-			jtRate.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseReleased(MouseEvent e) {
-					int r = jtRate.rowAtPoint(e.getPoint());
-					if (r >= 0 && r < jtRate.getRowCount()) {
-						jtRate.setRowSelectionInterval(r, r);
-					} else {
-						jtRate.clearSelection();
-					}
-	
-					int rowindex = jtRate.getSelectedRow();
-					if (rowindex < 0)
-						return;
-					if (e.isPopupTrigger() && e.getComponent() instanceof JTable) {
-	
-						popup.show(e.getComponent(), e.getX(), e.getY());
-					}
-				}
-			});
-		}
-		deleteRate.addActionListener(this);
-		SimpleDateFormat ddmmyyyy = new SimpleDateFormat("dd-MM-yyyy");
-		SimpleDateFormat mmddyyyy = new SimpleDateFormat("MM/dd/yyyy");
-		for (StudentRate rateBean : studBean.getListRate()) {
-			
-			try {
-				Date dt = ddmmyyyy.parse(rateBean.getDate());
-				rateBean.setDate(mmddyyyy.format(dt));
+					 jt2.setFont(f4);
+					 jt2.setDefaultEditor(Object.class, null);
+					 jt2.setPreferredSize(new java.awt.Dimension(700, 121)); 
+					// jt.setPreferredSize(new Dimension(500, 300));
+					 jt2.setModel(model2);
+					
+					 for(int j = 0 ; j<tblListText.size() ; j++){
+						 model2.addColumn("TExt"+j);
+					 }
+					
+					
+			       /*  model.addColumn("Date");
+			         model.addColumn("Errors");	*/
+			          
+					 
+					 
+					 jt2.setDefaultRenderer(Object.class, new DefaultTableCellRenderer()
+					 {
+					     @Override
+					     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column)
+					     {
+					         final Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+					         Font f3 = FontClass.MuseoSans700(15);
+					         if(row==0 || column==0){
+					        	 c.setBackground(new Color(188,221,238));
+					        	 c.setFont(f3);
+					        	 
+					         }else{
+					        	 c.setBackground(Color.WHITE);
+					         }
+					        super.setHorizontalAlignment(JLabel.CENTER);
+					       // super.setBorder(BorderFactory.createLineBorder(Color.black));
+					         return c;
+					     }
+					 });
+			        
+					/* DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+			          centerRenderer.setHorizontalAlignment( JLabel.CENTER );
+			          centerRenderer.setBorder(BorderFactory.createCompoundBorder());
+			          
+			         for(int j = 0 ; j<tblListText.size() ; j++){
+			        	 jt.getColumnModel().getColumn(j).setCellRenderer( centerRenderer );
+					 }*/
+			         
+			         model2.addRow(tblListText.toArray());
+			         model2.addRow(tblListCWPM.toArray());
+			         model2.addRow(tblListPriDate.toArray());
+			         model2.addRow(tblListPriErrors.toArray());
+			         model2.addRow(tblListPostDate.toArray());
+			         model2.addRow(tblListPostErrors.toArray());
+			        
+			        
+			        jt2.setBackground(Color.black);
+			         jt2.setBorder(BorderFactory.createLineBorder(Color.black));
+			        // p1.add(jt);	
+				     jt2.setBounds(100,330,660,132);
+				     panelGeneral.add(jt2);
 				
 				
-			} catch (ParseException e1) {
-				// TODO Auto-generated catch block
-				//e1.printStackTrace();
-			}
-			
-			modelRate.addRow(new Object[] { rateBean.getRateId(), rateBean.getWeek(), rateBean.getDate(),
-					rateBean.getText(), rateBean.getTime(), rateBean.getCwpm(), rateBean.getErrors() });
+				
+				
+				
 
-		}
+				JPanel panel = new JPanel();
+				panel.setLayout(null);
+				panel.add(panelGeneral);
+				panelGeneral.setBounds(16, 16, 780, 477);
 
-		Font f2 = FontClass.MuseoSans700(15);
-		JTableHeader header = jtRate.getTableHeader();
-		header.setBackground(new Color(188,221,238));
-		header.setFont(f2);
-		header.setForeground(Color.BLACK);
-		header.setPreferredSize(new Dimension(100, 30));
 
-		JScrollPane scroller = new JScrollPane(jtRate, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
-				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		scroller.setBounds(20, 80, 750, 180);
-		panelGeneral.add(scroller);
-		
-		/*  end table    */
-		
-		btnAddRate = new JButton(new ImageIcon(this.getClass().getResource("/image/add record button2.png")));
-		btnAddRate.setBounds(130, 270, 150, 130);
-		btnAddRate.setBackground(new Color(242,242,242));
-		btnAddRate.setOpaque(true);
-		btnAddRate.setBorderPainted(false);
-		btnAddRate.setContentAreaFilled(false);
-		btnAddRate.setFocusable(false);
-		btnAddRate.addActionListener(this);
-		btnAddRate.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		panelGeneral.add(btnAddRate);
+				panel.setPreferredSize(new Dimension(380, 620));
 
-		btnSaveRate = new JButton(new ImageIcon(this.getClass().getResource("/image/save record button2.png")));
-		btnSaveRate.setBounds(310, 270, 150, 130);
-		btnSaveRate.setBackground(new Color(242,242,242));
-		btnSaveRate.setOpaque(true);
-		btnSaveRate.setBorderPainted(false);
-		btnSaveRate.setContentAreaFilled(false);
-		btnSaveRate.setFocusable(false);
-		btnSaveRate.addActionListener(this);
-		btnSaveRate.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		panelGeneral.add(btnSaveRate);
-
-		btnPloatRate = new JButton(new ImageIcon(this.getClass().getResource("/image/plot data button2.png")));
-		btnPloatRate.setBounds(490, 270, 150, 130);
-		btnPloatRate.setBackground(new Color(242,242,242));
-		btnPloatRate.setOpaque(true);
-		btnPloatRate.setBorderPainted(false);
-		btnPloatRate.setContentAreaFilled(false);
-		btnPloatRate.setFocusable(false);
-		btnPloatRate.addActionListener(this);
-		btnPloatRate.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		panelGeneral.add(btnPloatRate);
-
-		
-
-		JPanel panel = new JPanel();
-		panel.setLayout(null);
-		panel.add(panelGeneral);
-		panelGeneral.setBounds(16, 16, 780, 430);
-
-		/*
-		 * panel.add(panelCreditCard); panelCreditCard.setBounds(10, 490, 370,
-		 * 120);
-		 */
-
-		panel.setPreferredSize(new Dimension(380, 620));
-		setResizable(false);
-
-		return panel;
+				return panel;
 		
 		
 		
@@ -812,6 +858,193 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 		setLocation(dx, dy);
 
 	}
+	private JFreeChart createChart(CategoryDataset dataset) {
+
+		
+		/*	final JFreeChart chart = ChartFactory.createStackedBarChart(
+					  "Student Progress: Reading Rate ", "Category", "Correct Words Per Minute",
+					  dataset, PlotOrientation.VERTICAL, true, true, false);
+
+					  chart.setBackgroundPaint(new Color(249, 231, 236));
+
+					  CategoryPlot plot = chart.getCategoryPlot();
+					  plot.getRenderer().setSeriesPaint(0, new Color(0, 0, 255));
+					  plot.getRenderer().setSeriesPaint(1, new Color(128, 0, 0));
+					 
+					  plot.getRenderer().setBaseItemLabelGenerator(
+							    new StandardCategoryItemLabelGenerator(
+							        "{2}", NumberFormat.getInstance()));
+					  plot.getRenderer().setItemLabelsVisible(true);
+					  return chart;
+			*/
+			
+			
+			
+	        final JFreeChart chart = ChartFactory.createBarChart(
+	            "Student Progress: Reading Rate",  // chart title
+	            "Text",                  // domain axis label
+	            "Correct Words Per Minute",                     // range axis label
+	            dataset,                     // data
+	            PlotOrientation.VERTICAL,    // the plot orientation
+	            true,                        // legend
+	            true,                        // tooltips
+	            false                        // urls
+	        );
+	  
+	        chart.setBackgroundPaint(new Color(242,242,242));
+	        chart.getTitle().setPaint(new Color(65,127,159));
+	        chart.getTitle().setHorizontalAlignment(HorizontalAlignment.CENTER);
+	        
+	        CategoryPlot plot = chart.getCategoryPlot();
+	        ((BarRenderer) plot.getRenderer()).setBarPainter(new StandardBarPainter());
+	        BarRenderer renderer = (BarRenderer) plot.getRenderer();
+	        
+	    	//Spaces between bars
+	        renderer.setItemMargin(0.03);
+	        
+			  plot.getRenderer().setSeriesPaint(0, new Color(188, 221, 238));
+			  plot.getRenderer().setSeriesPaint(1, new Color(205, 82, 87));
+			  plot.getRenderer().setSeriesPaint(2, new Color(153, 255, 153));
+			 // plot.getRenderer().setSeriesOutlinePaint(0, new Color(153, 255, 153));
+			  plot.getRenderer().setBaseItemLabelFont( FontClass.MuseoSans900(15));
+			 
+			  
+			  plot.getRenderer().setBaseItemLabelGenerator(
+					    new StandardCategoryItemLabelGenerator(
+					        "{2}", NumberFormat.getInstance()));
+			  plot.getRenderer().setItemLabelsVisible(true);
+			  
+			  plot.setBackgroundPaint(Color.white);
+		        plot.setDomainGridlinePaint(Color.black);
+		        plot.setRangeGridlinePaint(Color.black);
+			  
+			  plot.getRangeAxis().setUpperBound(200.00);
+			  plot.getRangeAxis().setLabelPaint(new Color(65,127,159));
+			  plot.getRangeAxis().setTickLabelPaint(new Color(65,127,159));
+			  plot.getRangeAxis().setLabelFont(FontClass.MuseoSans700(15));
+			  plot.getRangeAxis().setTickLabelFont(FontClass.MuseoSans700(15));
+			 // plot.getRangeAxis().setLowerBound(-50.00);
+			 SubCategoryAxis domainAxis = new SubCategoryAxis("");
+		        domainAxis.setCategoryMargin(0.05);
+		        domainAxis.setTickLabelPaint(new Color(65,127,159));
+		        domainAxis.setLabelPaint(new Color(65,127,159));
+		        domainAxis.setLabelFont(FontClass.MuseoSans700(15));
+		        domainAxis.setTickLabelFont(FontClass.MuseoSans700(15));
+		        
+		       // domainAxis.addSubCategory("1 - Text");
+		        plot.getDomainAxis().setLabelFont(FontClass.MuseoSans700(20));
+		        plot.setDomainAxis(domainAxis);
+		        plot.setFixedLegendItems(createLegendItems());
+		       
+		        LegendTitle legend = chart.getLegend();
+		        if (legend != null) {
+		    		legend.setPosition(RectangleEdge.TOP);
+		    		legend.setHorizontalAlignment(HorizontalAlignment.RIGHT);
+		    		legend.setItemFont(FontClass.MuseoSans900(15));
+		    	}
+		        
+		        
+		        
+
+	        return chart;
+	        
+	    }
+
+
+		private LegendItemCollection createLegendItems() {
+			  
+			  LegendItemCollection result = new LegendItemCollection();
+		        LegendItem item1 = new LegendItem("1 Base Line", new Color(188, 221, 238));
+		        LegendItem item2 = new LegendItem("2 Gain / Loss", new Color(205, 82, 87));
+		        result.add(item1);
+		        result.add(item2);
+		       
+		        return result;
+		}
+
+
+
+		private CategoryDataset createDataset() {
+			
+			
+		
+			 DefaultCategoryDataset result = new DefaultCategoryDataset();
+			// int i = 1;
+			 int tempCwpm = 0;
+			   
+			 tblListText.add("Text");
+			 tblListCWPM.add("Change");
+			 tblListPostDate.add("Post Date");
+			 tblListPostErrors.add("Post Errors");
+			 tblListPriDate.add("Pre Date");
+			 tblListPriErrors.add("Pre Errors");
+			
+			 for(StudentRate rate : bean.getListRate()){
+		        
+				 result.addValue(rate.getCwpm(),rate.getTime()+"" ,rate.getText()+"");
+				 if(rate.getTime() == 2){
+					 int finalcwpm = rate.getCwpm() - tempCwpm;
+					// result.addValue(finalcwpm,rate.getTime()+"" ,rate.getText()+"");
+					
+					 tblListCWPM.add(finalcwpm);
+					 tblListPostDate.add(rate.getDate());
+					 tblListPostErrors.add(rate.getErrors());
+					
+				 }else{
+					
+					 tempCwpm= rate.getCwpm();
+					// result.addValue(rate.getCwpm(),rate.getTime()+"" ,rate.getText()+"");
+					 tblListPriDate.add(rate.getDate());
+					 tblListPriErrors.add(rate.getErrors());
+				 }
+				 setText.add(rate.getText());			 
+			//	i++;	 
+				 
+			 }
+			 tblListText.addAll(setText);
+
+	         return result;
+		}
+		@Override
+		public int print(Graphics gx, PageFormat pf, int page)
+				throws PrinterException {
+			// TODO Auto-generated method stub
+			if (page>0){return NO_SUCH_PAGE;} //Only one page
+			
+			
+			            Graphics2D g = (Graphics2D)gx; //Cast to Graphics2D object
+			            pf.setOrientation(PageFormat.LANDSCAPE);
+			            g.translate((pf.getImageableX()), (pf.getImageableY())); //Match origins to imageable area
+			            
+			            Dimension size = this.getSize(); // component size
+			            double pageWidth = pf.getImageableWidth(); // Page width
+			            double pageHeight = pf.getImageableHeight(); // Page height
+			            
+			         
+			            // If the component is too wide or tall for the page, scale it down
+			            if (size.width > pageWidth) {
+			              double factor = pageWidth / size.width; // How much to scale
+			              factor = factor *1;
+			              g.scale(factor, factor); // Adjust coordinate system
+			              pageWidth /= factor; // Adjust page size up
+			              pageHeight /= factor;
+			            }
+			            if (size.height > pageHeight) { // Do the same thing for height
+			              double factor = pageHeight / size.height;
+			              factor = factor *1;
+			              g.scale(factor, factor);
+			              pageWidth /= factor;
+			              pageHeight /= factor;
+			            }
+			            
+			            g.translate((int) pf.getImageableX(), (int) pf.getImageableY());
+			            
+			            this.print(g);
+			     
+			
+			            return PAGE_EXISTS; //Page exists (offsets start at zero!)
+
+		}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -1084,13 +1317,68 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 
 		}
 
-		if (e.getSource() == btnBack) {
+		if(e.getSource()== btnBack){
 			synchronized (this) {
-				new StudentGUI(classId, className);
-				this.setVisible(false);
+				new PlotRateGUI2(bean, classId, className);
+				setVisible(false);
 			}
-
 		}
+		if(e.getSource()==btnPrint){
+			
+			/*PrinterJob pjob = PrinterJob.getPrinterJob();
+			PageFormat preformat = pjob.defaultPage();
+			preformat.setOrientation(PageFormat.LANDSCAPE);
+			PageFormat postformat = pjob.pageDialog(preformat);
+			//If user does not hit cancel then print.
+			if (preformat != postformat) {
+			    //Set print component
+			    pjob.setPrintable(this, postformat);
+			    if (pjob.printDialog()) {
+			        try {
+						pjob.print();
+					} catch (PrinterException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+			    }
+			}*/
+			
+			 PrinterJob printJob = PrinterJob.getPrinterJob();
+			 printJob.setPrintable(this);
+			 
+			 PageFormat preformat = printJob.defaultPage();
+				preformat.setOrientation(PageFormat.LANDSCAPE);
+				PageFormat postformat = printJob.pageDialog(preformat);
+				printJob.setPrintable(this, postformat);
+			 if(printJob.printDialog()){
+				    try {
+				    	btnBack.setVisible(false);
+				    	btnPrint.setVisible(false);
+				    	printJob.print(); 
+				    	btnBack.setVisible(true);
+				    	btnPrint.setVisible(true);	
+				    } 
+				    catch (Exception PrinterExeption
+				    ) { }
+				  }
+			
+		}
+		
+		if(e.getSource() == btnContinue){
+			if(allRadio.isSelected()){
+				synchronized (this) {
+					
+					//new DecodePlotGraphGUI(bean,classId,className);
+					new PlotRateGraphGUI(bean,classId,className,"","");
+					setVisible(false);
+				}
+				
+			}
+			
+			
+		}
+		
+		
 		if (e.getSource() == btnMImportExport) {
 			synchronized (this) {
 				new GroupStudImportExportGUI(classId, className);
@@ -1184,7 +1472,7 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 		
 		if (e.getSource() == btnPloatRate) {
 			synchronized (this) {
-				new PlotRateGUI2(bean, classId, className);
+				new PlotRateGUI(bean, classId, className);
 				this.dispose();
 			}
 
@@ -1246,11 +1534,10 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 
 	}
 
-	/*
-	 * public static void main(String args[]){ new
-	 * StudentDetailsInfoGUI(null,null,null);
-	 * 
-	 * }
-	 */
+	
+
+
+
+	
 
 }

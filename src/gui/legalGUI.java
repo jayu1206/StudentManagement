@@ -6,6 +6,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -64,18 +65,23 @@ public class legalGUI  extends JFrame implements ActionListener {
 		setContentPane(new JLabel(new ImageIcon(this.getClass().getResource("/image/background 1.png"))));
 		setLayout(null);
 		
-		Font f=FontClass.MuseoSans500Italic(20); //new Font("Museo Sans", Font.ITALIC | Font.BOLD, 20);   // Creating font style and size for heading
+		Font f=FontClass.MuseoSans500(20); //new Font("Museo Sans", Font.ITALIC | Font.BOLD, 20);   // Creating font style and size for heading
+		f = f.deriveFont(Font.BOLD, 20);
 		Font f2=FontClass.MuseoSans500(18);
 		f2.deriveFont(Font.PLAIN);
 		
 		
 		JLabel heading=new JLabel();//0, 170,1080,480
-		heading.setBounds(25, 220,3080,60);
+		heading.setBounds(25, 221,2000,70);
 		heading.setFont(f);
-		heading.setText("<html><body style=\"font: Arial; color: white; padding: 2px; padding-top: 2; padding-left: 356;padding-right: 356; background-color: rgb(193,39,35); \">"
+		/*heading.setText("<html><body style=\"font: Arial; color: white; padding: 2px; padding-top: 2; padding-left: 356;padding-right: 356; background-color: rgb(193,39,35); \">"
         		+ "<center><h3>PROGRESS MONITOR DATA MANAGER SYSTEM </h3> </center></br>"
         		+ "<center><h5>GENERAL TERMS AND CONDITIONS </h5> </center></br>"
-        		+ "</body></html>");	
+        		+ "</body></html>");*/	
+		heading.setText("<html><body style=\"color: white; padding-top: 2; padding-left: 286;padding-right: 286; background-color: rgb(193,39,35); \">"
+		          + "<center><p>PROGRESS MONITOR DATA MANAGER SYSTEM </p> </center>"
+		          + "<center><p style=\"font-size: 10px; \" >GENERAL TERMS AND CONDITIONS</p> </center>"
+		          + "</body></html>");
 		add(heading);
 		
 		
@@ -185,29 +191,30 @@ public class legalGUI  extends JFrame implements ActionListener {
 						
 						
 						JPanel footerPanel=new JPanel();
-						footerPanel.setBounds(25,650,1040,60);
+						footerPanel.setBounds(25,650,1040,70);
 						footerPanel.setBackground(new Color(204,204,204));
 						
-						ImageIcon image = new ImageIcon(this.getClass().getResource("/image/I_accept_button.png"));
-						 btnAccept = new JButton(image);
-					     btnAccept.setBounds(920,660,150,40);
+						
+						 btnAccept = new JButton(new ImageIcon(this.getClass().getResource("/image/I_accept_button.png")));
+					     btnAccept.setBounds(920,665,150,40);
 					     btnAccept.setSize(150, 100);
-						// btnAccept.setFont(new Font("Museo Sans", Font.BOLD, 15));
-					     btnAccept.setBackground(new Color(204,204,204));
+					     btnAccept.setOpaque(false);
+					     btnAccept.setContentAreaFilled(false);
 					     btnAccept.setBorderPainted(false);
 					     btnAccept.setFocusable(false);
+					     btnAccept.setCursor(new Cursor(Cursor.HAND_CURSOR));
 					     btnAccept.addActionListener(this);
 					     footerPanel.add(btnAccept);
 					     
 					     
-					     image = new ImageIcon(this.getClass().getResource("/image/do_not_accept_button.png"));
-					     btnNotAccept = new JButton(image);
+					     btnNotAccept = new JButton(new ImageIcon(this.getClass().getResource("/image/do_not_accept_button.png")));
 					     btnNotAccept.setSize(150, 100);
-					     btnNotAccept.setBounds(920,660,150,40);
-					     //btnNotAccept.setFont(new Font("Museo Sans", Font.BOLD, 15));
-					     btnNotAccept.setBackground(new Color(204,204,204));
+					     btnNotAccept.setBounds(920,665,150,40);
+					     btnNotAccept.setOpaque(false);
+					     btnNotAccept.setContentAreaFilled(false);
 					     btnNotAccept.setBorderPainted(false);
 					     btnNotAccept.setFocusable(false);
+					     btnNotAccept.setCursor(new Cursor(Cursor.HAND_CURSOR));
 					     btnNotAccept.addActionListener(this);
 					     footerPanel.add(btnNotAccept);
 					     
