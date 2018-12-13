@@ -143,7 +143,7 @@ public class LoginGUI extends JFrame implements ActionListener{
         btnSubmit.setContentAreaFilled(false);
         btnSubmit.setBorderPainted(false);
         btnSubmit.addActionListener(this);
-        btnSubmit.setCursor(new Cursor(Cursor.HAND_CURSOR));
+       // btnSubmit.setCursor(new Cursor(Cursor.HAND_CURSOR));
         btnSubmit.requestFocusInWindow();
         getRootPane().setDefaultButton(btnSubmit);
         add(btnSubmit);
@@ -188,9 +188,12 @@ public class LoginGUI extends JFrame implements ActionListener{
 			dao=new LoginOpr();
 			boolean flag = false;
 			try{
+					System.out.println(txtUserId.getText().trim() + " " +txtPsw.getText());
 				flag=dao.getAuthentication(txtUserId.getText().trim(),txtPsw.getText());
 				if(flag){
+					System.out.println("inside if flag");
 					synchronized (this) {
+						System.out.println("call to welcome page");
 						new welcomeGUI();
 						this.setVisible(false); 
 					}
@@ -200,9 +203,9 @@ public class LoginGUI extends JFrame implements ActionListener{
 				}
 			}catch(Exception ee){
 				synchronized (this) {
-		  		      System.out.println("Call to GUI for ask DB User name and Password");      
-		  		      new CheckUsernamePassGUI("DB User name and Password is wrong");
-		  		    setVisible(false);
+		  		      System.out.println("Call to GUI for ask DB User name and Password "+ee.getMessage());      
+		  		     // new CheckUsernamePassGUI("DB User name and Password is wrong");
+		  		   // setVisible(false);
 				}
 			}
 			

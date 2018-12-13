@@ -1161,6 +1161,8 @@ public class DecodePlotGUI2 extends JFrame implements ActionListener{
 		
 		if (e.getSource() == btnPloatRate) {
 			synchronized (this) {
+				StudentDAO studDao= new StudentOpr();
+				bean=studDao.getAllStudentsWithDecod_Rate_Data(bean.getId());
 				new PlotRateGUI2(bean, classId, className);
 				this.dispose();
 			}

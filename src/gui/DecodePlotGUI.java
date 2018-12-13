@@ -366,6 +366,8 @@ public class DecodePlotGUI extends JFrame implements ActionListener{
 				int size = bean.getListDecoding().size();
 				if (size >= 3){
 					synchronized (this) {
+						StudentDAO studDao= new StudentOpr();
+						bean=studDao.getAllStudentsWithDecod_Rate_Data(bean.getId());
 						new DecodePlotGraphGUI(bean,classId,className,"All", "","");
 						setVisible(false);
 					}
@@ -380,6 +382,8 @@ public class DecodePlotGUI extends JFrame implements ActionListener{
 			
 			if(allRadio.isSelected() && studDataClsAvgRadio.isSelected()){
 				synchronized (this) {
+					StudentDAO studDao= new StudentOpr();
+					bean=studDao.getAllStudentsWithDecod_Rate_Data(bean.getId());
 					new DecodePlotGraphGUI(bean,classId,className,"Avg","","");
 					setVisible(false);
 					
@@ -397,6 +401,8 @@ public class DecodePlotGUI extends JFrame implements ActionListener{
 					int endTxt = Integer.parseInt(txtEnd);
 					if (endTxt >= beginTxt){
 						synchronized (this) {	
+							StudentDAO studDao= new StudentOpr();
+							bean=studDao.getAllStudentsWithDecod_Rate_Data(bean.getId());
 							new DecodePlotGraphGUI(bean,classId,className,"All", txtBegin, txtEnd);
 							setVisible(false);
 						}

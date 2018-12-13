@@ -1143,6 +1143,7 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 		}
 
 		if (e.getSource() == btnPloatDecoding) {
+			
 			StudentDAO studDao= new StudentOpr();
 			 this.bean=studDao.getAllStudentsWithDecod_Rate_Data(bean.getId());
 			int size = bean.getListDecoding().size();
@@ -1184,6 +1185,8 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 		
 		if (e.getSource() == btnPloatRate) {
 			synchronized (this) {
+				StudentDAO studDao= new StudentOpr();
+				bean=studDao.getAllStudentsWithDecod_Rate_Data(bean.getId());
 				new PlotRateGUI2(bean, classId, className);
 				this.dispose();
 			}

@@ -141,6 +141,8 @@ public class DecodePlotGraphGUI2 extends JFrame implements ActionListener,Printa
 	StudentDAO studDao = new StudentOpr();
 	StudentBean studdata = null;
 	
+	JPanel p2;
+	
 	DecodePlotGraphGUI2(StudentBean bean, String classId, String className, String str, String txtBegin, String txtend){
 		
 	
@@ -297,7 +299,7 @@ public class DecodePlotGraphGUI2 extends JFrame implements ActionListener,Printa
 		p1.setBackground(new Color(65,127,159));
 
 		/* P2 for first tab data */
-		JPanel p2 = createContactPanel2(this.bean);
+		p2 = createContactPanel2(this.bean);
 		p2.setBounds(100, 100, 800, 600);
 		p2.setBackground(new Color(65,127,159));
 
@@ -1081,6 +1083,7 @@ public class DecodePlotGraphGUI2 extends JFrame implements ActionListener,Printa
 			 PrinterJob printJob = PrinterJob.getPrinterJob();
 			 printJob.setPrintable(this);
 			 
+			 
 			 PageFormat preformat = printJob.defaultPage();
 				preformat.setOrientation(PageFormat.LANDSCAPE);
 				PageFormat postformat = printJob.pageDialog(preformat);
@@ -1090,9 +1093,12 @@ public class DecodePlotGraphGUI2 extends JFrame implements ActionListener,Printa
 				    try { 
 				    	btnBack.setVisible(false);
 				    	btnPrint.setVisible(false);
+				    	//setVisible(false);
 				    	printJob.print(); 
+				    	
 				    	btnBack.setVisible(true);
 				    	btnPrint.setVisible(true);
+				    	
 				    } 
 				    catch (Exception PrinterExeption
 				    ) { }
@@ -1225,6 +1231,8 @@ public class DecodePlotGraphGUI2 extends JFrame implements ActionListener,Printa
 		
 		if (e.getSource() == btnPloatRate) {
 			synchronized (this) {
+				StudentDAO studDao= new StudentOpr();
+				bean=studDao.getAllStudentsWithDecod_Rate_Data(bean.getId());
 				new PlotRateGUI2(bean, classId, className);
 				this.dispose();
 			}
@@ -1322,9 +1330,10 @@ public class DecodePlotGraphGUI2 extends JFrame implements ActionListener,Printa
         }
         
         g.translate((int) pf.getImageableX(), (int) pf.getImageableY());
-        
+        p2.paint(g);
+        setVisible(false);
         this.print(g);
- 
+        setVisible(true);
 
         return PAGE_EXISTS; //Page exists (offsets start at zero!)
 

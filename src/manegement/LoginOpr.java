@@ -29,7 +29,9 @@ public class LoginOpr extends LoginDAO {
 		     rs = stmt.executeQuery(sql);
 		     
 		      if(rs.next()){
+		    	  
 		    	  flag=true;
+		    	  System.out.println(flag);
 		       }
 		}catch(Exception e){
 			e.printStackTrace();

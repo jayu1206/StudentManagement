@@ -65,7 +65,7 @@ public class CheckUsernamePassGUI extends JFrame implements ActionListener{
 		}*/
 		
 		setLayout(new BorderLayout());
-		setContentPane(new JLabel(new ImageIcon(this.getClass().getResource("/image/black-back-ground.jpg"))));
+		//setContentPane(new JLabel(new ImageIcon(this.getClass().getResource("/image/black-back-ground.jpg"))));
 		setLayout(null);
 
 		

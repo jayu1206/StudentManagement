@@ -438,6 +438,8 @@ public class PlotRateGraphGUI extends JFrame  implements ActionListener, Printab
 		
 		if(e.getSource()== btnBack){
 			synchronized (this) {
+				StudentDAO studDao= new StudentOpr();
+				bean=studDao.getAllStudentsWithDecod_Rate_Data(bean.getId());
 				new PlotRateGUI(bean, classId, className);
 				setVisible(false);
 			}

@@ -1017,7 +1017,8 @@ public class PlotRateGUI2 extends JFrame implements ActionListener{
 		if(e.getSource() == btnContinue){
 			if(allRadio.isSelected()){
 				synchronized (this) {
-					
+					StudentDAO studDao= new StudentOpr();
+					bean=studDao.getAllStudentsWithDecod_Rate_Data(bean.getId());
 					//new DecodePlotGraphGUI(bean,classId,className);
 					new PlotRateGraphGUI2(bean,classId,className,"","");
 					setVisible(false);
@@ -1029,6 +1030,8 @@ public class PlotRateGUI2 extends JFrame implements ActionListener{
 				synchronized (this) {
 					String txtBegin = txtbegin.getText();
 					String txtEnd = txtend.getText();
+					StudentDAO studDao= new StudentOpr();
+					bean=studDao.getAllStudentsWithDecod_Rate_Data(bean.getId());
 					new PlotRateGraphGUI2(bean,classId,className, txtBegin, txtEnd);
 					this.setVisible(false);
 				}
@@ -1143,6 +1146,8 @@ public class PlotRateGUI2 extends JFrame implements ActionListener{
 		
 		if (e.getSource() == btnPloatRate) {
 			synchronized (this) {
+				StudentDAO studDao= new StudentOpr();
+				bean=studDao.getAllStudentsWithDecod_Rate_Data(bean.getId());
 				new PlotRateGUI(bean, classId, className);
 				this.dispose();
 			}

@@ -335,7 +335,8 @@ public class PlotRateGUI extends JFrame implements ActionListener{
 		if(e.getSource() == btnContinue){
 			if(allRadio.isSelected()){
 				synchronized (this) {
-					
+					StudentDAO studDao= new StudentOpr();
+					bean=studDao.getAllStudentsWithDecod_Rate_Data(bean.getId());
 					//new DecodePlotGraphGUI(bean,classId,className);
 					new PlotRateGraphGUI(bean,classId,className,"","");
 					setVisible(false);

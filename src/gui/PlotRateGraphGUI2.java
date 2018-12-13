@@ -131,6 +131,8 @@ public class PlotRateGraphGUI2 extends JFrame implements ActionListener,Printabl
 	 DefaultTableModel model2;
 	 JTable jt2;
 	 HashSet<Object> setText=new HashSet<Object>();
+	 
+	 JPanel p3;
 	
 	PlotRateGraphGUI2(StudentBean bean, String classId, String className, String txtBegin, String txtEnd){
 
@@ -291,7 +293,7 @@ public class PlotRateGraphGUI2 extends JFrame implements ActionListener,Printabl
 		p2.setBackground(new Color(65,127,159));
 
 		/* P3 for first tab data */
-		JPanel p3 = createContactPanel3(this.bean);
+		p3 = createContactPanel3(this.bean);
 		p3.setBounds(100, 100, 800, 600);
 		p3.setBackground(new Color(65,127,159));
 
@@ -1038,9 +1040,10 @@ public class PlotRateGraphGUI2 extends JFrame implements ActionListener,Printabl
 			            }
 			            
 			            g.translate((int) pf.getImageableX(), (int) pf.getImageableY());
-			            
+			            p3.paint(g);
+			            setVisible(false);
 			            this.print(g);
-			     
+			            setVisible(true);
 			
 			            return PAGE_EXISTS; //Page exists (offsets start at zero!)
 
@@ -1472,6 +1475,8 @@ public class PlotRateGraphGUI2 extends JFrame implements ActionListener,Printabl
 		
 		if (e.getSource() == btnPloatRate) {
 			synchronized (this) {
+				StudentDAO studDao= new StudentOpr();
+				bean=studDao.getAllStudentsWithDecod_Rate_Data(bean.getId());
 				new PlotRateGUI(bean, classId, className);
 				this.dispose();
 			}

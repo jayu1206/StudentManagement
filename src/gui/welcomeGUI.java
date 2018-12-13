@@ -34,6 +34,7 @@ import javax.swing.JSplitPane;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.JToolBar;
+import javax.swing.SwingUtilities;
 
 public class welcomeGUI extends JFrame implements ActionListener {
 	
@@ -109,12 +110,12 @@ public class welcomeGUI extends JFrame implements ActionListener {
 		
 		btnMImportExport = new JButton(new ImageIcon(this.getClass().getResource("/image/import export OFF.png")));
 		btnMImportExport.setRolloverIcon(new ImageIcon(this.getClass().getResource("/image/import export ON.png")));
+		btnMImportExport.setCursor( Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnMImportExport.setBounds(550, 300, 100, 100);
 		btnMImportExport.addActionListener(this);
 		btnMImportExport.setOpaque(false);
 		btnMImportExport.setContentAreaFilled(false);
 		btnMImportExport.setBorderPainted(false);
-		btnMImportExport.setCursor( Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		add(btnMImportExport);
 		
 		
