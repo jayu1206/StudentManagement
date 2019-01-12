@@ -62,6 +62,8 @@ import javax.swing.table.JTableHeader;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.CategoryAxis;
+import org.jfree.chart.axis.CategoryLabelPositions;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.axis.NumberTickUnit;
 import org.jfree.chart.labels.CategoryItemLabelGenerator;
@@ -534,7 +536,7 @@ public class DecodePlotGraphGUI2 extends JFrame implements ActionListener,Printa
 					
 					
 					lblCurrentDate = new JLabel("Current Date  :  "+new SimpleDateFormat("MM/dd/yyyy").format(new Date())+"");
-					lblCurrentDate.setBounds(480,14,300,40); 
+					lblCurrentDate.setBounds(480,10,300,40); 
 					lblCurrentDate.setFont(f3);
 					lblCurrentDate.setForeground(new Color(65, 127, 159));
 					panelGeneral.add(lblCurrentDate);
@@ -546,6 +548,7 @@ public class DecodePlotGraphGUI2 extends JFrame implements ActionListener,Printa
 					 //setContentPane(p1); //add(p1);
 					 final XYDataset dataset = createDataset(this.bean);
 				     final JFreeChart chart = createChart(dataset);
+				    
 				    // drawRegressionLine(chart,dataset);
 				     
 				        
@@ -1353,7 +1356,7 @@ public class DecodePlotGraphGUI2 extends JFrame implements ActionListener,Printa
 
 		// Creates a dataset by taking sample values from the line function
 		XYDataset dataset = DatasetUtilities.sampleFunction2D(linefunction2d,
-				0D, 30, 2, "Estimated Progress");
+				0D, 30, 2, "Predicted Progress");
 
 		// Draw the line dataset
 		XYPlot xyplot = chart.getXYPlot();
@@ -1397,7 +1400,7 @@ private XYDataset createDataset(StudentBean bean) {
             double beta1 = (double) regLineAB.get(0);
             double beta0 = (double) regLineAB.get(1);
             System.out.println("beta1 "+beta1);
-            final XYSeries series2 = new XYSeries("Estimated Progress");
+            final XYSeries series2 = new XYSeries("Predicted Progress");
           
             for(StudentDecoding deco : bean.getListDecoding()){
                      //  System.out.println(" Count : "+ bean.getListDecoding().size());
@@ -1602,7 +1605,7 @@ private XYDataset createDataset(StudentBean bean) {
         
         // create the chart...
         final JFreeChart chart = ChartFactory.createXYLineChart(
-            "Student Progress :  Decoding",      // chart title
+            "Take Flight Student Progress:  Decoding Graph",      // chart title
             "Week",                      // x axis label
             "Number Correct",                      // y axis label
             dataset,                  // data
@@ -1615,6 +1618,10 @@ private XYDataset createDataset(StudentBean bean) {
         chart.setBackgroundPaint(new Color(242,242,242));
         chart.getTitle().setPaint(new Color(65,127,159));
         chart.getTitle().setHorizontalAlignment(HorizontalAlignment.CENTER);
+        chart.getTitle().setFont(FontClass.MuseoSans900Italic(20));
+        
+        /*CategoryAxis categoryAxis = chart.getCategoryPlot().getDomainAxis();
+	    categoryAxis.setCategoryLabelPositions(CategoryLabelPositions.UP_90);*/
         
         final XYPlot plot = chart.getXYPlot();
         plot.setBackgroundPaint(Color.white);
@@ -1624,6 +1631,7 @@ private XYDataset createDataset(StudentBean bean) {
 		plot.getRangeAxis().setTickLabelPaint(new Color(65,127,159));
 		plot.getRangeAxis().setLabelFont(FontClass.MuseoSans700(15));
 		plot.getRangeAxis().setTickLabelFont(FontClass.MuseoSans700(15));
+		
         
        
         
@@ -1631,10 +1639,12 @@ private XYDataset createDataset(StudentBean bean) {
         /* X axis range set 0 to 50 with number tick meand dispaly to next number in x axis  */
        
         xAxis.setTickUnit(new NumberTickUnit(1));
-        xAxis.setTickLabelFont(FontClass.MuseoSans700(15));
+        xAxis.setTickLabelFont(FontClass.MuseoSans700(12));
         xAxis.setLabelPaint(new Color(65,127,159));
+        xAxis.setLabelFont(FontClass.MuseoSans700(15));
         xAxis.setTickLabelPaint(new Color(65,127,159));
-      //  xAxis.setRange(0.0, 52.0);
+        xAxis.setVerticalTickLabels(true);
+        xAxis.setRange(0.0, 37.0);
         
         /* Code end  */
         plot.setDomainAxis(xAxis);
@@ -1644,7 +1654,7 @@ private XYDataset createDataset(StudentBean bean) {
         
         //Range auto = plot.getRangeAxis().getRange();
         
-     //   plot.getRangeAxis().setUpperBound(50.00);
+        plot.getRangeAxis().setUpperBound(50.00);
         
        /* NumberAxis yAxis = new NumberAxis("Number Correct");
         yAxis.setTickUnit(new NumberTickUnit(10));
@@ -1654,8 +1664,10 @@ private XYDataset createDataset(StudentBean bean) {
         final XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer();
         renderer.setSeriesLinesVisible(0, false);
         renderer.setSeriesShapesVisible(1, true);
+        renderer.setSeriesItemLabelsVisible(1, false);
         renderer.setBaseLinesVisible(true);
         renderer.setBaseItemLabelsVisible(Boolean.TRUE);
+        
         renderer.setBaseItemLabelFont( FontClass.MuseoSans900(15));
         
         renderer.setBaseItemLabelGenerator((XYItemLabelGenerator) new StandardXYItemLabelGenerator());

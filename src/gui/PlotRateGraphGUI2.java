@@ -744,7 +744,7 @@ public class PlotRateGraphGUI2 extends JFrame implements ActionListener,Printabl
 				
 				
 				lblCurrentDate = new JLabel("Current Date  :  "+new SimpleDateFormat("MM/dd/yyyy").format(new Date())+"");
-				lblCurrentDate.setBounds(480,13,300,40); 
+				lblCurrentDate.setBounds(480,10,300,40); 
 				lblCurrentDate.setFont(f3);
 				lblCurrentDate.setForeground(new Color(65, 127, 159));
 				panelGeneral.add(lblCurrentDate);
@@ -883,7 +883,7 @@ public class PlotRateGraphGUI2 extends JFrame implements ActionListener,Printabl
 			
 			
 	        final JFreeChart chart = ChartFactory.createBarChart(
-	            "Student Progress: Reading Rate",  // chart title
+	            "Take Flight Student Progress:  Reading Rate Graph",  // chart title
 	            "Text",                  // domain axis label
 	            "Correct Words Per Minute",                     // range axis label
 	            dataset,                     // data
@@ -896,6 +896,7 @@ public class PlotRateGraphGUI2 extends JFrame implements ActionListener,Printabl
 	        chart.setBackgroundPaint(new Color(242,242,242));
 	        chart.getTitle().setPaint(new Color(65,127,159));
 	        chart.getTitle().setHorizontalAlignment(HorizontalAlignment.CENTER);
+	        chart.getTitle().setFont(FontClass.MuseoSans900Italic(20));
 	        
 	        CategoryPlot plot = chart.getCategoryPlot();
 	        ((BarRenderer) plot.getRenderer()).setBarPainter(new StandardBarPainter());

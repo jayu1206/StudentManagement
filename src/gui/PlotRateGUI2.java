@@ -648,7 +648,7 @@ public class PlotRateGUI2 extends JFrame implements ActionListener{
 				panelGeneral.add(lblstudent);
 				
 				txtStudent = new JTextField(bean.getStudFirstName() + " "+bean.getStudLastName());
-				txtStudent.setBounds(120,800,200,30); 
+				txtStudent.setBounds(120,80,200,30); 
 				txtStudent.setEditable(false);
 				txtStudent.setFont(f2);
 				panelGeneral.add(txtStudent);
