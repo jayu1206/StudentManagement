@@ -527,7 +527,7 @@ public class GroupGUI extends JFrame implements ActionListener{
 			}else{
 				
 				int n = JOptionPane.showConfirmDialog(this
-                        , "Remove group and its all students data?",
+                        , "Remove group and all it's students data?",
                         "Confirm Delete",
                         JOptionPane.YES_NO_OPTION);
 				 if (n == JOptionPane.YES_OPTION) {
