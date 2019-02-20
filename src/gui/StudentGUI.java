@@ -38,6 +38,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.RowFilter;
+import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.MouseInputListener;
 import javax.swing.plaf.basic.BasicTableUI;
@@ -187,8 +188,11 @@ public class StudentGUI extends JFrame implements ActionListener{
 				add(heading_lbl);
 				
 				JLabel heading_lbl2=new JLabel(this.className);
-				heading_lbl2.setBounds(390,55,400,30);
+				heading_lbl2.setBounds(210,55,600,30);
+				heading_lbl2.setHorizontalAlignment(JLabel.CENTER);
 				heading_lbl2.setFont(f);
+				/*Border border = BorderFactory.createLineBorder(Color.BLUE, 5);
+				heading_lbl2.setBorder(border);*/
 				add(heading_lbl2);
 				
 				Font f3 = FontClass.MuseoSans500(15);
