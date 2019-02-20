@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -121,16 +122,16 @@ public class PlotRateGraphGUI2 extends JFrame implements ActionListener,Printabl
 	JLabel lblStudent,lblTeacher,lblCurrentDate;
 	JButton btnPrint;
 	StudentDAO studDao = new StudentOpr();
-	 List tblListText = new ArrayList<>();
-	 List tblListCWPM = new ArrayList<>();
-	 List tblListPostDate = new ArrayList<>();
-	 List tblListPostErrors = new ArrayList<>();
-	 List tblListPriDate = new ArrayList<>();
-	 List tblListPriErrors = new ArrayList<>();
+	ArrayList tblListText = new ArrayList<>();
+	ArrayList tblListCWPM = new ArrayList<>();
+	ArrayList tblListPostDate = new ArrayList<>();
+	ArrayList tblListPostErrors = new ArrayList<>();
+	ArrayList tblListPriDate = new ArrayList<>();
+	ArrayList tblListPriErrors = new ArrayList<>();
 	 
 	 DefaultTableModel model2;
 	 JTable jt2;
-	 HashSet<Object> setText=new HashSet<Object>();
+	 LinkedHashSet<Object> setText=new LinkedHashSet<Object>();
 	 
 	 JPanel p3;
 	
@@ -983,7 +984,7 @@ public class PlotRateGraphGUI2 extends JFrame implements ActionListener,Printabl
 			 tblListPriErrors.add("Pre Errors");
 			
 			 for(StudentRate rate : bean.getListRate()){
-		        
+		       // System.out.println("text :"+rate.getText()+"  "+"time : "+rate.getTime()+"  "+" cwpm : "+rate.getCwpm());
 				 result.addValue(rate.getCwpm(),rate.getTime()+"" ,rate.getText()+"");
 				 if(rate.getTime() == 2){
 					 int finalcwpm = rate.getCwpm() - tempCwpm;
