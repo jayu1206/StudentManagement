@@ -204,7 +204,7 @@ public class StudentGUI extends JFrame implements ActionListener{
 			     
 				 //jt.setBounds(500,250,500,100); 
 				 jt.setModel(model);
-				 model.addColumn("Id");
+				 model.addColumn("ID");
 				 model.addColumn("Name");
 		         model.addColumn("Grade");
 		         model.addColumn("DOB");
