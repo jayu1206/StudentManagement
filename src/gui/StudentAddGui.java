@@ -194,7 +194,7 @@ public class StudentAddGui extends JFrame implements ActionListener {
 		Font f=FontClass.MuseoSans700Italic(25);   // Creating font style and size for heading
 		
 		// step 3 : creating JLabel for Heading
-		JLabel heading_lbl=new JLabel("Provide Student details");
+		JLabel heading_lbl=new JLabel("Provide Student Details");
 		heading_lbl.setBounds(360,15,500,40);
 		heading_lbl.setFont(f);
 		
