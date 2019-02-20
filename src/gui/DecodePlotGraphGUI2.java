@@ -1654,7 +1654,7 @@ private XYDataset createDataset(StudentBean bean) {
         
         //Range auto = plot.getRangeAxis().getRange();
         
-        plot.getRangeAxis().setUpperBound(50.00);
+        plot.getRangeAxis().setUpperBound(55.00);
         
        /* NumberAxis yAxis = new NumberAxis("Number Correct");
         yAxis.setTickUnit(new NumberTickUnit(10));
