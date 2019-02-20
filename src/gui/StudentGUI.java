@@ -317,7 +317,7 @@ public class StudentGUI extends JFrame implements ActionListener{
 					    al = new ActionListener() {
 					      public void actionPerformed(ActionEvent e) {
 					        String expr = txtFE.getText();
-					        sorter.setRowFilter(RowFilter.regexFilter(expr));
+					        sorter.setRowFilter(RowFilter.regexFilter("(?i)"+expr));
 					        sorter.setSortKeys(null);
 					        
 					        
