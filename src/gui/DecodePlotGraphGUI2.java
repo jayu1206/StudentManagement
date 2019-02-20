@@ -528,11 +528,11 @@ public class DecodePlotGraphGUI2 extends JFrame implements ActionListener,Printa
 					lblStudent.setForeground(new Color(65, 127, 159));
 					panelGeneral.add(lblStudent);
 					
-					lblTeacher = new JLabel("Teacher  :  "+bean.getTeacher()+"");
+					/*lblTeacher = new JLabel("Teacher  :  "+bean.getTeacher()+"");
 					lblTeacher.setBounds(280,15,300,30); 
 					lblTeacher.setForeground(new Color(65, 127, 159));
 					lblTeacher.setFont(f3);
-					panelGeneral.add(lblTeacher);
+					panelGeneral.add(lblTeacher);*/
 					
 					
 					lblCurrentDate = new JLabel("Current Date  :  "+new SimpleDateFormat("MM/dd/yyyy").format(new Date())+"");
