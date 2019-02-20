@@ -43,7 +43,7 @@ public class RegistratonGUI extends JFrame implements ActionListener{
 		Font f=FontClass.MuseoSans700Italic(30);    // Creating font style and size for heading
 	
 				// step 3 : creating JLabel for Heading
-						JLabel heading_lbl=new JLabel("Provide your details");
+						JLabel heading_lbl=new JLabel("Provide Your Details");
 						heading_lbl.setBounds(360,160,300,60);
 	
 						// applying font on  heading Label
