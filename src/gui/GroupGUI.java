@@ -184,15 +184,15 @@ public class GroupGUI extends JFrame implements ActionListener{
        
 		Font f=FontClass.MuseoSans700Italic(25);   // Creating font style and size for heading
 		
-		JLabel heading_lbl=new JLabel("Take Flight Decoding and Reading Rate ");
-		heading_lbl.setBounds(290,15,600,30);
+		JLabel heading_lbl=new JLabel("Take Flight Decoding and Reading Rate Progress Data Manager");
+		heading_lbl.setBounds(150,15,800,30);
 		heading_lbl.setFont(f);
 		add(heading_lbl);
 		
-		heading_lbl=new JLabel("Process Data Manager");
+		/*heading_lbl=new JLabel("");
 		heading_lbl.setBounds(350,40,600,30);
 		heading_lbl.setFont(f);
-		add(heading_lbl);
+		add(heading_lbl);*/
 		
 		
 		//setLayout(new FlowLayout());
