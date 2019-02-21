@@ -347,7 +347,7 @@ public class StudentOpr extends StudentDAO {
 			
 			//STEP 4: Execute a query
 		      
-		      String sql = "UPDATE student SET studFirstName=?,studLastName=?,grade=?,teacher=? WHERE id=?";
+		      String sql = "UPDATE student SET studFirstName=?,studLastName=?,grade=?,teacher=?,dob=?,startDt=?  WHERE id=?";
 		      
 		      statement = conn.prepareStatement(sql);
 		     
@@ -355,7 +355,9 @@ public class StudentOpr extends StudentDAO {
 		      statement.setString(2, bean.getStudLastName());
 		      statement.setInt(3, bean.getGrade());
 		      statement.setString(4, bean.getTeacher());
-		      statement.setInt(5, bean.getId());
+		      statement.setString(5, bean.getDob());
+		      statement.setString(6, bean.getStDate());
+		      statement.setInt(7, bean.getId());
 		      statement.execute();
 		      
 		      flag=true;

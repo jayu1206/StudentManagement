@@ -290,7 +290,7 @@ public class StudentAddGui extends JFrame implements ActionListener {
 			p.put("text.year", "Year");
 			
 			UtilDateModel dtmodel = new UtilDateModel();
-			dtmodel.setDate(2000, 1, 1);
+			dtmodel.setDate(2000, 5, 1);
 			dtmodel.setSelected(true);
 			JDatePanelImpl datePanel =new JDatePanelImpl(dtmodel, p);
 			DOBdatePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());

@@ -19,9 +19,11 @@ import java.awt.event.WindowListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -46,6 +48,11 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
+import org.jdatepicker.impl.JDatePanelImpl;
+import org.jdatepicker.impl.JDatePickerImpl;
+import org.jdatepicker.impl.UtilDateModel;
+
+import manegement.DateLabelFormatter;
 import manegement.StudentOpr;
 import abstrac.StudentDAO;
 import bean.StudentBean;
@@ -65,9 +72,10 @@ public class PlotRateGUI2 extends JFrame implements ActionListener{
 	JMenuItem delete, deleteRate;
 
 	/* For 1st tab data */
-	JLabel lblstudNo, lblFirstName, lblLastName, lblGrade, lblAge, lblteacher;
-	JTextField txtstudNo, txtFirstName, txtLastName, txtGrade, txtAge, txtTeacher;
+	JLabel lblstudNo, lblFirstName, lblLastName, lblGrade, lblAge, lblteacher,lbldob,lblstdate;
+	JTextField txtstudNo, txtFirstName, txtLastName, txtGrade, txtAge, txtTeacher,txtdob,txtstdate;
 	JButton btnUpdateStudInfo;
+	JDatePickerImpl DOBdatePicker, STdatePicker ; 
 
 	/* For 2nd tab data */
 	DefaultTableModel model;
@@ -376,9 +384,93 @@ public class PlotRateGUI2 extends JFrame implements ActionListener{
 		txtTeacher.setText(studBean.getTeacher());
 		txtTeacher.setFont(f3);
 		panelGeneral.add(txtTeacher);
-
+		
+		lbldob = new JLabel("Date of birth");
+		lbldob.setBounds(260,290,250, 30); 
+		lbldob.setFont(f1);
+		panelGeneral.add(lbldob);
+		
+		Properties p = new Properties();
+		p.put("text.today", "Today");
+		p.put("text.month", "Month");
+		p.put("text.year", "Year");
+		
+		
+		SimpleDateFormat ddmmyyyy = new SimpleDateFormat("dd-MM-yyyy");
+		SimpleDateFormat mmddyyyy = new SimpleDateFormat("MM/dd/yyyy");
+		Date dt = null;
+		try {
+			 dt = mmddyyyy.parse(studBean.getDob());
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			try {
+				dt = ddmmyyyy.parse(studBean.getStDate());
+				String str = mmddyyyy.format(dt);
+				dt = ddmmyyyy.parse(str);
+			} catch (ParseException e1) {
+				// TODO Auto-generated catch block
+				//e1.printStackTrace();
+			}
+			
+		}
+		
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(dt);
+		int year = cal.get(Calendar.YEAR);
+		System.out.println(year);
+		int month = cal.get(Calendar.MONTH);
+		int day = cal.get(Calendar.DAY_OF_MONTH);
+		
+		UtilDateModel dtmodel = new UtilDateModel();
+		dtmodel.setDate(year, month, day);
+		dtmodel.setSelected(true);
+		JDatePanelImpl datePanel =new JDatePanelImpl(dtmodel, p);
+		DOBdatePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
+		DOBdatePicker.setBounds(380, 290, 200, 30);
+		DOBdatePicker.setFont(f3);
+		panelGeneral.add(DOBdatePicker);
+		
+	
+		lblstdate = new JLabel("Start Date");
+		lblstdate.setBounds(280,330,250, 30); 
+		lblstdate.setFont(f1);
+		panelGeneral.add(lblstdate);
+		
+		
+		try {
+			 dt = mmddyyyy.parse(studBean.getStDate());
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			try {
+				dt = ddmmyyyy.parse(studBean.getStDate());
+				String str = mmddyyyy.format(dt);
+				dt = ddmmyyyy.parse(str);
+			} catch (ParseException e1) {
+				// TODO Auto-generated catch block
+				//e1.printStackTrace();
+			}
+			
+			
+		}
+		
+		cal = Calendar.getInstance();
+		cal.setTime(dt);
+		year = cal.get(Calendar.YEAR);
+		//System.out.println(year);
+		month = cal.get(Calendar.MONTH);
+		day = cal.get(Calendar.DAY_OF_MONTH);
+		
+		UtilDateModel dtmodel2 = new UtilDateModel();
+		dtmodel2.setDate(year, month, day);
+		dtmodel2.setSelected(true);
+		JDatePanelImpl datePanel2 =new JDatePanelImpl(dtmodel2, p);
+		STdatePicker = new JDatePickerImpl(datePanel2, new DateLabelFormatter());
+		STdatePicker.setBounds(380,330,200, 30);
+		STdatePicker.setFont(f3);
+		panelGeneral.add(STdatePicker);
+		
 		btnUpdateStudInfo = new JButton(new ImageIcon(this.getClass().getResource("/image/update button.png")));
-		btnUpdateStudInfo.setBounds(350, 320, 130, 40);
+		btnUpdateStudInfo.setBounds(350, 380, 130, 40);
 		btnUpdateStudInfo.setOpaque(false);
 		btnUpdateStudInfo.setContentAreaFilled(false);
 		btnUpdateStudInfo.setBorderPainted(false);
@@ -1088,6 +1180,8 @@ public class PlotRateGUI2 extends JFrame implements ActionListener{
 					bean.setStudLastName(txtLastName.getText());
 					bean.setGrade(Integer.parseInt(txtGrade.getText()));
 					bean.setTeacher(txtTeacher.getText());
+					bean.setDob(DOBdatePicker.getJFormattedTextField().getText());
+		        	bean.setStDate(STdatePicker.getJFormattedTextField().getText());
 
 					flag = dao.updateStudentInfo(bean);
 
