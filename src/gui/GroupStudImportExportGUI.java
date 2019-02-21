@@ -101,10 +101,10 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 	JLabel lblNewStudGroup;
 	JLabel lblStudent;
 	JLabel lblGroup;
-	JLabel lblExportGFile;
+	JLabel lblExportGFile,lblExportGFileName;
 	JLabel lblExportSFile;
 	JTextField txtNewStudGroup;
-	JTextField txtImportFilePath, txtExportFilePath;
+	JTextField txtImportFilePath, txtExportFilePath,txtExportGFileName;
 	// DefaultTableModel model, model2;
 	JTable jt;
 	JButton btnAddDecoding;
@@ -471,6 +471,19 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 		lblExportGFile.setFont(f2);
 		getForeground();
 		add(lblExportGFile);
+		
+		lblExportGFileName = new JLabel("File Name :");
+		lblExportGFileName.setBounds(550, 450, 150, 60);
+		lblExportGFileName.setFont(f2);
+		getForeground();
+		add(lblExportGFileName);
+		
+		txtExportGFileName = new JTextField();
+		txtExportGFileName.setBounds(660, 465, 190, 30);
+		txtExportGFileName.setFont(f2);
+		add(txtExportGFileName);
+		
+		
 
 		txtExportFilePath = new JTextField();
 		txtExportFilePath.setBounds(650, 420, 130, 30);
@@ -935,6 +948,8 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 
 			if (txtExportFilePath.getText().length() <= 0) {
 				JOptionPane.showMessageDialog(this, "Please Select Folder for File Save.");
+			}else if(txtExportGFileName.getText().trim().length()==0){
+				JOptionPane.showMessageDialog(this, "Please Provie Export File Name.");
 			} else {
 
 				try {
@@ -956,7 +971,7 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 
 					
 					
-					String csvFile = txtExportFilePath.getText() + "/ExportFile.csv";
+					String csvFile = txtExportFilePath.getText() +"/"+txtExportGFileName.getText() + ".csv";
 					FileWriter writer = null;
 
 					writer = new FileWriter(csvFile);
