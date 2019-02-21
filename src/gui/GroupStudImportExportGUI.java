@@ -689,7 +689,7 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 									bean.setGroupId(item.getId());
 									bean.setStudFirstName(data[2]);
 									bean.setStudLastName(data[3]);
-									bean.setGrade(Integer.parseInt(data[4]));
+									bean.setGrade(Integer.parseInt(data[4].trim()));
 									
 									Pattern dateFrmtPtrn = Pattern
 											.compile("(0?[1-9]|1[012])/(0?[1-9]|[12][0-9]|3[01])/((19|20)\\d\\d)");
@@ -747,7 +747,7 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 												break;											
 										}
 										studDecoBean.setStudId(studID);
-										studDecoBean.setWeek(Integer.parseInt(studDeco[1]));
+										studDecoBean.setWeek(Integer.parseInt(studDeco[1].trim()));
 										Pattern dateFrmtPtrn = Pattern
 												.compile("(0?[1-9]|1[012])/(0?[1-9]|[12][0-9]|3[01])/((19|20)\\d\\d)");
 										Matcher mtch = dateFrmtPtrn.matcher(studDeco[2].trim());
@@ -757,10 +757,10 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 										}
 										
 										studDecoBean.setDate(studDeco[2].trim());
-										studDecoBean.setBook(Integer.parseInt(studDeco[3]));
-										studDecoBean.setLesson(Integer.parseInt(studDeco[4]));
+										studDecoBean.setBook(Integer.parseInt(studDeco[3].trim()));
+										studDecoBean.setLesson(Integer.parseInt(studDeco[4].trim()));
 										studDecoBean.setForm(studDeco[5]);
-										studDecoBean.setScore(Integer.parseInt(studDeco[6]));	
+										studDecoBean.setScore(Integer.parseInt(studDeco[6].trim()));	
 										System.out.println("Decoding Data : " + studDecoBean);
 										done = dao.insertDecoderData(studDecoBean);
 									}	
@@ -795,11 +795,11 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 										}
 										
 										studRateBean.setDate(studBean[1].trim());
-										studRateBean.setText(Integer.parseInt(studBean[2]));
-										studRateBean.setTime(Integer.parseInt(studBean[3]));
-										studRateBean.setCwpm(Integer.parseInt(studBean[4]));
-										studRateBean.setErrors(Integer.parseInt(studBean[5]));
-										studRateBean.setWeek(Integer.parseInt(studBean[6]));
+										studRateBean.setText(Integer.parseInt(studBean[2].trim()));
+										studRateBean.setTime(Integer.parseInt(studBean[3].trim()));
+										studRateBean.setCwpm(Integer.parseInt(studBean[4].trim()));
+										studRateBean.setErrors(Integer.parseInt(studBean[5].trim()));
+										studRateBean.setWeek(Integer.parseInt(studBean[6].trim()));
 										System.out.println("Rating Data : "+studRateBean);
 										done = dao.insertRateData(studRateBean);
 									}
@@ -998,7 +998,7 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 			
 								boolean flag = false;
 								for (int i = 0; i < id.size(); i++) {
-									if (Integer.parseInt(id.get(i).toString()) == 0) {
+									if (Integer.parseInt(id.get(i).toString().trim()) == 0) {
 										flag = true;
 										break;
 									}
@@ -1010,7 +1010,7 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 									for (int i = 0; i < id.size(); i++) {
 										
 										// JOptionPane.showMessageDialog(this, id.get(i));
-										int studentID = Integer.parseInt(id.get(i).toString());
+										int studentID = Integer.parseInt(id.get(i).toString().trim());
 										if (studentID != 0) {
 			
 											//stud.add(" ");
