@@ -54,7 +54,7 @@ public class CheckUsernamePassGUI extends JFrame implements ActionListener{
 	
 	public CheckUsernamePassGUI(String msg) {
 		// TODO Auto-generated constructor stub
-		
+		System.out.println("CheckUsernamePassGUI");
 		if(msg.length()>0){				
 			//JOptionPane.showMessageDialog(this,!Wrong Please Try Again);	
 			this.setVisible(false);

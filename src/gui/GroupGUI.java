@@ -82,7 +82,7 @@ public class GroupGUI extends JFrame implements ActionListener{
 	JMenu menu;
 	JMenuItem edit;
 	GroupGUI(){
-		
+		System.out.println("GroupGUI");
 		setLayout(new BorderLayout());
 		setContentPane(new JLabel(new ImageIcon(this.getClass().getResource("/image/sky.png"))));
 		setLayout(null);

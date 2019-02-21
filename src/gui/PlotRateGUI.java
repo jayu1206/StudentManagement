@@ -50,7 +50,7 @@ public class PlotRateGUI extends JFrame implements ActionListener{
     StudentBean bean=new StudentBean();
 	
 	PlotRateGUI(StudentBean bean, String classId, String className){
-		
+		System.out.println("PlotRateGUI");
 		this.classId = classId;
 		this.className = className;
 		StudentDAO studDao = new StudentOpr();

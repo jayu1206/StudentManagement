@@ -150,12 +150,12 @@ public class DecodePlotGraphGUI2 extends JFrame implements ActionListener,Printa
 	StudentBean studdata = null;
 	
 	JDatePickerImpl DOBdatePicker, STdatePicker ; 
-	
+	boolean saveReminderRate = false;
 	JPanel p2;
 	
 	DecodePlotGraphGUI2(StudentBean bean, String classId, String className, String str, String txtBegin, String txtend){
 		
-	
+		System.out.println("DecodePlotGraphGUI2");
 		
 		
 		this.classId = classId;
@@ -924,7 +924,7 @@ public class DecodePlotGraphGUI2 extends JFrame implements ActionListener,Printa
 		}
 
 		if (e.getSource() == btnAddRate) {
-
+			saveReminderRate = true;
 			int nexVal = dao.getNextValueRate();
 			int row = jtRate.getRowCount();
 
@@ -1170,37 +1170,46 @@ public class DecodePlotGraphGUI2 extends JFrame implements ActionListener,Printa
 		}
 
 		if(e.getSource()== btnBack){
-			synchronized (this) {
-				new DecodePlotGUI2(bean, classId, className);
-				setVisible(false);
+			if(saveReminderRate){
+				JOptionPane.showMessageDialog(this, "Please save your data");
+			}else{
+				synchronized (this) {
+					new DecodePlotGUI2(bean, classId, className);
+					setVisible(false);
+				}
 			}
+			
 		}
 		
 		if(e.getSource()==btnPrint){
-			
-			 PrinterJob printJob = PrinterJob.getPrinterJob();
-			 printJob.setPrintable(this);
+			if(saveReminderRate){
+				JOptionPane.showMessageDialog(this, "Please save your data");
+			}else{
+				PrinterJob printJob = PrinterJob.getPrinterJob();
+				 printJob.setPrintable(this);
+				 
+				 
+				 PageFormat preformat = printJob.defaultPage();
+					preformat.setOrientation(PageFormat.LANDSCAPE);
+					PageFormat postformat = printJob.pageDialog(preformat);
+					printJob.setPrintable(this, postformat);
+					
+				 if(printJob.printDialog()){
+					    try { 
+					    	btnBack.setVisible(false);
+					    	btnPrint.setVisible(false);
+					    	//setVisible(false);
+					    	printJob.print(); 
+					    	
+					    	btnBack.setVisible(true);
+					    	btnPrint.setVisible(true);
+					    	
+					    } 
+					    catch (Exception PrinterExeption
+					    ) { }
+					  }
+			}
 			 
-			 
-			 PageFormat preformat = printJob.defaultPage();
-				preformat.setOrientation(PageFormat.LANDSCAPE);
-				PageFormat postformat = printJob.pageDialog(preformat);
-				printJob.setPrintable(this, postformat);
-				
-			 if(printJob.printDialog()){
-				    try { 
-				    	btnBack.setVisible(false);
-				    	btnPrint.setVisible(false);
-				    	//setVisible(false);
-				    	printJob.print(); 
-				    	
-				    	btnBack.setVisible(true);
-				    	btnPrint.setVisible(true);
-				    	
-				    } 
-				    catch (Exception PrinterExeption
-				    ) { }
-				  }
 			
 		}
 		if (e.getSource() == btnMImportExport) {
@@ -1215,30 +1224,35 @@ public class DecodePlotGraphGUI2 extends JFrame implements ActionListener,Printa
 		}
 		
 		if(e.getSource() == btnContinue){
-			if(allRadio.isSelected() && indiStudDataRadio.isSelected()){
-				
-				int size = bean.getListDecoding().size();
-				if (size >= 3){
-					synchronized (this) {
-						new DecodePlotGraphGUI(bean,classId,className,"All", "","");
-						setVisible(false);
+			if(saveReminderRate){
+				JOptionPane.showMessageDialog(this, "Please save your data");
+			}else{
+				if(allRadio.isSelected() && indiStudDataRadio.isSelected()){
+					
+					int size = bean.getListDecoding().size();
+					if (size >= 3){
+						synchronized (this) {
+							new DecodePlotGraphGUI(bean,classId,className,"All", "","");
+							setVisible(false);
+						}
+						
+						
+					}else{
+						JOptionPane.showMessageDialog(this,"Please provide more data");
 					}
+		        
 					
-					
-				}else{
-					JOptionPane.showMessageDialog(this,"Please provide more data");
 				}
-	        
 				
+				if(allRadio.isSelected() && studDataClsAvgRadio.isSelected()){
+					synchronized (this) {
+						new DecodePlotGraphGUI(bean,classId,className,"Avg","","");
+						setVisible(false);
+						
+					}
+				}
 			}
 			
-			if(allRadio.isSelected() && studDataClsAvgRadio.isSelected()){
-				synchronized (this) {
-					new DecodePlotGraphGUI(bean,classId,className,"Avg","","");
-					setVisible(false);
-					
-				}
-			}
 			
 			
 			
@@ -1330,12 +1344,18 @@ public class DecodePlotGraphGUI2 extends JFrame implements ActionListener,Printa
 		}
 		
 		if (e.getSource() == btnPloatRate) {
-			synchronized (this) {
-				StudentDAO studDao= new StudentOpr();
-				bean=studDao.getAllStudentsWithDecod_Rate_Data(bean.getId());
-				new PlotRateGUI2(bean, classId, className);
-				this.dispose();
+
+			if(saveReminderRate){
+				JOptionPane.showMessageDialog(this, "Please save your data");
+			}else{
+				synchronized (this) {
+					StudentDAO studDao= new StudentOpr();
+					bean=studDao.getAllStudentsWithDecod_Rate_Data(bean.getId());
+					new PlotRateGUI2(bean, classId, className);
+					this.dispose();
+				}
 			}
+			
 
 		}
 

@@ -98,8 +98,10 @@ public class PlotRateGUI2 extends JFrame implements ActionListener{
     ButtonGroup bG = new ButtonGroup();
     ButtonGroup bG2 = new ButtonGroup();
     
+    boolean saveReminderDecode = false;
+    
 	PlotRateGUI2(StudentBean bean, String classId, String className){
-
+		System.out.println("PlotRateGUI2");
 		this.classId = classId;
 		this.className = className;
 		this.bean = bean;
@@ -836,7 +838,7 @@ public class PlotRateGUI2 extends JFrame implements ActionListener{
 
 		StudentDAO dao = new StudentOpr();
 		if (e.getSource() == btnAddDecoding) {
-
+			saveReminderDecode = true;
 			int nexVal = dao.getNextValue();
 			int row = jt.getRowCount();
 
@@ -1099,36 +1101,44 @@ public class PlotRateGUI2 extends JFrame implements ActionListener{
 		}
 
 		if(e.getSource()==btnBack){
-			synchronized (this) {
-				new StudentDetailsInfoGUI(bean, classId, className);
-				this.setVisible(false);
-			}
-			
-		}	
-		
-		if(e.getSource() == btnContinue){
-			if(allRadio.isSelected()){
+			if(saveReminderDecode){
+				JOptionPane.showMessageDialog(this, "Please save your data");
+			}else{
 				synchronized (this) {
-					StudentDAO studDao= new StudentOpr();
-					bean=studDao.getAllStudentsWithDecod_Rate_Data(bean.getId());
-					//new DecodePlotGraphGUI(bean,classId,className);
-					new PlotRateGraphGUI2(bean,classId,className,"","");
-					setVisible(false);
-				}
-				
-			}
-			if (weekRadio.isSelected()){
-				
-				synchronized (this) {
-					String txtBegin = txtbegin.getText();
-					String txtEnd = txtend.getText();
-					StudentDAO studDao= new StudentOpr();
-					bean=studDao.getAllStudentsWithDecod_Rate_Data(bean.getId());
-					new PlotRateGraphGUI2(bean,classId,className, txtBegin, txtEnd);
+					new StudentDetailsInfoGUI(bean, classId, className);
 					this.setVisible(false);
 				}
 			}
 			
+			
+		}	
+		
+		if(e.getSource() == btnContinue){
+			if(saveReminderDecode){
+				JOptionPane.showMessageDialog(this, "Please save your data");
+			}else{
+					if(allRadio.isSelected()){
+						synchronized (this) {
+							StudentDAO studDao= new StudentOpr();
+							bean=studDao.getAllStudentsWithDecod_Rate_Data(bean.getId());
+							//new DecodePlotGraphGUI(bean,classId,className);
+							new PlotRateGraphGUI2(bean,classId,className,"","");
+							setVisible(false);
+						}
+						
+					}
+					if (weekRadio.isSelected()){
+						
+						synchronized (this) {
+							String txtBegin = txtbegin.getText();
+							String txtEnd = txtend.getText();
+							StudentDAO studDao= new StudentOpr();
+							bean=studDao.getAllStudentsWithDecod_Rate_Data(bean.getId());
+							new PlotRateGraphGUI2(bean,classId,className, txtBegin, txtEnd);
+							this.setVisible(false);
+						}
+					}
+			}
 			
 		}
 		
@@ -1199,18 +1209,23 @@ public class PlotRateGUI2 extends JFrame implements ActionListener{
 		}
 
 		if (e.getSource() == btnPloatDecoding) {
-			StudentDAO studDao= new StudentOpr();
-			 this.bean=studDao.getAllStudentsWithDecod_Rate_Data(bean.getId());
-			int size = bean.getListDecoding().size();
-			
-			if (size >= 3){
-				synchronized (this) {
-					new DecodePlotGUI2(bean, classId, className);
-					this.setVisible(false);
+			if(saveReminderDecode){
+				JOptionPane.showMessageDialog(this, "Please save your data");
+			}else{
+				StudentDAO studDao= new StudentOpr();
+				 this.bean=studDao.getAllStudentsWithDecod_Rate_Data(bean.getId());
+				int size = bean.getListDecoding().size();
+				
+				if (size >= 3){
+					synchronized (this) {
+						new DecodePlotGUI2(bean, classId, className);
+						this.setVisible(false);
+					}
+					
+				}else{
+					JOptionPane.showMessageDialog(this,"To Plot Graph We need at least 3 records.");
 				}
 				
-			}else{
-				JOptionPane.showMessageDialog(this,"To Plot Graph We need at least 3 records.");
 			}
 			
 

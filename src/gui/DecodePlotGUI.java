@@ -51,7 +51,7 @@ public class DecodePlotGUI extends JFrame implements ActionListener{
     StudentBean bean=new StudentBean();
 	
 	DecodePlotGUI(StudentBean bean, String classId, String className){
-		
+		System.out.println("DecodePlotGUI");
 		this.classId=classId;
 		this.className=className;
 		

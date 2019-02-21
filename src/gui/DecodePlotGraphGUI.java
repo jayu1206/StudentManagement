@@ -86,7 +86,7 @@ public class DecodePlotGraphGUI extends JFrame implements ActionListener,Printab
 	StudentDAO studDao = new StudentOpr();
 	StudentBean studdata = null;
 	DecodePlotGraphGUI(StudentBean bean, String classId, String className, String str, String txtBegin, String txtend){
-		
+		System.out.println("DecodePlotGraphGUI");
 		this.classId=classId;
 		this.className=className;
 		this.bean=bean;

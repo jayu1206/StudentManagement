@@ -75,6 +75,9 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 	JTable jtRate;
 	JButton btnAddRate, btnSaveRate, btnPloatRate;
 	String osname = System.getProperty("os.name");
+	
+	boolean saveReminderDecode = false;
+	boolean saveReminderRate = false;
 
 
 	StudentDetailsInfoGUI(StudentBean bean, String classId, String className) {
@@ -918,7 +921,7 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 
 		StudentDAO dao = new StudentOpr();
 		if (e.getSource() == btnAddDecoding) {
-
+			saveReminderDecode = true ;
 			int nexVal = dao.getNextValue();
 			int row = jt.getRowCount();
 
@@ -935,7 +938,7 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 		}
 
 		if (e.getSource() == btnAddRate) {
-
+			saveReminderRate = true;
 			int nexVal = dao.getNextValueRate();
 			int row = jtRate.getRowCount();
 
@@ -950,7 +953,7 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 		}
 
 		if (e.getSource() == btnSaveDecoding) {
-
+			saveReminderDecode = false;
 			int row = jt.getRowCount();
 
 			if (jt.isEditing())
@@ -1050,7 +1053,7 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 		}
 
 		if (e.getSource() == btnSaveRate) {
-
+			saveReminderRate = false;
 			int row = jtRate.getRowCount();
 
 			if (jtRate.isEditing())
@@ -1182,8 +1185,13 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 
 		if (e.getSource() == btnBack) {
 			synchronized (this) {
-				new StudentGUI(classId, className);
-				this.setVisible(false);
+				if(saveReminderDecode || saveReminderRate){
+					JOptionPane.showMessageDialog(this, "Please save your data.");
+				}else{
+					new StudentGUI(classId, className);
+					this.setVisible(false);
+				}
+				
 			}
 
 		}
@@ -1194,7 +1202,12 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 			}
 		}
 		if (e.getSource() == btnExit) {
-			System.exit(0);
+			if(saveReminderDecode || saveReminderRate){
+				JOptionPane.showMessageDialog(this, "Please save your data.");
+			}else{
+				System.exit(0);
+			}
+			
 
 		}
 		if (e.getSource() == btnUpdateStudInfo) {
@@ -1242,19 +1255,25 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 
 		if (e.getSource() == btnPloatDecoding) {
 			
-			StudentDAO studDao= new StudentOpr();
-			 this.bean=studDao.getAllStudentsWithDecod_Rate_Data(bean.getId());
-			int size = bean.getListDecoding().size();
-			
-			if (size >= 3){
-				synchronized (this) {
-					new DecodePlotGUI2(bean, classId, className);
-					this.setVisible(false);
-				}
-				
+			if(saveReminderDecode){
+				JOptionPane.showMessageDialog(this, "Please save your data.");
 			}else{
-				JOptionPane.showMessageDialog(this,"To Plot Graph We need at least 3 records.");
+				StudentDAO studDao= new StudentOpr();
+				 this.bean=studDao.getAllStudentsWithDecod_Rate_Data(bean.getId());
+				int size = bean.getListDecoding().size();
+				
+				if (size >= 3){
+					synchronized (this) {
+						new DecodePlotGUI2(bean, classId, className);
+						this.setVisible(false);
+					}
+					
+				}else{
+					JOptionPane.showMessageDialog(this,"To Plot Graph We need at least 3 records.");
+				}
 			}
+			
+			
 			
 
 		}
@@ -1282,12 +1301,17 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 		}
 		
 		if (e.getSource() == btnPloatRate) {
-			synchronized (this) {
-				StudentDAO studDao= new StudentOpr();
-				bean=studDao.getAllStudentsWithDecod_Rate_Data(bean.getId());
-				new PlotRateGUI2(bean, classId, className);
-				this.dispose();
+			if(saveReminderRate){
+				JOptionPane.showMessageDialog(this,"Please save your data");
+			}else{
+				synchronized (this) {
+					StudentDAO studDao= new StudentOpr();
+					bean=studDao.getAllStudentsWithDecod_Rate_Data(bean.getId());
+					new PlotRateGUI2(bean, classId, className);
+					this.dispose();
+				}
 			}
+			
 
 		}
 

@@ -90,7 +90,7 @@ public class PlotRateGraphGUI extends JFrame  implements ActionListener, Printab
 	 HashSet<Object> setText=new HashSet<Object>();
 	PlotRateGraphGUI(StudentBean bean, String classId, String className, String txtBegin, String txtEnd){
 		
-
+		System.out.println("PlotRateGraphGUI");
 		
 		this.classId=classId;
 		this.className=className;

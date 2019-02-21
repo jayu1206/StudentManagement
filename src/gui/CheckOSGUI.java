@@ -38,6 +38,7 @@ public class CheckOSGUI extends JFrame implements ActionListener{
 	JComboBox cb;
 	
 	public CheckOSGUI() {
+		System.out.println("CheckOSGUI");
 		// TODO Auto-generated constructor stub
 		setLayout(new BorderLayout());
 		setContentPane(new JLabel(new ImageIcon(this.getClass().getResource("/image/black-back-ground.jpg"))));

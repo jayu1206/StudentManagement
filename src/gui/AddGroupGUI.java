@@ -84,7 +84,7 @@ public class AddGroupGUI extends JFrame implements ActionListener{
 	JDatePickerImpl datePicker;
 	
 	AddGroupGUI(){
-		
+		System.out.println("AddGroupGUI");
 		setLayout(new BorderLayout());
 		setContentPane(new JLabel(new ImageIcon(this.getClass().getResource("/image/sky.png"))));
 		setLayout(null);

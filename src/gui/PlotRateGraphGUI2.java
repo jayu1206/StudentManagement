@@ -142,9 +142,11 @@ public class PlotRateGraphGUI2 extends JFrame implements ActionListener,Printabl
 	 
 	 JPanel p3;
 	
+	 boolean saveReminderDecode = false;
+	 
 	PlotRateGraphGUI2(StudentBean bean, String classId, String className, String txtBegin, String txtEnd){
 
-
+		System.out.println("PlotRateGraphGUI2");
 		this.classId = classId;
 		this.className = className;
 		this.bean = bean;
@@ -1153,7 +1155,8 @@ public class PlotRateGraphGUI2 extends JFrame implements ActionListener,Printabl
 
 		StudentDAO dao = new StudentOpr();
 		if (e.getSource() == btnAddDecoding) {
-
+		
+			saveReminderDecode = true;
 			int nexVal = dao.getNextValue();
 			int row = jt.getRowCount();
 
@@ -1416,12 +1419,20 @@ public class PlotRateGraphGUI2 extends JFrame implements ActionListener,Printabl
 		}
 
 		if(e.getSource()== btnBack){
-			synchronized (this) {
-				new PlotRateGUI2(bean, classId, className);
-				setVisible(false);
+			if(saveReminderDecode){
+				JOptionPane.showMessageDialog(this, "Please save your data");
+			}else{
+				synchronized (this) {
+					new PlotRateGUI2(bean, classId, className);
+					setVisible(false);
+				}
 			}
+			
 		}
 		if(e.getSource()==btnPrint){
+			if(saveReminderDecode){
+				JOptionPane.showMessageDialog(this, "Please save your data");
+			}else{
 			
 			/*PrinterJob pjob = PrinterJob.getPrinterJob();
 			PageFormat preformat = pjob.defaultPage();
@@ -1459,7 +1470,7 @@ public class PlotRateGraphGUI2 extends JFrame implements ActionListener,Printabl
 				    catch (Exception PrinterExeption
 				    ) { }
 				  }
-			
+			}
 		}
 		
 		if(e.getSource() == btnContinue){
@@ -1529,20 +1540,23 @@ public class PlotRateGraphGUI2 extends JFrame implements ActionListener,Printabl
 		}
 
 		if (e.getSource() == btnPloatDecoding) {
-			StudentDAO studDao= new StudentOpr();
-			 this.bean=studDao.getAllStudentsWithDecod_Rate_Data(bean.getId());
-			int size = bean.getListDecoding().size();
-			
-			if (size >= 3){
-				synchronized (this) {
-					new DecodePlotGUI2(bean, classId, className);
-					this.setVisible(false);
-				}
-				
+			if(saveReminderDecode){
+				JOptionPane.showMessageDialog(this, "Please save your data");
 			}else{
-				JOptionPane.showMessageDialog(this,"To Plot Graph We need at least 3 records.");
+				StudentDAO studDao= new StudentOpr();
+				 this.bean=studDao.getAllStudentsWithDecod_Rate_Data(bean.getId());
+				int size = bean.getListDecoding().size();
+				
+				if (size >= 3){
+					synchronized (this) {
+						new DecodePlotGUI2(bean, classId, className);
+						this.setVisible(false);
+					}
+					
+				}else{
+					JOptionPane.showMessageDialog(this,"To Plot Graph We need at least 3 records.");
+				}
 			}
-			
 
 		}
 

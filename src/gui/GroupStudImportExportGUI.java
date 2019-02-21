@@ -137,7 +137,7 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 	
 	GroupStudImportExportGUI(String classId, String className) {
 
-		
+		System.out.println("GroupStudImportExportGUI");
 		this.classId = classId;
 		this.className = className;
 

@@ -99,9 +99,10 @@ public class DecodePlotGUI2 extends JFrame implements ActionListener{
     JRadioButton studDataClsAvgRadio = new JRadioButton("Student data with class average");
     ButtonGroup bG = new ButtonGroup();
     ButtonGroup bG2 = new ButtonGroup();
-	
+    boolean saveReminderRate = false;
+    
 	DecodePlotGUI2(StudentBean bean, String classId, String className){
-
+		System.out.println("DecodePlotGUI2");
 		this.classId = classId;
 		this.className = className;
 		this.bean = bean;
@@ -843,7 +844,7 @@ public class DecodePlotGUI2 extends JFrame implements ActionListener{
 		}
 
 		if (e.getSource() == btnAddRate) {
-
+			saveReminderRate = true;
 			int nexVal = dao.getNextValueRate();
 			int row = jtRate.getRowCount();
 
@@ -1089,8 +1090,13 @@ public class DecodePlotGUI2 extends JFrame implements ActionListener{
 		}
 
 		if(e.getSource() == btnBack){
-			setVisible(false);
-			new StudentDetailsInfoGUI(bean, classId, className);
+			if(saveReminderRate){
+				JOptionPane.showMessageDialog(this,"Please save your data");
+			}else{
+				setVisible(false);
+				new StudentDetailsInfoGUI(bean, classId, className);
+			}
+			
 			
 		}
 		if (e.getSource() == btnMImportExport) {
@@ -1100,61 +1106,70 @@ public class DecodePlotGUI2 extends JFrame implements ActionListener{
 			}
 		}
 		if (e.getSource() == btnExit) {
-			System.exit(0);
+			if(saveReminderRate){
+				JOptionPane.showMessageDialog(this,"Please save your data");
+			}else{
+				System.exit(0);
+			}
+			
 
 		}
 		
 		if(e.getSource() == btnContinue){
-			if(allRadio.isSelected() && indiStudDataRadio.isSelected()){
-				
-				int size = bean.getListDecoding().size();
-				if (size >= 3){
-					synchronized (this) {
-						new DecodePlotGraphGUI2(bean,classId,className,"All", "","");
-						setVisible(false);
-					}
+			if(saveReminderRate){
+				JOptionPane.showMessageDialog(this,"Please save your data");
+			}else{
+				if(allRadio.isSelected() && indiStudDataRadio.isSelected()){
 					
-					
-				}else{
-					JOptionPane.showMessageDialog(this,"Please provide more data");
-				}
-	        
-				
-			}
-			
-			if(allRadio.isSelected() && studDataClsAvgRadio.isSelected()){
-				synchronized (this) {
-					new DecodePlotGraphGUI2(bean,classId,className,"Avg","","");
-					setVisible(false);
-					
-				}
-			}
-			
-			if (weekRadio.isSelected() && indiStudDataRadio.isSelected()){
-				
-				
-				String txtBegin = txtbegin.getText();
-				String txtEnd = txtend.getText();
-				
-				try{
-					int beginTxt = Integer.parseInt(txtBegin);
-					int endTxt = Integer.parseInt(txtEnd);
-					if (endTxt >= beginTxt){
-						synchronized (this) {	
-							new DecodePlotGraphGUI2(bean,classId,className,"All", txtBegin, txtEnd);
+					int size = bean.getListDecoding().size();
+					if (size >= 3){
+						synchronized (this) {
+							new DecodePlotGraphGUI2(bean,classId,className,"All", "","");
 							setVisible(false);
 						}
+						
+						
 					}else{
-						JOptionPane.showMessageDialog(this,beginTxt+" is NOT less then "+endTxt );
+						JOptionPane.showMessageDialog(this,"Please provide more data");
 					}
+		        
+					
+				}
 				
-				} catch (NumberFormatException ee) {
-		            System.out.println("You've entered non-integer number");
-		            System.out.println("This caused " + ee);
-					JOptionPane.showMessageDialog(this,"Enter Number only (e.g 1 and 3)");
+				if(allRadio.isSelected() && studDataClsAvgRadio.isSelected()){
+					synchronized (this) {
+						new DecodePlotGraphGUI2(bean,classId,className,"Avg","","");
+						setVisible(false);
+						
+					}
+				}
+				
+				if (weekRadio.isSelected() && indiStudDataRadio.isSelected()){
+					
+					
+					String txtBegin = txtbegin.getText();
+					String txtEnd = txtend.getText();
+					
+					try{
+						int beginTxt = Integer.parseInt(txtBegin);
+						int endTxt = Integer.parseInt(txtEnd);
+						if (endTxt >= beginTxt){
+							synchronized (this) {	
+								new DecodePlotGraphGUI2(bean,classId,className,"All", txtBegin, txtEnd);
+								setVisible(false);
+							}
+						}else{
+							JOptionPane.showMessageDialog(this,beginTxt+" is NOT less then "+endTxt );
+						}
+					
+					} catch (NumberFormatException ee) {
+			            System.out.println("You've entered non-integer number");
+			            System.out.println("This caused " + ee);
+						JOptionPane.showMessageDialog(this,"Enter Number only (e.g 1 and 3)");
 
-		        }
-				
+			        }
+					
+				}
 			}
 			
 			
@@ -1258,12 +1273,17 @@ public class DecodePlotGUI2 extends JFrame implements ActionListener{
 		}
 		
 		if (e.getSource() == btnPloatRate) {
-			synchronized (this) {
-				StudentDAO studDao= new StudentOpr();
-				bean=studDao.getAllStudentsWithDecod_Rate_Data(bean.getId());
-				new PlotRateGUI2(bean, classId, className);
-				this.dispose();
+			if(saveReminderRate){
+				JOptionPane.showMessageDialog(this,"Please save your data");
+			}else{
+				synchronized (this) {
+					StudentDAO studDao= new StudentOpr();
+					bean=studDao.getAllStudentsWithDecod_Rate_Data(bean.getId());
+					new PlotRateGUI2(bean, classId, className);
+					this.dispose();
+				}
 			}
+			
 
 		}
 
