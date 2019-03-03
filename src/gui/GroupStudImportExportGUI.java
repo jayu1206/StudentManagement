@@ -12,6 +12,8 @@ import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
@@ -74,7 +76,7 @@ import manegement.GroupOpr;
 import manegement.StudentOpr;
 import process.CSVUtils;
 
-public class GroupStudImportExportGUI extends JFrame implements ActionListener {
+public class GroupStudImportExportGUI extends JFrame implements ActionListener,ItemListener {
 
 	JButton btnSubmit;
 	JButton btnDelete;
@@ -124,13 +126,14 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 	JMenuItem open;
 	JTextArea ta;
 	JFileChooser fileChooser;
-	JRadioButton r1;
-	JRadioButton r2;
-	ButtonGroup bg;
+	JRadioButton r1,r1Export;
+	JRadioButton r2,r2Export;
+	ButtonGroup bg,btExport;
 	ArrayList<GroupBean> list;
 	ArrayList<StudentBean> studList;
 	Vector studVector = new Vector();
 	Vector v = new Vector();
+	Vector vgroup = new Vector();
 	StudentDAO studDAO = new StudentOpr();
 	ArrayList listId = new ArrayList();
 	String osname = System.getProperty("os.name");
@@ -259,15 +262,15 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 		add(heading_lbl);
 
 		lblImport = new JLabel("Import");
-		lblImport.setBounds(200, 120, 110, 40);
+		lblImport.setBounds(200, 100, 110, 40);
 		lblImport.setFont(f1);
 		getForeground();
 		add(lblImport);
 
 		r1 = new javax.swing.JRadioButton("Group");
 		r2 = new javax.swing.JRadioButton("Student");
-		r1.setBounds(250, 170, 100, 30);
-		r2.setBounds(250, 220, 120, 30);
+		r1.setBounds(250, 150, 100, 30);
+		r2.setBounds(250, 200, 120, 30);
 		r1.addActionListener(this);
 		r2.addActionListener(this);
 		bg = new javax.swing.ButtonGroup();
@@ -305,24 +308,24 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 		
 		
 		lblImportGFile = new JLabel("Import File :");
-		lblImportGFile.setBounds(400, 150, 150, 60);
+		lblImportGFile.setBounds(400, 130, 150, 60);
 		lblImportGFile.setFont(f1);
 		getForeground();
 		add(lblImportGFile);
 
 		lblNewStudGroup = new JLabel("New Student Group :");
-		lblNewStudGroup.setBounds(400, 240, 250, 60);
+		lblNewStudGroup.setBounds(400, 185, 250, 60);
 		lblNewStudGroup.setFont(f1);
 		getForeground();
 		add(lblNewStudGroup);
 
 		txtImportFilePath = new JTextField();
-		txtImportFilePath.setBounds(530, 170, 130, 30);
+		txtImportFilePath.setBounds(530, 150, 130, 30);
 		add(txtImportFilePath);
 
 
 		btn3 = new JButton("File");
-		btn3.setBounds(680, 170, 50, 30);
+		btn3.setBounds(680, 150, 50, 30);
 		btn3.setOpaque(true);
 		btn3.setBorderPainted(false);
 		btn3.setBackground(Color.WHITE);
@@ -340,16 +343,9 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 			model.addElement(new Item(bean.getGroupID(), bean.getGroupName()));
 		}
 
-		// model2.addElement(new Item(0, "All"));
-		// for(StudentBean bean : studList ){
-		// // model2.addRow(new Object[]{bean.getId(),bean.getStudFirstName()+"
-		// "+bean.getStudLastName(),bean.getGrade(),bean.getDob(),bean.getStDate()});
-		// model2.addElement(new Item(bean.getId(), bean.getStudFirstName()+" "+
-		// bean.getStudLastName()));
-		// }
 
 		cbGrpList = new JComboBox(model);
-		cbGrpList.setBounds(600, 260, 130, 30);
+		cbGrpList.setBounds(600, 200, 130, 30);
 		cbGrpList.setRenderer(new ItemRenderer());
 		cbGrpList.addActionListener(this);
 		add(cbGrpList);
@@ -359,11 +355,145 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 		// // cbStudentList.addActionListener(this);
 		// add(cbStudentList);
 
-		v.add("Select Option");
+
+		btnImport = new JButton("Import");
+		btnImport.setBounds(400, 270, 100, 30);
+		btnImport.setBackground(Color.WHITE);
+		btnImport.setOpaque(true);
+		btnImport.setBorderPainted(false);
+		btnImport.setFont(FontClass.MuseoSans900(15));
+		btnImport.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		add(btnImport);
+		getContentPane().add(btnImport);
+		btnImport.addActionListener(this);
+		
+		btnSample = new JButton("Import Format");
+		btnSample.setBounds(530, 270, 200, 30);
+		btnSample.setBackground(Color.WHITE);
+		btnSample.setOpaque(true);
+		btnSample.setBorderPainted(false);
+		btnSample.setFont(FontClass.MuseoSans900(15));
+		btnSample.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		add(btnSample);
+		getContentPane().add(btnSample);
+		btnSample.addActionListener(this);
+
+		/* Export UI  */
+
+		lblExport = new JLabel("Export");
+		lblExport.setBounds(200, 350, 110, 40);
+		lblExport.setFont(f1);
+		getForeground();
+		add(lblExport);
+
+		
+		
+		r1Export = new javax.swing.JRadioButton("Group");
+		r1Export.setBounds(400, 390, 100, 30);
+		//r1Export.addActionListener(this);
+		r1Export.setFont(f2);
+		r1Export.setOpaque(false);
+		r1Export.setContentAreaFilled(false);
+		r1Export.setBorderPainted(false);
+		r1Export.addItemListener(this);
+		
+		r2Export = new javax.swing.JRadioButton("Student");
+		r2Export.setBounds(520, 390, 120, 30);
+		//r2Export.addActionListener(this);
+		r2Export.setFont(f2);
+		r2Export.setOpaque(false);
+		r2Export.setContentAreaFilled(false);
+		r2Export.setBorderPainted(false);
+		r2Export.addItemListener(this);
+		
+		bg = new javax.swing.ButtonGroup();
+		bg.add(r1Export);
+		bg.add(r2Export);
+		
+		
+		add(r1Export);
+		add(r2Export);
+		
+		
+		lblGroup = new JLabel("Group");
+		lblGroup.setBounds(250, 430, 110, 40);
+		lblGroup.setFont(f2);
+		getForeground();
+		add(lblGroup);
+
+		vgroup.addElement(new Item(0, "Select Group"));
+		cbGrpExportList = new JComboBox();
+		cbGrpExportList.setBounds(400, 440, 90, 30);
+		cbGrpExportList.setModel(new DefaultComboBoxModel(vgroup));
+		cbGrpExportList.setRenderer(new ItemRenderer());
+		cbGrpExportList.setEnabled(false);
+		add(cbGrpExportList);
+		
+		cbGrpExportList.addActionListener (new ActionListener () {
+		    public void actionPerformed(ActionEvent e) {
+		    	if(r2Export.isSelected()){
+					Item item = (Item) cbGrpExportList.getSelectedItem();
+					int grpId = item.getId();
+					studList = studDAO.getAllStudents(grpId + "");
+
+					v.removeAllElements();
+					v.add("Select Option");
+					if (!studList.isEmpty()) {
+
+						v.add(new JCheckBox("ALL", false));
+					}
+					for (StudentBean bean : studList) {
+						v.add(new JCheckBox(bean.getStudFirstName() + " " + bean.getStudLastName() + " - " + bean.getId(),
+								false));
+					}
+					cbStudentList.setModel(new DefaultComboBoxModel(v));
+					add(cbStudentList);
+				}
+		    }
+		});
+		
+		
+		
+		/*v.add("Select Option");
 		cbStudentList = new JComboBox();
-		cbStudentList.setBounds(400, 460, 130, 30);
+		cbStudentList.setBounds(400, 480, 130, 30);
 		cbStudentList.addItem(v);
 		cbStudentList.setRenderer(new Comborenderer());
+		*/
+		
+		lblExportGFile = new JLabel("Export File :");
+		lblExportGFile.setBounds(520, 420, 150, 60);
+		lblExportGFile.setFont(f2);
+		getForeground();
+		add(lblExportGFile);
+		
+		txtExportFilePath = new JTextField();
+		txtExportFilePath.setBounds(650, 440, 130, 30);
+		add(txtExportFilePath);
+		
+		btn1 = new JButton("File");
+		btn1.setBounds(800, 440, 50, 30);
+		btn1.setBackground(Color.WHITE);
+		btn1.setOpaque(true);
+		btn1.setBorderPainted(false);
+		btn1.setFont(FontClass.MuseoSans900(15));
+		add(btn1);
+		getContentPane().add(btn1);
+		btn1.addActionListener(this);
+		
+		
+		lblStudent = new JLabel("Student");
+		lblStudent.setBounds(250, 470, 110, 40);
+		lblStudent.setFont(f2);
+		getForeground();
+		add(lblStudent);
+		
+		v.add("Select Option");
+		cbStudentList = new JComboBox();
+		cbStudentList.setBounds(400, 480, 130, 30);
+		cbStudentList.addItem(v);
+		cbStudentList.setRenderer(new Comborenderer());
+		cbStudentList.setEnabled(false);
 
 		// cbStudentList = new CustomComboCheck(v,listId);
 
@@ -409,36 +539,22 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 
 		});
 
-		cbGrpExportList = new JComboBox(model);
-		cbGrpExportList.setBounds(400, 420, 90, 30);
-		cbGrpExportList.setRenderer(new ItemRenderer());
-		cbGrpExportList.addActionListener(this);
-		add(cbGrpExportList);
-
-		btnImport = new JButton("Import");
-		btnImport.setBounds(400, 310, 100, 30);
-		btnImport.setBackground(Color.WHITE);
-		btnImport.setOpaque(true);
-		btnImport.setBorderPainted(false);
-		btnImport.setFont(FontClass.MuseoSans900(15));
-		btnImport.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		add(btnImport);
-		getContentPane().add(btnImport);
-		btnImport.addActionListener(this);
 		
-		btnSample = new JButton("Import Format");
-		btnSample.setBounds(530, 310, 200, 30);
-		btnSample.setBackground(Color.WHITE);
-		btnSample.setOpaque(true);
-		btnSample.setBorderPainted(false);
-		btnSample.setFont(FontClass.MuseoSans900(15));
-		btnSample.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		add(btnSample);
-		getContentPane().add(btnSample);
-		btnSample.addActionListener(this);
-
+		
+		lblExportGFileName = new JLabel("File Name :");
+		lblExportGFileName.setBounds(550, 470, 150, 60);
+		lblExportGFileName.setFont(f2);
+		getForeground();
+		add(lblExportGFileName);
+		
+		txtExportGFileName = new JTextField();
+		txtExportGFileName.setBounds(660, 485, 190, 30);
+		txtExportGFileName.setFont(f2);
+		add(txtExportGFileName);
+		
+				
 		btnExport = new JButton("Export");
-		btnExport.setBounds(400, 520, 100, 30);
+		btnExport.setBounds(400, 540, 100, 30);
 		btnExport.setBackground(Color.WHITE);
 		btnExport.setOpaque(true);
 		btnExport.setBorderPainted(false);
@@ -447,57 +563,6 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 		add(btnExport);
 		getContentPane().add(btnExport);
 		btnExport.addActionListener(this);
-
-		lblExport = new JLabel("Export");
-		lblExport.setBounds(200, 370, 110, 40);
-		lblExport.setFont(f1);
-		getForeground();
-		add(lblExport);
-
-		lblGroup = new JLabel("Group");
-		lblGroup.setBounds(250, 410, 110, 40);
-		lblGroup.setFont(f2);
-		getForeground();
-		add(lblGroup);
-
-		lblStudent = new JLabel("Student");
-		lblStudent.setBounds(250, 450, 110, 40);
-		lblStudent.setFont(f2);
-		getForeground();
-		add(lblStudent);
-
-		lblExportGFile = new JLabel("Export File :");
-		lblExportGFile.setBounds(520, 400, 150, 60);
-		lblExportGFile.setFont(f2);
-		getForeground();
-		add(lblExportGFile);
-		
-		lblExportGFileName = new JLabel("File Name :");
-		lblExportGFileName.setBounds(550, 450, 150, 60);
-		lblExportGFileName.setFont(f2);
-		getForeground();
-		add(lblExportGFileName);
-		
-		txtExportGFileName = new JTextField();
-		txtExportGFileName.setBounds(660, 465, 190, 30);
-		txtExportGFileName.setFont(f2);
-		add(txtExportGFileName);
-		
-		
-
-		txtExportFilePath = new JTextField();
-		txtExportFilePath.setBounds(650, 420, 130, 30);
-		add(txtExportFilePath);
-		
-		btn1 = new JButton("File");
-		btn1.setBounds(800, 420, 50, 30);
-		btn1.setBackground(Color.WHITE);
-		btn1.setOpaque(true);
-		btn1.setBorderPainted(false);
-		btn1.setFont(FontClass.MuseoSans900(15));
-		add(btn1);
-		getContentPane().add(btn1);
-		btn1.addActionListener(this);
 
       /*   btnExit = new JButton(new ImageIcon(this.getClass().getResource("/image/Exit2.png")));
          btnExit.setBounds(880,600,120,40);
@@ -552,7 +617,28 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 
 	}
 
+	
 	public void actionPerformed(ActionEvent e) {
+		
+		
+		/*GroupDAO dao = new GroupOpr();
+		list = dao.getAllGroups();
+		model.addElement(new Item(0, "Select Group"));
+		for (bean.GroupBean bean : list) {
+			model.addElement(new Item(bean.getGroupID(), bean.getGroupName()));
+		}*/
+		
+		/*vgroup.addElement(new Item(-1, "Select Group"));
+		cbGrpExportList = new JComboBox();
+		cbGrpExportList.setBounds(400, 440, 90, 30);
+		cbGrpExportList.setModel(new DefaultComboBoxModel(vgroup));
+		//cbGrpExportList.addItem(vgroup);
+		cbGrpExportList.setRenderer(new ItemRenderer());
+		cbGrpExportList.setEnabled(false);
+		add(cbGrpExportList);*/
+		
+		
+		
 		if (e.getSource() == btn1) {
 			JFileChooser chooser;
 			String choosertitle = "Test";
@@ -825,38 +911,30 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 
 			}
 		}
-		if (e.getSource() == cbGrpExportList) {
+		/*if (e.getSource() == cbGrpExportList) {
+			if(r2Export.isSelected()){
+				Item item = (Item) cbGrpExportList.getSelectedItem();
+				int grpId = item.getId();
+				studList = studDAO.getAllStudents(grpId + "");
 
-			Item item = (Item) cbGrpExportList.getSelectedItem();
-			int grpId = item.getId();
-			studList = studDAO.getAllStudents(grpId + "");
+				v.removeAllElements();
+				v.add("Select Option");
+				if (!studList.isEmpty()) {
 
-			v.removeAllElements();
-			v.add("Select Option");
-			if (!studList.isEmpty()) {
-
-				v.add(new JCheckBox("ALL", false));
+					v.add(new JCheckBox("ALL", false));
+				}
+				for (StudentBean bean : studList) {
+					v.add(new JCheckBox(bean.getStudFirstName() + " " + bean.getStudLastName() + " - " + bean.getId(),
+							false));
+				}
+				cbStudentList.setModel(new DefaultComboBoxModel(v));
+				add(cbStudentList);
+			}else{
+				return;
 			}
-			for (StudentBean bean : studList) {
-				v.add(new JCheckBox(bean.getStudFirstName() + " " + bean.getStudLastName() + " - " + bean.getId(),
-						false));
-			}
-			cbStudentList.setModel(new DefaultComboBoxModel(v));
-			add(cbStudentList);
+			
 
-			// cbStudentList.removeAllItems();
-			//
-			// if (!studList.isEmpty()){
-			// cbStudentList.addItem(new Item(0, "All"));
-			// }
-			// for (StudentBean bean : studList) {
-			// cbStudentList.addItem(new Item(bean.getId(),
-			// bean.getStudFirstName() + " " + bean.getStudLastName()));
-			// }
-			// cbStudentList.setRenderer(new ItemRenderer());
-			// add(cbStudentList);
-
-		}
+		}*/
 
 		if (e.getSource() == btnExit) {
 			System.exit(0);
@@ -950,7 +1028,9 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 				JOptionPane.showMessageDialog(this, "Please Select Folder for File Save.");
 			}else if(txtExportGFileName.getText().trim().length()==0){
 				JOptionPane.showMessageDialog(this, "Please Provie Export File Name.");
-			} else {
+			}else if(!cbGrpExportList.isEnabled()){
+				JOptionPane.showMessageDialog(this, "Please Select Group");
+			}else {
 
 				try {
 
@@ -977,7 +1057,7 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 					writer = new FileWriter(csvFile);
 					List<String> stud = new ArrayList<String>();
 					
-					if(listId.size()==0){
+					if(listId.size()==0 && !r2Export.isSelected()){
 						stud.add(" ");
 						stud.add("Group Name");
 						stud.add("Start Date");
@@ -988,13 +1068,37 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 						int grpId = item.getId();
 						GroupDAO dao=new GroupOpr();
 						
-						 GroupBean bean =  dao.getGroup(grpId);
-							stud.add(bean.getGroupName());
-							stud.add(" "+bean.getStartDate());
-							stud.add("\n");
+						if(grpId==0 && r2Export.isSelected()){
+							JOptionPane.showMessageDialog(this, "Please Select Group");
+							return;
+						}
+						
+						if(grpId==0){
+							ArrayList<GroupBean> groupList = dao.getAllGroups();
+							for(GroupBean bean : groupList){
+								 stud.add(bean.getGroupName());
+								 stud.add(" "+bean.getStartDate());
+								 stud.add("\n");
+							}
+							 
+							
+						}else{
+							 GroupBean bean =  dao.getGroup(grpId);
+							 stud.add(bean.getGroupName());
+							 stud.add(" "+bean.getStartDate());
+							 stud.add("\n");
+						}
+						
+						
+						 
+						 
 						
 					}else{					
-								
+						
+						if(id.size()==0){
+							JOptionPane.showMessageDialog(this, "Please Select Student");
+							return;
+						}
 			
 								boolean flag = false;
 								for (int i = 0; i < id.size(); i++) {
@@ -1299,6 +1403,44 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener {
 			  }
 		 }
 		return false;
+	}
+
+	@Override
+	public void itemStateChanged(ItemEvent e) {
+		// TODO Auto-generated method stub
+	
+		if (e.getStateChange() == ItemEvent.SELECTED) {
+			if(r1Export.isSelected()){
+				cbGrpExportList.setEnabled(true);
+				cbStudentList.setEnabled(false);
+				vgroup.removeAllElements();
+				
+				v.removeAllElements();
+				v.add("Select Option");
+				cbStudentList.setModel(new DefaultComboBoxModel(v));
+				
+				vgroup.addElement(new Item(0, "All"));
+				for (bean.GroupBean bean : list) {
+					vgroup.addElement(new Item(bean.getGroupID(), bean.getGroupName()));
+	    		}
+				cbGrpExportList.setModel(new DefaultComboBoxModel(vgroup));
+				add(cbGrpExportList);
+				
+				
+			}
+			if(r2Export.isSelected()){
+				cbGrpExportList.setEnabled(true);
+				cbStudentList.setEnabled(true);
+				
+				vgroup.removeAllElements();
+				vgroup.addElement(new Item(0,"Select Group"));
+				for (bean.GroupBean bean : list) {
+					vgroup.addElement(new Item(bean.getGroupID(), bean.getGroupName()));
+	    		}
+				cbGrpExportList.setModel(new DefaultComboBoxModel(vgroup));
+				add(cbGrpExportList);
+			}
+	    } 
 	}
 
 
