@@ -1,4 +1,10 @@
- ,GROUP ID,FIRST NAME,LAST NAME,GRADE,DATE OF BIRTH,START DATE,TEACHER,AGE,,,
-,3,jay,Gagnani,3,12-03-1990,12-03-2017,himaxi,4,
-,3,Jay,Gagnani,5,12-06-1990,12-06-2017,kamleshgg,5,
-
+ ,GROUP ID,FIRST NAME,LAST NAME,GRADE,DATE OF BIRTH,START DATE,TEACHER,AGE
+,1,Leo,Test,3, 02/01/2001, 04/17/2018 ,John Doe,28
+, Decoding Data,,,,,,,
+,Week,Date,Book,Lesson,Form,Score,,
+,3, 04/12/2017,3,4,A,25,,
+,4, 12/12/2017,4,5,B,25,,
+, Rate Data,,,,,,,
+,Date,Text,Time,CWPM,Errors,Week,,
+,04/25/2017,5,1,5,25,3,,
+,05/26/2017,5,2,5,30,5,,
