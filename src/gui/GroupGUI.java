@@ -81,6 +81,7 @@ public class GroupGUI extends JFrame implements ActionListener{
 	JMenuItem group,students,report;
 	JMenu menu;
 	JMenuItem edit;
+	int idDuty = 0;
 	GroupGUI(){
 		System.out.println("GroupGUI");
 		setLayout(new BorderLayout());
@@ -260,14 +261,17 @@ public class GroupGUI extends JFrame implements ActionListener{
 		jt.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
+				
 				int r = jt.rowAtPoint(e.getPoint());
 				if (r >= 0 && r < jt.getRowCount()) {
 					jt.setRowSelectionInterval(r, r);
+		            
 				} else {
 					jt.clearSelection();
 				}
 
 				int rowindex = jt.getSelectedRow();
+				idDuty = jt.convertRowIndexToModel(rowindex);
 				if (rowindex < 0)
 					return;
 				if (e.isPopupTrigger() && e.getComponent() instanceof JTable) {
@@ -554,7 +558,7 @@ public class GroupGUI extends JFrame implements ActionListener{
 			GroupDAO groupDAO = new GroupOpr();
 			DefaultTableModel dtm = (DefaultTableModel) jt.getModel();
 			int selRow = jt.getSelectedRow();
-			String value = jt.getModel().getValueAt(selRow, 0).toString();
+			String value = jt.getModel().getValueAt(idDuty, 0).toString();
 		
 			GroupBean gBean =  groupDAO.getGroup(Integer.parseInt(value));
 			synchronized (this) {

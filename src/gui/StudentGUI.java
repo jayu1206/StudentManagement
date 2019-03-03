@@ -66,6 +66,7 @@ public class StudentGUI extends JFrame implements ActionListener{
 	JMenuItem group,students,report;
 	JMenu menu;
 	String classId,className;
+	int idDuty;
 	
 	
 	StudentGUI(String classId,String className){
@@ -239,8 +240,9 @@ public class StudentGUI extends JFrame implements ActionListener{
 							    	if (e.getClickCount()==2) {
 							    		DefaultTableModel dtm = (DefaultTableModel) jt.getModel();  
 							            int selRow = jt.getSelectedRow();
+							            idDuty = jt.convertRowIndexToModel(selRow);
 							            StudentBean bean=new StudentBean();
-							            bean.setId(Integer.parseInt( jt.getModel().getValueAt(selRow, 0).toString() ));
+							            bean.setId(Integer.parseInt( jt.getModel().getValueAt(idDuty, 0).toString() ));
 							            bean=studDao.getAllStudentsWithDecod_Rate_Data(bean.getId());
 							            
 							            /*if(classId.length()>0){
