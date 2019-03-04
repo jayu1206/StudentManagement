@@ -244,8 +244,9 @@ public class GroupGUI extends JFrame implements ActionListener{
 				    	if (e.getClickCount()==2) {
 				    		//DefaultTableModel dtm = (DefaultTableModel) jt.getModel();  
 				            int selRow = jt.getSelectedRow();
-				            String id = jt.getModel().getValueAt(selRow, 0).toString();
-				            String name = jt.getModel().getValueAt(selRow, 1).toString();
+			                idDuty = jt.convertRowIndexToModel(selRow);
+				            String id = jt.getModel().getValueAt(idDuty, 0).toString();
+				            String name = jt.getModel().getValueAt(idDuty, 1).toString();
 				    		new StudentGUI(id,name);
 				    		dispose();
 				    	}
