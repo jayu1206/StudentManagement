@@ -903,6 +903,12 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener,I
 							JOptionPane.showMessageDialog(this, "Students Added Successfully");
 							setVisible(false);
 							new StudentGUI(classId, className);
+						}else{
+							if(studID!=0){
+								JOptionPane.showMessageDialog(this, "Students Added Successfully");
+								setVisible(false);
+								new StudentGUI(classId, className);
+							}
 						}
 					} catch (Exception ioe) {
 						ioe.printStackTrace();
