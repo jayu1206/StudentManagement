@@ -1102,7 +1102,7 @@ public class PlotRateGUI2 extends JFrame implements ActionListener{
 
 		if(e.getSource()==btnBack){
 			if(saveReminderDecode){
-				JOptionPane.showMessageDialog(this, "Please save your data");
+				JOptionPane.showMessageDialog(this, "Please save data before continuing");
 			}else{
 				synchronized (this) {
 					new StudentDetailsInfoGUI(bean, classId, className);
@@ -1210,7 +1210,7 @@ public class PlotRateGUI2 extends JFrame implements ActionListener{
 
 		if (e.getSource() == btnPloatDecoding) {
 			if(saveReminderDecode){
-				JOptionPane.showMessageDialog(this, "Please save your data");
+				JOptionPane.showMessageDialog(this, "Please save data before continuing");
 			}else{
 				StudentDAO studDao= new StudentOpr();
 				 this.bean=studDao.getAllStudentsWithDecod_Rate_Data(bean.getId());

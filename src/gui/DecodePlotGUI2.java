@@ -1091,7 +1091,7 @@ public class DecodePlotGUI2 extends JFrame implements ActionListener{
 
 		if(e.getSource() == btnBack){
 			if(saveReminderRate){
-				JOptionPane.showMessageDialog(this,"Please save your data");
+				JOptionPane.showMessageDialog(this,"Please save data before continuing");
 			}else{
 				setVisible(false);
 				new StudentDetailsInfoGUI(bean, classId, className);
@@ -1107,7 +1107,7 @@ public class DecodePlotGUI2 extends JFrame implements ActionListener{
 		}
 		if (e.getSource() == btnExit) {
 			if(saveReminderRate){
-				JOptionPane.showMessageDialog(this,"Please save your data");
+				JOptionPane.showMessageDialog(this,"Please save data before continuing");
 			}else{
 				System.exit(0);
 			}
@@ -1274,7 +1274,7 @@ public class DecodePlotGUI2 extends JFrame implements ActionListener{
 		
 		if (e.getSource() == btnPloatRate) {
 			if(saveReminderRate){
-				JOptionPane.showMessageDialog(this,"Please save your data");
+				JOptionPane.showMessageDialog(this,"Please save data before continuing");
 			}else{
 				synchronized (this) {
 					StudentDAO studDao= new StudentOpr();

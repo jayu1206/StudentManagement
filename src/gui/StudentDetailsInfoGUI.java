@@ -1186,7 +1186,7 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 		if (e.getSource() == btnBack) {
 			synchronized (this) {
 				if(saveReminderDecode || saveReminderRate){
-					JOptionPane.showMessageDialog(this, "Please save your data.");
+					JOptionPane.showMessageDialog(this, "Please save data before continuing.");
 				}else{
 					new StudentGUI(classId, className);
 					this.setVisible(false);
@@ -1203,7 +1203,7 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 		}
 		if (e.getSource() == btnExit) {
 			if(saveReminderDecode || saveReminderRate){
-				JOptionPane.showMessageDialog(this, "Please save your data.");
+				JOptionPane.showMessageDialog(this, "Please save data before continuing.");
 			}else{
 				System.exit(0);
 			}
@@ -1256,7 +1256,7 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 		if (e.getSource() == btnPloatDecoding) {
 			
 			if(saveReminderDecode){
-				JOptionPane.showMessageDialog(this, "Please save your data.");
+				JOptionPane.showMessageDialog(this, "Please save data before continuing.");
 			}else{
 				StudentDAO studDao= new StudentOpr();
 				 this.bean=studDao.getAllStudentsWithDecod_Rate_Data(bean.getId());
@@ -1302,7 +1302,7 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 		
 		if (e.getSource() == btnPloatRate) {
 			if(saveReminderRate){
-				JOptionPane.showMessageDialog(this,"Please save your data");
+				JOptionPane.showMessageDialog(this,"Please save data before continuing");
 			}else{
 				synchronized (this) {
 					StudentDAO studDao= new StudentOpr();

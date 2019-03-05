@@ -1420,7 +1420,7 @@ public class PlotRateGraphGUI2 extends JFrame implements ActionListener,Printabl
 
 		if(e.getSource()== btnBack){
 			if(saveReminderDecode){
-				JOptionPane.showMessageDialog(this, "Please save your data");
+				JOptionPane.showMessageDialog(this, "Please save data before continuing");
 			}else{
 				synchronized (this) {
 					new PlotRateGUI2(bean, classId, className);
@@ -1431,7 +1431,7 @@ public class PlotRateGraphGUI2 extends JFrame implements ActionListener,Printabl
 		}
 		if(e.getSource()==btnPrint){
 			if(saveReminderDecode){
-				JOptionPane.showMessageDialog(this, "Please save your data");
+				JOptionPane.showMessageDialog(this, "Please save data before continuing");
 			}else{
 			
 			/*PrinterJob pjob = PrinterJob.getPrinterJob();
@@ -1541,7 +1541,7 @@ public class PlotRateGraphGUI2 extends JFrame implements ActionListener,Printabl
 
 		if (e.getSource() == btnPloatDecoding) {
 			if(saveReminderDecode){
-				JOptionPane.showMessageDialog(this, "Please save your data");
+				JOptionPane.showMessageDialog(this, "Please save data before continuing");
 			}else{
 				StudentDAO studDao= new StudentOpr();
 				 this.bean=studDao.getAllStudentsWithDecod_Rate_Data(bean.getId());

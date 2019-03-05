@@ -1171,7 +1171,7 @@ public class DecodePlotGraphGUI2 extends JFrame implements ActionListener,Printa
 
 		if(e.getSource()== btnBack){
 			if(saveReminderRate){
-				JOptionPane.showMessageDialog(this, "Please save your data");
+				JOptionPane.showMessageDialog(this, "Please save data before continuing");
 			}else{
 				synchronized (this) {
 					new DecodePlotGUI2(bean, classId, className);
@@ -1183,7 +1183,7 @@ public class DecodePlotGraphGUI2 extends JFrame implements ActionListener,Printa
 		
 		if(e.getSource()==btnPrint){
 			if(saveReminderRate){
-				JOptionPane.showMessageDialog(this, "Please save your data");
+				JOptionPane.showMessageDialog(this, "Please save data before continuinga");
 			}else{
 				PrinterJob printJob = PrinterJob.getPrinterJob();
 				 printJob.setPrintable(this);
@@ -1346,7 +1346,7 @@ public class DecodePlotGraphGUI2 extends JFrame implements ActionListener,Printa
 		if (e.getSource() == btnPloatRate) {
 
 			if(saveReminderRate){
-				JOptionPane.showMessageDialog(this, "Please save your data");
+				JOptionPane.showMessageDialog(this, "Please save data before continuing");
 			}else{
 				synchronized (this) {
 					StudentDAO studDao= new StudentOpr();
