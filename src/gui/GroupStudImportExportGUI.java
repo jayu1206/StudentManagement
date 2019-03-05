@@ -256,7 +256,7 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener,I
 		heading_lbl.setFont(f);
 		add(heading_lbl);
 		
-		heading_lbl=new JLabel("Process Data Manager");
+		heading_lbl=new JLabel("Progress Data Manager");
 		heading_lbl.setBounds(350,40,600,30);
 		heading_lbl.setFont(f);
 		add(heading_lbl);

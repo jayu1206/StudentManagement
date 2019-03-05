@@ -183,7 +183,7 @@ public class StudentGUI extends JFrame implements ActionListener{
 		Font f=FontClass.MuseoSans700Italic(20);   // Creating font style and size for heading
 
 		// step 3 : creating JLabel for Heading
-				JLabel heading_lbl=new JLabel("Take Flight Decoding and Reading Rate Process Data Manager");
+				JLabel heading_lbl=new JLabel("Take Flight Decoding and Reading Rate Progress Data Manager");
 				heading_lbl.setBounds(210,15,600,30);
 				heading_lbl.setFont(f);
 				add(heading_lbl);
