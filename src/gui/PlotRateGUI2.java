@@ -1115,7 +1115,7 @@ public class PlotRateGUI2 extends JFrame implements ActionListener{
 		
 		if(e.getSource() == btnContinue){
 			if(saveReminderDecode){
-				JOptionPane.showMessageDialog(this, "Please save your data");
+				JOptionPane.showMessageDialog(this, "Please save data before continuing");
 			}else{
 					if(allRadio.isSelected()){
 						synchronized (this) {

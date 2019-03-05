@@ -1225,7 +1225,7 @@ public class DecodePlotGraphGUI2 extends JFrame implements ActionListener,Printa
 		
 		if(e.getSource() == btnContinue){
 			if(saveReminderRate){
-				JOptionPane.showMessageDialog(this, "Please save your data");
+				JOptionPane.showMessageDialog(this, "Please save data before continuing");
 			}else{
 				if(allRadio.isSelected() && indiStudDataRadio.isSelected()){
 					
