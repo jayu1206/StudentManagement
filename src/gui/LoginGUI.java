@@ -98,7 +98,7 @@ public class LoginGUI extends JFrame implements ActionListener{
         		+ "</body></html>");*/
 		
 		heading_lbl.setText("<html><body style=\" color: white;  padding-top: 20;padding-bottom: 20; padding-left: 12;padding-right: 12; background-color: #1D3E8A; border-top: 10px solid rgb(139,39,35); \">"
-		          + "<center><p style=\" width=500px; \" >The <i>Take Flight</i> Progress Monitoring Charts instrument was designed to provide diagnostic information about how students are progressing in learning the decoding concepts of <i>Take Flight: A Comprehensive Intervention for Students with Dyslexia.</i> This is done by allowing repeated administrations of a set of decodable, real words that cover the range of basic phonics concepts covered in the first five books of the Take Flight curriculum.</p> </center>"
+		          + "<center><p style=\" width=500px; \" >The <i>Take Flight</i> Progress Monitor Management system was designed to provide diagnostic information about how students are progressing in learning the decoding concepts of <i>Take Flight: A Comprehensive Intervention for Students with Dyslexia.</i> This is done by allowing repeated administrations of a set of decodable, real words that cover the range of basic phonics concepts covered in the first five books of the <i>Take Flight</i> curriculum.</p> </center>"
 		          + "</body></html>");
 		
 		
