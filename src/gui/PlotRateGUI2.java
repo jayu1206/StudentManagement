@@ -521,7 +521,16 @@ public class PlotRateGUI2 extends JFrame implements ActionListener{
 		/* Table code start  */
 		
 		
-		model = new DefaultTableModel();
+		model = new DefaultTableModel(){
+		      public boolean isCellEditable(int rowIndex, int mColIndex) {
+		    	  if(mColIndex==0){
+		    		  return false;
+		    	  }else{
+		    		  return true;
+		    	  }
+		          
+		        }
+		   };
 
 		jt = new JTable();
 		jt.setRowHeight(30);

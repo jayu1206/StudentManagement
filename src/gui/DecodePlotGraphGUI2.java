@@ -715,7 +715,16 @@ public class DecodePlotGraphGUI2 extends JFrame implements ActionListener,Printa
 
 		
 		
-		modelRate = new DefaultTableModel();
+		modelRate = new DefaultTableModel(){
+		      public boolean isCellEditable(int rowIndex, int mColIndex) {
+		    	  if(mColIndex==0){
+		    		  return false;
+		    	  }else{
+		    		  return true;
+		    	  }
+		          
+		        }
+		   };
 
 		jtRate = new JTable();
 		jtRate.setRowHeight(30);
