@@ -199,7 +199,7 @@ public class LoginGUI extends JFrame implements ActionListener{
 					}
 				}else{
 					
-					JOptionPane.showMessageDialog(this,"Invalid user id and password");
+					JOptionPane.showMessageDialog(this,"Invalid user id and/or password");
 				}
 			}catch(Exception ee){
 				synchronized (this) {
