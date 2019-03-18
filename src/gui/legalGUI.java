@@ -121,8 +121,8 @@ public class legalGUI  extends JFrame implements ActionListener {
 								+ "<p>You further agree and acknowledge that you have no ownership rights in the Student Progress Monitor or copies thereof.<br/>\n Rather, you have a limited license to use the Student Progress Monitor in accordance with this "
 								+ "Agreement for so long as this <br/>\n Agreement remains in full force and effect. All right, title and interest (including copyrights and other intellectual property <br/>\n rights) in the Student Progress Monitor (in both print "
 								+ "and machine-readable form) shall remain at all times with Owner or <br/>\n its third party suppliers. Any other use of the Student Progress Monitor by any person, business, corporation, government <br/>\n organization or any "
-								+ "other entity is strictly forbidden and is a violation of this Agreement. While the creation, revision,<br/>\n duplication, or making of derivatives is strictly forbidden, in the case that you make any such new copyrightable"
-								+ "matter, you <br/>\n hereby expressly and irrevocably assign those copyrights to Owner without compensation.</p>"
+								+ "other entity is strictly forbidden and is a violation of this Agreement. While the creation, revision,<br/>\n duplication, or making of derivatives is strictly forbidden, in the case that you make any such new copyrigh table"
+								+ " matter, you <br/>\n hereby expressly and irrevocably assign those copyrights to Owner without compensation.</p>"
 								
 								+ "<br/>\n<center><h2>3. Access</h2></center>"
 								
@@ -148,9 +148,9 @@ public class legalGUI  extends JFrame implements ActionListener {
 								+ "control of a Covered Party.</p>"
 								
 								+ "<br/>\n<p>IN NO EVENT WILL A COVERED PARTY BE LIABLE TO YOU OR ANY THIRD PARTY FOR ANY DIRECT, INDIRECT,<br/>\n INCIDENTAL, SPECIAL, OR CONSEQUENTIAL DAMAGES OF ANY KIND WHATSOEVER"
-								+ "(INCLUDING, WITHOUT<br/>\n LIMITATION, ATTORNEYS FEES, INDIRECT, SPECIAL, PUNITIVE, OR EXEMPLARY DAMAGES FOR LOSS OF<br/>\n BUSINESS, LOSS OF PROFITS, BUSINESS INTERRUPTION, OR "
+								+ " (INCLUDING, WITHOUT<br/>\n LIMITATION, ATTORNEYS FEES, INDIRECT, SPECIAL, PUNITIVE, OR EXEMPLARY DAMAGES FOR LOSS OF<br/>\n BUSINESS, LOSS OF PROFITS, BUSINESS INTERRUPTION, OR "
 								+ "LOSS OF BUSINESS INFORMATION) IN ANY WAY<br/>\n DUE TO, RESULTING FROM, OR ARISING IN CONNECTION WITH THE STUDENT PROGRESS MONITOR OR THE <br/>\nFAILURE OF ANY COVERED PARTY TO"
-								+ "PERFORM ITS OBLIGATIONS, REGARDLESS OF ANY NEGLIGENCE OF <br/>\nANY COVERED PARTY, EVEN IF THE COVERED PARTY HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH <br/>\nDAMAGES.</p>"
+								+ " PERFORM ITS OBLIGATIONS, REGARDLESS OF ANY NEGLIGENCE OF <br/>\nANY COVERED PARTY, EVEN IF THE COVERED PARTY HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH <br/>\nDAMAGES.</p>"
 								
 								+ "<br/>\n<p>A COVERED PARTY’S AGGREGATE LIABILITY WITH RESPECT TO ITS OBLIGATIONS UNDER THIS AGREEMENT,<br/>\n THE STUDENT PROGRESS MONITOR, OR OTHERWISE SHALL NOT EXCEED THE AMOUNT"
 								+ "OF THE LICENSE FEE<br/>\n PAID BY YOU. </p>"
@@ -164,14 +164,14 @@ public class legalGUI  extends JFrame implements ActionListener {
 								
 								+ "<br/>\n<p>This Agreement may be changed from time to time by written agreement or by notice from Owner. All notices and other <br/>\n communications hereunder shall be in writing or displayed electronically in the Student Progress Monitor."
 								+ " Notices shall be<br/>\n deemed to have been properly given on the date first made available, if displayed in the Student Progress Monitor, or on<br/>\n the date received, if delivered in any other manner. Your access to the Student"
-								+ "Progress Monitor may be terminated <br/>\n immediately upon notice to Owner if any change is unacceptable. Continued use of the Student Progress Monitor following <br/>\n any change constitutes acceptance of the change. You may"
+								+ " Progress Monitor may be terminated <br/>\n immediately upon notice to Owner if any change is unacceptable. Continued use of the Student Progress Monitor following <br/>\n any change constitutes acceptance of the change. You may "
 								+ "not assign your rights or delegate your duties under this Agreement <br/>\n without the prior written consent of Owner.</p>"
 								
-								+ "<br/>\n<p>The failure of Owner or any third party supplier of the Student Progress Monitor to enforce any provision hereof shall not <br/>\n constitute or be construed as a waiver of such provision or of the right to enforce it at a"
+								+ "<br/>\n<p>The failure of Owner or any third party supplier of the Student Progress Monitor to enforce any provision hereof shall not <br/>\n constitute or be construed as a waiver of such provision or of the right to enforce it at a "
 								+ "later time. Each third party supplier<br/>\n of the Student Progress Monitor has the right to assert and enforce these provisions directly on its own behalf as a third party <br/>\n beneficiary.</p>"
 								
 								+ "<br/>\n<p>This Agreement shall constitute the entire Agreement between the parties hereto, and shall be construed, interpreted and  <br/>\n governed by the laws of the State of Texas without regard to conflicts of law provisions thereof."
-								+ " The exclusive forum for any <br/>\n disputes arising out of or relating to this Agreement shall be an appropriate federal or state court sitting in Dallas County,<br/>\n Texas, USA. Except as otherwise provided herein, any waiver or"
+								+ " The exclusive forum for any <br/>\n disputes arising out of or relating to this Agreement shall be an appropriate federal or state court sitting in Dallas County,<br/>\n Texas, USA. Except as otherwise provided herein, any waiver or "
 								+ "modification of this Agreement shall only be effective if it is <br/>\n in writing and signed by both parties hereto. If any part of this Agreement is found invalid or unenforceable "
 								+ "by a court of <br/>\n competent jurisdiction, the "
 								+ "remainder of this Agreement shall be interpreted so as to reasonably effect the intention of the <br/>\n parties.</p>"
