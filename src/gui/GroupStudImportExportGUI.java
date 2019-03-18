@@ -313,7 +313,7 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener,I
 		*/
 		
 		
-		lblImportGFile = new JLabel("Import File :");
+		lblImportGFile = new JLabel("Import File From :");
 		lblImportGFile.setBounds(400, 130, 150, 60);
 		lblImportGFile.setFont(f1);
 		getForeground();
@@ -326,12 +326,12 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener,I
 		add(lblNewStudGroup);
 
 		txtImportFilePath = new JTextField();
-		txtImportFilePath.setBounds(530, 150, 130, 30);
+		txtImportFilePath.setBounds(560, 150, 130, 30);
 		add(txtImportFilePath);
 
 
 		btn3 = new JButton("File");
-		btn3.setBounds(680, 150, 50, 30);
+		btn3.setBounds(710, 150, 50, 30);
 		btn3.setOpaque(true);
 		btn3.setBorderPainted(false);
 		btn3.setBackground(Color.WHITE);
@@ -351,7 +351,7 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener,I
 
 
 		cbGrpList = new JComboBox(model);
-		cbGrpList.setBounds(600, 200, 130, 30);
+		cbGrpList.setBounds(600, 200, 160, 30);
 		cbGrpList.setRenderer(new ItemRenderer());
 		cbGrpList.addActionListener(this);
 		add(cbGrpList);
