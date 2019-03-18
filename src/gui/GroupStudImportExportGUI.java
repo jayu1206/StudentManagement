@@ -251,7 +251,12 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener,I
 		Font f1=FontClass.MuseoSans700(18); 
 		Font f2=FontClass.MuseoSans500(20);
 
-		JLabel heading_lbl=new JLabel("Take Flight Decoding and Reading Rate ");
+		JLabel heading_lbl=new JLabel("Take Flight Decoding and Reading Rate Progress Data Manager");
+		heading_lbl.setBounds(150,15,750,30);
+		heading_lbl.setFont(f);
+		add(heading_lbl);
+		
+		/*JLabel heading_lbl=new JLabel("Take Flight Decoding and Reading Rate ");
 		heading_lbl.setBounds(290,15,600,30);
 		heading_lbl.setFont(f);
 		add(heading_lbl);
@@ -259,7 +264,7 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener,I
 		heading_lbl=new JLabel("Progress Data Manager");
 		heading_lbl.setBounds(350,40,600,30);
 		heading_lbl.setFont(f);
-		add(heading_lbl);
+		add(heading_lbl);*/
 
 		lblImport = new JLabel("Import");
 		lblImport.setBounds(200, 100, 110, 40);
