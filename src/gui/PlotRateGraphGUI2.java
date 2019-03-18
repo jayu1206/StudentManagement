@@ -597,7 +597,7 @@ public class PlotRateGraphGUI2 extends JFrame implements ActionListener,Printabl
 		panelGeneral.setLayout(null); // new Color(107,5,37)
 		panelGeneral.setBackground(new Color(242,242,242));
 
-		JLabel heading_lbl=new JLabel("Take Flight Decoding and Reading Rate Process Data Manager");
+		JLabel heading_lbl=new JLabel("Take Flight Decoding and Reading Rate Progress Data Manager");
 		heading_lbl.setBounds(100,10,600,20);
 		heading_lbl.setFont(f);
 		heading_lbl.setForeground(new Color(65, 127, 159));
