@@ -398,7 +398,7 @@ public void actionPerformed(ActionEvent e) {
 					flag =dao.insertUser(bean);
 					
 					if(flag){
-						String success="Congratulations. Please login with username and password which you have submit.";
+						String success="Congratulations. Please login with username and password which you have submitted.";
 						JOptionPane.showMessageDialog(this,success);
 						setVisible(false);
 						new LoginGUI();
