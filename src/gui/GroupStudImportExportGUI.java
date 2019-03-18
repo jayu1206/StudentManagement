@@ -466,18 +466,18 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener,I
 		cbStudentList.setRenderer(new Comborenderer());
 		*/
 		
-		lblExportGFile = new JLabel("Export File :");
+		lblExportGFile = new JLabel("Export File To :");
 		lblExportGFile.setBounds(520, 420, 150, 60);
 		lblExportGFile.setFont(f2);
 		getForeground();
 		add(lblExportGFile);
 		
 		txtExportFilePath = new JTextField();
-		txtExportFilePath.setBounds(650, 440, 130, 30);
+		txtExportFilePath.setBounds(670, 440, 130, 30);
 		add(txtExportFilePath);
 		
 		btn1 = new JButton("File");
-		btn1.setBounds(800, 440, 50, 30);
+		btn1.setBounds(820, 440, 40, 30);
 		btn1.setBackground(Color.WHITE);
 		btn1.setOpaque(true);
 		btn1.setBorderPainted(false);
@@ -547,13 +547,13 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener,I
 		
 		
 		lblExportGFileName = new JLabel("File Name :");
-		lblExportGFileName.setBounds(550, 470, 150, 60);
+		lblExportGFileName.setBounds(560, 470, 150, 60);
 		lblExportGFileName.setFont(f2);
 		getForeground();
 		add(lblExportGFileName);
 		
 		txtExportGFileName = new JTextField();
-		txtExportGFileName.setBounds(660, 485, 190, 30);
+		txtExportGFileName.setBounds(670, 485, 190, 30);
 		txtExportGFileName.setFont(f2);
 		add(txtExportGFileName);
 		
