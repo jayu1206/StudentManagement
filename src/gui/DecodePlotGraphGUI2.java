@@ -151,6 +151,7 @@ public class DecodePlotGraphGUI2 extends JFrame implements ActionListener,Printa
 	
 	JDatePickerImpl DOBdatePicker, STdatePicker ; 
 	boolean saveReminderRate = false;
+	ArrayList<Integer> newRatePrimerkey = new ArrayList<Integer>();
 	JPanel p2;
 	
 	DecodePlotGraphGUI2(StudentBean bean, String classId, String className, String str, String txtBegin, String txtend){
@@ -698,7 +699,7 @@ public class DecodePlotGraphGUI2 extends JFrame implements ActionListener,Printa
 		panelGeneral.setBackground(new Color(242,242,242));
 
 		JLabel heading_lbl=new JLabel("Take Flight Decoding and Reading Rate Progress Data Manager");
-		heading_lbl.setBounds(100,10,600,20);
+		heading_lbl.setBounds(100,10,620,20);
 		heading_lbl.setFont(f);
 		heading_lbl.setForeground(new Color(65, 127, 159));
 		panelGeneral.add(heading_lbl);
@@ -942,7 +943,7 @@ public class DecodePlotGraphGUI2 extends JFrame implements ActionListener,Printa
 					nexVal = Integer.parseInt(jtRate.getModel().getValueAt(row - 1, 0).toString()) + 1;
 				}
 			}
-
+			newRatePrimerkey.add(nexVal);
 			modelRate.addRow(new Object[] { nexVal, "", "", "", "", "", "" });
 			jtRate.changeSelection(row,0,true,false);
 		}
@@ -1409,6 +1410,24 @@ public class DecodePlotGraphGUI2 extends JFrame implements ActionListener,Printa
 				if (n == JOptionPane.YES_OPTION) {
 					String value = jtRate.getModel().getValueAt(selRow, 0).toString();
 
+					
+					 ArrayList<Integer> tempNewRatePrimerKey = newRatePrimerkey;
+	                    
+	                    if(newRatePrimerkey.size()>0){
+	                        for (int i =0 ; i<newRatePrimerkey.size();i++) {
+	                            int tempkey = newRatePrimerkey.get(i);
+	                            if(tempkey == Integer.parseInt(value)){
+	                                //saveReminderDecode = false;    
+	                                tempNewRatePrimerKey.remove(i);
+	                            }
+	                        }
+	                        
+	                        if(tempNewRatePrimerKey.size()==0){
+	                            saveReminderRate = false;    
+	                        }
+	                    }
+
+	                    
 					boolean flag = dao.deleteRate(value);
 					if (flag) {
 						dtm.removeRow(selRow);

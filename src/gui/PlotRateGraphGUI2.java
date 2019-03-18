@@ -143,6 +143,7 @@ public class PlotRateGraphGUI2 extends JFrame implements ActionListener,Printabl
 	 JPanel p3;
 	
 	 boolean saveReminderDecode = false;
+	 ArrayList<Integer> newDecodePrimerkey = new ArrayList<Integer>();
 	 
 	PlotRateGraphGUI2(StudentBean bean, String classId, String className, String txtBegin, String txtEnd){
 
@@ -598,7 +599,7 @@ public class PlotRateGraphGUI2 extends JFrame implements ActionListener,Printabl
 		panelGeneral.setBackground(new Color(242,242,242));
 
 		JLabel heading_lbl=new JLabel("Take Flight Decoding and Reading Rate Progress Data Manager");
-		heading_lbl.setBounds(100,10,600,20);
+		heading_lbl.setBounds(100,10,620,20);
 		heading_lbl.setFont(f);
 		heading_lbl.setForeground(new Color(65, 127, 159));
 		panelGeneral.add(heading_lbl);
@@ -1175,6 +1176,7 @@ public class PlotRateGraphGUI2 extends JFrame implements ActionListener,Printabl
 				}
 			}
 
+            newDecodePrimerkey.add(nexVal);
 			model.addRow(new Object[] { nexVal, "", "", "", "", "", "" });
 			
 			jt.changeSelection(row,0,true,false);
@@ -1615,6 +1617,24 @@ public class PlotRateGraphGUI2 extends JFrame implements ActionListener,Printabl
 				if (n == JOptionPane.YES_OPTION) {
 					String value = jt.getModel().getValueAt(selRow, 0).toString();
 
+					
+                    ArrayList<Integer> tempNewDecodePrimerKey = newDecodePrimerkey;
+                    
+                    if(newDecodePrimerkey.size()>0){
+                        for (int i =0 ; i<newDecodePrimerkey.size();i++) {
+                            int tempkey = newDecodePrimerkey.get(i);
+                            if(tempkey == Integer.parseInt(value)){
+                                //saveReminderDecode = false;    
+                                tempNewDecodePrimerKey.remove(i);
+                            }
+                        }
+                        
+                        if(tempNewDecodePrimerKey.size()==0){
+                            saveReminderDecode = false;    
+                        }
+                    }
+
+                    
 					boolean flag = dao.deleteDecoding(value);
 					if (flag) {
 						dtm.removeRow(selRow);

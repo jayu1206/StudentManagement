@@ -79,6 +79,10 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 	boolean saveReminderDecode = false;
 	boolean saveReminderRate = false;
 
+	ArrayList<Integer> newDecodePrimerkey = new ArrayList<Integer>();
+	ArrayList<Integer> newRatePrimerkey = new ArrayList<Integer>();
+	
+	
 
 	StudentDetailsInfoGUI(StudentBean bean, String classId, String className) {
 
@@ -490,7 +494,7 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 		panelGeneral.setBackground(new Color(242,242,242));
 
 		JLabel heading_lbl=new JLabel("Take Flight Decoding and Reading Rate Progress Data Manager");
-		heading_lbl.setBounds(100,10,600,20);
+		heading_lbl.setBounds(100,10,620,20);
 		heading_lbl.setFont(f);
 		heading_lbl.setForeground(new Color(65, 127, 159));
 		panelGeneral.add(heading_lbl);
@@ -721,7 +725,7 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 		panelGeneral.setBackground(new Color(242,242,242));
 
 		JLabel heading_lbl=new JLabel("Take Flight Decoding and Reading Rate Progress Data Manager");
-		heading_lbl.setBounds(100,10,600,20);
+		heading_lbl.setBounds(100,10,620,20);
 		heading_lbl.setFont(f);
 		heading_lbl.setForeground(new Color(65, 127, 159));
 		panelGeneral.add(heading_lbl);
@@ -948,7 +952,7 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 					nexVal = Integer.parseInt(jt.getModel().getValueAt(row - 1, 0).toString()) + 1;
 				}
 			}
-
+			newDecodePrimerkey.add(nexVal);
 			model.addRow(new Object[] { nexVal, "", "", "", "", "", "" });
 			
 			jt.changeSelection(row,0,true,false);
@@ -967,6 +971,7 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 			}
 
 			modelRate.addRow(new Object[] { nexVal, "", "", "", "", "", "" });
+			newRatePrimerkey.add(nexVal);
 			jtRate.changeSelection(row,0,true,false);
 		}
 
@@ -1346,6 +1351,23 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 						JOptionPane.YES_NO_OPTION);
 				if (n == JOptionPane.YES_OPTION) {
 					String value = jt.getModel().getValueAt(selRow, 0).toString();
+					
+					ArrayList<Integer> tempNewDecodePrimerKey = newDecodePrimerkey;
+					
+					if(newDecodePrimerkey.size()>0){
+						for (int i =0 ; i<newDecodePrimerkey.size();i++) {
+							int tempkey = newDecodePrimerkey.get(i);
+							if(tempkey == Integer.parseInt(value)){
+								//saveReminderDecode = false;	
+								tempNewDecodePrimerKey.remove(i);
+							}
+						}
+						
+						if(tempNewDecodePrimerKey.size()==0){
+							saveReminderDecode = false;	
+						}
+					}
+					
 
 					boolean flag = dao.deleteDecoding(value);
 					if (flag) {
@@ -1374,6 +1396,26 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 				if (n == JOptionPane.YES_OPTION) {
 					String value = jtRate.getModel().getValueAt(selRow, 0).toString();
 
+					ArrayList<Integer> tempNewRatePrimerKey = newRatePrimerkey;
+					
+					if(newRatePrimerkey.size()>0){
+						for (int i =0 ; i<newRatePrimerkey.size();i++) {
+							int tempkey = newRatePrimerkey.get(i);
+							if(tempkey == Integer.parseInt(value)){
+								//saveReminderDecode = false;	
+								tempNewRatePrimerKey.remove(i);
+							}
+						}
+						
+						if(tempNewRatePrimerKey.size()==0){
+							saveReminderRate = false;	
+						}
+					}
+					
+					
+					
+					
+					
 					boolean flag = dao.deleteRate(value);
 					if (flag) {
 						dtm.removeRow(selRow);
