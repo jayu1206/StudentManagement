@@ -14,7 +14,7 @@ public class Comborenderer implements ListCellRenderer {
 		public Component getListCellRendererComponent(JList list, Object value, int index, boolean selected,
 				boolean focused) {
 		
-			System.out.println(list);
+			//System.out.println(list);
 			if (value instanceof Component){			
 				Component c = (Component) value;
 				if (selected){
