@@ -221,6 +221,8 @@ public class DecodePlotGraphGUI extends JFrame implements ActionListener,Printab
 		// pack();
 		setLayout(null);  
 		setResizable(false);
+	    //Below method is for responsive project window 
+	    setLocationRelativeTo(null);
 		setVisible(true); 
 		
 		

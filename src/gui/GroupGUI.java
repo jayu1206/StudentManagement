@@ -443,6 +443,8 @@ public class GroupGUI extends JFrame implements ActionListener{
 		 addWindowListener(exitListener);
 	   // c.setLayout(null); 
 	    setResizable(false);
+	    //Below method is for responsive project window 
+	    setLocationRelativeTo(null);
 		setVisible(true); 
 		
 	}

@@ -411,6 +411,8 @@ public class StudentGUI extends JFrame implements ActionListener{
 		// pack();
 		setLayout(null);   
 		setResizable(false);
+	    //Below method is for responsive project window 
+	    setLocationRelativeTo(null);
 		setVisible(true); 
 
 		

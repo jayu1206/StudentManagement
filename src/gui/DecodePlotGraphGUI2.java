@@ -388,6 +388,9 @@ public class DecodePlotGraphGUI2 extends JFrame implements ActionListener,Printa
 		 */
 		// pack();
 		// setLayout(new FlowLayout());
+	    
+		//Below method is for responsive project window 
+	    setLocationRelativeTo(null);
 		setVisible(true);
 
 	}

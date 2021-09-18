@@ -614,6 +614,8 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener,I
 		setTitle("Progress Monitor Data Manager");
 		// setDefaultCloseOperation(3);
 		setResizable(false);
+	    //Below method is for responsive project window 
+	    setLocationRelativeTo(null);
 
 		setVisible(true);
 
@@ -1151,21 +1153,22 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener,I
 //										stud.add(" ");stud.add(" ");stud.add(" ");
 										stud.add(" Rate Data");
 										stud.add("\n");
+										stud.add("Week");
 										stud.add("Date");
 										stud.add("Text");
 										stud.add("Time");
 										stud.add("CWPM");
 										stud.add("Errors");
-										stud.add("Week");
+										
 										stud.add("\n");
 										
 										for(StudentRate rate :  studBean.getListRate()){
+											stud.add(rate.getWeek()+"");
 											stud.add(" "+rate.getDate()+"");
 											stud.add(rate.getText()+"");
 											stud.add(rate.getTime()+"");
 											stud.add(rate.getCwpm()+"");
 											stud.add(rate.getErrors()+"");
-											stud.add(rate.getWeek()+"");
 											stud.add("\n");
 										}
 										
@@ -1228,20 +1231,20 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener,I
 //									stud.add(" ");stud.add(" ");stud.add(" ");
 									stud.add(" Rate Data");
 									stud.add("\n");
+									stud.add("Week");
 									stud.add("Date");
 									stud.add("Text");
 									stud.add("Time");
 									stud.add("CWPM");
 									stud.add("Errors");
-									stud.add("Week");
 									stud.add("\n");
 									for(StudentRate rate :  bean.getListRate()){
+										stud.add(rate.getWeek()+"");
 										stud.add(" "+rate.getDate()+"");
 										stud.add(rate.getText()+"");
 										stud.add(rate.getTime()+"");
 										stud.add(rate.getCwpm()+"");
 										stud.add(rate.getErrors()+"");
-										stud.add(rate.getWeek()+"");
 										stud.add("\n");
 									}
 									

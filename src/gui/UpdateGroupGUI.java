@@ -262,6 +262,8 @@ public class UpdateGroupGUI extends JFrame implements ActionListener{
 				setLayout(null); 
 				c.setBackground(new Color(135,206,250));  
 				setResizable(false);
+			    //Below method is for responsive project window 
+			    setLocationRelativeTo(null);
 				setVisible(true); 
 				
 				

@@ -125,6 +125,8 @@ public class CheckUsernamePassGUI extends JFrame implements ActionListener{
 					centerFrame();
 				    setTitle("Progress Monitor Data Manager");
 				    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				    //Below method is for responsive project window 
+				    setLocationRelativeTo(null);
 					setVisible(true); 
 				
 				

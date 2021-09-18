@@ -135,6 +135,8 @@ public class welcomeGUI extends JFrame implements ActionListener {
 	    setTitle("Progress Monitor Data Manager");
 	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    setResizable(false);
+	    //Below method is for responsive project window 
+	    setLocationRelativeTo(null);
 		setVisible(true); 
 	}
 	private void centerFrame() {
