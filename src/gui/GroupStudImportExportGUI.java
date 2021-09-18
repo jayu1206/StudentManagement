@@ -614,6 +614,8 @@ public class GroupStudImportExportGUI extends JFrame implements ActionListener,I
 		setTitle("Progress Monitor Data Manager");
 		// setDefaultCloseOperation(3);
 		setResizable(false);
+	    //Below method is for responsive project window 
+	    setLocationRelativeTo(null);
 
 		setVisible(true);
 

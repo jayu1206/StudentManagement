@@ -385,6 +385,9 @@ public class PlotRateGraphGUI2 extends JFrame implements ActionListener,Printabl
 		 */
 		// pack();
 		// setLayout(new FlowLayout());
+		
+	    //Below method is for responsive project window 
+	    setLocationRelativeTo(null);
 		setVisible(true);
 
 	

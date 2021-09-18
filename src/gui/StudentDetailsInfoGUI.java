@@ -281,6 +281,9 @@ public class StudentDetailsInfoGUI extends JFrame implements ActionListener {
 		 */
 		// pack();
 		// setLayout(new FlowLayout());
+		
+	    //Below method is for responsive project window 
+	    setLocationRelativeTo(null);
 		setVisible(true);
 
 	}
