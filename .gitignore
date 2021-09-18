@@ -1,5 +1,5 @@
 bin/
 .classpath
 src/Main.java
-.classpath
+*.classpath
 src/ChkOS.java
