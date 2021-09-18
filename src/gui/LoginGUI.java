@@ -44,7 +44,7 @@ public class LoginGUI extends JFrame implements ActionListener{
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	JLabel lblUserId,lblPsw;
+	JLabel lblUserId,lblPsw,lblVersion;
 	JTextField txtUserId;
 	JPasswordField txtPsw;
 	JButton btnSubmit;
@@ -134,6 +134,11 @@ public class LoginGUI extends JFrame implements ActionListener{
 		txtPsw.setFont(f4);
 		txtPsw.requestFocusInWindow();
         add(txtPsw);
+        
+        lblVersion = new JLabel("V1.0.1");
+        lblVersion.setBounds(10,700,100,30);
+        lblVersion.setFont(f2);
+		add(lblVersion);
         
         
         //ImageIcon image = ;

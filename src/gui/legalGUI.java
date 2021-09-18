@@ -22,6 +22,7 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.Visibility;
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -228,6 +229,8 @@ public class legalGUI  extends JFrame implements ActionListener {
 		    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		    setResizable(false);
 			setVisible(true); 
+			 //Below method is for responsive project window 
+		    setLocationRelativeTo(null);
 		
 		
 		
@@ -290,6 +293,19 @@ public class legalGUI  extends JFrame implements ActionListener {
 	public static void main(String args[]){  
 	//	new legalGUI();
 //		new GroupGUI();
+		/*Updating permission of current folder files */
+		String dir = System.getProperty("user.dir");
+		File myTestFile = new File(dir);
+		if (myTestFile.isDirectory()) {
+			File arr[] = myTestFile.listFiles();
+			for(int i =0 ; i<arr.length ; i++) {
+				System.out.println(arr[i].getName());
+				arr[i].setWritable(true,true);
+			}
+			
+		}
+		/*End the code for Updating permission of current folder files */
+		
 	ProcessExe objExe=new ProcessExe();
 	objExe.checkMySqlSystem(0);
 	
