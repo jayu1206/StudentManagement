@@ -20,7 +20,7 @@ public class RegistratonGUI extends JFrame implements ActionListener{
 	private static final long serialVersionUID = 1L;
 	
 	
-	JLabel lblUserId,lblPsw,lblFirstName,lblLastName,lblPhno,lblemail;
+	JLabel lblUserId,lblPsw,lblFirstName,lblLastName,lblPhno,lblemail,lblVersion;
 	JTextField txtUserId,txtFirstName,txtLastName,txtPhno,txtemail;
 	JButton btnSubmit,btnBack;
 	JPasswordField txtPsw;
@@ -54,7 +54,6 @@ public class RegistratonGUI extends JFrame implements ActionListener{
 
 						Font f1=FontClass.MuseoSans700(18); 
 						Font f2=FontClass.MuseoSans500(20);
-						
 						Font f3 = FontClass.MuseoSans500(15);
 						f3.deriveFont(Font.PLAIN, 15);
 						
@@ -297,7 +296,11 @@ public class RegistratonGUI extends JFrame implements ActionListener{
 */								
 								
 								
-								
+						    lblVersion = new JLabel("Version: 1.0.1");
+					        lblVersion.setBounds(450,700,120,30);
+					        Font v1=FontClass.MuseoSans700(15); 
+					        lblVersion.setFont(v1);
+							add(lblVersion);
 								
 								/* ---------------------------------- Creating JFrame -------------------------------------------------------- */
 								// Step 1 :  Creating a frame using JFrame class	
