@@ -135,7 +135,7 @@ public class LoginGUI extends JFrame implements ActionListener{
 		txtPsw.requestFocusInWindow();
         add(txtPsw);
         
-        lblVersion = new JLabel("Version: 1.0.1");
+        lblVersion = new JLabel("Version: 1.0.2");
         lblVersion.setBounds(400,700,100,30);
         Font f1=FontClass.MuseoSans700(15); 
         lblVersion.setFont(f1);

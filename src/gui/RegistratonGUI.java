@@ -296,7 +296,7 @@ public class RegistratonGUI extends JFrame implements ActionListener{
 */								
 								
 								
-						    lblVersion = new JLabel("Version: 1.0.1");
+						    lblVersion = new JLabel("Version: 1.0.2");
 					        lblVersion.setBounds(450,700,120,30);
 					        Font v1=FontClass.MuseoSans700(15); 
 					        lblVersion.setFont(v1);
