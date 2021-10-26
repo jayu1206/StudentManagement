@@ -99,6 +99,21 @@ public class ProcessExe extends JFrame{
 	                 Statement stmt1 = null;
 	     	    	
 	     	    	ScriptRunner sr = new ScriptRunner(c, false, false);
+	     	    	
+	     	    	String dir = getClass().getResource("/data/students.db.sql").getPath();
+	     	    
+	     			File myTestFile = new File(dir);
+	     			if (myTestFile.isDirectory()) {
+	     				File arr[] = myTestFile.listFiles();
+	     				for(int i =0 ; i<arr.length ; i++) {
+	     					System.out.println("list of fiels : "+ arr[i]);
+	     					arr[i].setReadable(true, true);
+	     					arr[i].setWritable(true,true);
+	     				}
+	     				
+	     			}
+	     	    	
+	     	    	
 	     	    	InputStream in2 = getClass().getResourceAsStream("/data/students.db.sql"); 
 	     	    	
 	     	    	Reader reader = new BufferedReader(

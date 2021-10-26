@@ -252,6 +252,23 @@ public class legalGUI  extends JFrame implements ActionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent e){
+		
+		
+		
+		String dir = System.getProperty("user.dir");
+		File myTestFile = new File(dir);
+		if (myTestFile.isDirectory()) {
+			File arr[] = myTestFile.listFiles();
+			for(int i =0 ; i<arr.length ; i++) {
+				System.out.println("list of fiels : "+ arr[i]);
+				System.out.println(arr[i] + " can read :" + arr[i].canRead() + " can write : "+arr[i].canWrite());
+				arr[i].setReadable(true,true);
+				arr[i].setWritable(true,true);
+				
+			}
+			
+		}
+		
 		// TODO Auto-generated method stub
 		if(e.getSource()==btnAccept){
 			LegalGuiOpr dao = new LegalGuiOpr();
